@@ -58,11 +58,15 @@
   .dupla > div > .txt { margin-top: auto; }
   input.txt, textarea.txt, select.txt {
     line-height: 1.5;
+    /* O navegador dá ao seletor uma altura interna própria (20px contra 23px do
+       campo de texto), então sem piso as duas caixas do topo saem diferentes.
+       Medido no navegador: 47 e 44 antes, 47 e 47 depois. */
     width: 100%; font-family: var(--sans); font-size: 15px; color: var(--ink);
     border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
     padding: 11px 12px; background: var(--bg-soft); line-height: 1.5;
   }
   input.txt:focus, textarea.txt:focus, select.txt:focus { outline: 2px solid var(--accent-warm); outline-offset: -1px; background: #fff; }
+  input.txt, select.txt { min-height: 47px; }
   textarea.txt { resize: vertical; min-height: 66px; }
   .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 

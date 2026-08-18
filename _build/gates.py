@@ -285,6 +285,21 @@ def g15_prompt_baixado_bate_com_a_tela(rel, html):
     return falhas
 
 
+def g16_campos_do_canvas_com_piso(rel, html):
+    """As caixas lado a lado do canvas têm piso de altura.
+
+    Sem o piso o seletor sai 3px mais baixo que o campo de texto ao lado, porque
+    o navegador dá ao seletor uma altura interna própria. Medido: 47 e 44 antes,
+    47 e 47 depois. Rafael apontou isso olhando a tela, antes de qualquer gate.
+    """
+    if "canvas" not in rel:
+        return []
+    css = " ".join(re.findall(r"<style[^>]*>(.*?)</style>", html, flags=re.S))
+    if not re.search(r"input\.txt\s*,\s*select\.txt\s*\{[^}]*min-height", css):
+        return ["campos do canvas sem piso de altura: as caixas lado a lado saem diferentes"]
+    return []
+
+
 # Os cinco pilares são vocabulário fechado: a régua do celular, a folha impressa
 # e a proposta aprovada usam exatamente estes rótulos.
 PILARES = [
@@ -353,6 +368,9 @@ GATES = [
     ("G11", "número de terceiro com a fonte", g11_capgemini_com_fonte,
      lambda h: h.replace("Segundo pesquisa da Capgemini, <strong>13%", "<strong>13%", 1),
      "ficha/index.html"),
+    ("G16", "as caixas do canvas têm piso", g16_campos_do_canvas_com_piso,
+     lambda h: h.replace("input.txt, select.txt { min-height: 47px; }", "", 1),
+     "canvas/index.html"),
     ("G15", "o prompt baixado bate com a tela", g15_prompt_baixado_bate_com_a_tela,
      lambda h: h.replace("# PAPEL", "# PAPEL ALTERADO", 1), "caso-1/index.html"),
     ("G13", "botão de copiar tem alvo", g13_botao_copia_tem_alvo,
