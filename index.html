@@ -848,6 +848,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 }
 .loop-no-t{font-size:14px;font-weight:600;line-height:1.32;margin-bottom:5px}
 .loop-no-d{font-size:12.5px;color:var(--text-muted);line-height:1.45}
+.loop-no-onde{
+  display:inline-block;margin-top:9px;padding:3px 8px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent-dark);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;
+}
 .loop-seta{
   flex:0 0 26px;display:grid;place-items:center;
   color:var(--accent);font-size:15px;position:relative;
@@ -1087,6 +1092,7 @@ disponível desde o começo, como seria?</div>
               <div class="loop-no-etapa">captura</div>
               <div class="loop-no-t">O que não vira registro não existe</div>
               <div class="loop-no-d">Se ficou só na conversa, a próxima pessoa começa do zero.</div>
+              <span class="loop-no-onde">provado no caso 1</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
@@ -1094,6 +1100,7 @@ disponível desde o começo, como seria?</div>
               <div class="loop-no-etapa">contexto</div>
               <div class="loop-no-t">Resultado ruim é falta de contexto, não de capacidade</div>
               <div class="loop-no-d">O que está registrado é o que a ferramenta consegue usar.</div>
+              <span class="loop-no-onde">provado no caso 1</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
@@ -1101,6 +1108,7 @@ disponível desde o começo, como seria?</div>
               <div class="loop-no-etapa">execução</div>
               <div class="loop-no-t">Quebrar em fases e conferir entre elas</div>
               <div class="loop-no-d">O trabalho anda em etapas, e alguém confere no meio do caminho.</div>
+              <span class="loop-no-onde">provado no caso 2</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
@@ -1108,6 +1116,7 @@ disponível desde o começo, como seria?</div>
               <div class="loop-no-etapa">memória</div>
               <div class="loop-no-t">Toda correção vira regra</div>
               <div class="loop-no-d">O que foi corrigido uma vez não precisa ser corrigido de novo.</div>
+              <span class="loop-no-onde">provado no caso 2</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
@@ -1115,6 +1124,7 @@ disponível desde o começo, como seria?</div>
               <div class="loop-no-etapa">medição</div>
               <div class="loop-no-t">Nada começa sem quatro campos preenchidos</div>
               <div class="loop-no-d">Sem número, não há como saber se o ciclo melhorou alguma coisa.</div>
+              <span class="loop-no-onde">provado na ficha</span>
             </div>
           </div>
           <div class="loop-volta">
@@ -1133,66 +1143,10 @@ disponível desde o começo, como seria?</div>
           fora, e é ela que separa melhorar de repetir.
         </p>
 
-        <div class="pilar">
-          <div><div class="pilar-n">1</div></div>
-          <div>
-            <div class="pilar-t">O que não vira registro não existe</div>
-            <div class="pilar-d">
-              A inteligência artificial só enxerga o que está escrito. Conhecimento que
-              vive na conversa, na reunião sem ata e na memória de quem participou é
-              invisível para ela.
-            </div>
-            <span class="pilar-onde">provado no caso 1</span>
-          </div>
-        </div>
 
-        <div class="pilar">
-          <div><div class="pilar-n">2</div></div>
-          <div>
-            <div class="pilar-t">Resultado ruim é falta de contexto, não de capacidade</div>
-            <div class="pilar-d">
-              Resposta genérica quase nunca vem de ferramenta fraca. Vem de pedido sem o
-              contexto do negócio, das regras e do que já foi decidido antes.
-            </div>
-            <span class="pilar-onde">provado no caso 1</span>
-          </div>
-        </div>
 
-        <div class="pilar">
-          <div><div class="pilar-n">3</div></div>
-          <div>
-            <div class="pilar-t">Quebrar em fases e conferir entre elas</div>
-            <div class="pilar-d">
-              Trabalho pedido inteiro de uma vez volta inteiro errado, e sem que se saiba
-              onde errou. Em etapas, o erro aparece cedo e sai barato.
-            </div>
-            <span class="pilar-onde">provado no caso 2</span>
-          </div>
-        </div>
 
-        <div class="pilar">
-          <div><div class="pilar-n">4</div></div>
-          <div>
-            <div class="pilar-t">Toda correção vira regra</div>
-            <div class="pilar-d">
-              Correção que fica na cabeça de quem corrigiu se repete para sempre. Escrita
-              onde é lida da próxima vez, não volta.
-            </div>
-            <span class="pilar-onde">provado no caso 2</span>
-          </div>
-        </div>
 
-        <div class="pilar">
-          <div><div class="pilar-n">5</div></div>
-          <div>
-            <div class="pilar-t">Nada começa sem quatro campos preenchidos</div>
-            <div class="pilar-d">
-              Em que isso ajuda, qual é o número, quanto é hoje e quanto em sessenta dias.
-              Sem os quatro, não existe projeto: existe vontade.
-            </div>
-            <span class="pilar-onde">é o fechamento do dia</span>
-          </div>
-        </div>
 
         <div class="callout callout-info">
           <div class="callout-title">Os pilares são também a régua</div>

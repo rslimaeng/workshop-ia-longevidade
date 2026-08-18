@@ -360,13 +360,15 @@ def g12_contagem_dos_pilares(rel, html):
     if rel != "index.html":
         return []
     falhas = []
-    n = len(re.findall(r'<div class="pilar">', html))
-    if n != 5:
-        falhas.append("a capa diz cinco pilares e tem {} blocos .pilar".format(n))
-    # o ciclo também afirma "cinco etapas": figura com quatro nós mentiria
+    # A capa mostra os pilares como ciclo. Os blocos soltos saíram porque
+    # repetiam o que o ciclo já diz, então quem conta agora são as etapas.
     ciclo = len(re.findall(r'<div class="loop-no">', html))
-    if ciclo and ciclo != 5:
-        falhas.append("o ciclo desenha {} etapas, e os pilares são cinco".format(ciclo))
+    if ciclo != 5:
+        falhas.append("a capa diz cinco pilares e o ciclo desenha {} etapas".format(ciclo))
+    # cada etapa aponta onde o pilar é provado: sem isso a capa deixa de ser índice
+    selos = len(re.findall(r'<span class="loop-no-onde">', html))
+    if selos != ciclo:
+        falhas.append("{} etapas no ciclo e {} selos de onde é provado".format(ciclo, selos))
     return falhas
 
 
@@ -411,7 +413,7 @@ GATES = [
      lambda h: h.replace('<span class="cem-p aceso"></span>', '<span class="cem-p"></span>', 1),
      "ficha/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
-     lambda h: h.replace('<div class="pilar">', '<div class="pilar-removido">', 1),
+     lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),
 ]
 
