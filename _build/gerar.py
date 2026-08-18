@@ -24,7 +24,7 @@ PAGINAS = {
     "": dict(
         titulo="Ideação com AI First · Grupo Longevidade Saudável",
         eyebrow="Encerramento da Trilha de Cultura de IA · 4 horas · presencial",
-        h1="O problema não é qual inteligência artificial a empresa usa. É como a informação circula dentro dela.",
+        h1="Não é qual IA a empresa usa. É como a informação circula.",
         lead="Este é o material do dia. Cada página fica no ar depois do workshop, "
              "para você consultar e aplicar na sua área sem precisar de mim.",
         chips=["4 horas", "Turma única", "Todas as áreas"],
@@ -158,6 +158,55 @@ def monta(slug, cfg, fragmento):
             )
         )
 
+    # Copiar prompt. navigator.clipboard só existe em contexto seguro (https),
+    # então em file:// e http:// o ramo alternativo com execCommand assume.
+    copiador = ""
+    if 'class="prompt-box"' in fragmento:
+        copiador = """
+<script>
+(function(){
+  'use strict';
+  var aviso = document.createElement('div');
+  aviso.className = 'aviso-copia';
+  document.body.appendChild(aviso);
+  function fala(t){
+    aviso.textContent = t;
+    aviso.classList.add('aparece');
+    setTimeout(function(){ aviso.classList.remove('aparece'); }, 2200);
+  }
+  function porTextarea(txt){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.setAttribute('readonly','');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch(e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-copia]'), function(btn){
+    btn.addEventListener('click', function(){
+      var alvo = document.getElementById(btn.getAttribute('data-copia'));
+      if(!alvo){ fala('Não achei o texto para copiar'); return; }
+      var txt = alvo.textContent;
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(txt).then(function(){
+          fala('Prompt copiado');
+        }, function(){
+          fala(porTextarea(txt) ? 'Prompt copiado' : 'Selecione e copie na mão');
+        });
+      } else {
+        fala(porTextarea(txt) ? 'Prompt copiado' : 'Selecione e copie na mão');
+      }
+    });
+  });
+})();
+</script>
+"""
+
     script = ""
     if itens:
         script = """
@@ -232,7 +281,7 @@ def monta(slug, cfg, fragmento):
 <footer class="site-footer">
   <p><strong>{cliente}</strong> · Ideação com AI First · Facilitação de Rafael Lima · IEL Ceará</p>
 </footer>
-{script}
+{script}{copiador}
 </body>
 </html>
 """.format(
@@ -250,6 +299,7 @@ def monta(slug, cfg, fragmento):
         rodape_nav=rodape_nav,
         fecha=corpo_fecha,
         script=script,
+        copiador=copiador,
     )
 
 

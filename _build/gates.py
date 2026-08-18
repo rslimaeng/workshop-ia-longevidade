@@ -202,9 +202,60 @@ def g9_minutagem_fora_da_capa(rel, html):
         return []
     vis = texto_visivel(html)
     falhas = []
+    # A regra protegida é "quanto tempo dura o bloco da aula", que é condução.
+    # A duração de um MATERIAL (uma gravação de 48 minutos) é fato do insumo, do
+    # mesmo tipo que "sete páginas", e não diz nada sobre como conduzir o dia.
+    material = re.compile(
+        r"(transcri\u00e7\u00e3o|entrevista|grava\u00e7\u00e3o|\u00e1udio|v\u00eddeo|convers[ao])",
+        re.I,
+    )
     for padrao in [r"\d+\s*min\b", r"\b\d+h\d{2}\b", r"\b\d+\s*minutos\b"]:
         for n, l in linhas_com(vis, padrao):
+            if material.search(l):
+                continue
             falhas.append("minutagem fora da capa: " + l)
+    return falhas
+
+
+def g13_botao_copia_tem_alvo(rel, html):
+    """Botão de copiar aponta para um id que existe na mesma página.
+
+    Se o id não bate, o botão não faz nada e ninguém percebe: a página abre,
+    o botão aparece, e a falha só existe no clique.
+    """
+    falhas = []
+    ids = set(re.findall(r'id="([^"]+)"', html))
+    for alvo in re.findall(r'data-copia="([^"]+)"', html):
+        if alvo not in ids:
+            falhas.append("botão de copiar aponta para id inexistente: " + alvo)
+    return falhas
+
+
+def g14_cem_pontos_batem_com_o_texto(rel, html):
+    """A figura dos cem quadrados tem que contar a mesma coisa que a frase.
+
+    A figura é a prova visual do número. Se a frase diz 13 e a figura acende
+    outro tanto, a página mente em dois lugares ao mesmo tempo.
+    """
+    if 'class="cem-grade"' not in html:
+        return []
+    falhas = []
+    grade = re.search(r'<div class="cem-grade"[^>]*>(.*?)</div>', html, flags=re.S)
+    if not grade:
+        return ["figura dos cem pontos sem grade legível"]
+    corpo = grade.group(1)
+    acesos = len(re.findall(r'class="cem-p aceso"', corpo))
+    total = len(re.findall(r'class="cem-p', corpo))
+    if total != 100:
+        falhas.append("a figura tem {} quadrados, e deveria ter 100".format(total))
+    vis = texto_visivel(html)
+    declarado = re.search(r"(\d+)%\s*dos projetos", vis)
+    if declarado and int(declarado.group(1)) != acesos:
+        falhas.append(
+            "a frase diz {}% e a figura acende {} quadrados".format(
+                declarado.group(1), acesos))
+    if not declarado:
+        falhas.append("figura dos cem pontos sem o número declarado no texto")
     return falhas
 
 
@@ -275,6 +326,12 @@ GATES = [
      "index.html"),
     ("G11", "número de terceiro com a fonte", g11_capgemini_com_fonte,
      lambda h: h.replace("Segundo pesquisa da Capgemini, <strong>13%", "<strong>13%", 1),
+     "ficha/index.html"),
+    ("G13", "botão de copiar tem alvo", g13_botao_copia_tem_alvo,
+     lambda h: h.replace('data-copia="prompt-caso-1"', 'data-copia="prompt-sumiu"', 1),
+     "caso-1/index.html"),
+    ("G14", "a figura dos cem bate com o texto", g14_cem_pontos_batem_com_o_texto,
+     lambda h: h.replace('<span class="cem-p aceso"></span>', '<span class="cem-p"></span>', 1),
      "ficha/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="pilar">', '<div class="pilar-removido">', 1),

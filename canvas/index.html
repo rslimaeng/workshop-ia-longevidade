@@ -52,6 +52,10 @@
 
   label.campo-l { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin: 14px 0 3px; }
   .hint { font-size: 12px; color: var(--ink-muted); margin: 0 0 6px; line-height: 1.45; }
+  /* cada coluna vira flex e o campo desce para a base: dica de 1 ou 2 linhas
+     deixa de desalinhar os dois inputs lado a lado. */
+  .dupla > div { display: flex; flex-direction: column; }
+  .dupla > div > .txt { margin-top: auto; }
   input.txt, textarea.txt, select.txt {
     width: 100%; font-family: var(--sans); font-size: 15px; color: var(--ink);
     border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
@@ -137,7 +141,7 @@
     <div class="dupla">
       <div>
         <label class="campo-l" for="c-codigo">Seu código</label>
-        <p class="hint">Ex: as 3 primeiras letras do nome da sua mãe mais o dia do seu aniversário.</p>
+        <p class="hint">Ex: 3 letras mais 2 números, que você repete no fim do dia.</p>
         <input class="txt" id="c-codigo" type="text" inputmode="text" placeholder="ex: MAR14" autocomplete="off">
       </div>
       <div>
@@ -163,7 +167,7 @@
 
   <!-- ============ RÉGUA · ABERTURA ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Bloco 1 · abertura</p>
+    <p class="bloco-rot">Parte 1 de 4 · responda agora</p>
     <h2>Onde eu estou hoje</h2>
     <p class="lead">Cinco perguntas, uma por pilar. Marque <strong>o que é verdade hoje</strong>, não o que seria bonito responder. A régua só funciona se for honesta, e ninguém vai saber quem respondeu o quê.</p>
 
@@ -227,7 +231,7 @@
 
   <!-- ============ O QUE SÓ EXISTE NA CABEÇA ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Bloco 2 · em grupo</p>
+    <p class="bloco-rot">Parte 2 de 4 · durante o dia</p>
     <h2>O que só existe na cabeça</h2>
     <p class="lead">Três coisas da sua área que <strong>ninguém escreveu em lugar nenhum</strong>. Se está escrito, não vale.</p>
 
@@ -248,7 +252,7 @@
 
   <!-- ============ FICHA DOS QUATRO CAMPOS ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Bloco 5 · fechamento</p>
+    <p class="bloco-rot">Parte 3 de 4 · no fim do dia</p>
     <h2>A ficha dos quatro campos</h2>
     <p class="lead">Escolha <strong>uma iniciativa real da sua área</strong> e preencha os quatro. Se você não conseguir preencher algum, isso já é a descoberta do exercício.</p>
 
@@ -283,7 +287,7 @@
 
   <!-- ============ RÉGUA · FECHAMENTO ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Bloco 5 · fechamento</p>
+    <p class="bloco-rot">Parte 4 de 4 · no fim do dia</p>
     <h2>Onde eu cheguei</h2>
     <p class="lead">As mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a partir de segunda</strong>, e não como gostaria de ter respondido de manhã.</p>
 
