@@ -83,6 +83,38 @@ continua legível: nenhum componente depende da fonte carregar.
 | `.nav-bottom` + `.nav-link` | Anterior e próxima, no pé |
 | `.rot` | Rótulo que precisa ser bloco. Usar esta classe, nunca `display:block` numa tag inline |
 
+### Os artefatos visuais
+
+Desenhos em CSS puro. Entraram quando a primeira versão foi reprovada por ser parede de
+texto. Cada um existe para provar um conceito, e não para preencher espaço.
+
+| Classe | O desenho |
+|---|---|
+| `.vias` + `.via-passo` | Duas esteiras comparadas. `.eh-ia` marca onde a IA encosta |
+| `.tela` + `.tela-bolha` | Mock de conversa, para mostrar o que volta de cada pedido |
+| `.camadas` + `.camada` | Níveis empilhados. `.topo` tinge o que abrange os outros |
+| `.esteira` + `.est-portao` | Fases com o selo de conferência entre elas |
+| `.funil` + `.funil-et` | Etapas que encolhem de largura a cada passo |
+| `.ciclo` + `.ciclo-et` | Sequência com a etapa final destacada por `.fecha` |
+| `.cem-grade` + `.cem-p` | Cem quadrados, `.aceso` nos que contam. **Gate G14** |
+| `.quadro` + `.quadro-linha` | Formulário desenhado, rótulo à esquerda e valor à direita |
+| `.tipos` + `.tipo` | Cartões numerados, para listas de três a quatro |
+
+### Os componentes de caso
+
+| Classe | O que faz |
+|---|---|
+| `.step` + `.step-num` | Passo numerado. O corpo recua 60px, e no celular volta a zero |
+| `.info-grid` + `.info-card` | Cards curtos de contexto, com rótulo em mono |
+| `.prompt-box` + `.prompt-conteudo` | O pedido pronto. **É a fonte do `.md` gerado ao lado** |
+| `.insumo` + `.insumo-btn` | Cartão de arquivo para baixar |
+| `.aviso-copia` | O aviso que aparece depois do clique. Nunca mente que copiou |
+| `.fig-leg` | Legenda de figura. Sobe 8px para colar na imagem que explica |
+
+**Piso de altura em campo de formulário:** `input` e `select` lado a lado precisam de
+`min-height` explícito. O navegador dá ao seletor uma altura interna própria e sem piso
+as duas caixas saem diferentes. Vale para o canvas (gate **G16**).
+
 **Fonte da verdade de conteúdo:** `_build/conteudo/caso-2.html`, que é a página mais
 completa, com passo numerado, gabarito, tabela e checagem.
 

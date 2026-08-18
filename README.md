@@ -16,8 +16,8 @@ autossuficiente: abre sem servidor, funciona offline, roda de um pen drive.
 | `index.html` | A capa: o fio condutor, os cinco pilares e a divisão das quatro horas |
 | `canvas/` | A régua e a ficha, para responder no celular. Gera uma linha para a planilha da sala |
 | `ai-first/` | O conceito de AI First e os pilares 1 e 2 |
-| `caso-1/` | Conhecimento espalhado e muitas frentes, em três passos |
-| `caso-2/` | Informação sensível e prazo curto, em três passos |
+| `caso-1/` | Conhecimento espalhado e muitas frentes, em três passos, com prompt e insumo |
+| `caso-2/` | Informação sensível e prazo curto, em três passos, com prompt e insumo |
 | `ficha/` | A ficha dos quatro campos, que é o pilar 5 e o fechamento |
 | `pilares/` | Os cinco pilares em uma folha A4, para imprimir |
 
@@ -45,14 +45,26 @@ Depois de gerar, sempre:
 python3 _build/gates.py
 ```
 
-São doze gates. Cada um roda contra as sete páginas **e** contra uma cópia com defeito
-injetado. Gate que não acusa o próprio defeito é reportado como cego e derruba o script,
-porque gate não testado é gate que você acha que tem.
+São dezesseis gates, 112 checagens. Cada um roda contra as sete páginas **e** contra uma
+cópia com defeito injetado. Gate que não acusa o próprio defeito é reportado como cego e
+derruba o script, porque gate não testado é gate que você acha que tem.
+
+O gerador também grava o `.md` de cada prompt ao lado da página, a partir do mesmo texto
+que vai para a tela. Não edite esses `.md` na mão: eles são gerados, e o G15 falha se
+divergirem do que está publicado.
 
 ## Publicar
 
 O repositório é servido por GitHub Pages a partir da raiz. O arquivo `.nojekyll` precisa
 existir, senão o Jekyll interfere na entrega.
+
+## Os desenhos
+
+As figuras são CSS puro, sem biblioteca e sem imagem. Isso mantém cada página abrindo de
+um pen drive e faz a figura continuar legível quando a rede da sala não carrega nada.
+
+A grade dos cem quadrados da página da ficha é conferida contra o número escrito ao lado
+(gate **G14**): figura que afirma número não pode discordar do texto.
 
 ## Sobre os exemplos
 

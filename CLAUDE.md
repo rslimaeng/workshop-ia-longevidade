@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda doze gates contra as sete páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda dezesseis gates contra as sete páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -83,9 +83,46 @@ defeito derruba o script como **cego**.
 | G10 | Pilar com rótulo reescrito |
 | G11 | Número de terceiro sem a fonte na mesma frase |
 | G12 | A capa diz cinco pilares e tem cinco blocos |
+| G13 | Botão de copiar apontando para um id que não existe |
+| G14 | A figura dos cem quadrados contando diferente do texto |
+| G15 | O prompt baixado divergindo do que está na tela |
+| G16 | As caixas lado a lado do canvas sem piso de altura |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
+
+## Os desenhos são conteúdo, não enfeite
+
+Rafael reprovou a primeira versão por ser parede de texto: *"senti falta de
+criatividade para criar referências visuais"*. O conserto não foi decorar, foi
+**desenhar o conceito que a frase só descrevia**.
+
+| Figura | Onde | O que ela prova |
+|---|---|---|
+| `.vias` | conceito, pilar 2 | O mesmo trabalho com a IA no fim e no desenho. À direita o processo encolhe de cinco passos para três |
+| `.tela` | pilar 2 | O que volta do pedido sem contexto e do pedido com contexto, lado a lado |
+| `.camadas` | caso 1 | Os três níveis empilhados. Era tabela, e tabela não comunica camada |
+| `.esteira` | caso 2 | Cinco fases e **quatro portões**. O portão é o pilar 3: é ele que segura o trabalho, não a caixa |
+| `.funil` | caso 2 | Seis entrevistas, trezentas páginas, três dias, uma decisão. A largura encolhe junto |
+| `.ciclo` | caso 2 | A correção que vira regra, e a etapa 4 onde quase todo mundo para |
+| `.cem-grade` | ficha | Cem quadrados, treze acesos. O número da Capgemini que se vê em vez de ler |
+| `.quadro` | ficha | A ficha preenchida, no formato em que ela existe |
+
+**Figura que afirma número tem gate em cima.** A grade dos cem quadrados é
+conferida contra o número escrito no texto (G14): se a frase disser 13 e a
+figura acender outro tanto, a página mente em dois lugares.
+
+## Os casos entregam prompt e insumo
+
+Cada caso termina com o que o participante leva embora: um `.docx` fictício para
+baixar e o pedido pronto, no padrão de passos numerados herdado do outro
+workshop. O `.prompt-conteudo` é a fonte, e o gerador grava o `.md` ao lado a
+partir dele, então **baixar e copiar entregam sempre a mesma coisa** (G15).
+
+O botão de copiar tem ramo alternativo: `navigator.clipboard` só existe em
+contexto seguro, e mesmo lá recusa sem foco. Quando os dois caminhos falham a
+página diz *"selecione e copie na mão"* em vez de mentir que copiou. É por isso
+que o arquivo para baixar existe: ele é o caminho que não depende de permissão.
 
 ## Armadilhas já pagas nesta pasta
 
@@ -98,3 +135,14 @@ quais gates não se provaram.
 - **Quebra de linha no arquivo-fonte não é quebra de linha na tela.** O extrator de texto
   colapsa o espaço antes de marcar bloco. Sem isso, o gate da fonte colada acusa a si
   mesmo e nasce cego.
+- **O painel do navegador serve cache mesmo depois de o arquivo já estar no ar.**
+  O `curl` confirmava a regra publicada e a folha de estilo carregada não a
+  tinha. Furar com `?v=alguma-coisa` na URL, e **assertar no retorno que a regra
+  está na folha servida** antes de acreditar na medida.
+- **Conferir propagação por presença de texto dá falso positivo.** O laço que
+  esperava `line-height: 1.5` passou de primeira porque a string já existia em
+  quatro outros pontos do arquivo. Procurar no contexto exato, ou comparar a
+  contagem do publicado com a do local.
+- **Altura de campo não se resolve por altura de linha.** O navegador dá ao
+  seletor uma altura interna própria, de 20px contra 23px do campo de texto.
+  Só piso explícito iguala. Provado com defeito injetado no DOM vivo.
