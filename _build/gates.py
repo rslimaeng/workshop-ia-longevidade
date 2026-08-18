@@ -311,12 +311,38 @@ PILARES = [
 ]
 
 
+# Onde o rótulo de um pilar é AFIRMADO. Perguntar "existe na página?" deixava
+# passar a paráfrase enquanto sobrasse uma cópia certa em qualquer outro canto:
+# quando a capa ganhou o ciclo, o rótulo passou a aparecer duas vezes e o gate
+# parou de acusar o defeito injetado. Presença não é conferência.
+ROTULOS_DE_PILAR = ("pilar-t", "loop-no-t", "fp-t")
+
+
 def g10_pilares_literais(rel, html):
-    """Onde um pilar é nomeado, o rótulo é o canônico, sem paráfrase."""
+    """Cada lugar que nomeia um pilar usa o rótulo canônico, sem paráfrase."""
     if rel not in ("index.html", "pilares/index.html"):
         return []
+    falhas = []
+    achados = []
+    for classe in ROTULOS_DE_PILAR:
+        for m in re.finditer(
+            r'<div class="' + classe + r'">(.*?)</div>', html, flags=re.S
+        ):
+            t = re.sub(r"<[^>]+>", "", m.group(1))
+            t = re.sub(r"\s+", " ", t).strip()
+            achados.append((classe, t))
+
+    for classe, t in achados:
+        if t not in PILARES:
+            falhas.append(
+                "rótulo de pilar reescrito em .{}: {!r}".format(classe, t[:80]))
+
+    # e os cinco continuam tendo que existir na página
     vis = texto_visivel(html)
-    return ["pilar ausente ou reescrito: " + p for p in PILARES if p not in vis]
+    for pilar in PILARES:
+        if pilar not in vis:
+            falhas.append("pilar ausente: " + pilar)
+    return falhas
 
 
 def g11_capgemini_com_fonte(rel, html):
@@ -333,10 +359,15 @@ def g12_contagem_dos_pilares(rel, html):
     """Onde o texto diz cinco pilares, existem cinco blocos de pilar."""
     if rel != "index.html":
         return []
+    falhas = []
     n = len(re.findall(r'<div class="pilar">', html))
     if n != 5:
-        return ["a capa diz cinco pilares e tem {} blocos .pilar".format(n)]
-    return []
+        falhas.append("a capa diz cinco pilares e tem {} blocos .pilar".format(n))
+    # o ciclo também afirma "cinco etapas": figura com quatro nós mentiria
+    ciclo = len(re.findall(r'<div class="loop-no">', html))
+    if ciclo and ciclo != 5:
+        falhas.append("o ciclo desenha {} etapas, e os pilares são cinco".format(ciclo))
+    return falhas
 
 
 # id, o que confere, função, defeito que prova o gate, onde injetar o defeito

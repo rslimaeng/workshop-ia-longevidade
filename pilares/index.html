@@ -294,8 +294,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   background:var(--bg-elev);border:1px solid var(--border);
   border-radius:var(--radius);padding:20px;
 }
-.compare-side.ruim{background:var(--danger-soft);border-color:rgba(184,92,92,.18)}
-.compare-side.bom{background:var(--success-soft);border-color:rgba(46,125,50,.18)}
+/* Ponto de partida contra ponto de chegada, e não errado contra certo. A
+   pergunta que a sala faz hoje não é erro: pintá-la de vermelho julga quem
+   está na sala. Neutro contra o azul do dia diz "antes e depois" sem acusar. */
+.compare-side.antes{background:var(--bg-warm);border-color:var(--border-strong)}
+.compare-side.depois{background:var(--accent-tinted);border-color:var(--accent-line)}
 .compare-side .label{
   display:inline-flex;align-items:center;gap:8px;
   font-family:var(--font-mono);font-size:11px;font-weight:600;
@@ -305,10 +308,10 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   content:"";display:inline-block;width:8px;height:8px;
   border-radius:50%;flex-shrink:0;
 }
-.compare-side.ruim .label{color:var(--danger)}
-.compare-side.ruim .label::before{background:var(--danger)}
-.compare-side.bom .label{color:var(--success)}
-.compare-side.bom .label::before{background:var(--success)}
+.compare-side.antes .label{color:var(--text-dim)}
+.compare-side.antes .label::before{background:var(--text-dim)}
+.compare-side.depois .label{color:var(--accent-dark)}
+.compare-side.depois .label::before{background:var(--accent)}
 .compare-quote{
   font-family:var(--font-mono);font-size:13px;line-height:1.6;
   background:var(--bg-code);padding:14px;border-radius:var(--radius-sm);
@@ -817,6 +820,126 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 .fig-leg{
   font-size:13px;color:var(--text-dim);line-height:1.5;
   margin-top:-8px;margin-bottom:22px;
+}
+
+/* ---------- O CICLO: OS PILARES COMO LOOP FECHADO ---------- */
+/* A forma vem do guia do próprio Rafael sobre empresa como loop. O conteúdo
+   são os cinco pilares do dia. O que a lista não mostrava é que o quinto
+   alimenta o primeiro: por isso a linha de retorno é parte da figura. */
+.loop{margin:26px 0}
+.loop-trilha{
+  display:flex;align-items:stretch;gap:0;
+  overflow-x:auto;padding-bottom:6px;
+}
+.loop-no{
+  flex:1 1 0;min-width:138px;
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px 13px;
+}
+.loop-no-n{
+  width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:grid;place-items:center;margin-bottom:9px;
+  font-family:var(--font-mono);font-size:12px;font-weight:500;
+}
+.loop-no-etapa{
+  font-family:var(--font-mono);font-size:10.5px;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.09em;margin-bottom:5px;
+}
+.loop-no-t{font-size:14px;font-weight:600;line-height:1.32;margin-bottom:5px}
+.loop-no-d{font-size:12.5px;color:var(--text-muted);line-height:1.45}
+.loop-seta{
+  flex:0 0 26px;display:grid;place-items:center;
+  color:var(--accent);font-size:15px;position:relative;
+}
+.loop-seta::before{
+  content:"";position:absolute;top:50%;left:0;right:0;height:1px;
+  background:var(--accent-line);
+}
+.loop-seta span{position:relative;background:var(--bg);padding:0 2px;line-height:1}
+.loop-volta{
+  display:flex;align-items:center;gap:10px;margin-top:12px;
+  padding:11px 15px;border:1px dashed var(--accent-line);
+  border-radius:var(--radius);background:var(--accent-tinted);
+}
+.loop-volta-seta{color:var(--accent);font-size:15px;flex-shrink:0}
+.loop-volta-txt{font-size:13.5px;line-height:1.5;color:var(--text-muted)}
+@media (max-width:760px){
+  .loop-trilha{flex-direction:column}
+  .loop-no{min-width:0}
+  .loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}
+  .loop-seta::before{top:50%;left:0;right:0}
+}
+
+/* ---------- CONTRATO: ENTRA COM, ACONTECE, SAI COM ---------- */
+.contrato{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;
+  gap:12px;align-items:stretch;margin:24px 0;
+}
+.contrato-c{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:15px 16px;
+}
+.contrato-c.chega{background:var(--accent-soft);border-color:var(--accent-line)}
+.contrato-rot{
+  font-family:var(--font-mono);font-size:10.5px;color:var(--accent);
+  text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px;
+}
+.contrato-tx{font-size:14px;line-height:1.5;color:var(--text-muted)}
+.contrato-seta{
+  display:grid;place-items:center;color:var(--accent-line);
+  font-size:18px;
+}
+@media (max-width:760px){
+  .contrato{grid-template-columns:1fr}
+  .contrato-seta{transform:rotate(90deg);padding:2px 0}
+}
+
+/* ---------- ÁRVORE DE PASTAS ---------- */
+.arvore{
+  background:var(--bg-code);border:1px solid var(--border-strong);
+  border-radius:var(--radius);padding:16px 18px;margin:20px 0;
+  font-family:var(--font-mono);font-size:13px;line-height:1.85;
+  overflow-x:auto;
+}
+.arv-l{white-space:nowrap;color:var(--text-muted)}
+.arv-pasta{color:var(--accent-dark);font-weight:500}
+.arv-arq{color:var(--text)}
+.arv-nota{color:var(--text-dim);font-size:12px}
+.arv-destaque{background:var(--accent-soft);border-radius:4px;padding:1px 5px}
+
+/* ---------- CARTÃO DE ERRO: SINTOMA, CAUSA, CONSERTO ---------- */
+.erros{display:grid;gap:14px;margin:22px 0}
+.erro{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.erro-topo{
+  display:flex;align-items:center;gap:11px;
+  padding:12px 16px;background:var(--bg-warm);
+  border-bottom:1px solid var(--border);
+}
+.erro-n{
+  width:24px;height:24px;border-radius:6px;flex-shrink:0;
+  background:var(--danger);color:#fff;display:grid;place-items:center;
+  font-family:var(--font-mono);font-size:11px;font-weight:500;
+}
+.erro-nome{font-size:14.5px;font-weight:600;line-height:1.3}
+.erro-grade{display:grid;grid-template-columns:repeat(3,1fr)}
+.erro-cel{padding:13px 16px;border-right:1px solid var(--border)}
+.erro-cel:last-child{border-right:none}
+.erro-cel-rot{
+  font-family:var(--font-mono);font-size:10px;text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:6px;
+}
+.erro-cel.sintoma .erro-cel-rot{color:var(--danger)}
+.erro-cel.causa .erro-cel-rot{color:var(--warning)}
+.erro-cel.conserto .erro-cel-rot{color:var(--success)}
+.erro-cel-tx{font-size:13px;line-height:1.5;color:var(--text-muted)}
+@media (max-width:720px){
+  .erro-grade{grid-template-columns:1fr}
+  .erro-cel{border-right:none;border-bottom:1px solid var(--border)}
+  .erro-cel:last-child{border-bottom:none}
 }
 </style>
 </head>

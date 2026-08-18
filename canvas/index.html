@@ -43,6 +43,29 @@
   .top h1 .it { font-style: italic; font-weight: 500; color: #b8d9f5; }
   .top p { font-size: 14px; color: #cfe2f2; margin: 0; line-height: 1.5; }
 
+  /* Bloco que só abre na hora de usar. A régua inteira tinha 8 telas de
+     rolagem no celular, e mais da metade era conteúdo do fim do dia. Os campos
+     continuam no documento mesmo fechados, então nada se perde ao copiar. */
+  details.depois { border: 0; padding: 0; margin: 0 0 14px; }
+  details.depois > summary {
+    list-style: none; cursor: pointer;
+    background: var(--card); border: 1px solid var(--border-strong);
+    border-radius: var(--radius); padding: 15px 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  details.depois > summary::-webkit-details-marker { display: none; }
+  details.depois > summary:hover { border-color: var(--accent); }
+  .sum-rot { font-size: 11px; font-family: var(--mono); letter-spacing: .08em;
+             text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .sum-t { font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+  .sum-mais { font-size: 13px; color: var(--accent); font-weight: 600; white-space: nowrap; }
+  details.depois[open] > summary { border-radius: var(--radius) var(--radius) 0 0;
+                                   border-bottom-color: transparent; }
+  details.depois[open] > summary .sum-mais::after { content: " ▴"; }
+  details.depois:not([open]) > summary .sum-mais::after { content: " ▾"; }
+  details.depois > .bloco { border-radius: 0 0 var(--radius) var(--radius);
+                            border-top: 0; margin-top: 0; }
+
   /* ---------- BLOCOS ---------- */
   .bloco { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 20px 20px 18px; margin: 0 0 18px; }
   .bloco-rot { font-size: 9.5px; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; color: var(--accent-warm-dark); margin: 0 0 6px; }
@@ -235,6 +258,14 @@
   </div>
 
   <!-- ============ O QUE SÓ EXISTE NA CABEÇA ============ -->
+  <details class="depois">
+    <summary>
+      <span>
+        <span class="sum-rot">Parte 2 de 4 · durante o dia</span>
+        <span class="sum-t">O que só existe na cabeça</span>
+      </span>
+      <span class="sum-mais">abrir</span>
+    </summary>
   <div class="bloco">
     <p class="bloco-rot">Parte 2 de 4 · durante o dia</p>
     <h2>O que só existe na cabeça</h2>
@@ -254,8 +285,17 @@
       Cada linha aqui é uma coisa que <strong>a inteligência artificial não consegue fazer por você</strong>, por mais boa que ela seja. Não porque é difícil: porque não está escrito em lugar nenhum.
     </div>
   </div>
+  </details>
 
   <!-- ============ FICHA DOS QUATRO CAMPOS ============ -->
+  <details class="depois">
+    <summary>
+      <span>
+        <span class="sum-rot">Parte 3 de 4 · no fim do dia</span>
+        <span class="sum-t">A ficha dos quatro campos</span>
+      </span>
+      <span class="sum-mais">abrir</span>
+    </summary>
   <div class="bloco">
     <p class="bloco-rot">Parte 3 de 4 · no fim do dia</p>
     <h2>A ficha dos quatro campos</h2>
@@ -289,8 +329,17 @@
       Se os quatro campos não podem ser preenchidos, <strong>ainda não existe projeto: existe vontade.</strong>
     </div>
   </div>
+  </details>
 
   <!-- ============ RÉGUA · FECHAMENTO ============ -->
+  <details class="depois">
+    <summary>
+      <span>
+        <span class="sum-rot">Parte 4 de 4 · no fim do dia</span>
+        <span class="sum-t">Onde eu cheguei</span>
+      </span>
+      <span class="sum-mais">abrir</span>
+    </summary>
   <div class="bloco">
     <p class="bloco-rot">Parte 4 de 4 · no fim do dia</p>
     <h2>Onde eu cheguei</h2>
@@ -344,6 +393,7 @@
       </div>
     </div>
   </div>
+  </details>
 
   <!-- ============ COMO ENVIAR ============ -->
   <div class="bloco">

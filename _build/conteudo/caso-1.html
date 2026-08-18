@@ -202,6 +202,49 @@
               </li>
             </ul>
 
+            <h4>Como isso fica no disco</h4>
+            <p>
+              A estrutura abaixo é a de verdade, com os nomes que ela tem hoje. Repare que
+              o mesmo conjunto de arquivos aparece em cada nível, e que só o nome da pasta
+              muda.
+            </p>
+
+            <div class="arvore">
+              <div class="arv-l"><span class="arv-pasta">os-geral/</span> <span class="arv-nota">a camada que enxerga todas as frentes</span></div>
+              <div class="arv-l">├── <span class="arv-arq">CLAUDE.md</span> <span class="arv-nota">o contexto: como se trabalha aqui, quem responde pelo quê</span></div>
+              <div class="arv-l">├── <span class="arv-arq">00-aqui-paramos.md</span> <span class="arv-nota">onde parei e qual é o próximo passo</span></div>
+              <div class="arv-l">├── <span class="arv-arq">01-changelog.md</span> <span class="arv-nota">o que foi decidido, quando e por quê</span></div>
+              <div class="arv-l">├── <span class="arv-arq">02-fios-em-aberto.md</span> <span class="arv-nota">o que espera decisão, e de quem</span></div>
+              <div class="arv-l">│</div>
+              <div class="arv-l">├── <span class="arv-pasta">frente-a/</span> <span class="arv-nota">uma área de trabalho</span></div>
+              <div class="arv-l">│   ├── <span class="arv-destaque">CLAUDE.md · 00-aqui-paramos.md · 01-changelog.md · 02-fios-em-aberto.md</span></div>
+              <div class="arv-l">│   │   <span class="arv-nota">os mesmos quatro, agora sobre esta frente</span></div>
+              <div class="arv-l">│   ├── <span class="arv-pasta">projeto-1/</span></div>
+              <div class="arv-l">│   │   └── <span class="arv-destaque">os mesmos quatro, agora sobre este projeto</span></div>
+              <div class="arv-l">│   └── <span class="arv-pasta">projeto-2/</span></div>
+              <div class="arv-l">│       └── <span class="arv-destaque">os mesmos quatro</span></div>
+              <div class="arv-l">│</div>
+              <div class="arv-l">└── <span class="arv-pasta">frente-b/</span> <span class="arv-nota">outra área, mesma estrutura</span></div>
+              <div class="arv-l">    └── <span class="arv-destaque">os mesmos quatro</span></div>
+            </div>
+
+            <p class="fig-leg">
+              Quem chega numa frente que não conhece lê quatro arquivos e sabe onde as
+              coisas estão. É o mesmo desenho em qualquer nível, então não é preciso
+              aprender a organização de cada área separadamente.
+            </p>
+
+            <div class="callout callout-warn">
+              <div class="callout-title">A regra que evita o inchaço</div>
+              <p>
+                Cada informação mora em <strong>um</strong> nível só. O que vale para tudo
+                fica em cima e não se repete embaixo; o que é do projeto fica no projeto e
+                não sobe. Sem essa regra, a mesma decisão aparece em três lugares, as três
+                versões divergem com o tempo, e nenhuma delas é confiável.
+              </p>
+            </div>
+
+
             <div class="callout callout-info">
               <div class="callout-title">A regra que segura tudo</div>
               <p>
@@ -211,6 +254,82 @@
                 dívida.
               </p>
             </div>
+
+            <h4>As três falhas, em resumo</h4>
+            <p>
+              O relato de cada uma vem depois. Antes disso, as três lado a lado, porque
+              elas se parecem com o que costuma acontecer em qualquer área.
+            </p>
+
+            <div class="erros">
+              <div class="erro">
+                <div class="erro-topo">
+                  <span class="erro-n">1</span>
+                  <span class="erro-nome">Ficou tudo especificado e nada instalado</span>
+                </div>
+                <div class="erro-grade">
+                  <div class="erro-cel sintoma">
+                    <div class="erro-cel-rot">O sintoma</div>
+                    <div class="erro-cel-tx">Um mês inteiro com o diagnóstico pronto e o problema número um parado no mesmo lugar.</div>
+                  </div>
+                  <div class="erro-cel causa">
+                    <div class="erro-cel-rot">A causa</div>
+                    <div class="erro-cel-tx">O arquivo que faria o sistema funcionar existia na especificação, e não na pasta onde o trabalho acontece.</div>
+                  </div>
+                  <div class="erro-cel conserto">
+                    <div class="erro-cel-rot">O conserto</div>
+                    <div class="erro-cel-tx">Instalar o arquivo numa frente só, e usar. Registrar não é organizar, e organizar não é instalar.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="erro">
+                <div class="erro-topo">
+                  <span class="erro-n">2</span>
+                  <span class="erro-nome">O sistema servia mais à ferramenta do que à pessoa</span>
+                </div>
+                <div class="erro-grade">
+                  <div class="erro-cel sintoma">
+                    <div class="erro-cel-rot">O sintoma</div>
+                    <div class="erro-cel-tx">A primeira hora de cada retomada continuava sendo gasta para lembrar onde parou.</div>
+                  </div>
+                  <div class="erro-cel causa">
+                    <div class="erro-cel-rot">A causa</div>
+                    <div class="erro-cel-tx">O que a ferramenta cobrava na hora de executar ficava atualizado. O que a pessoa lia ao voltar ficava semanas parado.</div>
+                  </div>
+                  <div class="erro-cel conserto">
+                    <div class="erro-cel-rot">O conserto</div>
+                    <div class="erro-cel-tx">Escrever para quem lê, não para quem escreve. Registro que não é lido na hora certa não resolve.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="erro">
+                <div class="erro-topo">
+                  <span class="erro-n">3</span>
+                  <span class="erro-nome">Encher também estraga</span>
+                </div>
+                <div class="erro-grade">
+                  <div class="erro-cel sintoma">
+                    <div class="erro-cel-rot">O sintoma</div>
+                    <div class="erro-cel-tx">Um arquivo com cerca de trinta mil palavras, que ninguém abria e que quebrava com um caractere errado no meio.</div>
+                  </div>
+                  <div class="erro-cel causa">
+                    <div class="erro-cel-rot">A causa</div>
+                    <div class="erro-cel-tx">Mais da metade era ficha técnica, e não conteúdo. O arquivo virou depósito do que já se soube.</div>
+                  </div>
+                  <div class="erro-cel conserto">
+                    <div class="erro-cel-rot">O conserto</div>
+                    <div class="erro-cel-tx">Cortar de duzentas e cinquenta e três linhas para oitenta e três, e mandar o detalhe para onde ele só é lido quando é preciso.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="fig-leg">
+              As três têm a mesma raiz: o registro existia, mas não no lugar onde alguém
+              iria lê-lo. É o pilar 1 uma camada mais fundo.
+            </p>
 
             <h4>Falha 1 · Ficou tudo especificado e nada instalado</h4>
             <p>
