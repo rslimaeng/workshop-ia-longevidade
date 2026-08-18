@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canvas · Ideação com AI First · Grupo Longevidade Saudável</title>
+<meta name="description" content="Canvas do workshop de encerramento da Trilha de Cultura de IA. Régua de maturidade, registro de conhecimento e ficha de escopo, com exportação para planilha.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Canvas · Ideação com AI First · Grupo Longevidade Saudável
+     Preenchido no celular durante o workshop.
+     Rascunho local, exportação em TSV para planilha projetada.
+     ============================================================ */
+  :root {
+    --bg: #eaf1f7; --bg-card: #ffffff; --bg-soft: #f6f9fb;
+    --ink: #16202b; --ink-soft: #4a5866; --ink-muted: #8494a3;
+    --accent: #0E3D73; --accent-warm: #2E86C8; --accent-warm-dark: #1B5FA8;
+    --critical: #b0503f; --warning: #b5842c; --warning-bg: #faf3e2;
+    --success: #3d7a5a; --success-bg: #eef5f1;
+    --border: #dbe4ec; --border-strong: #c1d0de;
+    --radius-sm: 8px; --radius: 14px;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: var(--sans); font-size: 16px;
+    /* a barra fixa mede ~96px; a folga extra evita cobrir o ultimo campo
+       e o env() reserva o recorte inferior do iPhone */
+    padding: 0 0 calc(132px + env(safe-area-inset-bottom, 0px));
+    line-height: 1.55; color: var(--ink); background: var(--bg);
+    -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+
+  /* ---------- CABEÇALHO ---------- */
+  .top { background: var(--accent); color: #fff; padding: 26px 0 24px; margin-bottom: 22px; }
+  .top .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .22em; color: #9dc3e4; font-weight: 600; margin: 0 0 8px; }
+  .top h1 { font-family: var(--serif); font-size: 30px; font-weight: 700; margin: 0 0 8px; line-height: 1.15; letter-spacing: -.02em; }
+  .top h1 .it { font-style: italic; font-weight: 500; color: #b8d9f5; }
+  .top p { font-size: 14px; color: #cfe2f2; margin: 0; line-height: 1.5; }
+
+  /* ---------- BLOCOS ---------- */
+  .bloco { background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 20px 20px 18px; margin: 0 0 18px; }
+  .bloco-rot { font-size: 9.5px; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; color: var(--accent-warm-dark); margin: 0 0 6px; }
+  .bloco h2 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--accent); margin: 0 0 6px; line-height: 1.2; }
+  .bloco .lead { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; line-height: 1.55; }
+  .bloco .lead strong { color: var(--ink); font-weight: 600; }
+
+  label.campo-l { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin: 14px 0 3px; }
+  .hint { font-size: 12px; color: var(--ink-muted); margin: 0 0 6px; line-height: 1.45; }
+  input.txt, textarea.txt, select.txt {
+    width: 100%; font-family: var(--sans); font-size: 15px; color: var(--ink);
+    border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+    padding: 11px 12px; background: var(--bg-soft); line-height: 1.5;
+  }
+  input.txt:focus, textarea.txt:focus, select.txt:focus { outline: 2px solid var(--accent-warm); outline-offset: -1px; background: #fff; }
+  textarea.txt { resize: vertical; min-height: 66px; }
+  .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* ---------- RÉGUA ---------- */
+  .item { border-top: 1px dotted var(--border); padding: 15px 0 3px; }
+  .item:first-of-type { border-top: none; padding-top: 4px; }
+  .item-cab { display: flex; align-items: baseline; gap: 9px; margin: 0 0 4px; }
+  .item-n { font-family: var(--serif); font-size: 17px; font-style: italic; font-weight: 700; color: var(--accent-warm); line-height: 1; }
+  .item-t { font-size: 15px; font-weight: 700; color: var(--accent); margin: 0; line-height: 1.3; }
+  .item-p { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 9px; line-height: 1.5; }
+  .ops { display: grid; gap: 7px; }
+  .op { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; background: var(--bg-soft); cursor: pointer; }
+  .op:hover { border-color: var(--accent-warm); }
+  .op input { margin: 3px 0 0; accent-color: var(--accent-warm-dark); width: 17px; height: 17px; flex: none; }
+  .op span { font-size: 13.5px; color: var(--ink-soft); line-height: 1.45; }
+  .op input:checked + span { color: var(--ink); font-weight: 500; }
+  .op:has(input:checked) { border-color: var(--accent-warm-dark); background: #eaf3fa; }
+
+  /* ---------- AVISOS ---------- */
+  .aviso { border-radius: var(--radius-sm); padding: 13px 16px; margin: 14px 0 0; font-size: 13px; line-height: 1.5; }
+  .aviso.info { background: #eaf3fa; border: 1px solid rgba(27,95,168,.25); color: var(--ink-soft); }
+  .aviso.warn { background: var(--warning-bg); border: 1px solid rgba(181,132,44,.35); color: var(--ink-soft); }
+  .aviso.ok { background: var(--success-bg); border: 1px solid rgba(61,122,90,.3); color: var(--ink-soft); }
+  .aviso strong { color: var(--ink); font-weight: 600; }
+  .aviso .t { display: block; font-size: 9.5px; text-transform: uppercase; letter-spacing: .16em; font-weight: 700; margin: 0 0 5px; }
+  .aviso.info .t { color: var(--accent-warm-dark); }
+  .aviso.warn .t { color: var(--warning); }
+  .aviso.ok .t { color: var(--success); }
+
+  /* ---------- BARRA DE AÇÃO ---------- */
+  .barra { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,.97); border-top: 1px solid var(--border-strong); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -4px 16px rgba(22,32,43,.08); z-index: 50; }
+  .barra-in { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+  .btn { font-family: var(--sans); font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); padding: 13px 20px; border: 1px solid transparent; cursor: pointer; line-height: 1.2; }
+  .btn.primary { background: var(--accent); color: #fff; flex: 1; }
+  .btn.primary:hover { background: #092B52; }
+  .btn.ghost { background: transparent; color: var(--ink-muted); border-color: var(--border-strong); font-size: 13px; padding: 13px 14px; }
+  .estado { font-size: 11.5px; color: var(--ink-muted); text-align: center; margin: 7px 0 0; }
+
+  /* ---------- ESQUEMA TSV ---------- */
+  .esquema { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 13px 15px; margin: 14px 0 0; }
+  .esquema-t { font-size: 9.5px; text-transform: uppercase; letter-spacing: .16em; font-weight: 700; color: var(--ink-muted); margin: 0 0 8px; }
+  .cols { display: flex; flex-wrap: wrap; gap: 5px; }
+  .col { font-size: 11px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: #fff; border: 1px solid var(--border-strong); border-radius: 4px; padding: 3px 7px; color: var(--accent); }
+
+  /* ---------- TOAST ---------- */
+  .toast { position: fixed; left: 50%; transform: translateX(-50%) translateY(20px); bottom: 92px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 500; padding: 12px 20px; border-radius: 30px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 60; max-width: 90vw; text-align: center; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .rodape { text-align: center; font-size: 11.5px; color: var(--ink-muted); padding: 8px 0 4px; }
+
+  @media (max-width: 520px) {
+    .top h1 { font-size: 25px; }
+    .dupla { grid-template-columns: 1fr; }
+    .bloco { padding: 17px 16px 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <p class="eyebrow">Trilha de Cultura de Inteligência Artificial · Encerramento</p>
+    <h1>Canvas <span class="it">Ideação com AI First</span></h1>
+    <p>Preencha ao longo do dia. O rascunho fica salvo neste aparelho. No fim, um toque copia a sua linha para a planilha da sala.</p>
+    <p style="margin-top:14px"><a href="../" style="color:#fff;opacity:.85;font-size:14px;text-decoration:underline">← voltar ao material do dia</a></p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ IDENTIFICAÇÃO ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Antes de começar</p>
+    <h2>Sem nome, de propósito</h2>
+    <p class="lead">Isto não é avaliação de desempenho. <strong>Não escreva seu nome.</strong> Crie um código que só você reconheça e repita o mesmo no fim do dia, para comparar com você mesmo.</p>
+
+    <div class="dupla">
+      <div>
+        <label class="campo-l" for="c-codigo">Seu código</label>
+        <p class="hint">Ex: as 3 primeiras letras do nome da sua mãe mais o dia do seu aniversário.</p>
+        <input class="txt" id="c-codigo" type="text" inputmode="text" placeholder="ex: MAR14" autocomplete="off">
+      </div>
+      <div>
+        <label class="campo-l" for="c-area">Sua área</label>
+        <p class="hint">Serve para comparar setores, não pessoas.</p>
+        <select class="txt" id="c-area">
+          <option value="">selecione</option>
+          <option>Educacional e Pedagógico</option>
+          <option>Comercial</option>
+          <option>Marketing</option>
+          <option>Eventos</option>
+          <option>Financeiro</option>
+          <option>RH e Desenvolvimento Humano</option>
+          <option>Operações, Projetos e Processos</option>
+          <option>Tecnologia</option>
+          <option>Editorial e Conteúdo</option>
+          <option>Atendimento e Clínica</option>
+          <option>Outra</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RÉGUA · ABERTURA ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Bloco 1 · abertura</p>
+    <h2>Onde eu estou hoje</h2>
+    <p class="lead">Cinco perguntas, uma por pilar. Marque <strong>o que é verdade hoje</strong>, não o que seria bonito responder. A régua só funciona se for honesta, e ninguém vai saber quem respondeu o quê.</p>
+
+    <div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">1</span><p class="item-t">Registro</p></div>
+        <p class="item-p">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+        <div class="ops">
+          <label class="op"><input type="radio" name="a1" value="1"><span>Fica na minha cabeça e nas conversas. Não escrevo.</span></label>
+          <label class="op"><input type="radio" name="a1" value="2"><span>Anoto para mim, num lugar que só eu acho.</span></label>
+          <label class="op"><input type="radio" name="a1" value="3"><span>Registro em lugar compartilhado, quando sobra tempo.</span></label>
+          <label class="op"><input type="radio" name="a1" value="4"><span>O que decido e aprendo vira registro que outra pessoa acha sozinha.</span></label>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-cab"><span class="item-n">2</span><p class="item-t">Contexto</p></div>
+        <p class="item-p">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+        <div class="ops">
+          <label class="op"><input type="radio" name="a2" value="1"><span>Peço direto e aceito o que vier.</span></label>
+          <label class="op"><input type="radio" name="a2" value="2"><span>Peço direto, e vou refazendo o pedido quando volta ruim.</span></label>
+          <label class="op"><input type="radio" name="a2" value="3"><span>Explico a situação antes de pedir, de cabeça, na hora.</span></label>
+          <label class="op"><input type="radio" name="a2" value="4"><span>Tenho um material de contexto pronto que eu reuso a cada pedido.</span></label>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-cab"><span class="item-n">3</span><p class="item-t">Fases e conferência</p></div>
+        <p class="item-p">Como eu peço um trabalho grande?</p>
+        <div class="ops">
+          <label class="op"><input type="radio" name="a3" value="1"><span>Peço o resultado final de uma vez e uso o que voltar.</span></label>
+          <label class="op"><input type="radio" name="a3" value="2"><span>Peço de uma vez e reviso no fim.</span></label>
+          <label class="op"><input type="radio" name="a3" value="3"><span>Divido em etapas quando o trabalho é grande.</span></label>
+          <label class="op"><input type="radio" name="a3" value="4"><span>Divido sempre, confiro entre as etapas e marco onde uma pessoa revisa antes de sair.</span></label>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-cab"><span class="item-n">4</span><p class="item-t">Correção vira regra</p></div>
+        <p class="item-p">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+        <div class="ops">
+          <label class="op"><input type="radio" name="a4" value="1"><span>Corrijo na hora e sigo em frente.</span></label>
+          <label class="op"><input type="radio" name="a4" value="2"><span>Corrijo e às vezes anoto em algum canto.</span></label>
+          <label class="op"><input type="radio" name="a4" value="3"><span>Anoto as correções num lugar que eu consulto de vez em quando.</span></label>
+          <label class="op"><input type="radio" name="a4" value="4"><span>Toda correção vira regra escrita, e ela é lida na próxima vez antes de refazer.</span></label>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="item-cab"><span class="item-n">5</span><p class="item-t">Escopo com métrica</p></div>
+        <p class="item-p">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+        <div class="ops">
+          <label class="op"><input type="radio" name="a5" value="1"><span>Começo pela ideia que parece boa.</span></label>
+          <label class="op"><input type="radio" name="a5" value="2"><span>Penso no ganho, mas sem número.</span></label>
+          <label class="op"><input type="radio" name="a5" value="3"><span>Defino o que quero melhorar, mas não meço como está hoje.</span></label>
+          <label class="op"><input type="radio" name="a5" value="4"><span>Defino o número, meço antes de começar e coloco meta com prazo.</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ O QUE SÓ EXISTE NA CABEÇA ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Bloco 2 · em grupo</p>
+    <h2>O que só existe na cabeça</h2>
+    <p class="lead">Três coisas da sua área que <strong>ninguém escreveu em lugar nenhum</strong>. Se está escrito, não vale.</p>
+
+    <label class="campo-l" for="c-cab1">Um jeito de fazer que só se aprende observando alguém</label>
+    <textarea class="txt" id="c-cab1" rows="2" placeholder="ex: como se decide a ordem de contato quando três coisas urgentes caem juntas"></textarea>
+
+    <label class="campo-l" for="c-cab2">Uma regra que todo mundo segue e ninguém escreveu</label>
+    <textarea class="txt" id="c-cab2" rows="2" placeholder="ex: o que nunca se promete por escrito antes de confirmar com a coordenação"></textarea>
+
+    <label class="campo-l" for="c-cab3">Uma exceção que só uma pessoa sabe tratar</label>
+    <textarea class="txt" id="c-cab3" rows="2" placeholder="ex: o caso raro que sempre para na mesma mesa porque ninguém mais sabe resolver"></textarea>
+
+    <div class="aviso info">
+      <span class="t">Por que este bloco existe</span>
+      Cada linha aqui é uma coisa que <strong>a inteligência artificial não consegue fazer por você</strong>, por mais boa que ela seja. Não porque é difícil: porque não está escrito em lugar nenhum.
+    </div>
+  </div>
+
+  <!-- ============ FICHA DOS QUATRO CAMPOS ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Bloco 5 · fechamento</p>
+    <h2>A ficha dos quatro campos</h2>
+    <p class="lead">Escolha <strong>uma iniciativa real da sua área</strong> e preencha os quatro. Se você não conseguir preencher algum, isso já é a descoberta do exercício.</p>
+
+    <label class="campo-l" for="c-iniciativa">Qual é a iniciativa</label>
+    <p class="hint">Em uma frase, o que você quer fazer.</p>
+    <textarea class="txt" id="c-iniciativa" rows="2" placeholder="ex: responder as dúvidas repetidas de inscrição sem depender de uma pessoa lendo uma a uma"></textarea>
+
+    <label class="campo-l" for="c-campo1">Campo 1 · Em que isso ajuda</label>
+    <select class="txt" id="c-campo1">
+      <option value="">selecione um só</option>
+      <option>Trazer mais alunos e pacientes</option>
+      <option>Fazer cada aluno e paciente valer mais</option>
+      <option>Reduzir custo e retrabalho</option>
+    </select>
+
+    <label class="campo-l" for="c-campo2">Campo 2 · Qual é o número</label>
+    <p class="hint">A medida específica. Não "melhorar o atendimento", e sim o que se conta.</p>
+    <input class="txt" id="c-campo2" type="text" placeholder="ex: horas por semana gastas respondendo dúvida repetida">
+
+    <label class="campo-l" for="c-campo3">Campo 3 · Quanto é hoje</label>
+    <p class="hint">Se ninguém sabe, escreva "não medido". Essa é a primeira tarefa, e não a automação.</p>
+    <input class="txt" id="c-campo3" type="text" placeholder="ex: 6 horas por semana · ou: não medido">
+
+    <label class="campo-l" for="c-campo4">Campo 4 · Quanto em 60 dias</label>
+    <input class="txt" id="c-campo4" type="text" placeholder="ex: 1 hora e meia por semana">
+
+    <div class="aviso warn">
+      <span class="t">A regra que acompanha a ficha</span>
+      Se os quatro campos não podem ser preenchidos, <strong>ainda não existe projeto: existe vontade.</strong>
+    </div>
+  </div>
+
+  <!-- ============ RÉGUA · FECHAMENTO ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Bloco 5 · fechamento</p>
+    <h2>Onde eu cheguei</h2>
+    <p class="lead">As mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a partir de segunda</strong>, e não como gostaria de ter respondido de manhã.</p>
+
+    <div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">1</span><p class="item-t">Registro</p></div>
+        <div class="ops">
+          <label class="op"><input type="radio" name="f1" value="1"><span>Fica na minha cabeça e nas conversas. Não escrevo.</span></label>
+          <label class="op"><input type="radio" name="f1" value="2"><span>Anoto para mim, num lugar que só eu acho.</span></label>
+          <label class="op"><input type="radio" name="f1" value="3"><span>Registro em lugar compartilhado, quando sobra tempo.</span></label>
+          <label class="op"><input type="radio" name="f1" value="4"><span>O que decido e aprendo vira registro que outra pessoa acha sozinha.</span></label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">2</span><p class="item-t">Contexto</p></div>
+        <div class="ops">
+          <label class="op"><input type="radio" name="f2" value="1"><span>Peço direto e aceito o que vier.</span></label>
+          <label class="op"><input type="radio" name="f2" value="2"><span>Peço direto, e vou refazendo o pedido quando volta ruim.</span></label>
+          <label class="op"><input type="radio" name="f2" value="3"><span>Explico a situação antes de pedir, de cabeça, na hora.</span></label>
+          <label class="op"><input type="radio" name="f2" value="4"><span>Tenho um material de contexto pronto que eu reuso a cada pedido.</span></label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">3</span><p class="item-t">Fases e conferência</p></div>
+        <div class="ops">
+          <label class="op"><input type="radio" name="f3" value="1"><span>Peço o resultado final de uma vez e uso o que voltar.</span></label>
+          <label class="op"><input type="radio" name="f3" value="2"><span>Peço de uma vez e reviso no fim.</span></label>
+          <label class="op"><input type="radio" name="f3" value="3"><span>Divido em etapas quando o trabalho é grande.</span></label>
+          <label class="op"><input type="radio" name="f3" value="4"><span>Divido sempre, confiro entre as etapas e marco onde uma pessoa revisa antes de sair.</span></label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">4</span><p class="item-t">Correção vira regra</p></div>
+        <div class="ops">
+          <label class="op"><input type="radio" name="f4" value="1"><span>Corrijo na hora e sigo em frente.</span></label>
+          <label class="op"><input type="radio" name="f4" value="2"><span>Corrijo e às vezes anoto em algum canto.</span></label>
+          <label class="op"><input type="radio" name="f4" value="3"><span>Anoto as correções num lugar que eu consulto de vez em quando.</span></label>
+          <label class="op"><input type="radio" name="f4" value="4"><span>Toda correção vira regra escrita, e ela é lida na próxima vez antes de refazer.</span></label>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-cab"><span class="item-n">5</span><p class="item-t">Escopo com métrica</p></div>
+        <div class="ops">
+          <label class="op"><input type="radio" name="f5" value="1"><span>Começo pela ideia que parece boa.</span></label>
+          <label class="op"><input type="radio" name="f5" value="2"><span>Penso no ganho, mas sem número.</span></label>
+          <label class="op"><input type="radio" name="f5" value="3"><span>Defino o que quero melhorar, mas não meço como está hoje.</span></label>
+          <label class="op"><input type="radio" name="f5" value="4"><span>Defino o número, meço antes de começar e coloco meta com prazo.</span></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COMO ENVIAR ============ -->
+  <div class="bloco">
+    <p class="bloco-rot">Para fechar</p>
+    <h2>Mandar para a planilha da sala</h2>
+    <p class="lead">Toque no botão azul lá embaixo. A sua linha vai para a área de transferência do aparelho. Abra a planilha projetada, toque na <strong>primeira célula vazia da coluna A</strong> e cole. As colunas se separam sozinhas.</p>
+
+    <div class="esquema">
+      <p class="esquema-t">As colunas, nesta ordem</p>
+      <div class="cols">
+        <span class="col">codigo</span><span class="col">area</span>
+        <span class="col">abertura_1</span><span class="col">abertura_2</span><span class="col">abertura_3</span><span class="col">abertura_4</span><span class="col">abertura_5</span><span class="col">abertura_total</span>
+        <span class="col">cabeca_1</span><span class="col">cabeca_2</span><span class="col">cabeca_3</span>
+        <span class="col">iniciativa</span><span class="col">ajuda_em</span><span class="col">numero</span><span class="col">hoje</span><span class="col">meta_60d</span>
+        <span class="col">fecham_1</span><span class="col">fecham_2</span><span class="col">fecham_3</span><span class="col">fecham_4</span><span class="col">fecham_5</span><span class="col">fecham_total</span>
+        <span class="col">evolucao</span><span class="col">data</span>
+      </div>
+    </div>
+
+    <div class="aviso ok">
+      <span class="t">Se a rede não colaborar</span>
+      Não tem problema. O seu rascunho continua salvo neste aparelho, e a folha de papel na mesa é o registro válido. <strong>Ninguém fica de fora por causa de conexão.</strong>
+    </div>
+  </div>
+
+  <p class="rodape">Grupo Longevidade Saudável · Ideação com AI First · IEL Ceará</p>
+</div>
+
+<div class="barra">
+  <div class="barra-in">
+    <button class="btn primary" id="btn-copiar">Copiar minha linha</button>
+    <button class="btn ghost" id="btn-limpar">Limpar</button>
+  </div>
+  <p class="estado" id="estado">Rascunho salvo neste aparelho</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var CHAVE = 'ls_canvas_aifirst_v1';
+  var TEXTOS = ['codigo','area','cab1','cab2','cab3','iniciativa','campo1','campo2','campo3','campo4'];
+  var RADIOS = ['a1','a2','a3','a4','a5','f1','f2','f3','f4','f5'];
+  var estado = document.getElementById('estado');
+
+  function elTexto(id){ return document.getElementById('c-'+id); }
+  function valRadio(nome){
+    var m = document.querySelector('input[name="'+nome+'"]:checked');
+    return m ? m.value : '';
+  }
+
+  function carregar(){
+    try{
+      var bruto = localStorage.getItem(CHAVE);
+      if(!bruto) return;
+      var d = JSON.parse(bruto);
+      TEXTOS.forEach(function(k){
+        var el = elTexto(k);
+        if(el && d[k] !== undefined) el.value = d[k];
+      });
+      RADIOS.forEach(function(k){
+        if(!d[k]) return;
+        var el = document.querySelector('input[name="'+k+'"][value="'+d[k]+'"]');
+        if(el) el.checked = true;
+      });
+    }catch(e){}
+  }
+
+  function salvar(){
+    var d = {};
+    TEXTOS.forEach(function(k){ var el = elTexto(k); if(el) d[k] = el.value; });
+    RADIOS.forEach(function(k){ d[k] = valRadio(k); });
+    try{
+      localStorage.setItem(CHAVE, JSON.stringify(d));
+      estado.textContent = 'Rascunho salvo neste aparelho';
+    }catch(e){
+      estado.textContent = 'Não foi possível salvar o rascunho neste navegador';
+    }
+  }
+
+  // soma dos 5 itens de uma fase; devolve '' se faltar algum
+  function total(prefixo){
+    var s = 0;
+    for(var i=1;i<=5;i++){
+      var v = valRadio(prefixo+i);
+      if(!v) return '';
+      s += parseInt(v,10);
+    }
+    return String(s);
+  }
+
+  function limpo(s){
+    return String(s == null ? '' : s).replace(/\t/g,' ').replace(/\r?\n/g,' · ').trim();
+  }
+
+  function montarLinha(){
+    var ta = total('a'), tf = total('f');
+    var evol = (ta && tf) ? String(parseInt(tf,10) - parseInt(ta,10)) : '';
+    var hoje = new Date();
+    var dd = String(hoje.getDate()).padStart(2,'0');
+    var mm = String(hoje.getMonth()+1).padStart(2,'0');
+    var data = dd+'/'+mm+'/'+hoje.getFullYear();
+
+    var cols = [
+      limpo(elTexto('codigo').value),
+      limpo(elTexto('area').value),
+      valRadio('a1'), valRadio('a2'), valRadio('a3'), valRadio('a4'), valRadio('a5'), ta,
+      limpo(elTexto('cab1').value), limpo(elTexto('cab2').value), limpo(elTexto('cab3').value),
+      limpo(elTexto('iniciativa').value), limpo(elTexto('campo1').value),
+      limpo(elTexto('campo2').value), limpo(elTexto('campo3').value), limpo(elTexto('campo4').value),
+      valRadio('f1'), valRadio('f2'), valRadio('f3'), valRadio('f4'), valRadio('f5'), tf,
+      evol, data
+    ];
+    return cols.join('\t');
+  }
+
+  function aviso(msg){
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+
+  function copiar(texto, ok){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(texto).then(function(){ aviso(ok); }, function(){ fallback(texto, ok); });
+    } else {
+      fallback(texto, ok);
+    }
+  }
+  function fallback(texto, ok){
+    var ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:absolute;left:-9999px;top:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, texto.length);
+    var deu = false;
+    try{ deu = document.execCommand('copy'); }catch(e){ deu = false; }
+    document.body.removeChild(ta);
+    aviso(deu ? ok : 'Não foi possível copiar neste navegador');
+  }
+
+  carregar();
+  TEXTOS.forEach(function(k){
+    var el = elTexto(k);
+    if(!el) return;
+    el.addEventListener('input', salvar);
+    el.addEventListener('change', salvar);
+  });
+  document.querySelectorAll('.op input[type="radio"]').forEach(function(r){
+    r.addEventListener('change', salvar);
+  });
+
+  document.getElementById('btn-copiar').addEventListener('click', function(){
+    var cod = elTexto('codigo').value.trim();
+    if(!cod){ aviso('Escreva o seu código antes de copiar'); elTexto('codigo').focus(); return; }
+    if(!total('a')){ aviso('Faltou responder alguma pergunta da abertura'); return; }
+    copiar(montarLinha(), 'Linha copiada · cole na planilha da sala');
+  });
+
+  document.getElementById('btn-limpar').addEventListener('click', function(){
+    if(!confirm('Apagar tudo o que você preencheu? Não dá para desfazer.')) return;
+    TEXTOS.forEach(function(k){ var el = elTexto(k); if(el) el.value = ''; });
+    document.querySelectorAll('.op input[type="radio"]').forEach(function(r){ r.checked = false; });
+    try{ localStorage.removeItem(CHAVE); }catch(e){}
+    estado.textContent = 'Rascunho apagado';
+    aviso('Tudo apagado');
+  });
+})();
+</script>
+
+</body>
+</html>
