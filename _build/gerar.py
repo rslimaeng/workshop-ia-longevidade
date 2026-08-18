@@ -303,6 +303,29 @@ def monta(slug, cfg, fragmento):
     )
 
 
+def grava_prompts(slug, fragmento):
+    """Grava cada .prompt-conteudo como .md ao lado da página.
+
+    O arquivo sai do mesmo texto que a tela mostra: é a garantia de que baixar
+    e copiar entregam a mesma coisa. E é o caminho que funciona quando a área
+    de transferência do aparelho recusa, que acontece mais no celular do que
+    se imagina.
+    """
+    import html as _html
+    saidas = []
+    for m in re.finditer(
+        r'<div class="prompt-conteudo" id="([^"]+)">(.*?)</div>',
+        fragmento, flags=re.S,
+    ):
+        nome = m.group(1).replace("prompt-", "") + ".md"
+        texto = _html.unescape(m.group(2))
+        destino = os.path.join(RAIZ, slug, nome) if slug else os.path.join(RAIZ, nome)
+        os.makedirs(os.path.dirname(destino), exist_ok=True)
+        open(destino, "w", encoding="utf-8").write(texto.strip() + "\n")
+        saidas.append((os.path.relpath(destino, RAIZ), len(texto)))
+    return saidas
+
+
 def main():
     gerados = []
     for slug, cfg in PAGINAS.items():
@@ -312,6 +335,8 @@ def main():
             continue
         fragmento = open(frag_path, encoding="utf-8").read()
         html = monta(slug, cfg, fragmento)
+        for rel_md, n in grava_prompts(slug, fragmento):
+            print("  prompt:  {:45s} {} caracteres".format(rel_md, n))
         destino = os.path.join(RAIZ, slug, "index.html") if slug else os.path.join(RAIZ, "index.html")
         os.makedirs(os.path.dirname(destino), exist_ok=True)
         with open(destino, "w", encoding="utf-8") as f:

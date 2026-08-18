@@ -259,6 +259,32 @@ def g14_cem_pontos_batem_com_o_texto(rel, html):
     return falhas
 
 
+def g15_prompt_baixado_bate_com_a_tela(rel, html):
+    """O .md que a pessoa baixa é igual ao prompt que ela lê na tela.
+
+    Baixar e copiar têm que entregar a mesma coisa. Se divergirem, quem baixou
+    trabalha com uma versão que ninguém revisou.
+    """
+    import html as _html
+    falhas = []
+    base = os.path.dirname(os.path.join(RAIZ, rel))
+    for m in re.finditer(
+        r'<div class="prompt-conteudo" id="([^"]+)">(.*?)</div>', html, flags=re.S
+    ):
+        nome = m.group(1).replace("prompt-", "") + ".md"
+        caminho = os.path.join(base, nome)
+        if not os.path.exists(caminho):
+            falhas.append("prompt sem arquivo para baixar: " + nome)
+            continue
+        na_tela = _html.unescape(m.group(2)).strip()
+        no_arquivo = open(caminho, encoding="utf-8").read().strip()
+        if na_tela != no_arquivo:
+            falhas.append(
+                "o {} baixado difere do que está na tela ({} contra {} caracteres)".format(
+                    nome, len(no_arquivo), len(na_tela)))
+    return falhas
+
+
 # Os cinco pilares são vocabulário fechado: a régua do celular, a folha impressa
 # e a proposta aprovada usam exatamente estes rótulos.
 PILARES = [
@@ -327,6 +353,8 @@ GATES = [
     ("G11", "número de terceiro com a fonte", g11_capgemini_com_fonte,
      lambda h: h.replace("Segundo pesquisa da Capgemini, <strong>13%", "<strong>13%", 1),
      "ficha/index.html"),
+    ("G15", "o prompt baixado bate com a tela", g15_prompt_baixado_bate_com_a_tela,
+     lambda h: h.replace("# PAPEL", "# PAPEL ALTERADO", 1), "caso-1/index.html"),
     ("G13", "botão de copiar tem alvo", g13_botao_copia_tem_alvo,
      lambda h: h.replace('data-copia="prompt-caso-1"', 'data-copia="prompt-sumiu"', 1),
      "caso-1/index.html"),
