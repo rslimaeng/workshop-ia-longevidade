@@ -578,6 +578,31 @@ def g22_papel_bate_com_a_tela(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G23
+# A numeração das seções virou "04, 05, 06, 04" quando duas seções novas
+# entraram no meio com rótulo de texto. O leitor usa esses números para se
+# localizar na navegação lateral, e dois "04" na mesma página quebram isso.
+# O G7 não pega: para ele a nav e as seções continuavam batendo uma a uma.
+def g23_numeracao_das_secoes(rel, html):
+    rotulos = re.findall(r'<div class="block-num">([^<]*)</div>', html)
+    numerados = [r for r in rotulos if re.match(r"^\d+\s*·", r.strip())]
+    if not numerados:
+        return []          # página de rótulo textual, como a capa
+    if len(numerados) != len(rotulos):
+        return ["a página mistura seção numerada com seção sem número: {}".format(
+            [r for r in rotulos if r not in numerados])]
+    nums = [int(re.match(r"^(\d+)", r.strip()).group(1)) for r in numerados]
+    falhas = []
+    vistos = set()
+    for n in nums:
+        if n in vistos:
+            falhas.append("número de seção repetido: {:02d} ({})".format(n, nums))
+        vistos.add(n)
+    if nums != list(range(1, len(nums) + 1)):
+        falhas.append("a numeração das seções não é sequencial: {}".format(nums))
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -639,6 +664,10 @@ GATES = [
      lambda h: h.replace('<span class="pl-tx">Fica na minha cabeça.</span>',
                          '<span class="pl-tx">Fica só na minha cabeça.</span>', 1),
      "papel/index.html"),
+    ("G23", "as seções são numeradas em ordem", g23_numeracao_das_secoes,
+     lambda h: h.replace('<div class="block-num">07 · O limite</div>',
+                         '<div class="block-num">04 · O limite</div>', 1),
+     "ai-first/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),
