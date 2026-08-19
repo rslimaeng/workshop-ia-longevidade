@@ -893,6 +893,63 @@ def como_escrito(txt):
     return ESPACO.join(re.escape(p) for p in txt.split())
 
 
+# ---------------------------------------------------------------- G30
+NUM_SEM_ACENTO = {"um": 1, "dois": 2, "tres": 3, "quatro": 4, "cinco": 5,
+                      "seis": 6, "sete": 7, "oito": 8, "nove": 9, "dez": 10,
+                      "onze": 11, "doze": 12}
+
+
+def _sem_acento(t):
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", t)
+                   if unicodedata.category(c) != "Mn")
+
+
+def g30_auxiliares_batem_com_a_lista(rel, html):
+    """O número de auxiliares escrito no texto bate com o que está listado."""
+    if "auxiliares" not in texto_visivel(html):
+        return []
+    falhas = []
+    cartoes = []
+    # Fatiar entre um rótulo e o seguinte. Casar ".*?</div></div>" parecia certo
+    # e engolia o cartão de baixo: o "Cinco" somou 11, que é o total dos dois.
+    marcas = [(m.start(), m.group(1)) for m in re.finditer(
+        r'<div class="[^"]*card-eyebrow[^"]*">([^<]*)</div>', html)]
+    for i, (pos, rot) in enumerate(marcas):
+        fim = marcas[i + 1][0] if i + 1 < len(marcas) else len(html)
+        corpo = html[pos:fim]
+        # e para na PRIMEIRA lista: sendo o ultimo rotulo da pagina, o corpo ia
+        # ate o fim do arquivo e somava <li> de outras secoes
+        u = corpo.find("</ul>")
+        if u == -1:
+            continue
+        corpo = corpo[:u]
+        n = re.match(r"\s*([A-Za-z\u00c0-\u00ff]+)", _sem_acento(rot).lower())
+        if not n or n.group(1) not in NUM_SEM_ACENTO:
+            continue
+        itens = len(re.findall(r"<li\b", corpo))
+        if not itens:
+            continue
+        dito = NUM_SEM_ACENTO[n.group(1)]
+        cartoes.append((rot.strip(), dito, itens))
+        if dito != itens:
+            falhas.append("o cartão '{}' promete {} e lista {}".format(
+                rot.strip(), dito, itens))
+    if not cartoes:
+        return falhas
+    # e o total escrito na frase bate com a soma dos cartões
+    total = sum(i for _, _, i in cartoes)
+    vis = _sem_acento(texto_visivel(html)).lower()
+    # CADA ocorrencia, nao a primeira: o total e afirmado no titulo e no
+    # paragrafo, e conferir so uma deixa a outra mentir sozinha
+    for m in re.finditer(r"\b([a-z]+) auxiliares\b", vis):
+        n = NUM_SEM_ACENTO.get(m.group(1))
+        if n is not None and n != total:
+            falhas.append("o texto diz {} auxiliares e os cartões somam {}: {!r}".format(
+                n, total, vis[max(0, m.start() - 30):m.end() + 10]))
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -1005,6 +1062,12 @@ GATES = [
     ("G29", "cada frase tem a sua linha", g29_uma_frase_por_linha,
      lambda h: h.replace('<span class="fr">', '<span>', 1),
      "index.html"),
+    # O defeito tira UM item de um cartão: o texto continua prometendo seis e a
+    # lista passa a ter cinco.
+    ("G30", "os auxiliares batem com a lista", g30_auxiliares_batem_com_a_lista,
+     lambda h: re.sub(r'(<div class="[^"]*card-eyebrow[^"]*">Seis.*?)<li\b.*?</li>',
+                      r'\1', h, count=1, flags=re.S),
+     "caso-2/index.html"),
 ]
 
 
