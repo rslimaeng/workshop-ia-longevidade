@@ -9,7 +9,10 @@ só o site.
 
 ## Quem abre estas páginas
 
-**O participante**, e ninguém mais. Isso decide quase tudo:
+**O participante**, com uma exceção declarada: a `/analise/`, que é da facilitação e
+fica de propósito fora da lista de cards da capa. Nela mora o passo a passo da planilha
+e o prompt que o Rafael cola no dia. Gate **G39**, que também confere que ela não virou
+card. Em todas as outras, o leitor é o participante, e isso decide quase tudo:
 
 - Não é roteiro de instrutor. Nada de *pergunte à sala*, *espere o silêncio*, *plano B*.
   A direção de cena vive fora do repositório. Gate **G8**.
@@ -23,25 +26,35 @@ só o site.
 ```
 workshop-ia-longevidade/
 ├── index.html            a capa
-├── canvas/               a régua e a ficha, no celular
+├── canvas/               a régua, respondida no começo e no fim, mais a ficha
 ├── ai-first/             o conceito e os pilares 1 e 2
 ├── caso-1/ caso-2/       os dois casos em três passos
 ├── ficha/                a ficha dos quatro campos
 ├── pilares/              a folha A4 imprimível
+├── analise/              a facilitação: o prompt da análise ao vivo
 ├── _shared/              os tokens, em referência humana
 └── _build/
     ├── base.css          o CSS, fonte única
-    ├── gerar.py          monta as páginas a partir dos fragmentos
-    ├── gates.py          vinte e oito gates, cada um provado contra defeito injetado
+    ├── gerar.py          monta as páginas, e trata o canvas com os passos de texto
+    ├── gates.py          trinta e nove gates, cada um provado contra defeito injetado
     └── conteudo/         o conteúdo de cada página, em fragmento
 ```
 
 **Editar conteúdo é editar o fragmento, nunca o `index.html` gerado.** O que estiver no
 HTML publicado é sobrescrito na próxima geração.
 
-`canvas/index.html` é a exceção: foi portado de `../1-entregaveis/canvas-ideacao-ai-first.html`
-e não passa pelo gerador, porque tem JavaScript próprio. Quando o canvas mudar, copie de
-novo e reponha o link de volta para `../`.
+`canvas/index.html` é a exceção parcial: ele é standalone, com JavaScript próprio, e não
+tem casca do site. Mas **passa pelo gerador** para receber os dois passos de texto (a cola
+de quebra de linha e o corte em frases). Enquanto isso era trabalho manual, toda edição
+nele derrubava o G28 e o G29.
+
+**A régua exporta duas linhas, e o esquema é contrato.** Nove colunas para a régua, iguais
+nas duas rodadas e separadas pela coluna `momento`; sete para a ficha. Os nomes estão em
+`REGUA_COLS` e `FICHA_COLS` no `gates.py`, e três coisas dependem deles: o JS do canvas, o
+esquema desenhado na página e o prompt da `/analise/`. Gates **G38** e **G39**.
+
+A planilha da sala e o ensaio saem de `../3-material-ai-first/gerar-planilhas.py`, e os
+dois relatórios de ensaio de `../3-material-ai-first/simular-analise.py`.
 
 ## Base visual
 
@@ -65,7 +78,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda trinta e sete gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta e nove gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -108,6 +121,8 @@ defeito derruba o script como **cego**.
 | G35 | Callout sem variante de cor, que nasce sem caixa |
 | G36 | Seta do ciclo que, empilhada, estica uma linha por cima dos cartões |
 | G37 | Pergunta do bloco em grupo sem as três perguntas de destrave e o "não conta" |
+| G38 | Esquema das duas abas da planilha divergindo do que o JS do canvas monta |
+| G39 | Prompt da análise citando coluna que a planilha não tem, ou perdendo a regra de anonimato |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -317,3 +332,38 @@ frases que caberiam e quebraram assim mesmo.**
 - **Altura de campo não se resolve por altura de linha.** O navegador dá ao
   seletor uma altura interna própria, de 20px contra 23px do campo de texto.
   Só piso explícito iguala. Provado com defeito injetado no DOM vivo.
+
+### Da leva de 19/08 · o canvas vira régua de duas rodadas
+
+**Artefato com JS não se confere por leitura: se preenche, se clica e se lê a saída.**
+O canvas passou nos gates estáticos copiando uma linha **sem a área**, e o relatório do
+dia é por área. Nenhum gate estático veria isso, porque o defeito estava no que o
+`click` produz, não no que o HTML diz.
+
+**A premissa do teste funcional também precisa ser assertada.** As quatro travas do
+canvas deram "VAZOU" na primeira rodada, e o motivo era que o navegador restaura os
+campos de formulário ao recarregar: o código já estava preenchido antes do teste
+começar. Limpe à mão e **asserte o estado limpo no próprio retorno** antes de clicar.
+
+**`localStorage` não existe em `data:` URL.** O painel serve arquivo local como
+`data:text/html`, e ali toda gravação levanta `SecurityError`. Rascunho, sessão e
+qualquer coisa persistida só se testa em `http(s)://`, ou seja, **depois de publicar**.
+
+**Duas barras sobrepostas não comunicam duas medidas.** A do fim tapava a do começo e o
+olho lia um tom só. Vire uma barra em duas partes (onde estava, o que andou) e **meça a
+geometria no DOM vivo**: a base tem de encostar no ganho e a soma tem de valer a média
+do fim.
+
+**Empate em média é caso real, e ele aparece na tela como incoerência.** Dois pilares
+com 1,56 deixavam duas barras idênticas com cores diferentes. Todo `min()`/`max()` que
+escolhe "o mais fraco" precisa de critério de desempate declarado, e o critério tem de
+estar também no prompt, porque o Claude do dia faz a mesma escolha.
+
+**Gate que acopla dois artefatos acha lacuna que a revisão não acha.** O G39 nasceu para
+impedir divergência entre o prompt e as colunas, e a primeira coisa que ele acusou foi
+que o prompt descrevia a aba da régua coluna por coluna e deixava a aba das iniciativas
+sem esquema nenhum. O gate leu o que eu escrevi melhor do que eu.
+
+**Página gerada por script precisa entrar no pipeline, ou os gates de texto quebram.**
+O canvas era tratado à mão com os dois passos de quebra de linha, então toda edição nele
+derrubava o G28 e o G29. Passou a ser tratado pelo `gerar.py`.
