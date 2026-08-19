@@ -1,0 +1,211 @@
+      <style>
+      .folha{background:var(--bg-elev);border:1px solid var(--border);border-radius:var(--radius);padding:34px 38px;margin:8px 0 30px;box-shadow:var(--shadow-sm)}
+      .folha-cab{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid var(--accent)}
+      .folha-t{font-size:21px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
+      .folha-s{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);text-align:right;line-height:1.5}
+      .pl-id{display:flex;gap:20px;margin-bottom:12px;flex-wrap:wrap}
+      .pl-id-c{flex:1 1 180px}
+      .pl-id-r{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px}
+      .pl-id-l{border-bottom:1px solid var(--text-dim);height:19px}
+      .pl-nota{font-size:11.5px;color:var(--text-muted);line-height:1.45;margin-bottom:12px}
+      .pl-fase{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent-dark);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:5px;padding:5px 10px;display:inline-block;margin:12px 0 6px}
+      .pl-q{padding:6px 0;border-top:1px solid var(--border);page-break-inside:avoid}
+      .pl-q-cab{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+      .pl-n{width:17px;height:17px;border-radius:4px;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:var(--font-mono);font-size:10px;font-weight:600}
+      .pl-rot{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim)}
+      .pl-perg{font-size:12.5px;font-weight:600;line-height:1.3;margin:0 0 3px}
+      .pl-ops{display:flex;flex-direction:column;gap:2px}
+      .pl-op{display:flex;align-items:flex-start;gap:7px}
+      .pl-cx{flex:0 0 auto;width:13px;height:13px;margin-top:1px;border:1.2px solid var(--text-dim);border-radius:3px;display:grid;place-items:center;font-family:var(--font-mono);font-size:8px;color:var(--text-dim)}
+      .pl-tx{font-size:11.5px;color:var(--text-muted);line-height:1.35}
+      .pl-total{margin-top:9px;padding-top:8px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;font-size:11.5px;color:var(--text-muted)}
+      .pl-total-cx{width:44px;height:23px;border:1.2px solid var(--text-dim);border-radius:4px}
+      .fi-l{padding:9px 0;border-top:1px solid var(--border);page-break-inside:avoid}
+      .fi-r{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:3px}
+      .fi-a{font-size:11.5px;color:var(--text-dim);margin-bottom:5px;line-height:1.4}
+      .fi-lin{border-bottom:1px solid var(--text-dim);height:19px;margin-bottom:5px}
+      .folha-pe{margin-top:14px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:16px;font-size:11px;color:var(--text-dim)}
+      @media (max-width:640px){.folha{padding:22px 18px}}
+      @media print{
+        @page{size:A4 portrait;margin:11mm}
+        .site-header,.site-footer,.nav-bottom,.hero,.no-print{display:none!important}
+        body{background:#fff;font-size:10.5pt}
+        .wrap{padding:0!important;max-width:none!important}
+        main{padding:0!important}
+        .folha{border:none;box-shadow:none;padding:0;margin:0;border-radius:0}
+        .folha + .folha{page-break-before:always}
+        .pl-n{background:#000;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        .pl-fase{background:#fff;border:1px solid #000;color:#000}
+        .folha-cab{border-bottom:2px solid #000}
+        .pl-cx,.pl-total-cx,.fi-lin,.pl-id-l{border-color:#000}
+      }
+      </style>
+
+      <div class="callout callout-info no-print">
+        <div class="callout-title">Para imprimir</div>
+        <p>
+          Use imprimir do navegador. Saem <strong>duas folhas A4</strong>: a régua e a
+          ficha. Nada aqui depende de cor para ser entendido, então pode sair em preto e
+          branco. Esta caixa fica de fora da impressão.
+        </p>
+      </div>
+
+      <div class="folha">
+        <div class="folha-cab">
+          <div><div class="folha-t">A régua, em papel</div></div>
+          <div class="folha-s">Ideação com AI First<br>Grupo Longevidade Saudável</div>
+        </div>
+        <div class="pl-id">
+          <div class="pl-id-c"><div class="pl-id-r">Código de três letras e dois números</div><div class="pl-id-l"></div></div>
+          <div class="pl-id-c"><div class="pl-id-r">Sua área</div><div class="pl-id-l"></div></div>
+        </div>
+        <p class="pl-nota">
+          O código permite comparar a sua resposta da manhã com a do fim do dia sem
+          ninguém saber quem respondeu. Use as três primeiras letras do seu nome e os dois
+          últimos números do seu telefone. <strong>Marque o que é verdade hoje</strong>, e
+          não o que seria bonito responder.
+        </p>
+        <div class="pl-fase">Parte 1 · responda agora, no começo</div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
+          <p class="pl-perg">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na minha cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para mim, num lugar que só eu acho.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde outra pessoa acha sozinha.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">2</span><span class="pl-rot">Contexto</span></div>
+          <p class="pl-perg">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e aceito o que vier.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a situação na hora, de cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um contexto pronto que eu reuso.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
+          <p class="pl-perg">Como eu peço um trabalho grande?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o trabalho todo de uma vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em etapas quando é grande.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e confiro entre as etapas.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">4</span><span class="pl-rot">Correção vira regra</span></div>
+          <p class="pl-perg">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e sigo em frente.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e às vezes anoto em algum canto.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A correção vira regra, lida na próxima vez.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
+          <p class="pl-perg">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela ideia que parece boa.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no ganho, mas sem número.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de começar e ponho meta com prazo.</span></label>
+          </div>
+        </div>
+        <div class="pl-total"><span>Some os cinco números marcados:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
+        <div class="pl-fase">Parte 2 · no fim do dia, as mesmas cinco</div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
+          <p class="pl-perg">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na minha cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para mim, num lugar que só eu acho.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde outra pessoa acha sozinha.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">2</span><span class="pl-rot">Contexto</span></div>
+          <p class="pl-perg">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e aceito o que vier.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a situação na hora, de cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um contexto pronto que eu reuso.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
+          <p class="pl-perg">Como eu peço um trabalho grande?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o trabalho todo de uma vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em etapas quando é grande.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e confiro entre as etapas.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">4</span><span class="pl-rot">Correção vira regra</span></div>
+          <p class="pl-perg">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e sigo em frente.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e às vezes anoto em algum canto.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A correção vira regra, lida na próxima vez.</span></label>
+          </div>
+        </div>
+        <div class="pl-q">
+          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
+          <p class="pl-perg">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+          <div class="pl-ops">
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela ideia que parece boa.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no ganho, mas sem número.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de começar e ponho meta com prazo.</span></label>
+          </div>
+        </div>
+        <div class="pl-total"><span>Some de novo:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
+        <div class="folha-pe">
+          <span>Entregue esta folha no fim do dia.</span>
+          <span>A mesma régua está na página do canvas</span>
+        </div>
+      </div>
+
+      <div class="folha">
+        <div class="folha-cab">
+          <div><div class="folha-t">A ficha dos quatro campos</div></div>
+          <div class="folha-s">Uma iniciativa da sua área<br>Meta de sessenta dias</div>
+        </div>
+        <p class="pl-nota">
+          Escolha uma iniciativa real, que você começaria na segunda-feira. Se não
+          conseguir preencher os quatro campos, <strong>a iniciativa ainda não está pronta
+          para começar</strong>, e descobrir isso agora custa uma folha de papel.
+        </p>
+        <div class="fi-l">
+          <div class="fi-r">A iniciativa</div>
+          <div class="fi-a">Uma frase. O que passa a acontecer que hoje não acontece.</div>
+          <div class="fi-lin"></div><div class="fi-lin"></div>
+        </div>
+        <div class="fi-l">
+          <div class="fi-r">1 · Em que isso ajuda</div>
+          <div class="fi-a">Trazer mais alunos e pacientes, fazer cada um valer mais, ou reduzir custo e retrabalho. Escolha um só.</div>
+          <div class="fi-lin"></div>
+        </div>
+        <div class="fi-l">
+          <div class="fi-r">2 · Qual é o número</div>
+          <div class="fi-a">O que você vai medir. Horas, dias, quantidade, reais.</div>
+          <div class="fi-lin"></div>
+        </div>
+        <div class="fi-l">
+          <div class="fi-r">3 · Quanto é hoje</div>
+          <div class="fi-a">O valor de hoje, medido e não estimado. É o campo que mais trava, e é ele que torna o campo 4 verificável.</div>
+          <div class="fi-lin"></div>
+        </div>
+        <div class="fi-l">
+          <div class="fi-r">4 · Quanto em sessenta dias</div>
+          <div class="fi-a">A meta, com a data em que alguém volta para conferir.</div>
+          <div class="fi-lin"></div>
+        </div>
+        <div class="fi-l">
+          <div class="fi-r">Quem responde por ela</div>
+          <div class="fi-a">Um nome. Não uma área, não um comitê.</div>
+          <div class="fi-lin"></div>
+        </div>
+        <div class="folha-pe">
+          <span>Guarde esta folha. Em sessenta dias ela é a única prova do que mudou.</span>
+        </div>
+      </div>

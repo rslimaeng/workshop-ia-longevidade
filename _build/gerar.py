@@ -76,6 +76,17 @@ PAGINAS = {
         anterior=("../caso-2/", "Caso 2 · Informação sensível"),
         proxima=("../pilares/", "Os cinco pilares em uma folha"),
     ),
+    "papel": dict(
+        titulo="A régua e a ficha em papel · Ideação com AI First",
+        eyebrow="Se a internet falhar",
+        h1="A régua e a ficha em papel",
+        lead="As duas folhas para imprimir e distribuir. Servem quando o celular não "
+             "ajuda, e servem para quem prefere caneta.",
+        chips=["Imprimível", "Duas folhas A4"],
+        nav=False,
+        anterior=("../pilares/", "Os cinco pilares em uma folha"),
+        proxima=None,
+    ),
     "pilares": dict(
         titulo="Os cinco pilares em uma folha · Ideação com AI First",
         eyebrow="O que fica com você",
@@ -85,7 +96,7 @@ PAGINAS = {
         chips=["Imprimível", "Uma folha A4"],
         nav=False,
         anterior=("../ficha/", "A ficha dos quatro campos"),
-        proxima=None,
+        proxima=("../papel/", "A régua e a ficha em papel"),
     ),
 }
 

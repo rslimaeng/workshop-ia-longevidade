@@ -533,6 +533,51 @@ def g21_loops_comecam_igual(rel, html):
     return []
 
 
+# ---------------------------------------------------------------- G22
+# A folha em papel e a régua da tela medem a mesma coisa, e a demonstração ao
+# vivo compara as duas na mesma planilha. Se alguém mexer numa e não na outra,
+# a comparação passa a somar coisas diferentes sem nenhum erro aparecer.
+def g22_papel_bate_com_a_tela(rel, html):
+    if rel != "papel/index.html":
+        return []
+    canvas = os.path.join(RAIZ, "canvas", "index.html")
+    if not os.path.exists(canvas):
+        return ["não achei a régua da tela para comparar com o papel"]
+    c = open(canvas, encoding="utf-8").read()
+
+    da_tela = []
+    for i in range(1, 6):
+        alts = re.findall(
+            r'<input type="radio" name="a%d" value="\d"><span>([^<]+)</span>' % i, c)
+        rot = re.findall(r'class="item-t">([^<]+)</p>', c)
+        da_tela.append(alts)
+    if any(len(a) != 3 for a in da_tela):
+        return ["a régua da tela não tem três alternativas em toda pergunta"]
+
+    do_papel = []
+    for m in re.finditer(r'<div class="pl-ops">(.*?)</div>', html, flags=re.S):
+        do_papel.append(re.findall(r'<span class="pl-tx">([^<]+)</span>', m.group(1)))
+
+    falhas = []
+    if len(do_papel) != 10:
+        falhas.append("o papel tem {} blocos de pergunta, e a régua tem cinco em cada ponta".format(
+            len(do_papel)))
+        return falhas
+    import html as _h
+    for i in range(5):
+        tela = [t.strip() for t in da_tela[i]]
+        for ponta, bloco in (("abertura", do_papel[i]), ("fechamento", do_papel[i + 5])):
+            papel = [_h.unescape(t).strip() for t in bloco]
+            if papel != tela:
+                falhas.append("pergunta {} na {} do papel diverge da tela: {} contra {}".format(
+                    i + 1, ponta, papel, tela))
+    # o teto impresso tem que bater com três alternativas e cinco perguntas
+    vis = texto_visivel(html)
+    if "de 5 a 15" not in vis:
+        falhas.append("o papel não diz a faixa do total, ou ela não é de 5 a 15")
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -590,6 +635,10 @@ GATES = [
      lambda h: h.replace('<span class="lp-et">Alguém executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>',
                          '<span class="lp-et">Alguem executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>', 1),
      "index.html"),
+    ("G22", "o papel bate com a régua da tela", g22_papel_bate_com_a_tela,
+     lambda h: h.replace('<span class="pl-tx">Fica na minha cabeça.</span>',
+                         '<span class="pl-tx">Fica só na minha cabeça.</span>', 1),
+     "papel/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),
