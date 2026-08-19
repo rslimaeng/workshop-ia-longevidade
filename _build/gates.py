@@ -27,7 +27,9 @@ def paginas():
     achados = []
     for p in glob.glob(os.path.join(RAIZ, "**", "*.html"), recursive=True):
         rel = os.path.relpath(p, RAIZ)
-        if rel.startswith("_build" + os.sep):
+        # _build é fonte, _rascunho é diagrama em teste: nenhum dos dois é página
+        # publicada, e varrer os dois faz o gate auditar arquivo que ninguém abre.
+        if rel.split(os.sep)[0] in ("_build", "_rascunho"):
             continue
         achados.append((rel, open(p, encoding="utf-8").read()))
     return sorted(achados)
