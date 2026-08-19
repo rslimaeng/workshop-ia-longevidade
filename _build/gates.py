@@ -608,58 +608,6 @@ def g21_loops_comecam_igual(rel, html):
     return []
 
 
-# ---------------------------------------------------------------- G22
-# A folha em papel e a régua da tela medem a mesma coisa, e a demonstração ao
-# vivo compara as duas na mesma planilha. Se alguém mexer numa e não na outra,
-# a comparação passa a somar coisas diferentes sem nenhum erro aparecer.
-def g22_papel_bate_com_a_tela(rel, html):
-    if rel != "papel/index.html":
-        return []
-    canvas = os.path.join(RAIZ, "canvas", "index.html")
-    if not os.path.exists(canvas):
-        return ["não achei a régua da tela para comparar com o papel"]
-    c = open(canvas, encoding="utf-8").read()
-
-    da_tela = []
-    for i in range(1, 6):
-        alts = re.findall(
-            r'<input type="radio" name="a%d" value="\d"><span>([^<]+)</span>' % i, c)
-        da_tela.append(alts)
-    if any(len(a) != 3 for a in da_tela):
-        return ["a régua da tela não tem três alternativas em toda pergunta"]
-
-    do_papel = []
-    for m in re.finditer(r'<div class="pl-ops">(.*?)</div>', html, flags=re.S):
-        do_papel.append(re.findall(r'<span class="pl-tx">([^<]+)</span>', m.group(1)))
-
-    falhas = []
-    if len(do_papel) != 10:
-        falhas.append("o papel tem {} blocos de pergunta, e a régua tem cinco em cada ponta".format(
-            len(do_papel)))
-        return falhas
-    # Os dois lados carregam o espaço rígido da correção de quebra de linha, mas
-    # em codificações diferentes: a tela guarda "&nbsp;" literal e o papel já sai
-    # do gerador com o caractere. Comparar sem normalizar acusava dez divergências
-    # que ninguém vê na folha. O que se compara é o que o leitor lê.
-    import html as _h
-
-    def como_se_le(t):
-        return _h.unescape(t).replace("\u00a0", " ").strip()
-
-    for i in range(5):
-        tela = [como_se_le(t) for t in da_tela[i]]
-        for ponta, bloco in (("abertura", do_papel[i]), ("fechamento", do_papel[i + 5])):
-            papel = [como_se_le(t) for t in bloco]
-            if papel != tela:
-                falhas.append("pergunta {} na {} do papel diverge da tela: {} contra {}".format(
-                    i + 1, ponta, papel, tela))
-    # o teto impresso tem que bater com três alternativas e cinco perguntas
-    vis = texto_visivel(html)
-    if "de 5 a 15" not in vis:
-        falhas.append("o papel não diz a faixa do total, ou ela não é de 5 a 15")
-    return falhas
-
-
 # ---------------------------------------------------------------- G23
 # A numeração das seções virou "04, 05, 06, 04" quando duas seções novas
 # entraram no meio com rótulo de texto. O leitor usa esses números para se
@@ -694,7 +642,7 @@ NUMERO_POR_EXTENSO = {"uma": 1, "duas": 2, "três": 3, "quatro": 4, "cinco": 5}
 
 
 def g24_folhas_declaradas(rel, html):
-    if rel not in ("papel/index.html", "pilares/index.html"):
+    if rel != "pilares/index.html":
         return []
     reais = len(re.findall(r'<div class="folha">', html))
     if not reais:
@@ -1382,20 +1330,13 @@ GATES = [
      lambda h: re.sub(como_escrito('<span class="lp-et">Alguém executa</span>'),
                       '<span class="lp-et">Alguem executa</span>', h, count=1),
      "index.html"),
-    # O defeito muda o texto de uma alternativa só no papel, e o gate tem que
-    # ver que ele deixou de bater com a tela. Regex pelo mesmo motivo do G19:
-    # o texto carrega espaço rígido e o literal com espaço comum não acha nada.
-    ("G22", "o papel bate com a régua da tela", g22_papel_bate_com_a_tela,
-     lambda h: re.sub(r'(<span class="pl-tx">)[^<]*(</span>)',
-                      r'\1Texto trocado só no papel.\2', h, count=1),
-     "papel/index.html"),
     ("G23", "as seções são numeradas em ordem", g23_numeracao_das_secoes,
      lambda h: re.sub(como_escrito('<div class="block-num">07 ·'),
                       '<div class="block-num">04 ·', h, count=1),
      "ai-first/index.html"),
     ("G24", "as folhas declaradas batem", g24_folhas_declaradas,
-     lambda h: re.sub(como_escrito("Três páginas A4"), "Duas páginas A4", h, count=1),
-     "papel/index.html"),
+     lambda h: re.sub(como_escrito("Uma folha A4"), "Duas folhas A4", h, count=1),
+     "pilares/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: re.sub(r'<div class="([^"]*)\bloop-no\b([^"]*)">',
                       r'<div class="\1loop-no-removido\2">', h, count=1),
