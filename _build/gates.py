@@ -465,33 +465,64 @@ def _contagem_real():
 
 
 def g18_numeros_do_diagnostico(rel, html):
+    """As sete atividades da página continuam sendo as do insumo, e cada uma
+    aponta o pilar que o próprio card diz que falta.
+
+    A página deixou de exibir os números do levantamento a pedido do Rafael: ele
+    é de outra turma e de outro momento, e citá-lo aqui prometia à sala uma
+    pesquisa que não foi feita para este dia. O insumo continua sendo a fonte das
+    sete atividades, então o gate continua conferindo contra ele — o que mudou é
+    que a conferência virou de proveniência, e não de número na tela.
+    """
     if rel != "ai-first/index.html":
         return []
-    real = _contagem_real()
-    if real is None:
-        return ["não foi possível conferir os números contra a planilha do cliente"]
-    cont, total = real
     falhas = []
     vis = texto_visivel(html)
 
-    # premissa: a página afirma o total de respondentes por extenso
-    if "Vinte e duas pessoas" not in vis and str(total) not in vis:
-        falhas.append("a página não diz quantas pessoas responderam o diagnóstico")
+    # 1. o levantamento não é mais citado na tela
+    for termo in ("diagnóstico", "responderam", "de 22", "Vinte e duas"):
+        if termo.lower() in vis.lower():
+            for n, l in linhas_com(vis, re.escape(termo)):
+                falhas.append("o levantamento de outra turma voltou para a tela: " + l[:90])
 
-    # cada rótulo "N de M" tem que bater com a contagem real daquela atividade
-    for m in re.finditer(r'<span class="ex-area">(\d+) de (\d+)</span>\s*'
-                         r'<span class="ex-t">([^<]+)</span>', html):
-        n, m_tot, titulo = int(m.group(1)), int(m.group(2)), m.group(3).strip()
-        if m_tot != total:
-            falhas.append("{!r} diz de {}, e a planilha tem {} respostas".format(
-                titulo, m_tot, total))
-        casada = [o for o in OPCOES_DIAGNOSTICO if o.startswith(titulo[:28])]
-        if not casada:
-            falhas.append("atividade que não existe no diagnóstico: " + titulo)
+    # 2. as sete atividades da página são as sete do insumo
+    cards = re.findall(CL("ex-t") + r"[^>]*>([^<]+)<", html)
+    real = _contagem_real()
+    if real is None:
+        falhas.append("não foi possível conferir as atividades contra a planilha do cliente")
+    else:
+        for t in cards:
+            t = t.replace("&nbsp;", " ").strip()
+            if not [o for o in OPCOES_DIAGNOSTICO if o.startswith(t[:28])]:
+                falhas.append("atividade que não existe no insumo: " + t)
+        if len(cards) != len(OPCOES_DIAGNOSTICO):
+            falhas.append("a página lista {} atividades e o insumo tem {}".format(
+                len(cards), len(OPCOES_DIAGNOSTICO)))
+
+    # 3. o rótulo de cada card diz o mesmo pilar que o corpo dele diz que falta
+    blocos = re.split(CL("ex") + ">", html)[1:]
+    for b in blocos:
+        rot = re.search(CL("ex-area") + r"[^>]*>([^<]+)<", b)
+        tit = re.search(CL("ex-t") + r"[^>]*>([^<]+)<", b)
+        if not rot or not tit:
             continue
-        if cont[casada[0]] != n:
-            falhas.append("{!r} diz {}, e a planilha conta {}".format(
-                titulo, n, cont[casada[0]]))
+        no_rotulo = set(re.findall(r"\d+", rot.group(1)))
+        corpo = texto_visivel(b)
+        falta = re.search(r"O que falta\s*(.{0,90})", corpo, re.S)
+        if not falta:
+            falhas.append("card sem 'O que falta': " + tit.group(1)[:50])
+            continue
+        # "Pilar 1 e pilar 3" repete a palavra no segundo, e o par não vem junto
+        no_corpo = set()
+        for m in re.finditer(r"[Pp]ilar(?:es)?\s+(\d)(?:\s+e\s+(?:[Pp]ilar\s+)?(\d))?",
+                             falta.group(1)):
+            no_corpo.update(g for g in m.groups() if g)
+        if not no_corpo:
+            falhas.append("o card {!r} não nomeia pilar nenhum em 'O que falta'".format(
+                tit.group(1)[:40]))
+        elif no_rotulo != no_corpo:
+            falhas.append("o card {!r} tem rótulo {} e o corpo fala do pilar {}".format(
+                tit.group(1)[:40], sorted(no_rotulo), sorted(no_corpo)))
     return falhas
 
 
@@ -1186,6 +1217,54 @@ def g34_escada_cresce(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G35
+# .callout sozinho não pinta nada: a cor e a borda vêm da variante. Um callout
+# sem variante nasce invisível como caixa e o leitor vê o texto solto no meio da
+# página. Aconteceu na página do conceito e só apareceu quando o Rafael olhou.
+def g35_callout_tem_variante(rel, html):
+    """Todo callout declara a variante que o pinta."""
+    falhas = []
+    for m in re.finditer(r'<div class="([^"]*\bcallout\b[^"]*)"', html):
+        classes = m.group(1).split()
+        if "callout" not in classes:
+            continue
+        if not {"callout-info", "callout-warn"} & set(classes):
+            depois = html[m.end():m.end() + 260]
+            t = re.search(r'callout-title[^>]*>([^<]*)', depois)
+            falhas.append("callout sem variante de cor, então sem caixa: {!r}".format(
+                (t.group(1) if t else depois[:60]).strip()[:70]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G36
+# Girar a seta inteira com transform estica a linha do ::before pela largura do
+# contêiner: empilhada no celular, ela virava uma barra vertical atravessando os
+# cartões de cima e de baixo. Estava no ar na capa desde sempre, e só apareceu
+# quando o mesmo componente foi repetido numa página mais estreita.
+def g36_seta_do_ciclo_nao_estica(rel, html):
+    """No modo empilhado, a linha da seta do ciclo é um traço, não uma barra."""
+    if ".loop-trilha" not in html:
+        return []
+    i = html.find(".loop-trilha{flex-direction:column}")
+    if i == -1:
+        return ["o ciclo não empilha mais no celular: a regra de coluna sumiu"]
+    trecho = html[i:i + 900]
+    falhas = []
+    seta = re.search(r"\.loop-seta\{([^}]*)\}", trecho)
+    antes = re.search(r"\.loop-seta::before\{([^}]*)\}", trecho)
+    if not seta or not antes:
+        return ["o modo empilhado não define mais a seta do ciclo"]
+    if "transform:none" not in seta.group(1).replace(" ", ""):
+        falhas.append("a seta gira inteira no modo empilhado, e a linha dela vai "
+                      "esticar pela largura do cartão: " + seta.group(1)[:70])
+    linha = antes.group(1).replace(" ", "")
+    if not re.search(r"width:\d+px", linha):
+        falhas.append("a linha da seta não tem largura fixa no modo empilhado: " + linha[:70])
+    if "left:0" in linha and "right:0" in linha:
+        falhas.append("a linha da seta continua indo de ponta a ponta: " + linha[:70])
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -1235,11 +1314,11 @@ GATES = [
                       '<span class="cem-p"></span>', h, count=1),
      "ficha/index.html"),
     ("G17", "alfabeto latino na tela", g17_alfabeto,
-     lambda h: h.replace("potencial", "\u043fotencial", 1),
+     lambda h: h.replace("registro", "\u0433egistro", 1),
      "ai-first/index.html"),
-    ("G18", "os números batem com o diagnóstico", g18_numeros_do_diagnostico,
-     lambda h: re.sub(como_escrito('<span class="ex-area">15 de 22</span>'),
-                      '<span class="ex-area">19 de 22</span>', h, count=1),
+    ("G18", "as atividades vêm do insumo", g18_numeros_do_diagnostico,
+     lambda h: re.sub(como_escrito('<span class="ex-area">pilar 5</span>'),
+                      '<span class="ex-area">pilar 4</span>', h, count=1),
      "ai-first/index.html"),
     # O defeito troca o texto de uma alternativa, quebrando a simetria entre as
     # duas pontas. Casa por regex porque o texto carrega espaço rígido depois da
@@ -1319,6 +1398,14 @@ GATES = [
      lambda h: re.sub(r'(<rect x="580" y=")260(" width="260" height=")310(")',
                       r'\g<1>460\g<2>110\g<3>', h, count=1),
      "ai-first/index.html"),
+    ("G35", "callout tem variante de cor", g35_callout_tem_variante,
+     lambda h: re.sub(r'<div class="callout callout-(info|warn)"', '<div class="callout"',
+                      h, count=1),
+     "ai-first/index.html"),
+    ("G36", "a seta do ciclo não estica", g36_seta_do_ciclo_nao_estica,
+     lambda h: h.replace(".loop-seta{flex:0 0 auto;padding:6px 0;transform:none;height:26px}",
+                         ".loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}", 1),
+     "index.html"),
 ]
 
 

@@ -919,8 +919,12 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 @media (max-width:760px){
   .loop-trilha{flex-direction:column}
   .loop-no{min-width:0}
-  .loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}
-  .loop-seta::before{top:50%;left:0;right:0}
+  /* Girar a seta inteira estica a linha do ::before pela largura do contêiner:
+     rotacionada, ela vira uma barra vertical que atravessa os cartões de cima e
+     de baixo. Gira só o glifo, e a linha vira um traço vertical curto no meio. */
+  .loop-seta{flex:0 0 auto;padding:6px 0;transform:none;height:26px}
+  .loop-seta span{display:inline-block;transform:rotate(90deg)}
+  .loop-seta::before{top:0;bottom:0;left:50%;right:auto;width:1px;height:auto}
 }
 
 /* ---------- CONTRATO: ENTRA COM, ACONTECE, SAI COM ---------- */
@@ -2159,7 +2163,7 @@ uma vez no mesmo texto.</span>
           <span class="fr">A&nbsp;saída que&nbsp;ela aponta não&nbsp;é reformar tudo.</span> <span class="fr">É o&nbsp;contrário: <strong>começar por&nbsp;um&nbsp;pedaço pequeno, separado do&nbsp;que&nbsp;não&nbsp;pode parar.</strong></span> <span class="fr">Uma&nbsp;rotina, uma&nbsp;área, um&nbsp;relatório.</span> <span class="fr">Fecha o&nbsp;loop ali, com&nbsp;gente que&nbsp;já&nbsp;faz aquilo, e&nbsp;só&nbsp;depois
           leva o&nbsp;desenho para&nbsp;o&nbsp;lado.</span>
         </p>
-        <div class="callout">
+        <div class="callout callout-info">
           <div class="callout-title">É por isso que este dia termina numa ficha, e não num plano</div>
           <p class="p-curto fr-host">
             <span class="fr">Plano de&nbsp;transformação de&nbsp;instituição inteira precisa de&nbsp;orçamento, comitê e&nbsp;um&nbsp;ano.</span> <span class="fr">Uma&nbsp;rotina da&nbsp;sua&nbsp;área, com&nbsp;número definido e&nbsp;meta de&nbsp;sessenta dias,
@@ -2174,8 +2178,71 @@ uma vez no mesmo texto.</span>
         <div class="block-num">06 · Na&nbsp;sua&nbsp;rotina</div>
         <h2>O&nbsp;mesmo desenho, na&nbsp;rotina que&nbsp;vocês apontaram</h2>
         <p class="block-lead fr-host">
-          <span class="fr">Vinte e&nbsp;duas pessoas desta turma responderam um&nbsp;diagnóstico antes deste dia,
-          apontando onde&nbsp;viam mais potencial para&nbsp;usar inteligência artificial no&nbsp;trabalho.</span> <span class="fr">As&nbsp;sete atividades abaixo são as&nbsp;respostas, na&nbsp;ordem em&nbsp;que&nbsp;apareceram.</span> <span class="fr"><strong>Abra a&nbsp;que&nbsp;mais parece com&nbsp;o&nbsp;seu&nbsp;dia.</strong></span>
+          <span class="fr">As&nbsp;sete atividades abaixo são as&nbsp;que&nbsp;mais aparecem numa&nbsp;área administrativa:
+          organizar informação, interpretar documento, apoiar decisão, montar relatório,
+          analisar dado, calcular cenário e&nbsp;automatizar rotina.</span> <span class="fr">Nenhuma delas é sobre&nbsp;tecnologia.</span> <span class="fr"><strong>Abra a&nbsp;que&nbsp;mais parece com&nbsp;o&nbsp;seu&nbsp;dia.</strong></span>
+        </p>
+        <p class="p-curto fr-host">
+          <span class="fr">E&nbsp;repare que&nbsp;<strong>o&nbsp;que&nbsp;falta em&nbsp;cada uma&nbsp;é sempre uma&nbsp;etapa deste
+          ciclo</strong>, o&nbsp;mesmo dos&nbsp;cinco pilares.</span> <span class="fr">Não&nbsp;são sete problemas diferentes: é
+          o&nbsp;mesmo, aparecendo em&nbsp;sete lugares.</span>
+        </p>
+
+        <div class="loop">
+          <div class="loop-trilha">
+            <div class="loop-no">
+              <div class="loop-no-n">1</div>
+              <div class="loop-no-etapa">captura</div>
+              <div class="loop-no-t">O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</div>
+              <div class="loop-no-d">Se&nbsp;ficou só&nbsp;na&nbsp;conversa, a&nbsp;próxima pessoa começa do&nbsp;zero.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 1</span>
+            </div>
+            <div class="loop-seta"><span>&rarr;</span></div>
+            <div class="loop-no">
+              <div class="loop-no-n">2</div>
+              <div class="loop-no-etapa">contexto</div>
+              <div class="loop-no-t">Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</div>
+              <div class="loop-no-d">O&nbsp;que&nbsp;está registrado é o&nbsp;que&nbsp;a&nbsp;ferramenta consegue usar.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 1</span>
+            </div>
+            <div class="loop-seta"><span>&rarr;</span></div>
+            <div class="loop-no">
+              <div class="loop-no-n">3</div>
+              <div class="loop-no-etapa">execução</div>
+              <div class="loop-no-t">Quebrar em&nbsp;fases e&nbsp;conferir entre&nbsp;elas</div>
+              <div class="loop-no-d">O&nbsp;trabalho anda em&nbsp;etapas, e&nbsp;alguém confere no&nbsp;meio do&nbsp;caminho.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 2</span>
+            </div>
+            <div class="loop-seta"><span>&rarr;</span></div>
+            <div class="loop-no">
+              <div class="loop-no-n">4</div>
+              <div class="loop-no-etapa">memória</div>
+              <div class="loop-no-t">Toda correção vira regra</div>
+              <div class="loop-no-d">O&nbsp;que&nbsp;foi corrigido uma&nbsp;vez não&nbsp;precisa ser corrigido de&nbsp;novo.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 2</span>
+            </div>
+            <div class="loop-seta"><span>&rarr;</span></div>
+            <div class="loop-no">
+              <div class="loop-no-n">5</div>
+              <div class="loop-no-etapa">medição</div>
+              <div class="loop-no-t">Nada começa sem&nbsp;quatro campos preenchidos</div>
+              <div class="loop-no-d">Sem&nbsp;número, não&nbsp;há como saber se&nbsp;o&nbsp;ciclo melhorou alguma coisa.</div>
+              <span class="loop-no-onde">provado na&nbsp;ficha</span>
+            </div>
+          </div>
+          <div class="loop-volta fr-host">
+            <span class="loop-volta-seta">&#8630;</span>
+            <span class="loop-volta-txt">
+              <span class="fr"><strong>E&nbsp;aqui o&nbsp;ciclo fecha:</strong> o&nbsp;que&nbsp;a&nbsp;medição mostrar no&nbsp;passo 5 é o&nbsp;que&nbsp;precisa virar registro no&nbsp;passo 1.</span> <span class="fr">Quando&nbsp;essa volta não&nbsp;existe, a&nbsp;área
+              recomeça do&nbsp;zero a&nbsp;cada projeto, e&nbsp;é isso que&nbsp;faz uma&nbsp;instituição esquecer
+              todo dia o&nbsp;que&nbsp;aprendeu na&nbsp;véspera.</span>
+            </span>
+          </div>
+        </div>
+
+        <p class="fig-leg fr-host">
+          <span class="fr">O&nbsp;mesmo ciclo da&nbsp;abertura.</span> <span class="fr">Em&nbsp;cada uma&nbsp;das&nbsp;sete atividades abaixo, o&nbsp;que&nbsp;falta
+          é uma&nbsp;destas cinco etapas, e&nbsp;o&nbsp;rótulo de&nbsp;cada uma&nbsp;diz qual.</span>
         </p>
 
         <div class="exemplos">
@@ -2186,7 +2253,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">15 de&nbsp;22</span>
+              <span class="ex-area">pilar 1</span>
               <span class="ex-t">Organizar e&nbsp;resumir grandes volumes de&nbsp;informação</span>
             </summary>
             <div class="ex-corpo">
@@ -2205,7 +2272,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">14 de&nbsp;22</span>
+              <span class="ex-area">pilar 2</span>
               <span class="ex-t">Interpretar documentos, contratos e&nbsp;legislações</span>
             </summary>
             <div class="ex-corpo">
@@ -2230,7 +2297,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">13 de&nbsp;22</span>
+              <span class="ex-area">pilar 5</span>
               <span class="ex-t">Apoiar decisões com&nbsp;mais agilidade e&nbsp;embasamento</span>
             </summary>
             <div class="ex-corpo">
@@ -2250,12 +2317,13 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">11 de&nbsp;22</span>
+              <span class="ex-area">pilares 1 e&nbsp;3</span>
               <span class="ex-t">Montar relatórios e&nbsp;apresentações para&nbsp;gestores</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l fr-host"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                <span class="fr">Uma&nbsp;das&nbsp;respostas do&nbsp;diagnóstico descreve isso inteiro: puxar sempre os&nbsp;mesmos filtros para&nbsp;montar o&nbsp;mesmo relatório.</span> <span class="fr">Todo mês, do&nbsp;começo.</span></div></div>
+                <span class="fr">Puxar sempre os&nbsp;mesmos filtros para&nbsp;montar o&nbsp;mesmo relatório.</span> <span class="fr">Todo mês,
+                do&nbsp;começo, como se&nbsp;fosse a&nbsp;primeira vez.</span></div></div>
               <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
                 <span class="fr"><strong>Pilar 1 e&nbsp;pilar 3.</strong></span> <span class="fr">O&nbsp;caminho até&nbsp;o&nbsp;relatório existe e&nbsp;funciona, mas&nbsp;mora na&nbsp;cabeça de&nbsp;quem faz.</span> <span class="fr">E&nbsp;ele é pedido de&nbsp;uma&nbsp;vez só,&nbsp;sem&nbsp;etapa de&nbsp;conferência no&nbsp;meio.</span></div></div>
               <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
@@ -2272,7 +2340,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">9 de&nbsp;22</span>
+              <span class="ex-area">pilar 3</span>
               <span class="ex-t">Analisar dados, planilhas e&nbsp;indicadores de&nbsp;resultado</span>
             </summary>
             <div class="ex-corpo">
@@ -2292,7 +2360,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">8 de&nbsp;22</span>
+              <span class="ex-area">pilar 3</span>
               <span class="ex-t">Fazer cálculos e&nbsp;simular cenários</span>
             </summary>
             <div class="ex-corpo">
@@ -2312,7 +2380,7 @@ uma vez no mesmo texto.</span>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">7 de&nbsp;22</span>
+              <span class="ex-area">pilar 1</span>
               <span class="ex-t">Automatizar tarefas repetitivas e&nbsp;rotinas administrativas</span>
             </summary>
             <div class="ex-corpo">

@@ -908,8 +908,12 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 @media (max-width:760px){
   .loop-trilha{flex-direction:column}
   .loop-no{min-width:0}
-  .loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}
-  .loop-seta::before{top:50%;left:0;right:0}
+  /* Girar a seta inteira estica a linha do ::before pela largura do contêiner:
+     rotacionada, ela vira uma barra vertical que atravessa os cartões de cima e
+     de baixo. Gira só o glifo, e a linha vira um traço vertical curto no meio. */
+  .loop-seta{flex:0 0 auto;padding:6px 0;transform:none;height:26px}
+  .loop-seta span{display:inline-block;transform:rotate(90deg)}
+  .loop-seta::before{top:0;bottom:0;left:50%;right:auto;width:1px;height:auto}
 }
 
 /* ---------- CONTRATO: ENTRA COM, ACONTECE, SAI COM ---------- */
