@@ -1210,6 +1210,45 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   display:block;font-family:var(--font-mono);font-size:11px;
   font-style:normal;color:var(--text-dim);margin-top:10px;letter-spacing:.02em;
 }
+
+/* ---------- SELO DE PILAR ---------- */
+/* O caso é a prova de um pilar, e a sala não faz essa ligação sozinha: ela
+   precisa estar escrita ao lado da peça, e não só no texto corrido. */
+.selo-pilar{
+  display:inline-block;margin-left:7px;padding:2px 8px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent-dark);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;
+  font-weight:500;vertical-align:2px;
+}
+.camada-pilar{
+  display:block;margin-top:9px;padding-top:9px;
+  border-top:1px dashed var(--border-strong);
+  font-size:13px;line-height:1.5;color:var(--text-muted);
+}
+.camada-pilar strong{color:var(--accent-dark)}
+
+/* ---------- DESTRAVA: as perguntas menores dentro da pergunta ---------- */
+/* Vários grupos ao mesmo tempo e um instrutor só: a dúvida que não tem resposta
+   na página vira mão levantada. Cada pergunta grande carrega as menores, e o
+   exemplo do que NÃO conta como resposta, que é onde os grupos param. */
+.destrava{
+  margin:12px 0 0;padding:13px 16px;
+  background:var(--bg-warm);border-radius:var(--radius-sm);
+  border-left:3px solid var(--border-strong);
+}
+.destrava-rot{
+  font-family:var(--font-mono);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);
+  margin-bottom:8px;
+}
+.destrava ul{margin:0 0 0 18px;padding:0}
+.destrava li{font-size:14px;line-height:1.55;color:var(--text-muted);margin-bottom:5px}
+.destrava li:last-child{margin-bottom:0}
+.nao-conta{
+  margin-top:11px;padding-top:10px;border-top:1px dashed var(--border-strong);
+  font-size:13.5px;line-height:1.55;color:var(--text-muted);
+}
+.nao-conta strong{color:var(--danger)}
 </style>
 </head>
 <body>
@@ -1235,7 +1274,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a&nbsp;solução em&nbsp;grupo</a></li>
       <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
       <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>O&nbsp;que&nbsp;este caso prova</a></li>
-      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>Refaça isto com&nbsp;o&nbsp;material da&nbsp;sua&nbsp;área</a></li>
+      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>Os&nbsp;dois pedidos que&nbsp;eu uso, prontos para&nbsp;copiar</a></li>
     </ul>
   </nav>
   <main>
@@ -1254,15 +1293,6 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 <section class="block" id="s1">
         <div class="block-num">01 · Passo 1</div>
         <h2>O&nbsp;problema, antes da&nbsp;resposta</h2>
-
-        <div class="callout callout-warn">
-          <div class="callout-title">Leia só até o fim da seção 02</div>
-          <p class="p-curto fr-host">
-            <span class="fr">O&nbsp;que&nbsp;de&nbsp;fato aconteceu está mais abaixo, atrás de&nbsp;um&nbsp;botão fechado.</span>
-            <span class="fr"><strong>Abrir antes do&nbsp;seu&nbsp;grupo apresentar estraga o&nbsp;exercício</strong>, que&nbsp;é
-            justamente desenhar a&nbsp;solução sem&nbsp;saber a&nbsp;resposta.</span>
-          </p>
-        </div>
 
         <p class="block-lead fr-host">
           <span class="fr">Uma&nbsp;pessoa toca doze frentes de&nbsp;trabalho ao&nbsp;mesmo tempo.</span> <span class="fr">E&nbsp;em&nbsp;cada uma&nbsp;delas ela
@@ -1311,6 +1341,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           que&nbsp;outra pessoa consiga executar.</span>
         </p>
 
+        <div class="callout callout-info">
+          <div class="callout-title">Como saber se a resposta de vocês está pronta</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Usem esta régua nas&nbsp;quatro: <strong>uma&nbsp;pessoa que&nbsp;não&nbsp;estava nesta conversa
+            conseguiria executar sozinha, sem&nbsp;perguntar mais nada?</strong></span> <span class="fr">Se&nbsp;para&nbsp;responder ela precisaria ligar para&nbsp;alguém, a&nbsp;resposta ainda está genérica.</span>
+          </p>
+          <p class="p-curto fr-host">
+            <span class="fr">Cada pergunta abaixo traz <strong>três perguntas menores</strong> para&nbsp;destravar, e&nbsp;um&nbsp;exemplo do&nbsp;que&nbsp;<strong>não</strong>&nbsp;conta como resposta.</span> <span class="fr">No&nbsp;fim
+            do&nbsp;bloco tem uma&nbsp;rotina inteira respondida, para&nbsp;vocês verem o&nbsp;nível de&nbsp;detalhe
+            que&nbsp;se&nbsp;espera.</span>
+          </p>
+        </div>
+
         <div class="passo">
           <div class="passo-n">1</div>
           <div class="passo-body">
@@ -1319,6 +1362,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">Um&nbsp;lugar por&nbsp;frente, um&nbsp;lugar só&nbsp;para&nbsp;tudo, ou&nbsp;os&nbsp;dois?</span> <span class="fr">E&nbsp;se&nbsp;forem os&nbsp;dois,
               o&nbsp;que&nbsp;fica em&nbsp;cada um?</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto">Se&nbsp;você entrasse hoje na&nbsp;área de&nbsp;outra pessoa, onde&nbsp;procuraria primeiro?</li>
+                <li class="p-curto">O&nbsp;que&nbsp;hoje só&nbsp;existe no&nbsp;aplicativo de&nbsp;mensagens ou&nbsp;no&nbsp;e-mail e&nbsp;deveria estar em&nbsp;outro lugar?</li>
+                <li class="p-curto">Quando&nbsp;duas áreas precisam da&nbsp;mesma informação, ela fica em&nbsp;qual das&nbsp;duas?</li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "numa&nbsp;pasta compartilhada".</span> <span class="fr">Qual
+                pasta, com&nbsp;que&nbsp;nome, e&nbsp;quem mais consegue abrir.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1330,6 +1385,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">Listem os&nbsp;campos.</span> <span class="fr">Não&nbsp;"as&nbsp;informações do&nbsp;projeto", e&nbsp;sim os&nbsp;itens concretos
               que&nbsp;precisam estar lá para&nbsp;alguém retomar em&nbsp;cinco minutos.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Escrevam cinco linhas sobre&nbsp;um&nbsp;trabalho que&nbsp;está no&nbsp;meio agora.</span> <span class="fr">O&nbsp;que&nbsp;vocês escreveriam?</span></li>
+                <li class="p-curto">Qual informação, se&nbsp;faltasse, faria a&nbsp;próxima pessoa ligar para&nbsp;vocês?</li>
+                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;muda toda semana, e&nbsp;o&nbsp;que&nbsp;quase nunca muda?</span> <span class="fr">São dois arquivos diferentes.</span></li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "as&nbsp;informações do&nbsp;projeto".</span>
+                <span class="fr">Escrevam os&nbsp;campos, um&nbsp;por&nbsp;linha, do&nbsp;jeito que&nbsp;apareceriam na&nbsp;tela.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1341,6 +1408,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">Este é o&nbsp;passo em&nbsp;que&nbsp;a&nbsp;maioria das&nbsp;soluções morre.</span> <span class="fr">Se&nbsp;a&nbsp;resposta for "todo
               mundo, sempre que&nbsp;puder", o&nbsp;sistema não&nbsp;vai ser mantido.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Em&nbsp;que&nbsp;momento do&nbsp;trabalho essa pessoa já&nbsp;está com&nbsp;o&nbsp;assunto na&nbsp;cabeça?</span> <span class="fr">É aí que&nbsp;ela escreve.</span></li>
+                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;ela deixa de&nbsp;fazer para&nbsp;fazer isso?</span> <span class="fr">Se&nbsp;a&nbsp;resposta for "nada", ninguém vai fazer.</span></li>
+                <li class="p-curto fr-host"><span class="fr">Quanto tempo leva?</span> <span class="fr">Se&nbsp;passar de&nbsp;cinco minutos, cortem o&nbsp;que&nbsp;se&nbsp;escreve até&nbsp;caber.</span></li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "todo mundo, sempre que&nbsp;puder".</span>
+                <span class="fr">Um&nbsp;cargo, um&nbsp;momento do&nbsp;processo e&nbsp;uma&nbsp;duração.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1352,6 +1431,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">A&nbsp;pessoa copia e&nbsp;cola?</span> <span class="fr">Alguém mantém um&nbsp;resumo?</span> <span class="fr">A&nbsp;ferramenta lê sozinha?</span>
               <span class="fr">Digam qual e&nbsp;por&nbsp;quê.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Quem faz o&nbsp;pedido tem esse material aberto na&nbsp;hora?</span> <span class="fr">Em&nbsp;que&nbsp;tela?</span></li>
+                <li class="p-curto fr-host"><span class="fr">Copia e&nbsp;cola, anexa o&nbsp;arquivo, ou&nbsp;a&nbsp;ferramenta busca sozinha?</span> <span class="fr">Escolham uma.</span></li>
+                <li class="p-curto">Se&nbsp;a&nbsp;pessoa esquecer de&nbsp;levar o&nbsp;material, o&nbsp;que&nbsp;acontece com&nbsp;a&nbsp;resposta?</li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;inteligência artificial vai
+                saber".</span> <span class="fr">Ela só&nbsp;sabe o&nbsp;que&nbsp;entra junto com&nbsp;o&nbsp;pedido.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1388,12 +1479,6 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           estar exatamente nessa linha.</span>
         </p>
 
-        <div class="callout callout-info">
-          <div class="callout-title">Apresentem em voz alta</div>
-          <p class="p-curto fr-host">
-            <span class="fr">Um&nbsp;grupo por&nbsp;vez, dois minutos cada.</span> <span class="fr">Escutem os&nbsp;outros antes de&nbsp;abrir a&nbsp;resposta: a&nbsp;maioria das&nbsp;soluções vai acertar duas das&nbsp;quatro perguntas, e&nbsp;as&nbsp;duas que&nbsp;ficam de&nbsp;fora costumam ser as&nbsp;mesmas em&nbsp;todos os&nbsp;grupos.</span>
-          </p>
-        </div>
       </section>
 
       <section class="block" id="s3">
@@ -1429,6 +1514,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                     na&nbsp;outra.</span> <span class="fr">Não&nbsp;tem trabalho próprio.</span>
                   </div>
                   <div class="camada-ex">aqui seria: a&nbsp;visão da&nbsp;instituição inteira, acima das&nbsp;áreas</div>
+                  <span class="camada-pilar">é o&nbsp;<strong>pilar 4</strong>: o&nbsp;que&nbsp;se&nbsp;aprende numa&nbsp;frente vira regra para&nbsp;as&nbsp;outras</span>
                 </div>
               </div>
               <div class="camada">
@@ -1439,6 +1525,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                     O&nbsp;contexto daquela frente: como ela funciona, quem decide o&nbsp;quê, e&nbsp;onde&nbsp;ela parou.
                   </div>
                   <div class="camada-ex">aqui seria: a&nbsp;área, como educacional, marketing ou&nbsp;back office</div>
+                  <span class="camada-pilar">é o&nbsp;<strong>pilar 2</strong>: o&nbsp;contexto daquela área, escrito uma&nbsp;vez</span>
                 </div>
               </div>
               <div class="camada">
@@ -1449,6 +1536,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                     O&nbsp;mesmo padrão, agora para&nbsp;um&nbsp;projeto específico dentro da&nbsp;frente.
                   </div>
                   <div class="camada-ex">aqui seria: uma&nbsp;turma, um&nbsp;evento, um&nbsp;curso</div>
+                  <span class="camada-pilar">é o&nbsp;<strong>pilar 2</strong> de&nbsp;novo, agora no&nbsp;tamanho de&nbsp;um&nbsp;projeto</span>
                 </div>
               </div>
             </div>
@@ -1457,21 +1545,43 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">A&nbsp;camada de&nbsp;cima é a&nbsp;única que&nbsp;enxerga todas as&nbsp;outras.</span> <span class="fr">É ela que&nbsp;faz o&nbsp;que&nbsp;se&nbsp;aprende numa&nbsp;frente chegar na&nbsp;frente do&nbsp;lado.</span>
             </p>
 
+            <div class="callout callout-info">
+              <div class="callout-title">Traduzindo as três camadas para os pilares</div>
+              <p class="p-curto fr-host">
+                <span class="fr"><strong>As&nbsp;camadas 2 e&nbsp;3 são o&nbsp;pilar 2.</strong></span> <span class="fr">Cada área e&nbsp;cada projeto
+                guarda o&nbsp;próprio contexto escrito uma&nbsp;vez, em&nbsp;vez de&nbsp;a&nbsp;pessoa explicar tudo
+                de&nbsp;novo a&nbsp;cada pedido.</span>
+              </p>
+              <p class="p-curto fr-host">
+                <span class="fr"><strong>A&nbsp;camada 1 é o&nbsp;pilar 4.</strong></span> <span class="fr">Ela existe só&nbsp;para&nbsp;o&nbsp;que&nbsp;uma&nbsp;frente
+                aprendeu não&nbsp;morrer ali dentro.</span> <span class="fr">Sem&nbsp;ela, cada área erra sozinha e&nbsp;conserta
+                sozinha, e&nbsp;a&nbsp;instituição aprende a&nbsp;mesma coisa cinco vezes.</span>
+              </p>
+              <p class="p-curto fr-host">
+                <span class="fr">Se&nbsp;você tem uma&nbsp;área só,&nbsp;precisa das&nbsp;camadas 2 e&nbsp;3.</span> <span class="fr"><strong>A&nbsp;camada 1 só&nbsp;faz sentido quando&nbsp;existem várias áreas que&nbsp;poderiam aprender uma&nbsp;com&nbsp;a&nbsp;outra.</strong></span>
+              </p>
+            </div>
+
             <h4>Os&nbsp;quatro arquivos que&nbsp;se&nbsp;repetem em&nbsp;cada nível</h4>
             <ul>
-              <li class="p-curto fr-host">
-                <span class="fr"><strong>O&nbsp;contexto:</strong> como as&nbsp;coisas funcionam aqui, o&nbsp;que&nbsp;nunca se&nbsp;faz, quem responde pelo&nbsp;quê.</span> <span class="fr">É o&nbsp;que&nbsp;a&nbsp;IA lê antes de&nbsp;qualquer pedido.</span>
+              <li class="p-curto">
+                <strong>O&nbsp;contexto</strong> <span class="selo-pilar">pilar 2</span><br>
+                Como as&nbsp;coisas funcionam aqui, o&nbsp;que&nbsp;nunca se&nbsp;faz, quem responde pelo&nbsp;quê.
+                É o&nbsp;que&nbsp;a&nbsp;inteligência artificial lê antes de&nbsp;qualquer pedido.
               </li>
-              <li class="p-curto fr-host">
-                <span class="fr"><strong>Onde&nbsp;paramos:</strong> o&nbsp;estado atual em&nbsp;uma&nbsp;frase, e&nbsp;o&nbsp;próximo
-                passo concreto.</span> <span class="fr">É o&nbsp;que&nbsp;a&nbsp;pessoa lê ao&nbsp;voltar.</span>
+              <li class="p-curto">
+                <strong>Onde&nbsp;paramos</strong> <span class="selo-pilar">pilar 1</span><br>
+                O&nbsp;estado atual em&nbsp;uma&nbsp;frase, e&nbsp;o&nbsp;próximo passo concreto. É o&nbsp;que&nbsp;a&nbsp;pessoa
+                lê ao&nbsp;voltar, e&nbsp;é ele que&nbsp;devolve a&nbsp;primeira hora do&nbsp;dia.
               </li>
-              <li class="p-curto fr-host">
-                <span class="fr"><strong>O&nbsp;histórico de&nbsp;decisões:</strong> o&nbsp;que&nbsp;foi decidido, quando,&nbsp;e&nbsp;por&nbsp;quê.</span> <span class="fr">Nunca se&nbsp;reescreve, só&nbsp;se&nbsp;acrescenta.</span> <span class="fr">É o&nbsp;que&nbsp;impede decidir de&nbsp;novo
-                do&nbsp;jeito contrário.</span>
+              <li class="p-curto">
+                <strong>O&nbsp;histórico de&nbsp;decisões</strong> <span class="selo-pilar">pilar 4</span><br>
+                O&nbsp;que&nbsp;foi decidido, quando,&nbsp;e&nbsp;por&nbsp;quê. Nunca se&nbsp;reescreve, só&nbsp;se&nbsp;acrescenta. É o&nbsp;que&nbsp;impede decidir de&nbsp;novo do&nbsp;jeito contrário.
               </li>
-              <li class="p-curto fr-host">
-                <span class="fr"><strong>As&nbsp;pendências:</strong> o&nbsp;que&nbsp;está esperando decisão.</span> <span class="fr">Com&nbsp;o&nbsp;nome de&nbsp;quem decide.</span>
+              <li class="p-curto">
+                <strong>As&nbsp;pendências</strong> <span class="selo-pilar">pilar 5</span><br>
+                O&nbsp;que&nbsp;está esperando decisão, com&nbsp;o&nbsp;nome de&nbsp;quem decide. Sem&nbsp;esta lista,
+                a&nbsp;decisão fica esperando sem&nbsp;ninguém saber que&nbsp;está esperando.
               </li>
             </ul>
 
@@ -1513,7 +1623,6 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                 versões divergem com&nbsp;o&nbsp;tempo, e&nbsp;nenhuma delas é confiável.</span>
               </p>
             </div>
-
 
             <div class="callout callout-info">
               <div class="callout-title">A regra que segura tudo</div>
@@ -1593,6 +1702,12 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">Este é o&nbsp;ponto que&nbsp;mais gera resistência quando&nbsp;alguém propõe organizar uma&nbsp;área, então vale ver desenhado.</span> <span class="fr">A&nbsp;quantidade de&nbsp;coisa exigida não&nbsp;é a&nbsp;mesma
               do&nbsp;começo ao&nbsp;fim.</span>
             </p>
+            <p class="p-curto fr-host">
+              <span class="fr">Antes do&nbsp;desenho, uma&nbsp;palavra: <strong>item aqui é uma&nbsp;coisa que&nbsp;precisa
+              existir escrita</strong>.</span> <span class="fr">O&nbsp;arquivo que&nbsp;diz como aquela frente funciona.</span> <span class="fr">A&nbsp;linha que&nbsp;diz onde&nbsp;ela parou.</span> <span class="fr">O&nbsp;critério que&nbsp;define o&nbsp;que&nbsp;conta como pronto.</span>
+              <span class="fr">Cada barra abaixo é <strong>quantas dessas coisas a&nbsp;fase pede</strong>.</span> <span class="fr">Repare
+              que&nbsp;a&nbsp;barra sobe: não&nbsp;é rigor aumentando, é trabalho aumentando.</span>
+            </p>
 
             <div class="fig-desenho">
               <svg font-family="var(--font-body)" viewBox="0 0 1160 560" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -1647,6 +1762,23 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">A&nbsp;pergunta que&nbsp;o&nbsp;conferidor faz não&nbsp;é <em>tem tudo?</em>.</span> <span class="fr">É <em>tem o&nbsp;que&nbsp;esta fase exige?</em>.</span> <span class="fr">Um&nbsp;trabalho que&nbsp;chegou semana passada com&nbsp;três itens
               em&nbsp;ordem está tão em&nbsp;dia quanto um&nbsp;em&nbsp;execução com&nbsp;quatorze.</span>
             </p>
+
+            <div class="callout callout-info">
+              <div class="callout-title">A mesma ideia, num exemplo daqui</div>
+              <p class="p-curto fr-host">
+                <span class="fr">Pensem num&nbsp;curso novo.</span> <span class="fr"><strong>Enquanto&nbsp;ele é só&nbsp;uma&nbsp;ideia</strong>, três
+                coisas escritas bastam: onde&nbsp;o&nbsp;material dele vai morar, o&nbsp;que&nbsp;ele é em&nbsp;uma&nbsp;frase, e&nbsp;quem decide sobre&nbsp;ele.</span>
+              </p>
+              <p class="p-curto">
+                <strong>O&nbsp;mesmo curso com&nbsp;turma rodando</strong> precisa de&nbsp;bem mais: o&nbsp;calendário, quem está matriculado, o&nbsp;que&nbsp;já&nbsp;foi entregue, o&nbsp;que&nbsp;falta, onde&nbsp;as&nbsp;dúvidas ficam registradas, o&nbsp;que&nbsp;foi decidido no&nbsp;meio do&nbsp;caminho, e&nbsp;assim
+                por&nbsp;diante.
+              </p>
+              <p class="p-curto fr-host">
+                <span class="fr"><strong>Ninguém pede as&nbsp;quatorze coisas no&nbsp;primeiro dia.</strong></span> <span class="fr">É por&nbsp;isso
+                que&nbsp;a&nbsp;régua acompanha a&nbsp;fase: cobrar tudo desde&nbsp;o&nbsp;começo é o&nbsp;jeito mais
+                rápido de&nbsp;a&nbsp;pessoa preencher por&nbsp;obrigação e&nbsp;o&nbsp;registro perder o&nbsp;valor.</span>
+              </p>
+            </div>
 
             <div class="callout callout-warn">
               <div class="callout-title">Por que a régua única estraga</div>
@@ -1950,18 +2082,29 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <section class="block" id="s5">
         <div class="block-num">05 · Para&nbsp;levar</div>
-        <h2>Refaça isto com&nbsp;o&nbsp;material da&nbsp;sua&nbsp;área</h2>
+        <h2>Os&nbsp;dois pedidos que&nbsp;eu uso, prontos para&nbsp;copiar</h2>
 
         <p class="block-lead fr-host">
-          <span class="fr">O&nbsp;caso mostrou o&nbsp;que&nbsp;aconteceu com&nbsp;doze frentes.</span> <span class="fr">Aqui está o&nbsp;mesmo trabalho em&nbsp;tamanho de&nbsp;exercício, com&nbsp;um&nbsp;material pronto para&nbsp;você testar antes de&nbsp;usar o&nbsp;seu,&nbsp;que&nbsp;é real e&nbsp;tem informação que&nbsp;não&nbsp;deve sair daqui.</span>
+          <span class="fr">Isto não&nbsp;é para&nbsp;fazer agora.</span> <span class="fr">É para&nbsp;levar.</span> <span class="fr">São os&nbsp;dois pedidos que&nbsp;eu uso de&nbsp;verdade nas&nbsp;doze frentes: <strong>um&nbsp;para&nbsp;organizar o&nbsp;que&nbsp;já&nbsp;está solto</strong>,
+          e&nbsp;<strong>outro para&nbsp;começar uma&nbsp;frente nova sem&nbsp;esquecer nada</strong>.</span> <span class="fr">Os&nbsp;dois
+          produzem exatamente os&nbsp;quatro blocos que&nbsp;você viu no&nbsp;passo 2.</span>
         </p>
+
+        <div class="callout callout-warn">
+          <div class="callout-title">Antes de usar com material de verdade</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Tire o&nbsp;nome das&nbsp;pessoas, o&nbsp;número de&nbsp;contrato e&nbsp;o&nbsp;que&nbsp;foi dito em&nbsp;confiança.</span>
+            <span class="fr"><strong>Faça isso antes de&nbsp;colar, e&nbsp;não&nbsp;depois.</strong></span> <span class="fr">Se&nbsp;quiser experimentar
+            sem&nbsp;esse cuidado, use o&nbsp;material de&nbsp;teste abaixo, que&nbsp;é fictício.</span>
+          </p>
+        </div>
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">01</div>
+            <div class="step-num">–</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 1</div>
-              <div class="step-title">Baixe o&nbsp;material de&nbsp;teste</div>
+              <div class="step-eyebrow">Material de&nbsp;apoio</div>
+              <div class="step-title">Um&nbsp;arquivo fictício, se&nbsp;você quiser testar antes</div>
             </div>
           </div>
           <div class="step-body">
@@ -1984,10 +2127,10 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">02</div>
+            <div class="step-num">01</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 2</div>
-              <div class="step-title">Copie o&nbsp;pedido e&nbsp;cole junto com&nbsp;o&nbsp;arquivo</div>
+              <div class="step-eyebrow">Pedido 1</div>
+              <div class="step-title">Organizar o&nbsp;que&nbsp;já&nbsp;está solto</div>
             </div>
           </div>
           <div class="step-body">
@@ -2052,29 +2195,59 @@ Espere o meu OK e só depois gere os quatro blocos.</div>
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">03</div>
+            <div class="step-num">02</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 3</div>
-              <div class="step-title">Confira antes de&nbsp;aceitar</div>
+              <div class="step-eyebrow">Pedido 2</div>
+              <div class="step-title">Começar uma&nbsp;frente nova sem&nbsp;esquecer nada</div>
             </div>
           </div>
           <div class="step-body">
-            <div class="info-grid">
-              <div class="info-card">
-                <div class="info-card-label">O&nbsp;que&nbsp;confere</div>
-                <p class="p-curto fr-host"><span class="fr">Cada regra achada tem o&nbsp;trecho que&nbsp;a&nbsp;sustenta.</span> <span class="fr">Se&nbsp;não&nbsp;tem, foi inventada.</span></p>
+            <p class="p-curto fr-host">
+              <span class="fr">Este é o&nbsp;que&nbsp;eu uso quando&nbsp;aparece uma&nbsp;frente nova.</span> <span class="fr">Ele não&nbsp;executa nada:
+              ele me obriga a&nbsp;deixar escrito o&nbsp;mínimo para&nbsp;outra pessoa assumir sem&nbsp;me
+              perguntar.</span> <span class="fr"><strong>Repare em&nbsp;três coisas que&nbsp;ele faz e&nbsp;um&nbsp;pedido comum não&nbsp;faz:</strong> limita as&nbsp;perguntas a&nbsp;três, proíbe inventar dado que&nbsp;eu não&nbsp;dei, e&nbsp;mostra o&nbsp;esqueleto antes de&nbsp;escrever por&nbsp;extenso.</span>
+            </p>
+            <div class="prompt-box">
+              <div class="prompt-toolbar">
+                <span>o&nbsp;segundo pedido, pronto para&nbsp;colar</span>
+                <div class="prompt-acoes">
+                  <a class="prompt-btn" href="caso-1-frente-nova.md" download>Baixar</a>
+                  <button class="prompt-btn principal" data-copia="prompt-caso-1-frente-nova">Copiar</button>
+                </div>
               </div>
-              <div class="info-card">
-                <div class="info-card-label">O&nbsp;que&nbsp;denuncia problema</div>
-                <p class="p-curto fr-host"><span class="fr">Tudo virou "camada da&nbsp;organização".</span> <span class="fr">Se&nbsp;nada ficou na&nbsp;camada do&nbsp;projeto, a&nbsp;separação não&nbsp;foi feita.</span></p>
-              </div>
-              <div class="info-card">
-                <div class="info-card-label">Quando&nbsp;usar no&nbsp;seu&nbsp;material</div>
-                <p class="p-curto">Só&nbsp;depois de&nbsp;tirar nome de&nbsp;pessoa, número de&nbsp;contrato e&nbsp;o&nbsp;que&nbsp;foi dito em&nbsp;confiança.</p>
-              </div>
+              <div class="prompt-conteudo" id="prompt-caso-1-frente-nova"># PAPEL
+Você vai me ajudar a montar o registro de uma frente de trabalho nova, do
+zero. O seu trabalho não é executar a frente. É deixar escrito o mínimo
+que outra pessoa precisaria para assumir essa frente sem me perguntar nada.
+
+# O QUE VOCÊ VAI RECEBER
+Eu vou te contar, em texto solto, o que é essa frente nova: o que ela faz,
+quem está envolvido, o que já foi combinado e o que ainda não foi.
+
+# ANTES DE ESCREVER QUALQUER COISA
+Me faça no máximo três perguntas, e só as que você não consegue responder
+com o que eu te contei. Espere as respostas.
+
+# O QUE VOCÊ PRODUZ, NESTA ORDEM
+1. O contexto: como esta frente funciona, o que nunca se faz nela, e quem
+   responde por cada coisa.
+2. Onde paramos: o estado atual em uma frase, e o próximo passo concreto.
+3. As decisões já tomadas: o que foi decidido, quando, e por quê.
+4. As pendências: o que está esperando decisão, com o nome de quem decide.
+
+# REGRAS
+Não invente nome, data, prazo ou número. Se eu não te disse, escreva
+"a definir" e me avise no fim tudo o que ficou faltando.
+Não escreva mais do que cabe numa tela por bloco. Se passar disso, você
+está escrevendo o que eu já sei em vez do que a próxima pessoa precisa.
+
+# ANTES DE ENTREGAR
+Me mostre só os títulos dos quatro blocos e uma frase de cada.
+Espere o meu OK e só depois escreva por extenso.</div>
             </div>
           </div>
         </div>
+
       </section>
       <div class="nav-bottom">
         <a class="nav-link prev" href="../ai-first/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">O&nbsp;que&nbsp;muda com&nbsp;AI First</span></a>

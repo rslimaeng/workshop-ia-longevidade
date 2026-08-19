@@ -192,6 +192,11 @@ DIRECAO_DE_CENA = [
     r"espere o silêncio", r"aguarde o silêncio", r"plano b",
     r"o que apontar", r"roteiro de palco", r"dê um tempo",
     r"circule pela sala", r"anote no quadro", r"projete a tela",
+    # Condução de dinâmica também é fala do instrutor: quanto tempo cada grupo
+    # tem, em que ordem apresentam, e até onde a pessoa pode ler. Nada disso é
+    # do participante, e a página é dele.
+    r"um grupo por vez", r"minutos cada", r"minutos por grupo",
+    r"apresentem em voz alta", r"lei[ea]m? só até", r"escutem os outros",
 ]
 
 
@@ -1265,6 +1270,48 @@ def g36_seta_do_ciclo_nao_estica(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G37
+# Vários grupos ao mesmo tempo e um instrutor só: dúvida sem resposta na página
+# vira mão levantada. Toda pergunta do bloco de grupo carrega as perguntas
+# menores que destravam quem não sabe começar, e o exemplo do que NÃO conta.
+def g37_pergunta_de_grupo_tem_destrave(rel, html):
+    """Cada pergunta do bloco em grupo tem o seu destrave completo."""
+    # só o bloco de desenho em grupo: os outros exercícios da obra também usam
+    # .passo, com passos de execução, e ali o destrave não faz sentido
+    m = re.search(r'<section[^>]*>(?:(?!</section>).)*?O(?:&nbsp;|\s)que(?:&nbsp;|\s)'
+                  r'o(?:&nbsp;|\s)seu(?:&nbsp;|\s)grupo entrega'
+                  r'((?:(?!</section>).)*)</section>', html, re.S)
+    if not m:
+        return []
+    html = m.group(1)
+    if not re.search(CL("passo"), html):
+        return ["o bloco de desenho em grupo perdeu as perguntas"]
+    falhas = []
+    # o split já separa um bloco do outro; o último carrega o resto da página,
+    # então corta na primeira quebra de seção antes de procurar o destrave
+    blocos = [b.split("</section>")[0]
+              for b in re.split("<div " + CL("passo") + ">", html)[1:]]
+    with_d = 0
+    for i, b in enumerate(blocos, start=1):
+        titulo = re.search(r"<h3[^>]*>(.*?)</h3>", b, re.S)
+        t = re.sub(r"<[^>]+>", "", titulo.group(1)).strip()[:44] if titulo else "?"
+        d = re.search(CL("destrava") + r">(.*)", b, re.S)
+        if not d:
+            falhas.append("a pergunta {!r} não traz as perguntas menores que destravam".format(t))
+            continue
+        with_d += 1
+        n = len(re.findall(r"<li\b", d.group(1)))
+        if n < 3:
+            falhas.append("a pergunta {!r} traz {} pergunta(s) de destrave, e o padrão é 3"
+                          .format(t, n))
+        if not re.search(CL("nao-conta"), d.group(1)):
+            falhas.append("a pergunta {!r} não diz o que NÃO conta como resposta".format(t))
+    if with_d and with_d != len(blocos):
+        falhas.append("{} de {} perguntas têm destrave: ou todas têm, ou o padrão quebrou"
+                      .format(with_d, len(blocos)))
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -1406,6 +1453,9 @@ GATES = [
      lambda h: h.replace(".loop-seta{flex:0 0 auto;padding:6px 0;transform:none;height:26px}",
                          ".loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}", 1),
      "index.html"),
+    ("G37", "pergunta de grupo tem destrave", g37_pergunta_de_grupo_tem_destrave,
+     lambda h: re.sub(r'<div class="destrava">.*?</div>\s*</div>', '', h, count=1, flags=re.S),
+     "caso-1/index.html"),
 ]
 
 

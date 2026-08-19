@@ -1210,6 +1210,45 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   display:block;font-family:var(--font-mono);font-size:11px;
   font-style:normal;color:var(--text-dim);margin-top:10px;letter-spacing:.02em;
 }
+
+/* ---------- SELO DE PILAR ---------- */
+/* O caso é a prova de um pilar, e a sala não faz essa ligação sozinha: ela
+   precisa estar escrita ao lado da peça, e não só no texto corrido. */
+.selo-pilar{
+  display:inline-block;margin-left:7px;padding:2px 8px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent-dark);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.04em;
+  font-weight:500;vertical-align:2px;
+}
+.camada-pilar{
+  display:block;margin-top:9px;padding-top:9px;
+  border-top:1px dashed var(--border-strong);
+  font-size:13px;line-height:1.5;color:var(--text-muted);
+}
+.camada-pilar strong{color:var(--accent-dark)}
+
+/* ---------- DESTRAVA: as perguntas menores dentro da pergunta ---------- */
+/* Vários grupos ao mesmo tempo e um instrutor só: a dúvida que não tem resposta
+   na página vira mão levantada. Cada pergunta grande carrega as menores, e o
+   exemplo do que NÃO conta como resposta, que é onde os grupos param. */
+.destrava{
+  margin:12px 0 0;padding:13px 16px;
+  background:var(--bg-warm);border-radius:var(--radius-sm);
+  border-left:3px solid var(--border-strong);
+}
+.destrava-rot{
+  font-family:var(--font-mono);font-size:10.5px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);
+  margin-bottom:8px;
+}
+.destrava ul{margin:0 0 0 18px;padding:0}
+.destrava li{font-size:14px;line-height:1.55;color:var(--text-muted);margin-bottom:5px}
+.destrava li:last-child{margin-bottom:0}
+.nao-conta{
+  margin-top:11px;padding-top:10px;border-top:1px dashed var(--border-strong);
+  font-size:13.5px;line-height:1.55;color:var(--text-muted);
+}
+.nao-conta strong{color:var(--danger)}
 </style>
 </head>
 <body>
@@ -1236,7 +1275,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
       <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>Onde&nbsp;eu confiro</a></li>
       <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;este caso prova</a></li>
-      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">06</span>Refaça isto com&nbsp;uma&nbsp;conversa da&nbsp;sua&nbsp;área</a></li>
+      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">06</span>O&nbsp;pedido em&nbsp;fases, pronto para&nbsp;copiar</a></li>
     </ul>
   </nav>
   <main>
@@ -1255,15 +1294,6 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 <section class="block" id="s1">
         <div class="block-num">01 · Passo 1</div>
         <h2>O&nbsp;problema, antes da&nbsp;resposta</h2>
-
-        <div class="callout callout-warn">
-          <div class="callout-title">Leia só até o fim da seção 02</div>
-          <p class="p-curto fr-host">
-            <span class="fr">O&nbsp;que&nbsp;de&nbsp;fato aconteceu está atrás de&nbsp;um&nbsp;botão fechado, mais abaixo.</span>
-            <span class="fr"><strong>A&nbsp;graça deste caso é que&nbsp;a&nbsp;primeira tentativa que&nbsp;falhou é, quase
-            sempre, a&nbsp;que&nbsp;a&nbsp;sala propõe.</strong></span> <span class="fr">Abrir antes tira isso.</span>
-          </p>
-        </div>
 
         <p class="block-lead fr-host">
           <span class="fr">Seis entrevistas de&nbsp;uma&nbsp;hora.</span> <span class="fr">Cerca de&nbsp;trezentas páginas de&nbsp;transcrição.</span> <span class="fr">Três
@@ -1333,6 +1363,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <span class="fr">Desenhem o&nbsp;caminho do&nbsp;texto bruto até&nbsp;o&nbsp;documento final.</span> <span class="fr">Em&nbsp;etapas, com&nbsp;o&nbsp;que&nbsp;entra e&nbsp;o&nbsp;que&nbsp;sai de&nbsp;cada uma.</span>
         </p>
 
+        <div class="callout callout-info">
+          <div class="callout-title">Como saber se a resposta de vocês está pronta</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Usem esta régua nas&nbsp;quatro: <strong>uma&nbsp;pessoa que&nbsp;não&nbsp;estava nesta conversa
+            conseguiria executar sozinha, sem&nbsp;perguntar mais nada?</strong></span> <span class="fr">Se&nbsp;para&nbsp;responder ela precisaria ligar para&nbsp;alguém, a&nbsp;resposta ainda está genérica.</span>
+          </p>
+          <p class="p-curto fr-host">
+            <span class="fr">Cada pergunta abaixo traz <strong>três perguntas menores</strong> para&nbsp;destravar, e&nbsp;um&nbsp;exemplo do&nbsp;que&nbsp;<strong>não</strong>&nbsp;conta como resposta.</span> <span class="fr">No&nbsp;fim
+            do&nbsp;bloco tem uma&nbsp;rotina inteira respondida, para&nbsp;vocês verem o&nbsp;nível de&nbsp;detalhe
+            que&nbsp;se&nbsp;espera.</span>
+          </p>
+        </div>
+
         <div class="passo">
           <div class="passo-n">1</div>
           <div class="passo-body">
@@ -1340,6 +1383,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <p class="p-curto fr-host">
               <span class="fr">Da&nbsp;transcrição crua ao&nbsp;documento entregue.</span> <span class="fr">Quantas etapas, e&nbsp;o&nbsp;que&nbsp;cada uma&nbsp;produz.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto">Se&nbsp;vocês fizessem isso à&nbsp;mão, sem&nbsp;ferramenta nenhuma, por&nbsp;onde&nbsp;começariam?</li>
+                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;cada etapa entrega para&nbsp;a&nbsp;próxima?</span> <span class="fr">Escrevam o&nbsp;nome do&nbsp;que&nbsp;sai de&nbsp;cada uma.</span></li>
+                <li class="p-curto">Qual é a&nbsp;etapa em&nbsp;que&nbsp;dá para&nbsp;perceber um&nbsp;erro cedo, antes de&nbsp;ele contaminar o&nbsp;resto?</li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;IA analisa e&nbsp;gera o&nbsp;relatório".</span>
+                <span class="fr">Isso é uma&nbsp;etapa só,&nbsp;e&nbsp;é justamente o&nbsp;desenho que&nbsp;falha.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1351,6 +1406,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">Em&nbsp;cada etapa.</span> <span class="fr">Não&nbsp;vale "a&nbsp;IA ajuda": digam o&nbsp;que&nbsp;ela recebe e&nbsp;o&nbsp;que&nbsp;ela
               devolve.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Em&nbsp;cada etapa, o&nbsp;que&nbsp;exatamente a&nbsp;ferramenta recebe na&nbsp;mão?</span> <span class="fr">E&nbsp;o&nbsp;que&nbsp;ela devolve?</span></li>
+                <li class="p-curto fr-host"><span class="fr">Qual etapa vocês não&nbsp;deixariam sair sem&nbsp;uma&nbsp;pessoa olhar?</span> <span class="fr">Por&nbsp;quê?</span></li>
+                <li class="p-curto fr-host"><span class="fr">A&nbsp;pessoa que&nbsp;confere olha tudo ou&nbsp;olha uma&nbsp;amostra?</span> <span class="fr">Quantos casos?</span></li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;IA ajuda a&nbsp;organizar".</span>
+                <span class="fr">Digam o&nbsp;que&nbsp;entra, o&nbsp;que&nbsp;sai, e&nbsp;quem olha antes de&nbsp;seguir.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1361,6 +1428,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <p class="p-curto fr-host">
               <span class="fr">Para&nbsp;qualquer afirmação do&nbsp;documento final.</span> <span class="fr">Este é o&nbsp;requisito que&nbsp;derruba a&nbsp;maior parte dos&nbsp;desenhos.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Peguem uma&nbsp;frase qualquer do&nbsp;documento final.</span> <span class="fr">Como vocês provam de&nbsp;onde&nbsp;ela veio?</span></li>
+                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;acontece com&nbsp;uma&nbsp;afirmação que&nbsp;ninguém consegue provar?</span> <span class="fr">Ela sai ou&nbsp;fica?</span></li>
+                <li class="p-curto fr-host"><span class="fr">Quem pergunta "de&nbsp;onde&nbsp;tiraram isso" costuma ser quem?</span> <span class="fr">Ele aceitaria a&nbsp;resposta de&nbsp;vocês?</span></li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "está na&nbsp;transcrição".</span> <span class="fr">Em&nbsp;qual
+                delas, em&nbsp;que&nbsp;ponto, e&nbsp;como alguém acha isso sem&nbsp;reler tudo.</span>
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1372,17 +1451,55 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr">As&nbsp;transcrições têm coisa dita em&nbsp;confiança.</span> <span class="fr">Em&nbsp;que&nbsp;ponto do&nbsp;caminho isso é
               tratado, e&nbsp;como.</span>
             </p>
+            <div class="destrava">
+              <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
+              <ul>
+                <li class="p-curto fr-host"><span class="fr">Em&nbsp;que&nbsp;etapa o&nbsp;nome sai?</span> <span class="fr">Antes ou&nbsp;depois de&nbsp;a&nbsp;ferramenta ler o&nbsp;texto?</span></li>
+                <li class="p-curto">Se&nbsp;o&nbsp;nome sai, como vocês voltam à&nbsp;pessoa depois, quando&nbsp;precisarem?</li>
+                <li class="p-curto fr-host"><span class="fr">Quem, na&nbsp;instituição, pode ver a&nbsp;versão com&nbsp;nome?</span> <span class="fr">Uma&nbsp;pessoa, ou&nbsp;a&nbsp;área toda?</span></li>
+              </ul>
+              <p class="nao-conta p-curto fr-host">
+                <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;gente toma cuidado".</span>
+                <span class="fr">Digam a&nbsp;etapa, o&nbsp;que&nbsp;substitui o&nbsp;nome, e&nbsp;quem guarda a&nbsp;ligação entre&nbsp;os&nbsp;dois.</span>
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="callout callout-info">
-          <div class="callout-title">Apresentem em voz alta</div>
-          <p class="p-curto fr-host">
-            <span class="fr">Dois minutos por&nbsp;grupo.</span> <span class="fr">Prestem atenção em&nbsp;quantos grupos desenham
-            <strong>uma&nbsp;etapa só</strong>.</span> <span class="fr">Isso não&nbsp;é erro de&nbsp;grupo nenhum: é a&nbsp;solução mais
-            natural que&nbsp;existe, e&nbsp;é exatamente por&nbsp;onde&nbsp;eu comecei.</span>
-          </p>
+        <h3>O&nbsp;nível de&nbsp;detalhe que&nbsp;conta como resposta</h3>
+        <p class="p-curto fr-host">
+          <span class="fr">O&nbsp;exemplo abaixo é de&nbsp;<strong>outra rotina, de&nbsp;propósito</strong>: transformar
+          vinte formulários de&nbsp;avaliação num&nbsp;relatório.</span> <span class="fr">Ele não&nbsp;serve como resposta deste
+          caso.</span> <span class="fr">Serve para&nbsp;mostrar o&nbsp;quanto uma&nbsp;resposta precisa descer para&nbsp;outra pessoa
+          conseguir executar.</span>
+        </p>
+
+        <div class="quadro">
+          <div class="quadro-topo">Exemplo de&nbsp;outra rotina · vinte formulários viram um&nbsp;relatório</div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">1 · As&nbsp;etapas</div>
+            <div class="quadro-v preenchido"><span class="fr">Quatro.</span> <span class="fr">Juntar as&nbsp;respostas num&nbsp;arquivo só&nbsp;e&nbsp;conferir se&nbsp;o&nbsp;total bate com&nbsp;o&nbsp;número de&nbsp;formulários.</span> <span class="fr">Separar cada resposta em&nbsp;elogio, crítica ou&nbsp;sugestão.</span> <span class="fr">Contar quantas vezes cada tema aparece.</span> <span class="fr">Escrever o&nbsp;relatório com&nbsp;os&nbsp;temas em&nbsp;ordem de&nbsp;frequência.</span></div>
+          </div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">2 · Quem faz o&nbsp;quê</div>
+            <div class="quadro-v preenchido"><span class="fr">Na&nbsp;etapa 1 a&nbsp;pessoa junta e&nbsp;confere o&nbsp;total.</span> <span class="fr">Nas&nbsp;etapas 2 e&nbsp;3 a&nbsp;ferramenta classifica e&nbsp;conta, e&nbsp;a&nbsp;pessoa confere dez casos sorteados antes de&nbsp;seguir.</span> <span class="fr">Na&nbsp;etapa 4 a&nbsp;ferramenta escreve e&nbsp;a&nbsp;pessoa revisa antes de&nbsp;enviar.</span></div>
+          </div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">3 · De&nbsp;onde&nbsp;tiraram</div>
+            <div class="quadro-v preenchido"><span class="fr">Cada tema do&nbsp;relatório carrega o&nbsp;número dos&nbsp;formulários em&nbsp;que&nbsp;ele apareceu.</span> <span class="fr">Tema que&nbsp;não&nbsp;tem número não&nbsp;entra no&nbsp;relatório.</span></div>
+          </div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">4 · Nome das&nbsp;pessoas</div>
+            <div class="quadro-v preenchido"><span class="fr">Os&nbsp;nomes viram código na&nbsp;etapa 1, antes de&nbsp;qualquer análise.</span> <span class="fr">A&nbsp;tabela que&nbsp;liga código e&nbsp;nome fica com&nbsp;uma&nbsp;pessoa só,&nbsp;e&nbsp;não&nbsp;vai junto com&nbsp;o&nbsp;material.</span></div>
+          </div>
         </div>
+
+        <p class="fig-leg fr-host">
+          <span class="fr">Repare no&nbsp;campo 2.</span> <span class="fr"><strong>"A&nbsp;pessoa confere dez casos sorteados" é uma&nbsp;resposta.
+          "A&nbsp;pessoa valida" não&nbsp;é</strong>, porque&nbsp;não&nbsp;dá para&nbsp;saber se&nbsp;foi feito.</span> <span class="fr">E&nbsp;repare
+          que&nbsp;a&nbsp;etapa 1 termina numa&nbsp;conferência de&nbsp;número, que&nbsp;é o&nbsp;jeito mais barato de&nbsp;descobrir um&nbsp;erro antes de&nbsp;ele contaminar as&nbsp;três etapas seguintes.</span>
+        </p>
+
       </section>
 
       <section class="block" id="s3">
@@ -1881,19 +1998,29 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <section class="block" id="s6">
         <div class="block-num">06 · Para&nbsp;levar</div>
-        <h2>Refaça isto com&nbsp;uma&nbsp;conversa da&nbsp;sua&nbsp;área</h2>
+        <h2>O&nbsp;pedido em&nbsp;fases, pronto para&nbsp;copiar</h2>
 
         <p class="block-lead fr-host">
-          <span class="fr">O&nbsp;caso mostrou seis entrevistas em&nbsp;três dias.</span> <span class="fr">Aqui está uma,&nbsp;em&nbsp;tamanho de&nbsp;exercício, com&nbsp;o&nbsp;pedido já&nbsp;quebrado nas&nbsp;fases e&nbsp;com&nbsp;o&nbsp;portão entre&nbsp;elas escrito
-          dentro do&nbsp;próprio pedido.</span>
+          <span class="fr">Isto não&nbsp;é para&nbsp;fazer agora.</span> <span class="fr">É para&nbsp;levar.</span> <span class="fr">É o&nbsp;pedido que&nbsp;eu uso de&nbsp;verdade,
+          <strong>já&nbsp;quebrado nas&nbsp;quatro fases e&nbsp;com&nbsp;o&nbsp;portão entre&nbsp;elas escrito dentro do&nbsp;próprio pedido</strong>.</span> <span class="fr">Junto vai uma&nbsp;transcrição fictícia, caso você queira ver
+          funcionando antes de&nbsp;usar com&nbsp;material real.</span>
         </p>
+
+        <div class="callout callout-warn">
+          <div class="callout-title">Antes de usar com material de verdade</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Transcrição de&nbsp;conversa é o&nbsp;material mais sensível que&nbsp;existe numa&nbsp;instituição.</span>
+            <span class="fr"><strong>A&nbsp;primeira fase do&nbsp;pedido existe justamente para&nbsp;tirar o&nbsp;nome antes de&nbsp;qualquer análise</strong>, e&nbsp;ela não&nbsp;é opcional.</span> <span class="fr">Se&nbsp;quiser experimentar sem&nbsp;esse
+            cuidado, use a&nbsp;transcrição de&nbsp;teste abaixo, que&nbsp;é fictícia.</span>
+          </p>
+        </div>
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">01</div>
+            <div class="step-num">–</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 1</div>
-              <div class="step-title">Baixe a&nbsp;transcrição de&nbsp;teste</div>
+              <div class="step-eyebrow">Material de&nbsp;apoio</div>
+              <div class="step-title">Uma&nbsp;transcrição fictícia, se&nbsp;você quiser testar antes</div>
             </div>
           </div>
           <div class="step-body">
@@ -1916,10 +2043,10 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">02</div>
+            <div class="step-num">01</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 2</div>
-              <div class="step-title">Copie o&nbsp;pedido em&nbsp;fases</div>
+              <div class="step-eyebrow">O&nbsp;pedido</div>
+              <div class="step-title">As&nbsp;quatro fases, com&nbsp;o&nbsp;portão escrito dentro</div>
             </div>
           </div>
           <div class="step-body">
@@ -1986,10 +2113,10 @@ Toda afirmação sua aponta para o horário da fala que a sustenta.</div>
 
         <div class="step">
           <div class="step-header">
-            <div class="step-num">03</div>
+            <div class="step-num">02</div>
             <div class="step-title-block">
-              <div class="step-eyebrow">Passo 3</div>
-              <div class="step-title">Confira em&nbsp;cada portão</div>
+              <div class="step-eyebrow">A&nbsp;conferência</div>
+              <div class="step-title">O&nbsp;que&nbsp;olhar em&nbsp;cada portão, antes de&nbsp;deixar passar</div>
             </div>
           </div>
           <div class="step-body">
