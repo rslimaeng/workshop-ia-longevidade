@@ -1,2 +1,5 @@
 .DS_Store
 node_modules/
+
+# marcador local do perfil de diagramas, nao vai para o site
+.diagram-design
