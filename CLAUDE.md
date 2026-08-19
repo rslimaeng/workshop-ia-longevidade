@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda trinta e quatro gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta e seis gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -105,6 +105,8 @@ defeito derruba o script como **cego**.
 | G32 | Lista de papéis que não bate com a frase que a anuncia |
 | G33 | Referência a "seção NN" que aponta para bloco inexistente ou para o bloco errado |
 | G34 | Degrau da escada cuja altura não cresce, ou que não apoia na mesma base |
+| G35 | Callout sem variante de cor, que nasce sem caixa |
+| G36 | Seta do ciclo que, empilhada, estica uma linha por cima dos cartões |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -248,6 +250,22 @@ frases que caberiam e quebraram assim mesmo.**
 - **`requestAnimationFrame` não dispara com o painel do navegador escondido.** Toda sonda
   que redimensiona iframe trava em 30s. Usar `setTimeout` e forçar reflow lendo
   `offsetHeight`.
+- 🔴 **`transform:rotate` num elemento largo estica tudo que ele desenha.** A seta do ciclo,
+  empilhada no celular, virava uma **barra vertical de 669px cortando os cartões** de cima
+  e de baixo, porque a linha do `::before` ia de `left:0` a `right:0`. Estava no ar na capa
+  e só apareceu quando o componente foi repetido numa página mais estreita. **Girar o
+  glifo, não o contêiner.**
+- **`.callout` sem variante não pinta nada.** A cor e a borda vêm de `callout-info` ou
+  `callout-warn`; sozinho, o texto sai solto no meio da página. G35 confere.
+- **Regex de palavra com plural opcional erra o singular.** `[Pp]ilares?` exige "ilare", e
+  a palavra é "Pilar": o gate acusou os sete cards de não nomearem pilar nenhum. O certo é
+  `[Pp]ilar(?:es)?`. **Quando um gate acusa tudo de uma vez, o defeito costuma ser dele.**
+- **Insumo que descreve outra turma não vai para a tela.** O levantamento prévio era de
+  outra trilha e de outro momento; citá-lo prometia à sala uma pesquisa que não foi feita
+  para ela. O gate mudou de mecanismo: em vez de conferir número na tela, confere
+  **proveniência** (as atividades continuam vindo do insumo) e **coerência interna** (o
+  rótulo de cada card bate com o pilar que o corpo dele nomeia).
+
 - 🔴 **Inserir uma seção renumera as seguintes, e as referências cruzadas ficam para trás.**
   Duas frases mandavam "releia a seção 04" e "o exercício da seção 05" apontando para
   blocos de outro assunto, **e estavam no ar**. O G33 confere que a referência existe **e
