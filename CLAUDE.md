@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda trinta e dois gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta e quatro gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -103,6 +103,8 @@ defeito derruba o script como **cego**.
 | G30 | Número de auxiliares escrito que não bate com o que está listado |
 | G31 | Barra da régua por fase cuja altura contradiz o número que ela diz |
 | G32 | Lista de papéis que não bate com a frase que a anuncia |
+| G33 | Referência a "seção NN" que aponta para bloco inexistente ou para o bloco errado |
+| G34 | Degrau da escada cuja altura não cresce, ou que não apoia na mesma base |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -246,6 +248,19 @@ frases que caberiam e quebraram assim mesmo.**
 - **`requestAnimationFrame` não dispara com o painel do navegador escondido.** Toda sonda
   que redimensiona iframe trava em 30s. Usar `setTimeout` e forçar reflow lendo
   `offsetHeight`.
+- 🔴 **Inserir uma seção renumera as seguintes, e as referências cruzadas ficam para trás.**
+  Duas frases mandavam "releia a seção 04" e "o exercício da seção 05" apontando para
+  blocos de outro assunto, **e estavam no ar**. O G33 confere que a referência existe **e
+  que o assunto citado é o daquele bloco**. Referência por número é frágil por natureza:
+  quando der, referir pelo nome.
+- **A janela de contexto do gate não pode atravessar a quebra de bloco.** O G33 procurava
+  o assunto nos 60 caracteres anteriores e pegava o rótulo do próprio bloco acima,
+  acusando a si mesmo. Cortar na última quebra de linha.
+- **O painel serve cache também em `file://`.** Uma medição disse que a fonte não tinha
+  mudado quando o arquivo no disco já estava certo. Furar com `?v=algo` na URL do arquivo,
+  e **assertar no retorno que a versão medida é a nova** (contar um elemento que só existe
+  nela) antes de acreditar em qualquer número.
+
 - 🔴 **Figura que é prova se confere pela geometria, não pelo texto ao lado.** A régua
   por fase afirma que a exigência sobe e depois cai. Se a altura de uma barra deixar de
   acompanhar o número que ela diz, a figura passa a dizer o contrário do parágrafo e
