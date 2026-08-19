@@ -373,6 +373,166 @@ def g12_contagem_dos_pilares(rel, html):
 
 
 # id, o que confere, função, defeito que prova o gate, onde injetar o defeito
+
+# ---------------------------------------------------------------- G17
+# Caractere de outro alfabeto que renderiza parecido com o latino. Eu escrevi
+# "потencial" com dois caracteres cirílicos e o texto passou por cima de todos
+# os outros gates: na tela ele é indistinguível. Só a checagem do alfabeto pega.
+NAO_LATINO = re.compile(r"[\u0400-\u04FF\u0370-\u03FF\u0500-\u052F]")
+
+
+def g17_alfabeto(rel, html):
+    falhas = []
+    for n, l in linhas_com(texto_visivel(html), NAO_LATINO.pattern, flags=0):
+        achados = NAO_LATINO.findall(l)
+        falhas.append("caractere de outro alfabeto ({}) na linha {}: {}".format(
+            "".join(sorted(set(achados))), n, l[:90]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G18
+# Os sete números "X de 22" vêm do diagnóstico prévio que o cliente respondeu.
+# Se a planilha ganhar respostas, a página mente e ninguém percebe: o insumo é
+# a fonte da verdade, e quem descreve o insumo tem que ser conferido contra ele.
+PLANILHA = os.path.join(
+    os.path.dirname(RAIZ), "2-insumos-do-cliente", "briefing",
+    "Diagnóstico prévio — IA no Back Office (respostas).xlsx")
+
+OPCOES_DIAGNOSTICO = [
+    "Organizar e resumir grandes volumes de informação",
+    "Interpretar documentos, contratos e legislações",
+    "Apoiar decisões com mais agilidade e embasamento",
+    "Montar relatórios e apresentações para gestores",
+    "Analisar dados, planilhas e indicadores de resultado",
+    "Fazer cálculos e simular cenários (custos, impostos, margens)",
+    "Automatizar tarefas repetitivas e rotinas administrativas",
+]
+
+
+def _contagem_real():
+    """Lê a planilha do cliente e devolve {opção: quantas marcaram}, e o total.
+    Devolve None se a planilha não estiver acessível: gate que depende de insumo
+    externo tem que dizer que não conferiu, e não passar calado."""
+    try:
+        import openpyxl
+    except ImportError:
+        return None
+    if not os.path.exists(PLANILHA):
+        return None
+    w = openpyxl.load_workbook(PLANILHA, data_only=True)
+    s = w[w.sheetnames[0]]
+    linhas = [r for r in list(s.iter_rows(values_only=True))[1:] if r[0]]
+    cont = {}
+    for o in OPCOES_DIAGNOSTICO:
+        cont[o] = sum(1 for r in linhas if o in str(r[3] or ""))
+    return cont, len(linhas)
+
+
+def g18_numeros_do_diagnostico(rel, html):
+    if rel != "ai-first/index.html":
+        return []
+    real = _contagem_real()
+    if real is None:
+        return ["não foi possível conferir os números contra a planilha do cliente"]
+    cont, total = real
+    falhas = []
+    vis = texto_visivel(html)
+
+    # premissa: a página afirma o total de respondentes por extenso
+    if "Vinte e duas pessoas" not in vis and str(total) not in vis:
+        falhas.append("a página não diz quantas pessoas responderam o diagnóstico")
+
+    # cada rótulo "N de M" tem que bater com a contagem real daquela atividade
+    for m in re.finditer(r'<span class="ex-area">(\d+) de (\d+)</span>\s*'
+                         r'<span class="ex-t">([^<]+)</span>', html):
+        n, m_tot, titulo = int(m.group(1)), int(m.group(2)), m.group(3).strip()
+        if m_tot != total:
+            falhas.append("{!r} diz de {}, e a planilha tem {} respostas".format(
+                titulo, m_tot, total))
+        casada = [o for o in OPCOES_DIAGNOSTICO if o.startswith(titulo[:28])]
+        if not casada:
+            falhas.append("atividade que não existe no diagnóstico: " + titulo)
+            continue
+        if cont[casada[0]] != n:
+            falhas.append("{!r} diz {}, e a planilha conta {}".format(
+                titulo, n, cont[casada[0]]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G19
+# A régua mede a mesma coisa nas duas pontas. Se a abertura e o fechamento
+# divergirem em número de alternativas ou no texto delas, a comparação de
+# antes e depois compara coisas diferentes e a demonstração ao vivo mente.
+def g19_regua_simetrica(rel, html):
+    if rel != "canvas/index.html":
+        return []
+    falhas = []
+
+    def alts(nome):
+        return re.findall(
+            r'<input type="radio" name="' + nome + r'" value="(\d+)"><span>([^<]*)</span>',
+            html)
+
+    for i in range(1, 6):
+        a, f = alts("a%d" % i), alts("f%d" % i)
+        if len(a) != 3:
+            falhas.append("pergunta a{} tem {} alternativas, e a régua é de 3".format(i, len(a)))
+        if len(f) != 3:
+            falhas.append("pergunta f{} tem {} alternativas, e a régua é de 3".format(i, len(f)))
+        if [t for _, t in a] != [t for _, t in f]:
+            falhas.append("a pergunta {} tem texto diferente na abertura e no fechamento".format(i))
+        if [v for v, _ in a] != ["1", "2", "3"]:
+            falhas.append("os valores de a{} não são 1,2,3: {}".format(i, [v for v, _ in a]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G20
+# O passo a passo herdado do outro workshop só acrescenta alguma coisa se cada
+# passo disser QUEM faz. Passo sem ator vira lista comum, e o participante lê
+# sem saber se aquilo é trabalho dele ou da máquina.
+def g20_passo_tem_ator(rel, html):
+    falhas = []
+    for m in re.finditer(r'<div class="fl">(.*?)</div>\s*</div>', html, flags=re.S):
+        bloco = m.group(1)
+        if 'class="fl-ator' not in bloco:
+            t = re.search(r'<div class="fl-t">([^<]*)', bloco)
+            falhas.append("passo sem ator nomeado: " + (t.group(1)[:70] if t else "?"))
+    return falhas
+
+
+# ---------------------------------------------------------------- G21
+# A legenda da figura afirma que as caixas iniciais dos dois loops são iguais,
+# e é essa igualdade que faz o argumento: o que muda é só a volta. Se alguém
+# editar um lado, a legenda passa a mentir sobre a própria figura.
+def g21_loops_comecam_igual(rel, html):
+    if rel != "index.html":
+        return []
+    # Fatiar por posição, e não por regex com .*?: "lp-rot" também começa com
+    # "lp", então o não-guloso fechava o bloco na primeira linha e devolvia
+    # zero etapas num HTML correto.
+    ini_aberto = html.find('<div class="lp">')
+    ini_fechado = html.find('<div class="lp fechado">')
+    fim = html.find('<p class="fig-leg">', ini_fechado if ini_fechado > 0 else 0)
+    if ini_aberto < 0 or ini_fechado < 0 or fim < 0:
+        return ["não achei os dois loops desenhados na capa"]
+    if not (ini_aberto < ini_fechado < fim):
+        return ["os dois loops estão fora de ordem na capa"]
+
+    def etapas(t):
+        return re.findall(r'<span class="lp-et">([^<]+)</span>', t)
+
+    aberto = etapas(html[ini_aberto:ini_fechado])
+    fechado = etapas(html[ini_fechado:fim])
+    if len(aberto) != 3:
+        return ["o loop aberto tem {} etapas, e a legenda fala de três".format(len(aberto))]
+    if fechado[:3] != aberto:
+        return ["as três primeiras etapas dos dois loops divergem: {} contra {}".format(
+            aberto, fechado[:3])]
+    if len(fechado) <= len(aberto):
+        return ["o loop fechado não tem etapa a mais que o aberto"]
+    return []
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -412,6 +572,24 @@ GATES = [
     ("G14", "a figura dos cem bate com o texto", g14_cem_pontos_batem_com_o_texto,
      lambda h: h.replace('<span class="cem-p aceso"></span>', '<span class="cem-p"></span>', 1),
      "ficha/index.html"),
+    ("G17", "alfabeto latino na tela", g17_alfabeto,
+     lambda h: h.replace("potencial", "\u043fotencial", 1),
+     "ai-first/index.html"),
+    ("G18", "os números batem com o diagnóstico", g18_numeros_do_diagnostico,
+     lambda h: h.replace('<span class="ex-area">15 de 22</span>',
+                         '<span class="ex-area">19 de 22</span>', 1),
+     "ai-first/index.html"),
+    ("G19", "a régua é simétrica e de três", g19_regua_simetrica,
+     lambda h: h.replace('<input type="radio" name="f1" value="3"><span>Fica onde outra pessoa acha sozinha.</span>',
+                         '<input type="radio" name="f1" value="3"><span>Fica registrado em algum lugar.</span>', 1),
+     "canvas/index.html"),
+    ("G20", "todo passo diz quem faz", g20_passo_tem_ator,
+     lambda h: h.replace('<span class="fl-ator pessoa">Ryan</span>', '<span class="fl-nada">Ryan</span>', 1),
+     "ai-first/index.html"),
+    ("G21", "os dois loops começam iguais", g21_loops_comecam_igual,
+     lambda h: h.replace('<span class="lp-et">Alguém executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>',
+                         '<span class="lp-et">Alguem executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>', 1),
+     "index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),

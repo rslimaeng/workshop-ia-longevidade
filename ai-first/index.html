@@ -946,6 +946,146 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   .erro-cel{border-right:none;border-bottom:1px solid var(--border)}
   .erro-cel:last-child{border-bottom:none}
 }
+
+/* ---------- LOOP ABERTO CONTRA LOOP FECHADO ---------- */
+/* A figura-mãe do dia, e a única que precisa ser entendida em três segundos.
+   Em cima, a linha que termina e não volta. Embaixo, a mesma linha com a
+   volta desenhada. A diferença não está no que a empresa faz: está em
+   existir ou não a seta de retorno. Fonte: a fala de Diana Hu, YC. */
+.loops{display:flex;flex-direction:column;gap:18px;margin:24px 0}
+.lp{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:18px 20px 20px;position:relative;
+}
+.lp.fechado{background:var(--accent-tinted);border-color:var(--accent-line)}
+.lp-rot{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-dim);
+  display:flex;align-items:center;gap:7px;margin-bottom:4px;
+}
+.lp.fechado .lp-rot{color:var(--accent-dark)}
+.lp-rot::before{
+  content:"";width:7px;height:7px;border-radius:50%;
+  background:var(--text-dim);flex:0 0 auto;
+}
+.lp.fechado .lp-rot::before{background:var(--accent)}
+.lp-t{font-size:15.5px;font-weight:600;line-height:1.35;margin-bottom:14px}
+.lp-linha{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.lp-et{
+  flex:0 1 auto;background:var(--bg-warm);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:8px 12px;
+  font-size:13px;font-weight:500;line-height:1.3;
+}
+.lp.fechado .lp-et{background:var(--bg-elev);border-color:var(--accent-line)}
+.lp-seta{
+  flex:0 0 26px;height:1px;background:var(--border-strong);
+  position:relative;margin:0 2px;
+}
+.lp-seta::after{
+  content:"";position:absolute;right:0;top:-3px;
+  border-left:6px solid var(--border-strong);
+  border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;
+}
+.lp.fechado .lp-seta,.lp.fechado .lp-seta::after{background:var(--accent-line)}
+.lp.fechado .lp-seta::after{background:none;border-left-color:var(--accent)}
+.lp-fim{
+  flex:0 0 auto;font-family:var(--font-mono);font-size:12px;
+  color:var(--text-dim);padding-left:10px;
+}
+.lp-volta{
+  margin-top:12px;padding-top:12px;border-top:1px dashed var(--accent-line);
+  display:flex;align-items:center;gap:9px;
+  font-size:13px;color:var(--accent-dark);font-weight:500;
+}
+.lp-volta::before{
+  content:"↺";font-size:17px;line-height:1;color:var(--accent);
+}
+.lp-perda{
+  margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);
+  font-size:13px;color:var(--text-muted);
+}
+@media (max-width:640px){
+  .lp-linha{flex-direction:column;align-items:stretch;gap:0}
+  .lp-et{width:100%}
+  .lp-seta{width:1px;height:16px;margin:3px 0 3px 18px}
+  .lp-seta::after{right:-3px;top:auto;bottom:0;
+    border-left:3.5px solid transparent;border-right:3.5px solid transparent;
+    border-top:6px solid var(--border-strong);border-bottom:none}
+  .lp.fechado .lp-seta::after{border-top-color:var(--accent)}
+  .lp-fim{padding:6px 0 0 18px}
+}
+
+/* ---------- FLUXO COM ATOR NOMEADO ---------- */
+/* Herdado do módulo 3 do outro workshop. O que ele acrescenta a um passo a
+   passo comum é a etiqueta de QUEM faz: sem ela o participante lê o passo
+   e não sabe se aquilo é trabalho dele ou da máquina. */
+.fluxo{display:flex;flex-direction:column;gap:10px;margin:22px 0}
+.fl{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px 18px;position:relative;
+}
+.fl-topo{display:flex;align-items:center;gap:10px;margin-bottom:7px;flex-wrap:wrap}
+.fl-ator{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.04em;padding:3px 9px;border-radius:99px;
+  background:var(--bg-warm);color:var(--text-muted);
+}
+.fl-ator.pessoa{background:var(--accent-soft);color:var(--accent-dark)}
+.fl-n{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.fl-t{font-size:15px;font-weight:600;line-height:1.4;margin-bottom:5px}
+.fl-d{font-size:13.5px;color:var(--text-muted);line-height:1.55}
+
+/* ---------- O MESMO MAPA, APLICADO NO SEU SETOR ---------- */
+/* Herdado da aula 4 do curso de Claude. Nasce fechado de propósito: aberto,
+   são dez blocos de texto que ninguém lê. A pessoa abre o da área dela. */
+.exemplos{margin:22px 0}
+.exemplos-lead{font-size:14px;color:var(--text-muted);margin-bottom:12px;line-height:1.6}
+.ex{
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius);margin-bottom:8px;overflow:hidden;
+}
+.ex[open]{border-color:var(--accent-line)}
+.ex > summary{
+  padding:13px 16px;cursor:pointer;list-style:none;
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+}
+.ex > summary::-webkit-details-marker{display:none}
+.ex > summary::after{
+  content:"abrir";margin-left:auto;font-family:var(--font-mono);
+  font-size:11px;color:var(--text-dim);letter-spacing:.04em;
+}
+.ex[open] > summary::after{content:"fechar"}
+.ex > summary:hover{background:var(--bg-warm)}
+.ex-area{
+  font-family:var(--font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.04em;padding:3px 9px;border-radius:99px;
+  background:var(--accent-soft);color:var(--accent-dark);flex:0 0 auto;
+}
+.ex-t{font-size:14.5px;font-weight:600;line-height:1.35}
+.ex-corpo{padding:4px 16px 16px;border-top:1px solid var(--border)}
+.ex-l{
+  display:grid;grid-template-columns:118px 1fr;gap:12px;
+  padding:11px 0;border-bottom:1px dashed var(--border);
+}
+.ex-l:last-of-type{border-bottom:none}
+.ex-rot{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--accent-dark);padding-top:2px;
+}
+.ex-tx{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+.ex-tx strong{color:var(--text);font-weight:600}
+.ex-fecho{
+  margin-top:12px;padding:12px 14px;background:var(--accent-tinted);
+  border:1px solid var(--accent-line);border-radius:var(--radius-sm);
+  font-size:13px;color:var(--text-muted);line-height:1.6;
+}
+@media (max-width:640px){
+  .ex-l{grid-template-columns:1fr;gap:4px}
+  .ex-rot{padding-top:0}
+}
 </style>
 </head>
 <body>
@@ -971,6 +1111,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>O que não vira registro não existe</a></li>
       <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Resultado ruim é falta de contexto, não de capacidade</a></li>
       <li class="side-nav-item"><a href="#s-pratica"><span class="side-nav-num">04</span>Como isso vira rotina, e não projeto de tecnologia</a></li>
+      <li class="side-nav-item"><a href="#s-fora"><span class="side-nav-num">Fora daqui</span>Três empresas que fecharam o loop, em passo a passo</a></li>
+      <li class="side-nav-item"><a href="#s-setor"><span class="side-nav-num">Na sua rotina</span>O mesmo desenho, na rotina que vocês apontaram</a></li>
       <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>Onde a inteligência artificial não deve entrar</a></li>
       <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>O que só existe na cabeça de alguém</a></li>
       <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">06</span>Você sabe fazer isto agora</a></li>
@@ -1118,6 +1260,47 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </p>
           </div>
         </div>
+
+        <h3>E onde cada coisa registrada vai morar</h3>
+        <p>
+          Saber o que está faltando é metade. A outra metade é não jogar tudo no mesmo
+          lugar. Ayush, da Answer This, descreve três gavetas, e a divisão vale para
+          qualquer área, com ou sem inteligência artificial envolvida.
+        </p>
+        <div class="tipos">
+          <div class="tipo">
+            <div class="tipo-n">1</div>
+            <div class="tipo-t">O que é fato sobre a instituição</div>
+            <div class="tipo-d">
+              Como as coisas são e funcionam aqui: estrutura, números, prazos, nomes das
+              etapas. Muda pouco, e quem chega precisa disso no primeiro dia.
+            </div>
+            <div class="tipo-ex">Na prática: a lista das áreas, o calendário do ano, os prazos que não se movem.</div>
+          </div>
+          <div class="tipo">
+            <div class="tipo-n">2</div>
+            <div class="tipo-t">Como aqui se faz</div>
+            <div class="tipo-d">
+              O jeito da casa, incluindo o que se corrige sempre. É a gaveta que mais
+              cresce, porque toda correção vai para cá.
+            </div>
+            <div class="tipo-ex">Na prática: nunca prometer prazo sem confirmar com a coordenação; valor sempre em reais.</div>
+          </div>
+          <div class="tipo">
+            <div class="tipo-n">3</div>
+            <div class="tipo-t">O passo a passo de uma tarefa</div>
+            <div class="tipo-d">
+              A rotina que se repete, escrita na ordem em que acontece. Só serve para
+              aquela tarefa, e é longa de propósito.
+            </div>
+            <div class="tipo-ex">Na prática: como se fecha o relatório do mês, do primeiro filtro à última seção.</div>
+          </div>
+        </div>
+        <p class="fig-leg">
+          A gaveta 2 é a que quase ninguém tem, e é a que faz diferença: <strong>é nela
+          que a correção de hoje vira a regra de amanhã</strong>. Sem ela, você corrige a
+          mesma coisa toda semana e chama isso de acompanhar de perto.
+        </p>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que este é o pilar mais barato do dia</div>
@@ -1442,6 +1625,346 @@ Escreva o comunicado. No máximo dez linhas.</div>
         </div>
       </section>
 
+      <section class="block" id="s-fora">
+        <div class="block-num">Fora daqui</div>
+        <h2>Três empresas que fecharam o loop, em passo a passo</h2>
+        <p class="block-lead">
+          As três estão em vídeos públicos da aceleradora Y Combinator, gravados em 2026.
+          Nenhuma delas é da área de saúde ou de educação, e é justamente por isso que
+          servem: <strong>o que se copia não é o negócio, é o desenho.</strong> Repare em
+          quem faz cada passo.
+        </p>
+
+        <h3>1 · A correção que veio de quem não mexe em tecnologia</h3>
+        <p>
+          A Answer This é uma empresa de dois sócios. Ayush, um deles, contou que passaram
+          a usar um assistente para responder mensagens de clientes. Ele começou a errar
+          um tipo específico de resposta. Quem percebeu foi Ryan, o outro sócio, que
+          <strong>não é da área técnica</strong>.
+        </p>
+        <div class="fluxo">
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator pessoa">Ryan</span><span class="fl-n">01 · Percebe</span></div>
+            <div class="fl-t">Nota que um tipo de resposta ao cliente está saindo errado, sempre do mesmo jeito.</div>
+            <div class="fl-d">Não é um erro isolado. É uma classe de erro, que se repete.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator pessoa">Ryan</span><span class="fl-n">02 · Diz o que está errado</span></div>
+            <div class="fl-t">Escreve para o assistente explicando qual é o erro e o que era para ter sido feito.</div>
+            <div class="fl-d">Não abriu ticket, não chamou o sócio técnico, não esperou a próxima reunião. Escreveu como quem corrige uma pessoa da equipe.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">03 · Atualiza a própria instrução</span></div>
+            <div class="fl-t">A correção entra no arquivo de instruções que ele lê antes de toda tarefa.</div>
+            <div class="fl-d">A regra passa a existir por escrito, fora da cabeça do Ryan e fora daquela conversa.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">04 · Aquele erro para de acontecer</span></div>
+            <div class="fl-t">Não só naquele caso: em toda a classe de erro.</div>
+            <div class="fl-d">Ayush descreve o resultado assim: aquela categoria inteira de engano parou.</div>
+          </div>
+        </div>
+        <p class="fig-leg">
+          <strong>Este é o pilar 4 inteiro</strong>, e quem o executou não era da área
+          técnica. É a resposta mais direta que existe para a pergunta de como trazer isso
+          para dentro: a correção é feita por quem enxerga o erro, e não por quem entende
+          de tecnologia.
+        </p>
+
+        <h3>2 · O manual que ninguém atualizava</h3>
+        <p>
+          Tom, sócio da Y Combinator, contou que o manual de orientação deles tinha sido
+          escrito entre cinco e dez anos antes e estava desatualizado. Em paralelo, eles
+          passaram a gravar as sessões de acompanhamento com as empresas.
+        </p>
+        <div class="fluxo">
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Registro</span><span class="fl-n">01 · O material passa a existir</span></div>
+            <div class="fl-t">Cerca de dois mil encontros gravados ao longo de três meses, segundo ele.</div>
+            <div class="fl-d">Antes disso, o mesmo conselho era dado dezenas de vezes e não ficava em lugar nenhum. Pilar 1.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator pessoa">Uma pessoa</span><span class="fl-n">02 · Organiza por assunto</span></div>
+            <div class="fl-t">Separa o material em temas antes de pedir qualquer coisa.</div>
+            <div class="fl-d">Ele é explícito: não dá para jogar o material todo de uma vez. Tem que sintetizar antes. Pilar 3.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator pessoa">Uma pessoa</span><span class="fl-n">03 · Pede o manual novo</span></div>
+            <div class="fl-t">Em um fim de semana, sai uma versão que ele considera muito melhor que a antiga.</div>
+            <div class="fl-d">O ganho não veio da ferramenta. Veio de existir material organizado para ela ler.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Rotina</span><span class="fl-n">04 · Passa a se atualizar sozinho</span></div>
+            <div class="fl-t">Todo conselho novo é comparado com o manual e, se acrescenta, entra.</div>
+            <div class="fl-d">O manual deixou de ser um documento que envelhece e virou um que acompanha. É o loop fechado da capa, aplicado a uma norma interna.</div>
+          </div>
+        </div>
+        <div class="callout callout-info">
+          <div class="callout-title">Por que este caso é o mais parecido com o de vocês</div>
+          <p>
+            Uma instituição de ensino e de saúde é feita de norma, protocolo e manual: coisas
+            que alguém escreveu uma vez e que envelhecem em silêncio. A pergunta que este
+            caso devolve não é sobre tecnologia. É <strong>quanto do que vocês ensinam e
+            decidem todo dia está registrado em algum lugar onde a próxima pessoa
+            acha</strong>.
+          </p>
+        </div>
+
+        <h3>3 · O primeiro resultado foi rejeitado pelo time</h3>
+        <p>
+          Sachin, da Skyvern, montou um assistente para escrever a primeira versão de
+          documentos de especificação. Ele conta que mostrou para o time e a reação foi
+          direta: aquilo não prestava. Ele continuou ajustando até a equipe passar a
+          usar o resultado como ponto de partida.
+        </p>
+        <div class="fluxo">
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">01 · Busca no que já existe</span></div>
+            <div class="fl-t">Procura o assunto nas gravações de conversas, nas mensagens internas e nos documentos.</div>
+            <div class="fl-d">Só é possível porque essas três coisas ficam registradas. Pilar 1 de novo.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">02 · Escreve o rascunho com a origem de cada ponto</span></div>
+            <div class="fl-t">Cada afirmação vem com de onde saiu, e não solta.</div>
+            <div class="fl-d">Quem for trabalhar naquilo depois consegue voltar à conversa original.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator">Segunda leitura</span><span class="fl-n">03 · Critica o próprio rascunho</span></div>
+            <div class="fl-t">Uma etapa separada revisa o texto procurando o que está fraco.</div>
+            <div class="fl-d">Não é a mesma etapa que escreveu. Quem escreve não é bom juiz do que escreveu. Pilar 3.</div>
+          </div>
+          <div class="fl">
+            <div class="fl-topo"><span class="fl-ator pessoa">Sachin</span><span class="fl-n">04 · Ajusta até o time aceitar</span></div>
+            <div class="fl-t">A régua de pronto foi o time parar de reclamar, e não ele achar que estava bom.</div>
+            <div class="fl-d">Foram várias rodadas. A primeira versão foi reprovada.</div>
+          </div>
+        </div>
+        <p class="fig-leg">
+          <strong>O passo 4 é o que mais importa aqui.</strong> A primeira versão de
+          qualquer um destes três casos foi ruim. O que separa os três de uma demonstração
+          bonita que ninguém usa é alguém ter continuado ajustando depois que a novidade
+          passou.
+        </p>
+
+        <h3>Só que essas três são pequenas e novas, e vocês não são</h3>
+        <p>
+          Diana, também da Y Combinator, é honesta sobre isso: empresa que já existe tem
+          <strong>mais dificuldade</strong> que empresa nova, e não menos. A razão é
+          concreta. Uma empresa nova desenha do zero. Uma empresa que já funciona precisa
+          continuar funcionando enquanto muda, e cada mudança em processo que já roda
+          arrisca quebrar algo que hoje está de pé.
+        </p>
+        <p>
+          A saída que ela aponta não é reformar tudo. É o contrário: <strong>começar por
+          um pedaço pequeno, separado do que não pode parar.</strong> Uma rotina, uma
+          área, um relatório. Fecha o loop ali, com gente que já faz aquilo, e só depois
+          leva o desenho para o lado.
+        </p>
+        <div class="callout">
+          <div class="callout-title">É por isso que este dia termina numa ficha, e não num plano</div>
+          <p>
+            Plano de transformação de instituição inteira precisa de orçamento, comitê e
+            um ano. Uma rotina da sua área, com número definido e meta de sessenta dias,
+            começa na segunda-feira e não depende de aprovação de ninguém de fora.
+            <strong>O pedaço pequeno não é a versão modesta da mudança. É o único formato
+            em que ela costuma acontecer.</strong>
+          </p>
+        </div>
+      </section>
+
+      <section class="block" id="s-setor">
+        <div class="block-num">Na sua rotina</div>
+        <h2>O mesmo desenho, na rotina que vocês apontaram</h2>
+        <p class="block-lead">
+          Vinte e duas pessoas desta turma responderam um diagnóstico antes deste dia,
+          apontando onde viam mais potencial para usar inteligência artificial no
+          trabalho. As sete atividades abaixo são as respostas, na ordem em que
+          apareceram. <strong>Abra a que mais parece com o seu dia.</strong>
+        </p>
+
+        <div class="exemplos">
+          <p class="exemplos-lead">
+            Cada uma segue a mesma estrutura: como a atividade acontece hoje, o que falta
+            para ela fechar o loop, e qual é o primeiro passo que cabe numa segunda-feira.
+          </p>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">15 de 22</span>
+              <span class="ex-t">Organizar e resumir grandes volumes de informação</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                O material chega inteiro, alguém lê, e o resumo sai. Na próxima vez que
+                alguém precisar da mesma informação, lê tudo de novo.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 1.</strong> O resumo existe, mas fica no e-mail de quem
+                pediu. Ele nunca vira material que a próxima pessoa acha sozinha.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                O resumo é sempre salvo no mesmo lugar, com o nome do assunto. Quando
+                chega material novo do mesmo tema, ele é comparado com o resumo que já
+                existe e atualiza aquele arquivo, em vez de gerar mais um solto.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Escolha uma pasta compartilhada e um nome de arquivo. O próximo resumo
+                que você fizer vai para lá, e não para o corpo de um e-mail.</div></div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">14 de 22</span>
+              <span class="ex-t">Interpretar documentos, contratos e legislações</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                Cada contrato é lido do zero, e o que é padrão da instituição está na
+                cabeça de quem lê há mais tempo.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 2.</strong> Sem saber o que é praxe aqui, qualquer leitura
+                devolve o que é praxe em geral, que é diferente.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                Existe uma lista escrita do que a instituição sempre exige e do que nunca
+                aceita. Ela entra junto com o contrato em toda leitura. Cláusula nova que
+                gerou discussão vira mais uma linha da lista.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Abra um arquivo e escreva as cinco exigências que você repete em toda
+                revisão. Você já sabe as cinco de cor, e é justamente por isso que elas
+                nunca foram escritas.</div></div>
+              <div class="ex-fecho">
+                Este é o pilar 4 na forma mais barata que ele tem: a discussão de hoje
+                vira a linha que evita a discussão de amanhã.
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">13 de 22</span>
+              <span class="ex-t">Apoiar decisões com mais agilidade e embasamento</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                A decisão é tomada, executada, e raramente alguém volta para conferir se
+                deu o resultado esperado.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 5.</strong> Sem número definido antes, não existe como
+                voltar depois. É o loop aberto na forma mais cara.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                Toda decisão que vale a pena registrar sai com uma linha: o que se
+                esperava, em quanto tempo. Passado o prazo, alguém compara. O que deu
+                errado vira critério para a próxima decisão parecida.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Na próxima decisão, escreva uma frase antes de executar: o que você espera
+                que aconteça e quando você vai conferir. Uma frase.</div></div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">11 de 22</span>
+              <span class="ex-t">Montar relatórios e apresentações para gestores</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                Uma das respostas do diagnóstico descreve isso inteiro: puxar sempre os
+                mesmos filtros para montar o mesmo relatório. Todo mês, do começo.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 1 e pilar 3.</strong> O caminho até o relatório existe e
+                funciona, mas mora na cabeça de quem faz. E ele é pedido de uma vez só,
+                sem etapa de conferência no meio.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                Os passos do relatório estão escritos: quais filtros, em que ordem, o que
+                fazer com o caso fora do padrão, como é a seção final. O trabalho é pedido
+                por etapas, e você confere os números antes de virar apresentação.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Da próxima vez que montar o relatório, escreva o que você fez enquanto
+                faz. No mês seguinte você não monta: você segue o que escreveu, e corrige
+                o que estiver faltando.</div></div>
+              <div class="ex-fecho">
+                Escrever enquanto faz custa uma vez. Refazer de cabeça custa todo mês, e
+                custa duas vezes quando a pessoa que sabia está de férias.
+              </div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">9 de 22</span>
+              <span class="ex-t">Analisar dados, planilhas e indicadores de resultado</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                Os dados estão em várias planilhas, e juntá-las é trabalho manual que
+                recomeça a cada consulta.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 3.</strong> Juntar, limpar e analisar são três trabalhos
+                diferentes, pedidos como se fossem um. O erro aparece só no fim.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                Primeiro juntar e conferir o total. Depois limpar e conferir o que sobrou.
+                Só então analisar. Cada etapa termina num número que você reconhece.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Escolha um número que você já conhece de cor, como o total do mês passado.
+                Ele é a sua conferência entre uma etapa e outra.</div></div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">8 de 22</span>
+              <span class="ex-t">Fazer cálculos e simular cenários</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                A conta é refeita a cada simulação, e a regra que a sustenta fica só no
+                arquivo de quem montou.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 3, e uma cerca.</strong> Cálculo com dinheiro é onde errar
+                uma vez em cem já é caro. Precisa de conferência humana marcada, não
+                opcional.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                As regras do cálculo estão escritas em português, fora da planilha. A
+                simulação é feita por etapas, e nenhum resultado circula sem alguém
+                nomeado ter conferido. Divergência encontrada vira nota na regra.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Escreva em português as regras que hoje estão só dentro das fórmulas.
+                Quem entra amanhã não lê fórmula, lê português.</div></div>
+            </div>
+          </details>
+
+          <details class="ex">
+            <summary>
+              <span class="ex-area">7 de 22</span>
+              <span class="ex-t">Automatizar tarefas repetitivas e rotinas administrativas</span>
+            </summary>
+            <div class="ex-corpo">
+              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                A tarefa se repete toda semana e passa inteira por uma pessoa, do início
+                ao fim.</div></div>
+              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
+                <strong>Pilar 1.</strong> Automatizar o que ninguém escreveu é automatizar
+                um palpite. O passo a passo precisa existir antes.</div></div>
+              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                O passo a passo está escrito e é seguido. O que a máquina faz e o que
+                a pessoa confere estão separados por escrito. Quando algo passa errado,
+                a correção entra no passo a passo, e não só naquele caso.</div></div>
+              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                Escolha a tarefa mais chata da sua semana e escreva os passos dela hoje,
+                antes de automatizar qualquer coisa.</div></div>
+              <div class="ex-fecho">
+                Escrever o passo a passo já reduz o tempo sozinho, mesmo que a automação
+                nunca aconteça. É por isso que ele é o primeiro passo e não o segundo.
+              </div>
+            </div>
+          </details>
+        </div>
+
+        <p class="fig-leg">
+          As sete têm o mesmo formato porque são o mesmo problema. Nenhuma delas começa
+          por escolher uma ferramenta: <strong>todas começam por escrever alguma coisa
+          que hoje só existe na cabeça de alguém.</strong>
+        </p>
+      </section>
+
       <section class="block" id="s4">
         <div class="block-num">04 · O limite</div>
         <h2>Onde a inteligência artificial não deve entrar</h2>
@@ -1564,6 +2087,18 @@ Escreva o comunicado. No máximo dez linhas.</div>
             <div>
               <div class="checagem-o">Sei escrever os quatro campos de contexto antes de pedir</div>
               <div class="checagem-como">Quem lê, o que está acontecendo, a regra da casa e o limite. Teste com um pedido real da sua semana</div>
+            </div>
+          </div>
+          <div class="checagem-item">
+            <div>
+              <div class="checagem-o">Sei desenhar o loop aberto de uma rotina da minha área</div>
+              <div class="checagem-como">Diga em voz alta onde ela termina hoje e qual seria a etapa de medir. Se as duas forem a mesma, ainda é loop aberto</div>
+            </div>
+          </div>
+          <div class="checagem-item">
+            <div>
+              <div class="checagem-o">Sei em qual das três gavetas cada coisa que registro vai</div>
+              <div class="checagem-como">Pegue três registros que você já tem hoje e diga a gaveta de cada um. Se os três caem na primeira, a gaveta 2 ainda está vazia</div>
             </div>
           </div>
           <div class="checagem-item">
