@@ -899,6 +899,14 @@ NUM_SEM_ACENTO = {"um": 1, "dois": 2, "tres": 3, "quatro": 4, "cinco": 5,
                       "onze": 11, "doze": 12}
 
 
+# Acima de doze o texto do site também escreve por extenso. Sem estes, um
+# número maior que o teto da figura passava despercebido: o gate só reconhecia
+# até dezessete e "dezenove itens" não acusava nada.
+NUM_ALTO = {"treze": 13, "quatorze": 14, "catorze": 14, "quinze": 15,
+            "dezesseis": 16, "dezessete": 17, "dezoito": 18, "dezenove": 19,
+            "vinte": 20, "vinte e um": 21, "trinta": 30}
+
+
 def _sem_acento(t):
     import unicodedata
     return "".join(c for c in unicodedata.normalize("NFD", t)
@@ -947,6 +955,149 @@ def g30_auxiliares_batem_com_a_lista(rel, html):
         if n is not None and n != total:
             falhas.append("o texto diz {} auxiliares e os cartões somam {}: {!r}".format(
                 n, total, vis[max(0, m.start() - 30):m.end() + 10]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G31
+# A régua por fase é uma PROVA: ela afirma que a exigência sobe enquanto o
+# trabalho cresce e cai quando ele acaba. Prova não se confere pelo texto ao
+# lado, se confere pela geometria — se a barra do 14 ficar menor que a do 7, a
+# figura passa a dizer o contrário do parágrafo e nenhum gate de texto vê.
+RE_RECT = re.compile(r'<rect\s[^>]*x="([\d.]+)"[^>]*y="([\d.]+)"[^>]*width="([\d.]+)"'
+                     r'[^>]*height="([\d.]+)"[^>]*>')
+RE_TEXT = re.compile(r'<text\s[^>]*x="([\d.]+)"[^>]*>([^<]*)</text>')
+
+
+def _svg_da_regua(html):
+    for m in re.finditer(r"<svg\b.*?</svg>", html, re.S):
+        if "régua por fase" in m.group(0):
+            return m.group(0)
+    return None
+
+
+def g31_regua_por_fase(rel, html):
+    """Na figura da régua, a altura de cada barra acompanha o número que ela diz."""
+    svg = _svg_da_regua(html)
+    if svg is None:
+        return []
+    falhas = []
+    rot = re.search(r'aria-label="([^"]*)"', svg)
+    rotulo = rot.group(1) if rot else ""
+
+    barras = []
+    for x, y, w, alt in RE_RECT.findall(svg):
+        x, w, alt = float(x), float(w), float(alt)
+        if w > 400:          # o fundo da figura, não é barra
+            continue
+        barras.append((x + w / 2.0, alt))
+
+    numeros = []
+    for x, txt in RE_TEXT.findall(svg):
+        t = txt.strip()
+        if re.fullmatch(r"\d+(-\d+)?", t):
+            numeros.append((float(x), t))
+
+    pares = []
+    for cx, alt in barras:
+        casa = [t for x, t in numeros if abs(x - cx) < 3]
+        if not casa:
+            falhas.append("barra em x={} sem número escrito em cima".format(cx))
+            continue
+        pares.append((casa[0], alt))
+
+    if len(pares) < 7:
+        falhas.append("a régua tem {} barras com número e deveria ter 7".format(len(pares)))
+
+    for rotulo_num, _ in pares:
+        # "15-16" na figura e "15 a 16" no aria-label são o mesmo par de números:
+        # o que o gate exige é que os NÚMEROS estejam declarados, não o hífen
+        padrao = r"\b" + r"\s*(?:-|a)\s*".join(rotulo_num.split("-")) + r"\b"
+        if not re.search(padrao, rotulo):
+            falhas.append("o número {} está na figura e não está declarado no aria-label"
+                          .format(rotulo_num))
+
+    def teto(t):
+        return int(t.split("-")[-1])
+
+    # a geometria não pode contradizer os números: barra maior = número maior
+    ordenadas = sorted(pares, key=lambda p: p[1])
+    valores = [teto(t) for t, _ in ordenadas]
+    if valores != sorted(valores):
+        falhas.append("a altura das barras não acompanha os números: "
+                      "por altura crescente sai {}".format(valores))
+
+    # e o número que o texto usa como teto é o teto da figura
+    maior = max(teto(t) for t, _ in pares) if pares else 0
+    vis = _sem_acento(texto_visivel(html)).lower()
+    for m in re.finditer(r"\b([a-z]+) itens\b", vis):
+        n = NUM_SEM_ACENTO.get(m.group(1))
+        if n is None:
+            n = NUM_ALTO.get(m.group(1))
+        if n is not None and n > maior:
+            falhas.append("o texto fala em {} itens e o teto da figura é {}: {!r}"
+                          .format(n, maior, vis[max(0, m.start() - 40):m.end() + 10]))
+    return falhas
+
+
+# ---------------------------------------------------------------- G32
+# A lista de papéis promete um número na frase acima dela ("Cinco das doze") e
+# numera cada linha. Se alguém tirar ou acrescentar uma linha, a frase e os
+# rótulos passam a mentir em silêncio — é o mesmo defeito do G30, noutra peça.
+def CL(nome):
+    """Casa a classe como classe inteira, e não como pedaço de outra.
+
+    \b casa antes do hífen, então r"\bpapel\b" acertava papel-nome e papel-d
+    junto: o gate contou 16 linhas onde havia 5. A classe tem que estar
+    delimitada por espaço ou pela aspa.
+    """
+    return r'class="(?:[^"]*\s)?' + re.escape(nome) + r'(?:\s[^"]*)?"'
+
+
+def g32_papeis_batem_com_a_frase(rel, html):
+    """A lista de papéis tem o tamanho que a frase promete, numerada em ordem."""
+    # classe casada por regex e não por literal: o gerador acrescenta fr-host
+    # na mesma tag, e "class=\"papeis\"" literal deixou este gate cego na
+    # primeira rodada. Terceira vez que este defeito aparece.
+    if not re.search(CL("papeis"), html):
+        return []
+    falhas = []
+    ini = re.search("<div " + CL("papeis") + ">", html)
+    corpo = html[ini.end():]
+    fim = corpo.find("<p")               # a lista termina no parágrafo seguinte
+    if fim != -1:
+        corpo = corpo[:fim]
+    linhas = re.split("<div " + CL("papel") + ">", corpo)[1:]
+    itens = len(linhas)
+
+    for i, linha in enumerate(linhas, start=1):
+        nome = re.search(CL("papel-nome") + r"[^>]*>(.*?)</div>", linha, re.S)
+        desc = re.search(CL("papel-d") + r"[^>]*>(.*?)</div>", linha, re.S)
+        if not nome or not desc:
+            falhas.append("o {}º papel não tem nome e descrição".format(i))
+            continue
+        cru = re.sub(r"<[^>]+>", " ", nome.group(1))
+        m = re.search(r"frente\s+(\d+)", cru)
+        if not m:
+            falhas.append("o {}º papel não diz de que frente é: {!r}".format(i, cru.strip()))
+        elif int(m.group(1)) != i:
+            falhas.append("o {}º papel está rotulado como frente {}".format(i, m.group(1)))
+        titulo = re.sub(r"frente\s+\d+", "", cru).strip()
+        if len(titulo) < 4:
+            falhas.append("o {}º papel não tem nome legível".format(i))
+        if len(re.sub(r"<[^>]+>", " ", desc.group(1)).split()) < 8:
+            falhas.append("o {}º papel não diz para que serve o registro ali".format(i))
+
+    # a frase que anuncia a lista diz quantos são
+    vis = _sem_acento(texto_visivel(html)).lower()
+    m = re.search(r"\b([a-z]+) das doze\b", vis)
+    if not m:
+        falhas.append("a lista de papéis não é anunciada por uma frase que diga quantos são")
+    else:
+        dito = NUM_SEM_ACENTO.get(m.group(1))
+        if dito is None:
+            falhas.append("a frase anuncia {!r}, que não é um número".format(m.group(1)))
+        elif dito != itens:
+            falhas.append("a frase promete {} papéis e a lista tem {}".format(dito, itens))
     return falhas
 
 
@@ -1068,6 +1219,13 @@ GATES = [
      lambda h: re.sub(r'(<div class="[^"]*card-eyebrow[^"]*">Seis.*?)<li\b.*?</li>',
                       r'\1', h, count=1, flags=re.S),
      "caso-2/index.html"),
+    ("G31", "a régua por fase é verdadeira", g31_regua_por_fase,
+     lambda h: re.sub(r'(<rect x="372" y=")162(" width="122" height=")238(")',
+                      r'\g<1>330\g<2>70\g<3>', h, count=1),
+     "caso-1/index.html"),
+    ("G32", "os papéis batem com a frase", g32_papeis_batem_com_a_frase,
+     lambda h: h.replace("<span>frente 3</span>", "<span>frente 9</span>", 1),
+     "caso-1/index.html"),
 ]
 
 

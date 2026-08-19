@@ -1164,6 +1164,48 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   .fonte{gap:14px;padding:14px}
   .fonte-capa{width:100%}
 }
+
+/* ---------- PAPEL POR FRENTE ---------- */
+/* A primeira linha de cada frente declara qual profissional ele é ali, e é
+   isso que decide o que se registra. Duas colunas: o papel vira coluna
+   legível, a consequência fica ao lado. min-width:0 nos filhos porque item
+   de grid nasce com a largura mínima do conteúdo e não encolhe no celular. */
+.papeis{
+  display:grid;gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin:22px 0;
+}
+.papel{display:grid;grid-template-columns:236px 1fr;background:var(--bg-elev)}
+.papel > *{min-width:0}
+.papel-nome{
+  padding:14px 16px;background:var(--bg-warm);
+  font-size:14.5px;font-weight:600;line-height:1.35;
+  border-right:1px solid var(--border);
+}
+.papel-nome span{
+  display:block;font-family:var(--font-mono);font-size:10px;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);
+  font-weight:500;margin-bottom:5px;
+}
+.papel-d{padding:14px 16px;font-size:14px;line-height:1.55;color:var(--text-muted)}
+@media (max-width:720px){
+  .papel{grid-template-columns:1fr}
+  .papel-nome{border-right:none;border-bottom:1px solid var(--border)}
+}
+
+/* ---------- FALA VERBATIM ---------- */
+/* Quando a frase é dele e a formulação importa, ela entra como fala e não
+   como parágrafo nosso: barra à esquerda, itálico, e a atribuição embaixo. */
+.fala{
+  border-left:3px solid var(--accent);background:var(--bg-warm);
+  padding:15px 18px;margin:20px 0;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+}
+.fala p{font-size:15px;line-height:1.6;color:var(--text);font-style:italic;margin:0}
+.fala-quem{
+  display:block;font-family:var(--font-mono);font-size:11px;
+  font-style:normal;color:var(--text-dim);margin-top:10px;letter-spacing:.02em;
+}
 </style>
 </head>
 <body>
@@ -1478,6 +1520,213 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               </p>
             </div>
 
+            <h4>O&nbsp;que&nbsp;muda de&nbsp;área para&nbsp;área, e&nbsp;o&nbsp;que&nbsp;não&nbsp;muda</h4>
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;mesmo desenho roda em&nbsp;doze frentes de&nbsp;naturezas muito diferentes.</span> <span class="fr">Uma&nbsp;entrega software para&nbsp;um&nbsp;cliente com&nbsp;contrato assinado; outra é uma&nbsp;empresa
+              minha,&nbsp;com&nbsp;sócio; outra é ensino, como este dia aqui.</span> <span class="fr"><strong>Três coisas
+              mudam de&nbsp;uma&nbsp;frente para&nbsp;a&nbsp;outra, e&nbsp;uma&nbsp;não&nbsp;muda em&nbsp;nenhuma.</strong></span>
+            </p>
+
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>Muda 1 · Cada frente declara, na&nbsp;primeira linha, qual profissional
+              eu sou nela.</strong></span> <span class="fr">Não&nbsp;é cargo.</span> <span class="fr">É o&nbsp;que&nbsp;eu decido ali, e&nbsp;o&nbsp;que&nbsp;eu não&nbsp;decido.</span> <span class="fr"><strong>Cinco das&nbsp;doze</strong>, para&nbsp;dar a&nbsp;ideia do&nbsp;tamanho da&nbsp;diferença:</span>
+            </p>
+
+            <div class="papeis fr-host">
+              <div class="papel">
+                <div class="papel-nome"><span>frente 1</span>Gerente de projeto contratado</div>
+                <div class="papel-d">
+                  <span class="fr">O&nbsp;cliente define o&nbsp;escopo, eu respondo por&nbsp;prazo e&nbsp;entrega.</span> <span class="fr">O&nbsp;registro
+                  aqui existe para&nbsp;a&nbsp;entrega não&nbsp;ser recusada sem&nbsp;critério.</span>
+                </div>
+              </div>
+              <div class="papel">
+                <div class="papel-nome"><span>frente 2</span>Consultor de diagnóstico</div>
+                <div class="papel-d">
+                  <span class="fr">Eu não&nbsp;executo, eu recomendo.</span> <span class="fr">O&nbsp;registro existe para&nbsp;a&nbsp;recomendação
+                  chegar com&nbsp;dono, número e&nbsp;prazo, em&nbsp;vez de&nbsp;virar relatório na&nbsp;gaveta.</span>
+                </div>
+              </div>
+              <div class="papel">
+                <div class="papel-nome"><span>frente 3</span>Sócio de uma empresa</div>
+                <div class="papel-d">
+                  <span class="fr">Não&nbsp;existe contratante: a&nbsp;decisão é dividida com&nbsp;outra pessoa.</span> <span class="fr">O&nbsp;registro
+                  existe para&nbsp;as&nbsp;duas lembrarem o&nbsp;que&nbsp;foi combinado, e&nbsp;quando.</span>
+                </div>
+              </div>
+              <div class="papel">
+                <div class="papel-nome"><span>frente 4</span>Parceiro de uma base de conhecimento</div>
+                <div class="papel-d">
+                  <span class="fr">O&nbsp;conhecimento é de&nbsp;um&nbsp;especialista, e&nbsp;eu organizo.</span> <span class="fr">O&nbsp;registro existe
+                  para&nbsp;separar o&nbsp;que&nbsp;ele afirmou do&nbsp;que&nbsp;eu deduzi.</span>
+                </div>
+              </div>
+              <div class="papel">
+                <div class="papel-nome"><span>frente 5</span>Professor</div>
+                <div class="papel-d">
+                  <span class="fr">O&nbsp;material é meu&nbsp;e&nbsp;roda com&nbsp;turmas diferentes.</span> <span class="fr">O&nbsp;registro existe para&nbsp;a&nbsp;turma seguinte herdar o&nbsp;que&nbsp;a&nbsp;anterior ensinou.</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;papel decide tudo o&nbsp;que&nbsp;vem depois: o&nbsp;que&nbsp;se&nbsp;escreve, quem confere e&nbsp;o&nbsp;que&nbsp;conta como pronto.</span> <span class="fr"><strong>Duas áreas da&nbsp;mesma instituição podem precisar de&nbsp;registros diferentes, e&nbsp;isso não&nbsp;é falta de&nbsp;padrão.</strong></span> <span class="fr">É a&nbsp;mesma regra
+              respondendo a&nbsp;trabalhos diferentes.</span>
+            </p>
+
+            <p class="fr-host">
+              <span class="fr"><strong>Muda 2 · O que cada frente acompanha é decidido pelo tipo de
+              trabalho, não pelo gosto.</strong></span> <span class="fr">Na frente de software: o módulo em
+              desenvolvimento, os critérios que faltam fechar, os dias até o aceite formal.</span>
+              <span class="fr">Na consultoria: a fase em que o cliente está, e o que impede a fase de
+              fechar.</span> <span class="fr">No ensino: a turma ativa, os módulos publicados, a próxima turma.</span>
+              <span class="fr">Escolher o número é declarar o que aquela frente considera progresso, e é por
+              isso que copiar o painel de uma área para outra costuma não pegar.</span>
+            </p>
+
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>Muda 3 · A&nbsp;régua muda com&nbsp;a&nbsp;fase em&nbsp;que&nbsp;o&nbsp;trabalho está.</strong></span>
+              <span class="fr">Este é o&nbsp;ponto que&nbsp;mais gera resistência quando&nbsp;alguém propõe organizar uma&nbsp;área, então vale ver desenhado.</span> <span class="fr">A&nbsp;quantidade de&nbsp;coisa exigida não&nbsp;é a&nbsp;mesma
+              do&nbsp;começo ao&nbsp;fim.</span>
+            </p>
+
+            <div class="fig-desenho">
+              <svg font-family="var(--font-body)" viewBox="0 0 1160 560" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="A régua por fase do trabalho: acabou de chegar exige 3 itens, antes de executar exige 7, em execução exige 14, cliente validando exige 15 a 16, entregue e negociando a continuação exige 16 a 18, encerrado exige 2 e parado exige 1.">
+              <rect width="1160" height="560" fill="var(--bg)"/>
+              <!-- eixo -->
+              <line x1="40" y1="400" x2="1120" y2="400" stroke="var(--border-strong)" stroke-width="1.5"/>
+              <!-- barras ativas -->
+              <g fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5">
+              <rect x="60" y="349" width="122" height="51" rx="4"/>
+              <rect x="216" y="281" width="122" height="119" rx="4"/>
+              <rect x="372" y="162" width="122" height="238" rx="4"/>
+              <rect x="528" y="136" width="122" height="264" rx="4"/>
+              <rect x="684" y="111" width="122" height="289" rx="4"/>
+              </g>
+              <!-- barras passivas: o trabalho acabou, a exigência cai -->
+              <g fill="var(--bg-warm)" stroke="var(--text-dim)" stroke-width="1.5" stroke-dasharray="4,3">
+              <rect x="840" y="366" width="122" height="34" rx="4"/>
+              <rect x="996" y="383" width="122" height="17" rx="4"/>
+              </g>
+              <!-- numeros -->
+              <g text-anchor="middle" font-family="var(--font-mono)" font-weight="600" fill="var(--text)">
+              <text x="121" y="333" font-size="26">3</text>
+              <text x="277" y="265" font-size="26">7</text>
+              <text x="433" y="146" font-size="26">14</text>
+              <text x="589" y="120" font-size="26">15-16</text>
+              <text x="745" y="95" font-size="26">16-18</text>
+              <text x="901" y="350" font-size="26" fill="var(--text-dim)">2</text>
+              <text x="1057" y="367" font-size="26" fill="var(--text-dim)">1</text>
+              </g>
+              <!-- rotulos das fases -->
+              <g text-anchor="middle" fill="var(--text-muted)" font-size="14">
+              <text x="121" y="428">Acabou</text><text x="121" y="447">de chegar</text>
+              <text x="277" y="428">Antes de</text><text x="277" y="447">executar</text>
+              <text x="433" y="428">Em</text><text x="433" y="447">execução</text>
+              <text x="589" y="428">Cliente</text><text x="589" y="447">validando</text>
+              <text x="745" y="428">Entregue,</text><text x="745" y="447">negociando</text><text x="745" y="466">a continuação</text>
+              <text x="901" y="428" fill="var(--text-dim)">Encerrado</text>
+              <text x="1057" y="428" fill="var(--text-dim)">Parado</text>
+              </g>
+              <!-- legenda do eixo -->
+              <text x="40" y="60" font-family="var(--font-mono)" font-size="13" font-weight="600" letter-spacing="1.6" fill="var(--text)">QUANTOS ITENS A FASE EXIGE</text>
+              <text x="40" y="82" font-size="14.5" fill="var(--text-muted)">a mesma frente, do dia em que o trabalho chega ao dia em que ele acaba</text>
+              <g text-anchor="middle" font-family="var(--font-mono)" font-size="12.5" fill="var(--text-dim)">
+              <text x="433" y="510">a exigência sobe enquanto o trabalho cresce</text>
+              <text x="979" y="510">e cai quando ele termina</text>
+              </g>
+              </svg>
+            </div>
+
+            <p class="fig-leg fr-host">
+              <span class="fr">A&nbsp;pergunta que&nbsp;o&nbsp;conferidor faz não&nbsp;é <em>tem tudo?</em>.</span> <span class="fr">É <em>tem o&nbsp;que&nbsp;esta fase exige?</em>.</span> <span class="fr">Um&nbsp;trabalho que&nbsp;chegou semana passada com&nbsp;três itens
+              em&nbsp;ordem está tão em&nbsp;dia quanto um&nbsp;em&nbsp;execução com&nbsp;quatorze.</span>
+            </p>
+
+            <div class="callout callout-warn">
+              <div class="callout-title">Por que a régua única estraga</div>
+              <p class="fr-host">
+                <span class="fr">Se todo trabalho precisar dos mesmos dezoito itens desde o primeiro dia,
+                acontecem duas coisas, e as duas são piores que a desorganização.</span> <span class="fr">O que
+                acabou de começar aparece como <strong>problema sem ser problema</strong>,
+                e a pessoa passa a <strong>criar arquivo vazio só para satisfazer o
+                conferidor</strong>.</span> <span class="fr">Nos dois casos o registro perde o valor que tinha:
+                vira formulário.</span> <span class="fr">É por isso que a régua acompanha a fase.</span>
+              </p>
+            </div>
+
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>E&nbsp;o&nbsp;que&nbsp;não&nbsp;muda: em&nbsp;toda frente existe um&nbsp;ponto em&nbsp;que&nbsp;uma&nbsp;pessoa
+              confere antes de&nbsp;seguir.</strong></span> <span class="fr">O&nbsp;nome dele é diferente em&nbsp;cada área, o&nbsp;que&nbsp;faz muita gente achar que&nbsp;está falando de&nbsp;coisas diferentes.</span> <span class="fr">Não&nbsp;está.</span>
+            </p>
+
+            <div class="fig-desenho">
+              <svg font-family="var(--font-body)" viewBox="0 0 1160 520" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="O mesmo ponto de conferência com quatro nomes: na consultoria chama-se responsável, número e prazo; no software contratado chama-se critério de aceite; na base de conhecimento chama-se validar com o especialista; na sua área ainda não tem nome. Os quatro apontam para a mesma frase: uma pessoa com nome confere antes de seguir.">
+              <defs>
+              <marker id="pt-portao" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+              <polygon points="0 0, 9 3.5, 0 7" fill="var(--text-muted)"/></marker>
+              </defs>
+              <rect width="1160" height="520" fill="var(--bg)"/>
+              <!-- setas: por baixo das caixas -->
+              <g fill="none" stroke="var(--text-muted)" stroke-width="1.5" marker-end="url(#pt-portao)">
+              <path d="M 145 262 L 145 300 Q 145 308 153 308 L 572 308 Q 580 308 580 316 L 580 344"/>
+              <path d="M 435 262 L 435 300 Q 435 308 443 308 L 572 308 Q 580 308 580 316 L 580 344"/>
+              <path d="M 725 262 L 725 300 Q 725 308 717 308 L 588 308 Q 580 308 580 316 L 580 344"/>
+              <path d="M 1015 262 L 1015 300 Q 1015 308 1007 308 L 588 308 Q 580 308 580 316 L 580 344"/>
+              </g>
+              <!-- tres nomes que existem -->
+              <g>
+              <rect x="20" y="60" width="250" height="200" rx="8" fill="var(--bg-elev)" stroke="var(--border-strong)"/>
+              <text x="42" y="92" font-family="var(--font-mono)" font-size="12.5" font-weight="600" letter-spacing="1.4" fill="var(--text-dim)">NA CONSULTORIA</text>
+              <text x="42" y="130" font-size="17" font-weight="600" fill="var(--text)">Responsável,</text>
+              <text x="42" y="152" font-size="17" font-weight="600" fill="var(--text)">número e prazo</text>
+              <text x="42" y="188" font-size="14" fill="var(--text-muted)">sem os três, a</text>
+              <text x="42" y="208" font-size="14" fill="var(--text-muted)">recomendação não sai</text>
+              <text x="42" y="228" font-size="14" fill="var(--text-muted)">do papel</text>
+              </g>
+              <g>
+              <rect x="310" y="60" width="250" height="200" rx="8" fill="var(--bg-elev)" stroke="var(--border-strong)"/>
+              <text x="332" y="92" font-family="var(--font-mono)" font-size="12.5" font-weight="600" letter-spacing="1.4" fill="var(--text-dim)">NO SOFTWARE CONTRATADO</text>
+              <text x="332" y="130" font-size="17" font-weight="600" fill="var(--text)">Critério</text>
+              <text x="332" y="152" font-size="17" font-weight="600" fill="var(--text)">de aceite</text>
+              <text x="332" y="188" font-size="14" fill="var(--text-muted)">escrito antes de</text>
+              <text x="332" y="208" font-size="14" fill="var(--text-muted)">construir, conferido por</text>
+              <text x="332" y="228" font-size="14" fill="var(--text-muted)">quem fiscaliza</text>
+              </g>
+              <g>
+              <rect x="600" y="60" width="250" height="200" rx="8" fill="var(--bg-elev)" stroke="var(--border-strong)"/>
+              <text x="622" y="92" font-family="var(--font-mono)" font-size="12.5" font-weight="600" letter-spacing="1.4" fill="var(--text-dim)">NA BASE DE CONHECIMENTO</text>
+              <text x="622" y="130" font-size="17" font-weight="600" fill="var(--text)">Validar com</text>
+              <text x="622" y="152" font-size="17" font-weight="600" fill="var(--text)">o especialista</text>
+              <text x="622" y="188" font-size="14" fill="var(--text-muted)">cada ponto duvidoso</text>
+              <text x="622" y="208" font-size="14" fill="var(--text-muted)">fica marcado até quem</text>
+              <text x="622" y="228" font-size="14" fill="var(--text-muted)">sabe responder</text>
+              </g>
+              <!-- a quarta, que e a pergunta para a sala -->
+              <g>
+              <rect x="890" y="60" width="250" height="200" rx="8" fill="var(--accent-tinted)" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6,4"/>
+              <text x="912" y="92" font-family="var(--font-mono)" font-size="12.5" font-weight="600" letter-spacing="1.4" fill="var(--accent-dark)">NA SUA ÁREA</text>
+              <text x="912" y="136" font-size="30" font-weight="600" fill="var(--accent-dark)">?</text>
+              <text x="912" y="188" font-size="14" fill="var(--text-muted)">ele existe, e</text>
+              <text x="912" y="208" font-size="14" fill="var(--text-muted)">provavelmente ainda</text>
+              <text x="912" y="228" font-size="14" fill="var(--text-muted)">não tem nome</text>
+              </g>
+              <!-- a frase comum -->
+              <g>
+              <rect x="180" y="346" width="800" height="108" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="580" y="390" text-anchor="middle" font-size="20" font-weight="600" fill="var(--text)">Uma pessoa com nome confere antes de seguir</text>
+              <text x="580" y="420" text-anchor="middle" font-size="14.5" fill="var(--text-muted)">e o que ela confere está escrito antes, não combinado na hora</text>
+              </g>
+              </svg>
+            </div>
+
+            <p class="fig-leg fr-host">
+              <span class="fr">Dar nome a&nbsp;esse ponto é metade do&nbsp;trabalho de&nbsp;organizar uma&nbsp;área.</span> <span class="fr">Enquanto&nbsp;ele não&nbsp;tem nome, ele acontece assim mesmo, só&nbsp;que&nbsp;na&nbsp;conversa, sem&nbsp;registro,
+              e&nbsp;com&nbsp;pessoas diferentes decidindo critérios diferentes.</span>
+            </p>
+
             <h4>As&nbsp;três falhas, em&nbsp;resumo</h4>
             <p class="p-curto fr-host">
               <span class="fr">O&nbsp;relato de&nbsp;cada uma&nbsp;vem depois.</span> <span class="fr">Antes disso, as&nbsp;três lado a&nbsp;lado, porque&nbsp;elas se&nbsp;parecem com&nbsp;o&nbsp;que&nbsp;costuma acontecer em&nbsp;qualquer área.</span>
@@ -1597,6 +1846,47 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> o&nbsp;arquivo de&nbsp;contexto não&nbsp;é depósito.</span> <span class="fr">Ele é o&nbsp;que&nbsp;precisa ser verdade em&nbsp;toda leitura.</span> <span class="fr">Quando&nbsp;ele vira arquivo morto de&nbsp;tudo que&nbsp;já&nbsp;se&nbsp;soube, ninguém abre, nem a&nbsp;IA nem a&nbsp;pessoa.</span>
             </p>
 
+            <h4>E&nbsp;a&nbsp;falha que&nbsp;continua aberta</h4>
+            <p class="p-curto fr-host">
+              <span class="fr">As&nbsp;três acima eu consertei.</span> <span class="fr">Esta não,&nbsp;e&nbsp;é a&nbsp;mais importante das&nbsp;quatro,
+              porque&nbsp;ela acontece com&nbsp;<em>todo</em> sistema de&nbsp;registro que&nbsp;funciona.</span> <span class="fr">Foi
+              assim que&nbsp;eu descrevi o&nbsp;problema quando&nbsp;me perguntaram o&nbsp;que&nbsp;ainda não&nbsp;estava
+              bom:</span>
+            </p>
+
+            <div class="fala">
+              <p class="p-curto fr-host">
+                <span class="fr">O&nbsp;processo de&nbsp;atualização ficou nessa dor que&nbsp;eu levantei, que&nbsp;não&nbsp;é tão
+                automático.</span> <span class="fr">Às&nbsp;vezes, eu posso ter esquecido de&nbsp;atualizar alguma coisa.</span>
+                <span class="fr">Você pode ver que&nbsp;tem talvez coisas que&nbsp;estão no&nbsp;status que&nbsp;não&nbsp;estão
+                [no&nbsp;sistema].
+                <span class="fala-quem">eu, no&nbsp;diagnóstico de&nbsp;uma&nbsp;das&nbsp;frentes</span></span>
+              </p>
+            </div>
+
+            <p class="fr-host">
+              <span class="fr">Traduzindo: <strong>o registro não envelhece porque foi mal desenhado.
+              Envelhece porque atualizar depende de alguém lembrar.</strong></span> <span class="fr">A reunião
+              aconteceu, a decisão foi tomada, e o arquivo continua contando a história de
+              três semanas atrás.</span> <span class="fr">Ninguém percebe no dia.</span> <span class="fr">Percebe daqui a um mês, quando
+              alguém toma uma decisão com base no que está escrito e o que está escrito já
+              não é verdade.</span>
+            </p>
+
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;conserto que&nbsp;existe hoje é parcial e&nbsp;vale mais como ideia do&nbsp;que&nbsp;como
+              ferramenta: um&nbsp;painel que&nbsp;<strong>compara o&nbsp;que&nbsp;está declarado nos&nbsp;arquivos
+              contra&nbsp;o&nbsp;que&nbsp;existe de&nbsp;fato nas&nbsp;pastas</strong>, e&nbsp;mostra a&nbsp;diferença.</span> <span class="fr">Ele
+              não&nbsp;atualiza nada.</span> <span class="fr">Ele só&nbsp;torna a&nbsp;defasagem visível, o&nbsp;que&nbsp;já&nbsp;muda o&nbsp;comportamento, porque&nbsp;o&nbsp;que&nbsp;ninguém vê ninguém corrige.</span>
+            </p>
+
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> um&nbsp;sistema de&nbsp;registro precisa de&nbsp;um&nbsp;segundo
+              mecanismo, cuja única função é dizer quando&nbsp;o&nbsp;primeiro está desatualizado.</span>
+              <span class="fr">Sem&nbsp;isso, a&nbsp;organização decai em&nbsp;silêncio, e&nbsp;o&nbsp;momento em&nbsp;que&nbsp;alguém descobre
+              é sempre o&nbsp;pior momento possível.</span>
+            </p>
+
           </div>
         </details>
       </section>
@@ -1631,6 +1921,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <strong>uma&nbsp;vez</strong>, em&nbsp;vez de&nbsp;digitado de&nbsp;novo a&nbsp;cada pedido.</span> <span class="fr">É a&nbsp;diferença entre&nbsp;explicar a&nbsp;casa toda semana e&nbsp;ter a&nbsp;casa explicada.</span>
             </div>
           </div>
+        </div>
+
+        <div class="callout callout-warn">
+          <div class="callout-title">Este dia é uma das doze frentes</div>
+          <p class="fr-host">
+            <span class="fr">Ensino é uma das frentes do sistema que vocês acabaram de ver, e este workshop
+            está listado nela pelo nome.</span> <span class="fr">É também <strong>uma das que ainda não passaram
+            pelo diagnóstico</strong>: o material existe, roda com turmas diferentes, e o
+            registro dele é dos mais fracos que eu tenho.</span> <span class="fr">Eu não trouxe um sistema pronto
+            para mostrar.</span> <span class="fr">Trouxe um que está a meio caminho, e vocês estão sentados dentro
+            da parte que falta.</span>
+          </p>
         </div>
 
         <div class="callout callout-info">
