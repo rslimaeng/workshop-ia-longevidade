@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda trinta gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta e dois gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -101,6 +101,8 @@ defeito derruba o script como **cego**.
 | G28 | O passo de quebra de linha que deixou de rodar sobre a página |
 | G29 | Frase que não ganhou a sua linha, e o container query que faz isso valer |
 | G30 | Número de auxiliares escrito que não bate com o que está listado |
+| G31 | Barra da régua por fase cuja altura contradiz o número que ela diz |
+| G32 | Lista de papéis que não bate com a frase que a anuncia |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -244,6 +246,23 @@ frases que caberiam e quebraram assim mesmo.**
 - **`requestAnimationFrame` não dispara com o painel do navegador escondido.** Toda sonda
   que redimensiona iframe trava em 30s. Usar `setTimeout` e forçar reflow lendo
   `offsetHeight`.
+- 🔴 **Figura que é prova se confere pela geometria, não pelo texto ao lado.** A régua
+  por fase afirma que a exigência sobe e depois cai. Se a altura de uma barra deixar de
+  acompanhar o número que ela diz, a figura passa a dizer o contrário do parágrafo e
+  **nenhum gate de texto vê**. O G31 compara altura contra número, número contra
+  `aria-label`, e o teto citado no texto contra o teto da figura.
+- **`\b` casa antes do hífen.** `r"\bpapel\b"` acertou também `papel-nome` e `papel-d`,
+  e o gate contou 16 linhas onde havia 5. Classe se casa como classe inteira, com o
+  helper `CL()`: delimitada por espaço ou pela aspa.
+- **Terceira recorrência do injetor literal, agora no próprio gate.** O G32 nasceu cego
+  procurando `class="papeis"` porque o gerador acrescenta `fr-host` na mesma tag. Não é só
+  o injetor que precisa ser tolerante: **o gate também**.
+- **Dicionário de número por extenso que para em dezessete é gate que para em dezessete.**
+  `dezenove itens` não acusava nada. `NUM_ALTO` cobre até trinta.
+- **Fonte dentro de SVG se mede depois de escalada.** A figura renderiza a 860px de um
+  `viewBox` de 1160, então toda fonte encolhe 26%: `font-size="11"` chega ao celular com
+  8,2px. O piso do que já está no ar é 7,8px; medir, e não estimar.
+
 - **Dentro de `<svg>` um `<span>` não desenha nada.** Cortar frase ali apagaria texto da
   figura na tela sem apagar nada do HTML. O gerador proíbe pela **árvore**, não pelo
   elemento: proibir só o elemento deixou a cola entrar no `.fonte-cta` lá dentro.
