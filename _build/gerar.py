@@ -781,6 +781,20 @@ def main():
         gerados.append((destino, len(html)))
         print("  gravado: {:<44} {:>7} bytes".format(
             os.path.relpath(destino, RAIZ), len(html)))
+    # O canvas não passa pelo molde (é standalone, com JS e sem casca do site),
+    # mas os dois passos de texto valem para ele igual: os gates G28 e G29
+    # conferem o arquivo publicado, e enquanto isso era trabalho manual toda
+    # edição no canvas quebrava os dois.
+    canvas = os.path.join(RAIZ, "canvas", "index.html")
+    if os.path.exists(canvas):
+        cru = open(canvas, encoding="utf-8").read()
+        tratado = uma_frase_por_linha(cola_quebra_de_linha(cru))
+        if tratado != cru:
+            with open(canvas, "w", encoding="utf-8") as f:
+                f.write(tratado)
+            print("  tratado: {:<44} {:>7} bytes".format("canvas/index.html", len(tratado)))
+        gerados.append((canvas, len(tratado)))
+
     if not gerados:
         sys.exit("nenhuma página gerada")
     print("\n  {} páginas".format(len(gerados)))

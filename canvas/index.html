@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Canvas · Ideação com AI First · Grupo Longevidade Saudável</title>
-<meta name="description" content="Canvas do workshop de encerramento da Trilha de Cultura de IA. Régua de maturidade, registro de conhecimento e ficha de escopo, com exportação para planilha.">
+<meta name="description" content="Canvas do workshop de encerramento da Trilha de Cultura de IA. Régua de maturidade respondida no começo e no fim do dia, e a ficha dos quatro campos, com exportação para a planilha da sala.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -28,9 +28,9 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; font-family: var(--sans); font-size: 16px;
-    /* a barra fixa mede ~96px; a folga extra evita cobrir o ultimo campo
-       e o env() reserva o recorte inferior do iPhone */
-    padding: 0 0 calc(132px + env(safe-area-inset-bottom, 0px));
+    /* a barra fixa saiu: cada bloco tem o seu proprio botao de copiar.
+       Sobra so o recorte inferior do iPhone e uma folga de respiro. */
+    padding: 0 0 calc(28px + env(safe-area-inset-bottom, 0px));
     line-height: 1.55; color: var(--ink); background: var(--bg);
     -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%;
   }
@@ -125,14 +125,24 @@
   .aviso.warn .t { color: var(--warning); }
   .aviso.ok .t { color: var(--success); }
 
-  /* ---------- BARRA DE AÇÃO ---------- */
-  .barra { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,.97); border-top: 1px solid var(--border-strong); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -4px 16px rgba(22,32,43,.08); z-index: 50; }
-  .barra-in { max-width: 720px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+  /* ---------- BOTÕES E BLOCOS DE ENVIO ---------- */
+  /* A barra fixa saiu quando o envio deixou de ser uma acao unica: sao tres
+     momentos distintos, cada um com o seu botao no fim do proprio bloco. */
   .btn { font-family: var(--sans); font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); padding: 13px 20px; border: 1px solid transparent; cursor: pointer; line-height: 1.2; }
-  .btn.primary { background: var(--accent); color: #fff; flex: 1; }
+  .btn.primary { background: var(--accent); color: #fff; width: 100%; }
   .btn.primary:hover { background: #092B52; }
-  .btn.ghost { background: transparent; color: var(--ink-muted); border-color: var(--border-strong); font-size: 13px; padding: 13px 14px; }
-  .estado { font-size: 11.5px; color: var(--ink-muted); text-align: center; margin: 7px 0 0; }
+  .btn.ghost { background: transparent; color: var(--ink-muted); border-color: var(--border-strong); font-size: 13px; padding: 11px 14px; }
+  .estado { font-size: 11.5px; color: var(--ink-muted); margin: 0; }
+
+  .envio { margin: 22px 0 0; padding: 16px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--bg-warm); }
+  .envio-t { margin: 0 0 4px; font-size: 15.5px; font-weight: 600; color: var(--ink); }
+  .envio-d { margin: 0 0 13px; font-size: 13.5px; line-height: 1.5; color: var(--ink-muted); }
+
+  .via { margin: 14px 0; padding: 14px 16px; border-left: 3px solid var(--accent); background: var(--bg-elev); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+  .via-t { margin: 0 0 5px; font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
+  .via-d { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink); }
+
+  .pe { margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
 
   /* ---------- ESQUEMA TSV ---------- */
   .esquema { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 13px 15px; margin: 14px 0 0; }
@@ -159,12 +169,34 @@
   <div class="wrap">
     <p class="eyebrow p-curto">Trilha de&nbsp;Cultura de&nbsp;Inteligência Artificial · Encerramento</p>
     <h1>Canvas <span class="it">Ideação com&nbsp;AI First</span></h1>
-    <p class="p-curto fr-host"><span class="fr">Preencha ao&nbsp;longo do&nbsp;dia.</span> <span class="fr">O&nbsp;rascunho fica salvo neste aparelho.</span> <span class="fr">No&nbsp;fim, um&nbsp;toque copia a&nbsp;sua&nbsp;linha para&nbsp;a&nbsp;planilha da&nbsp;sala.</span></p>
+    <p class="p-curto fr-host"><span class="fr">As&nbsp;mesmas cinco perguntas, respondidas duas vezes: no&nbsp;começo e&nbsp;no&nbsp;fim do&nbsp;dia.</span> <span class="fr">O&nbsp;rascunho fica salvo neste aparelho.</span> <span class="fr">A&nbsp;comparação entre&nbsp;as&nbsp;duas respostas é&nbsp;o&nbsp;fechamento do&nbsp;workshop.</span></p>
     <p style="margin-top:14px" class="p-curto"><a href="../" style="color:#fff;opacity:.85;font-size:14px;text-decoration:underline">← voltar ao&nbsp;material do&nbsp;dia</a></p>
   </div>
 </div>
 
 <div class="wrap">
+
+  <!-- ============ POR ONDE RESPONDER ============ -->
+  <div class="bloco">
+    <p class="bloco-rot p-curto">Antes de&nbsp;tudo</p>
+    <h2>Você escolhe por&nbsp;onde responder</h2>
+    <p class="lead p-curto fr-host"><span class="fr">São as&nbsp;mesmas cinco perguntas nos&nbsp;dois caminhos.</span> <span class="fr">O&nbsp;que&nbsp;muda é&nbsp;só&nbsp;onde você digita.</span></p>
+
+    <div class="via">
+      <p class="via-t p-curto">No&nbsp;celular · o&nbsp;caminho mais&nbsp;curto</p>
+      <p class="via-d p-curto">Abra a&nbsp;planilha da&nbsp;sala, que&nbsp;tem as&nbsp;cinco perguntas no&nbsp;alto de&nbsp;cada coluna, e&nbsp;digite <strong>1, 2 ou&nbsp;3</strong> em&nbsp;cada uma.&nbsp;Não&nbsp;precisa passar por&nbsp;aqui.</p>
+    </div>
+
+    <div class="via">
+      <p class="via-t p-curto">No&nbsp;computador · por&nbsp;esta página</p>
+      <p class="via-d p-curto fr-host"><span class="fr">Responda aqui, clique no&nbsp;botão que&nbsp;copia a&nbsp;sua&nbsp;linha e&nbsp;cole na&nbsp;planilha.</span> <span class="fr">As&nbsp;colunas se&nbsp;separam sozinhas.</span></p>
+    </div>
+
+    <div class="aviso warn fr-host">
+      <span class="fr"><span class="t">Por&nbsp;que&nbsp;não&nbsp;copiar e&nbsp;colar pelo&nbsp;celular</span>
+      No&nbsp;aplicativo de&nbsp;planilha do&nbsp;celular, colar uma&nbsp;linha inteira costuma cair tudo dentro de&nbsp;uma&nbsp;célula só.</span> <span class="fr">Se&nbsp;você está no&nbsp;celular, <strong>digite direto na&nbsp;planilha</strong>.</span>
+    </div>
+  </div>
 
   <!-- ============ IDENTIFICAÇÃO ============ -->
   <div class="bloco">
@@ -201,7 +233,7 @@
 
   <!-- ============ RÉGUA · ABERTURA ============ -->
   <div class="bloco">
-    <p class="bloco-rot p-curto">Parte 1 de&nbsp;4 · responda agora</p>
+    <p class="bloco-rot p-curto">Parte 1 de&nbsp;3 · no&nbsp;começo do&nbsp;dia</p>
     <h2>Onde&nbsp;eu estou hoje</h2>
     <p class="lead p-curto fr-host"><span class="fr">Cinco perguntas, uma&nbsp;por&nbsp;pilar.</span> <span class="fr">Marque <strong>o&nbsp;que&nbsp;é verdade hoje</strong>, não&nbsp;o&nbsp;que&nbsp;seria bonito responder.</span> <span class="fr">A&nbsp;régua só&nbsp;funciona se&nbsp;for honesta, e&nbsp;ninguém vai saber quem respondeu o&nbsp;quê.</span></p>
 
@@ -256,49 +288,25 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- ============ O QUE SÓ EXISTE NA CABEÇA ============ -->
-  <details class="depois">
-    <summary>
-      <span>
-        <span class="sum-rot">Parte 2 de&nbsp;4 · durante&nbsp;o&nbsp;dia</span>
-        <span class="sum-t">O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</span>
-      </span>
-      <span class="sum-mais">abrir</span>
-    </summary>
-  <div class="bloco">
-    <p class="bloco-rot p-curto">Parte 2 de&nbsp;4 · durante&nbsp;o&nbsp;dia</p>
-    <h2>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</h2>
-    <p class="lead p-curto fr-host"><span class="fr">Três coisas da&nbsp;sua&nbsp;área que&nbsp;<strong>ninguém escreveu em&nbsp;lugar nenhum</strong>.</span> <span class="fr">Se&nbsp;está escrito, não&nbsp;vale.</span></p>
-
-    <label class="campo-l" for="c-cab1">Um&nbsp;jeito de&nbsp;fazer que&nbsp;só&nbsp;se&nbsp;aprende observando alguém</label>
-    <textarea class="txt" id="c-cab1" rows="2" placeholder="ex: como se decide a ordem de contato quando três coisas urgentes caem juntas"></textarea>
-
-    <label class="campo-l" for="c-cab2">Uma&nbsp;regra que&nbsp;todo mundo segue e&nbsp;ninguém escreveu</label>
-    <textarea class="txt" id="c-cab2" rows="2" placeholder="ex: o que nunca se promete por escrito antes de confirmar com a coordenação"></textarea>
-
-    <label class="campo-l" for="c-cab3">Uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa sabe tratar</label>
-    <textarea class="txt" id="c-cab3" rows="2" placeholder="ex: o caso raro que sempre para na mesma mesa porque ninguém mais sabe resolver"></textarea>
-
-    <div class="aviso info fr-host">
-      <span class="fr"><span class="t">Por&nbsp;que&nbsp;este bloco existe</span>
-      Cada linha aqui é uma coisa que <strong>a inteligência artificial não consegue fazer por você</strong>, por mais boa que ela seja.</span> <span class="fr">Não porque é difícil: porque não está escrito em lugar nenhum.</span>
+    <div class="envio">
+      <p class="envio-t p-curto fr-host"><span class="fr">Terminou?</span> <span class="fr">Mande para&nbsp;a&nbsp;planilha</span></p>
+      <p class="envio-d p-curto fr-host"><span class="fr">O&nbsp;botão copia a&nbsp;sua&nbsp;linha.</span> <span class="fr">Cole na&nbsp;primeira célula vazia da&nbsp;aba do&nbsp;começo do&nbsp;dia.</span></p>
+      <button class="btn primary" id="btn-abertura" type="button">Copiar a&nbsp;minha linha</button>
     </div>
   </div>
-  </details>
 
   <!-- ============ FICHA DOS QUATRO CAMPOS ============ -->
   <details class="depois">
     <summary>
       <span>
-        <span class="sum-rot">Parte 3 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</span>
+        <span class="sum-rot">Parte 2 de&nbsp;3 · no&nbsp;fim do&nbsp;dia</span>
         <span class="sum-t">A&nbsp;ficha dos&nbsp;quatro campos</span>
       </span>
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
-    <p class="bloco-rot p-curto">Parte 3 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
+    <p class="bloco-rot p-curto">Parte 2 de&nbsp;3 · no&nbsp;fim do&nbsp;dia</p>
     <h2>A&nbsp;ficha dos&nbsp;quatro campos</h2>
     <p class="lead p-curto fr-host"><span class="fr">Escolha <strong>uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área</strong> e&nbsp;preencha os&nbsp;quatro.</span> <span class="fr">Se&nbsp;você não&nbsp;conseguir preencher algum, isso já&nbsp;é a&nbsp;descoberta do&nbsp;exercício.</span></p>
 
@@ -329,6 +337,12 @@
       <span class="t">A&nbsp;regra que&nbsp;acompanha a&nbsp;ficha</span>
       Se os quatro campos não podem ser preenchidos, <strong>ainda não existe projeto: existe vontade.</strong>
     </div>
+
+    <div class="envio">
+      <p class="envio-t p-curto">Mande a&nbsp;sua&nbsp;ficha</p>
+      <p class="envio-d p-curto">Esta linha vai para&nbsp;a&nbsp;aba das&nbsp;iniciativas, que&nbsp;é diferente da&nbsp;aba da&nbsp;régua.</p>
+      <button class="btn primary" id="btn-ficha" type="button">Copiar a&nbsp;minha linha</button>
+    </div>
   </div>
   </details>
 
@@ -336,13 +350,13 @@
   <details class="depois">
     <summary>
       <span>
-        <span class="sum-rot">Parte 4 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</span>
+        <span class="sum-rot">Parte 3 de&nbsp;3 · no&nbsp;fim do&nbsp;dia</span>
         <span class="sum-t">Onde&nbsp;eu cheguei</span>
       </span>
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
-    <p class="bloco-rot p-curto">Parte 4 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
+    <p class="bloco-rot p-curto">Parte 3 de&nbsp;3 · no&nbsp;fim do&nbsp;dia</p>
     <h2>Onde&nbsp;eu cheguei</h2>
     <p class="lead p-curto fr-host"><span class="fr">As&nbsp;mesmas cinco perguntas.</span> <span class="fr">Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.</span></p>
 
@@ -388,42 +402,50 @@
         </div>
       </div>
     </div>
+
+    <div class="envio">
+      <p class="envio-t p-curto fr-host"><span class="fr">Terminou?</span> <span class="fr">Mande de&nbsp;novo</span></p>
+      <p class="envio-d p-curto fr-host"><span class="fr">Mesma coisa de&nbsp;antes, agora na&nbsp;aba do&nbsp;fim do&nbsp;dia.</span> <span class="fr">É&nbsp;a&nbsp;comparação com&nbsp;a&nbsp;sua&nbsp;resposta da&nbsp;manhã.</span></p>
+      <button class="btn primary" id="btn-fechamento" type="button">Copiar a&nbsp;minha linha</button>
+    </div>
   </div>
   </details>
 
-  <!-- ============ COMO ENVIAR ============ -->
+  <!-- ============ AS DUAS ABAS ============ -->
   <div class="bloco">
-    <p class="bloco-rot p-curto">Para&nbsp;fechar</p>
-    <h2>Mandar para&nbsp;a&nbsp;planilha da&nbsp;sala</h2>
-    <p class="lead p-curto fr-host"><span class="fr">Toque no&nbsp;botão azul lá embaixo.</span> <span class="fr">A&nbsp;sua&nbsp;linha vai para&nbsp;a&nbsp;área de&nbsp;transferência do&nbsp;aparelho.</span> <span class="fr">Abra a&nbsp;planilha projetada, toque na&nbsp;<strong>primeira célula vazia da&nbsp;coluna A</strong>&nbsp;e&nbsp;cole.</span> <span class="fr">As&nbsp;colunas se&nbsp;separam sozinhas.</span></p>
+    <p class="bloco-rot p-curto">Para&nbsp;quem cola</p>
+    <h2>As&nbsp;duas abas da&nbsp;planilha</h2>
+    <p class="lead p-curto fr-host"><span class="fr">A&nbsp;planilha da&nbsp;sala tem duas abas, e&nbsp;cada botão desta página escreve numa&nbsp;delas.</span> <span class="fr">Cole sempre na&nbsp;<strong>primeira célula vazia da&nbsp;coluna&nbsp;A</strong>.</span></p>
 
     <div class="esquema">
-      <p class="esquema-t p-curto">As&nbsp;colunas, nesta ordem</p>
+      <p class="esquema-t p-curto">Aba da&nbsp;régua · a&nbsp;mesma no&nbsp;começo e&nbsp;no&nbsp;fim</p>
       <div class="cols">
-        <span class="col">codigo</span><span class="col">area</span>
-        <span class="col">abertura_1</span><span class="col">abertura_2</span><span class="col">abertura_3</span><span class="col">abertura_4</span><span class="col">abertura_5</span><span class="col">abertura_total</span>
-        <span class="col">cabeca_1</span><span class="col">cabeca_2</span><span class="col">cabeca_3</span>
-        <span class="col">iniciativa</span><span class="col">ajuda_em</span><span class="col">numero</span><span class="col">hoje</span><span class="col">meta_60d</span>
-        <span class="col">fecham_1</span><span class="col">fecham_2</span><span class="col">fecham_3</span><span class="col">fecham_4</span><span class="col">fecham_5</span><span class="col">fecham_total</span>
-        <span class="col">evolucao</span><span class="col">data</span>
+        <span class="col">codigo</span><span class="col">area</span><span class="col">momento</span>
+        <span class="col">registro</span><span class="col">contexto</span><span class="col">fases</span>
+        <span class="col">correcao</span><span class="col">escopo</span><span class="col">total</span>
+      </div>
+    </div>
+
+    <div class="esquema">
+      <p class="esquema-t p-curto">Aba das&nbsp;iniciativas · só&nbsp;no&nbsp;fim do&nbsp;dia</p>
+      <div class="cols">
+        <span class="col">codigo</span><span class="col">area</span><span class="col">iniciativa</span>
+        <span class="col">ajuda_em</span><span class="col">numero</span><span class="col">hoje</span><span class="col">meta_60d</span>
       </div>
     </div>
 
     <div class="aviso ok fr-host">
       <span class="fr"><span class="t">Se&nbsp;a&nbsp;rede não&nbsp;colaborar</span>
-      Não tem problema.</span> <span class="fr">O seu rascunho continua salvo neste aparelho, e a folha de papel na mesa é o registro válido.</span> <span class="fr"><strong>Ninguém fica de fora por causa de conexão.</strong></span>
+      Não tem problema.</span> <span class="fr">O&nbsp;seu&nbsp;rascunho continua salvo neste aparelho, e&nbsp;você cola quando&nbsp;a&nbsp;conexão voltar.</span> <span class="fr"><strong>Ninguém fica de&nbsp;fora por&nbsp;causa de&nbsp;conexão.</strong></span>
+    </div>
+
+    <div class="pe">
+      <p class="estado p-curto" id="estado">Rascunho salvo neste aparelho</p>
+      <button class="btn ghost" id="btn-limpar" type="button">Apagar o&nbsp;meu&nbsp;rascunho</button>
     </div>
   </div>
 
   <p class="rodape p-curto">Grupo Longevidade Saudável · Ideação com&nbsp;AI First · IEL Ceará</p>
-</div>
-
-<div class="barra">
-  <div class="barra-in">
-    <button class="btn primary" id="btn-copiar">Copiar minha linha</button>
-    <button class="btn ghost" id="btn-limpar">Limpar</button>
-  </div>
-  <p class="estado p-curto" id="estado">Rascunho salvo neste aparelho</p>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -432,8 +454,10 @@
 (function(){
   'use strict';
 
-  var CHAVE = 'ls_canvas_aifirst_v1';
-  var TEXTOS = ['codigo','area','cab1','cab2','cab3','iniciativa','campo1','campo2','campo3','campo4'];
+  // A versao mudou de esquema: a chave antiga guardava os tres campos do bloco
+  // "o que so existe na cabeca", que saiu. Chave nova para nao ressuscitar lixo.
+  var CHAVE = 'ls_canvas_aifirst_v2';
+  var TEXTOS = ['codigo','area','iniciativa','campo1','campo2','campo3','campo4'];
   var RADIOS = ['a1','a2','a3','a4','a5','f1','f2','f3','f4','f5'];
   var estado = document.getElementById('estado');
 
@@ -487,25 +511,28 @@
     return String(s == null ? '' : s).replace(/\t/g,' ').replace(/\r?\n/g,' · ').trim();
   }
 
-  function montarLinha(){
-    var ta = total('a'), tf = total('f');
-    var evol = (ta && tf) ? String(parseInt(tf,10) - parseInt(ta,10)) : '';
-    var hoje = new Date();
-    var dd = String(hoje.getDate()).padStart(2,'0');
-    var mm = String(hoje.getMonth()+1).padStart(2,'0');
-    var data = dd+'/'+mm+'/'+hoje.getFullYear();
+  function ident(){
+    return [limpo(elTexto('codigo').value), limpo(elTexto('area').value)];
+  }
 
-    var cols = [
-      limpo(elTexto('codigo').value),
-      limpo(elTexto('area').value),
-      valRadio('a1'), valRadio('a2'), valRadio('a3'), valRadio('a4'), valRadio('a5'), ta,
-      limpo(elTexto('cab1').value), limpo(elTexto('cab2').value), limpo(elTexto('cab3').value),
-      limpo(elTexto('iniciativa').value), limpo(elTexto('campo1').value),
-      limpo(elTexto('campo2').value), limpo(elTexto('campo3').value), limpo(elTexto('campo4').value),
-      valRadio('f1'), valRadio('f2'), valRadio('f3'), valRadio('f4'), valRadio('f5'), tf,
-      evol, data
-    ];
+  // As duas rodadas da regua exportam o MESMO esquema de colunas: e isso que
+  // deixa a comparacao antes-e-depois somar coisa igual. A coluna "momento"
+  // e o seguro para quando as duas rodadas caem na mesma aba.
+  function linhaRegua(prefixo, momento){
+    var cols = ident().concat([momento]);
+    for(var i=1;i<=5;i++) cols.push(valRadio(prefixo+i));
+    cols.push(total(prefixo));
     return cols.join('\t');
+  }
+
+  function linhaFicha(){
+    return ident().concat([
+      limpo(elTexto('iniciativa').value),
+      limpo(elTexto('campo1').value),
+      limpo(elTexto('campo2').value),
+      limpo(elTexto('campo3').value),
+      limpo(elTexto('campo4').value)
+    ]).join('\t');
   }
 
   function aviso(msg){
@@ -536,6 +563,23 @@
     aviso(deu ? ok : 'Não foi possível copiar neste navegador');
   }
 
+  // O relatorio do dia e por area, entao linha sem area e linha que nao entra
+  // em conta nenhuma. O primeiro teste funcional copiou uma linha sem area
+  // sem nenhum aviso, e ela teria ido para a planilha assim.
+  function temIdent(){
+    if(!elTexto('codigo').value.trim()){
+      aviso('Escreva o seu código antes de copiar');
+      elTexto('codigo').focus();
+      return false;
+    }
+    if(!elTexto('area').value.trim()){
+      aviso('Escolha a sua área antes de copiar');
+      elTexto('area').focus();
+      return false;
+    }
+    return true;
+  }
+
   carregar();
   TEXTOS.forEach(function(k){
     var el = elTexto(k);
@@ -547,11 +591,26 @@
     r.addEventListener('change', salvar);
   });
 
-  document.getElementById('btn-copiar').addEventListener('click', function(){
-    var cod = elTexto('codigo').value.trim();
-    if(!cod){ aviso('Escreva o seu código antes de copiar'); elTexto('codigo').focus(); return; }
-    if(!total('a')){ aviso('Faltou responder alguma pergunta da abertura'); return; }
-    copiar(montarLinha(), 'Linha copiada · cole na planilha da sala');
+  document.getElementById('btn-abertura').addEventListener('click', function(){
+    if(!temIdent()) return;
+    if(!total('a')){ aviso('Faltou responder alguma das cinco perguntas'); return; }
+    copiar(linhaRegua('a','começo'), 'Linha copiada · cole na aba do começo do dia');
+  });
+
+  document.getElementById('btn-fechamento').addEventListener('click', function(){
+    if(!temIdent()) return;
+    if(!total('f')){ aviso('Faltou responder alguma das cinco perguntas'); return; }
+    copiar(linhaRegua('f','fim'), 'Linha copiada · cole na aba do fim do dia');
+  });
+
+  document.getElementById('btn-ficha').addEventListener('click', function(){
+    if(!temIdent()) return;
+    if(!elTexto('iniciativa').value.trim()){
+      aviso('Escreva qual é a iniciativa antes de copiar');
+      elTexto('iniciativa').focus();
+      return;
+    }
+    copiar(linhaFicha(), 'Ficha copiada · cole na aba das iniciativas');
   });
 
   document.getElementById('btn-limpar').addEventListener('click', function(){

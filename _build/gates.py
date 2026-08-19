@@ -608,6 +608,54 @@ def g21_loops_comecam_igual(rel, html):
     return []
 
 
+# ---------------------------------------------------------------- G38
+# A régua passou a exportar duas linhas com esquemas diferentes, e a página
+# desenha as colunas de cada aba. Um teste funcional pegou a linha saindo sem
+# a área, que numa análise por setor é linha que não entra em conta nenhuma:
+# o esquema desenhado e o que o JS monta têm de ser a mesma coisa.
+REGUA_COLS = ["codigo", "area", "momento", "registro", "contexto",
+              "fases", "correcao", "escopo", "total"]
+FICHA_COLS = ["codigo", "area", "iniciativa", "ajuda_em", "numero", "hoje", "meta_60d"]
+
+
+def g38_esquema_das_abas(rel, html):
+    if rel != "canvas/index.html":
+        return []
+    falhas = []
+    esquemas = re.findall(r"<div " + CL("cols") + r">(.*?)</div>", html, flags=re.S)
+    if len(esquemas) != 2:
+        return ["a página desenha {} esquema(s) de coluna, e as abas são duas".format(
+            len(esquemas))]
+
+    lidos = [re.findall(r"<span " + CL("col") + r">([^<]+)</span>", e) for e in esquemas]
+    for nome, lido, esperado in (("régua", lidos[0], REGUA_COLS),
+                                 ("iniciativas", lidos[1], FICHA_COLS)):
+        if lido != esperado:
+            falhas.append("as colunas da aba da {} são {} e deviam ser {}".format(
+                nome, lido, esperado))
+
+    # O JS tem de montar o mesmo número de colunas. Conta pelo efeito, não pelo
+    # literal: ident() são duas, o laço da régua são cinco, o resto entra por push.
+    if "function linhaRegua" not in html or "function linhaFicha" not in html:
+        return falhas + ["o canvas não tem as duas funções de exportação"]
+    regua = html[html.find("function linhaRegua"):html.find("function linhaFicha")]
+    if not re.search(r"for\s*\(\s*var i\s*=\s*1\s*;\s*i\s*<=\s*5\s*;", regua):
+        falhas.append("a linha da régua não percorre as cinco perguntas")
+    if regua.count("cols.push") != 2 or "ident()" not in regua:
+        falhas.append("a linha da régua não monta as nove colunas do jeito esperado")
+
+    ficha = html[html.find("function linhaFicha"):]
+    ficha = ficha[:ficha.find("function aviso")]
+    campos = re.findall(r"elTexto\('([a-z0-9]+)'\)", ficha)
+    if campos != ["iniciativa", "campo1", "campo2", "campo3", "campo4"]:
+        falhas.append("a linha da ficha usa os campos {} e a aba tem sete colunas".format(campos))
+
+    # Nenhum botão pode copiar linha sem área: o relatório do dia é por área.
+    if "Escolha a sua área antes de copiar" not in html:
+        falhas.append("o canvas deixa copiar linha sem área, e a análise é por área")
+    return falhas
+
+
 # ---------------------------------------------------------------- G23
 # A numeração das seções virou "04, 05, 06, 04" quando duas seções novas
 # entraram no meio com rótulo de texto. O leitor usa esses números para se
@@ -1394,6 +1442,10 @@ GATES = [
      lambda h: h.replace(".loop-seta{flex:0 0 auto;padding:6px 0;transform:none;height:26px}",
                          ".loop-seta{flex:0 0 auto;padding:6px 0;transform:rotate(90deg)}", 1),
      "index.html"),
+    ("G38", "o esquema das duas abas bate", g38_esquema_das_abas,
+     lambda h: h.replace('<span class="col">area</span>',
+                         '<span class="col">setor</span>', 1),
+     "canvas/index.html"),
     ("G37", "pergunta de grupo tem destrave", g37_pergunta_de_grupo_tem_destrave,
      lambda h: re.sub(r'<div class="destrava">.*?</div>\s*</div>', '', h, count=1, flags=re.S),
      "caso-1/index.html"),
