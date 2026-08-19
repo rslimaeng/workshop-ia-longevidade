@@ -270,6 +270,9 @@ TAG_SEM_CORTE = LITERAL | {
 # .fonte-cta lá dentro, e o G25 cegou porque o literal que ele procurava tinha
 # ganhado um espaço rígido no meio.
 CLASSE_SEM_CORTE = {"prompt-conteudo", "fonte", "fonte-txt"}
+# Dentro de <svg> um <span> não desenha nada: um corte ali apagaria texto da
+# figura na tela sem apagar nada do HTML, que é o pior tipo de defeito.
+TAG_SEM_CORTE_NA_ARVORE = {"svg"}
 
 
 def _classes_de_container(css):
@@ -418,6 +421,7 @@ def _cortar(html, fora_de_alcance):
         else:
             classes = _classes_de(m.group("attrs"))
             proibido = (pilha[-1].get("proibido", False)
+                        or tag in TAG_SEM_CORTE_NA_ARVORE
                         or bool(set(classes) & CLASSE_SEM_CORTE))
             pilha.append({
                 "tag": tag, "itens": [], "abre": (m.start(), m.end()),
@@ -502,11 +506,15 @@ def _cola_em_folhas(html, fora_de_alcance):
                         <= LIMITE_DO_PARAGRAFO:
                     faixas.append((q["ini"], m.start()))
                     pilha[-1]["filho"] = True
-            elif q["corta"] or q["filho"]:
+            elif q["corta"] or q["filho"] or q["proibido"]:
+                # "proibido" tambem sobe: colar na faixa inteira do pai levaria
+                # espaco rigido para dentro do <svg> e do prompt que o G15 confere
                 pilha[-1]["filho"] = True
             continue
         classes = set(_classes_de(m.group("attrs")))
-        proibido = pilha[-1].get("proibido", False) or bool(classes & CLASSE_SEM_CORTE)
+        proibido = (pilha[-1].get("proibido", False)
+                    or tag in TAG_SEM_CORTE_NA_ARVORE
+                    or bool(classes & CLASSE_SEM_CORTE))
         pilha.append({"tag": tag, "classes": classes, "ini": m.end(), "filho": False,
                       "proibido": proibido,
                       "corta": (not proibido and tag not in TAG_SEM_CORTE
