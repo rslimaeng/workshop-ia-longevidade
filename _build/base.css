@@ -144,6 +144,16 @@ h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
   text-wrap:balance;
 }
 p,li,dd,figcaption{text-wrap:pretty}
+/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
+   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
+   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
+   substantivo para baixo. Medido no navegador em cinco larguras: balance
+   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
+.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
+/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
+   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
+   ignorado pelo navegador acima de seis linhas e ali a proteção contra
+   palavra órfã vale mais. */
 
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}

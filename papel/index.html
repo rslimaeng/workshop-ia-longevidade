@@ -155,6 +155,16 @@ h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
   text-wrap:balance;
 }
 p,li,dd,figcaption{text-wrap:pretty}
+/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
+   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
+   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
+   substantivo para baixo. Medido no navegador em cinco larguras: balance
+   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
+.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
+/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
+   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
+   ignorado pelo navegador acima de seis linhas e ali a proteção contra
+   palavra órfã vale mais. */
 
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
@@ -1146,8 +1156,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Se a internet falhar</div>
       <div class="hero">
         <div class="hero-eyebrow">Se a internet falhar</div>
-        <h1>A régua e a ficha em papel</h1>
-        <p class="hero-lead">As folhas para imprimir e distribuir. Servem quando o celular não ajuda, e servem para quem prefere caneta.</p>
+        <h1>A&nbsp;régua e&nbsp;a&nbsp;ficha em&nbsp;papel</h1>
+        <p class="hero-lead">As&nbsp;folhas para&nbsp;imprimir e&nbsp;distribuir. Servem quando&nbsp;o&nbsp;celular não&nbsp;ajuda, e&nbsp;servem para&nbsp;quem prefere caneta.</p>
         <div class="hero-meta">
         <span class="chip">Imprimível</span>
         <span class="chip">Três páginas A4</span>
@@ -1199,11 +1209,10 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-info no-print">
         <div class="callout-title">Para imprimir</div>
-        <p>
-          Use imprimir do navegador. Saem <strong>três páginas A4</strong>: a régua do
-          começo, a régua do fim e a ficha. Imprimindo frente e verso, viram duas folhas
-          por pessoa. Nada aqui depende de cor, então pode sair em preto e branco. Esta
-          caixa fica de fora da impressão.
+        <p class="p-curto">
+          Use imprimir do&nbsp;navegador. Saem <strong>três páginas A4</strong>: a&nbsp;régua do&nbsp;começo, a&nbsp;régua do&nbsp;fim e&nbsp;a&nbsp;ficha. Imprimindo frente e&nbsp;verso, viram duas folhas
+          por&nbsp;pessoa. Nada aqui depende de&nbsp;cor, então pode sair em&nbsp;preto e&nbsp;branco. Esta
+          caixa fica de&nbsp;fora da&nbsp;impressão.
         </p>
       </div>
 
@@ -1216,56 +1225,54 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="pl-id-c"><div class="pl-id-r">Código de três letras e dois números</div><div class="pl-id-l"></div></div>
           <div class="pl-id-c"><div class="pl-id-r">Sua área</div><div class="pl-id-l"></div></div>
         </div>
-        <p class="pl-nota">
-          O código permite comparar a sua resposta da manhã com a do fim do dia sem
-          ninguém saber quem respondeu. Use as três primeiras letras do seu nome e os dois
-          últimos números do seu telefone. <strong>Marque o que é verdade hoje</strong>, e
-          não o que seria bonito responder.
+        <p class="pl-nota p-curto">
+          O&nbsp;código permite comparar a&nbsp;sua&nbsp;resposta da&nbsp;manhã com&nbsp;a&nbsp;do&nbsp;fim do&nbsp;dia sem&nbsp;ninguém saber quem respondeu. Use as&nbsp;três primeiras letras do&nbsp;seu&nbsp;nome e&nbsp;os&nbsp;dois
+          últimos números do&nbsp;seu&nbsp;telefone. <strong>Marque o&nbsp;que&nbsp;é verdade hoje</strong>, e&nbsp;não&nbsp;o&nbsp;que&nbsp;seria bonito responder.
         </p>
         <div class="pl-fase">Parte 1 · responda agora, no começo</div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
-          <p class="pl-perg">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+          <p class="pl-perg p-curto">O&nbsp;que&nbsp;eu aprendo e&nbsp;decido no&nbsp;trabalho fica registrado em&nbsp;algum lugar?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na minha cabeça.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para mim, num lugar que só eu acho.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde outra pessoa acha sozinha.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na&nbsp;minha&nbsp;cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para&nbsp;mim, num&nbsp;lugar que&nbsp;só&nbsp;eu acho.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde&nbsp;outra pessoa acha sozinha.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">2</span><span class="pl-rot">Contexto</span></div>
-          <p class="pl-perg">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;peço algo a&nbsp;uma&nbsp;inteligência artificial, quanto contexto eu dou antes?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e aceito o que vier.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a situação na hora, de cabeça.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um contexto pronto que eu reuso.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e&nbsp;aceito o&nbsp;que&nbsp;vier.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a&nbsp;situação na&nbsp;hora, de&nbsp;cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um&nbsp;contexto pronto que&nbsp;eu reuso.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
-          <p class="pl-perg">Como eu peço um trabalho grande?</p>
+          <p class="pl-perg p-curto">Como eu peço um&nbsp;trabalho grande?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o trabalho todo de uma vez.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em etapas quando é grande.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e confiro entre as etapas.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em&nbsp;etapas quando&nbsp;é grande.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e&nbsp;confiro entre&nbsp;as&nbsp;etapas.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">4</span><span class="pl-rot">Correção vira regra</span></div>
-          <p class="pl-perg">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;eu corrijo um&nbsp;erro, o&nbsp;que&nbsp;acontece com&nbsp;essa correção?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e sigo em frente.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e às vezes anoto em algum canto.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A correção vira regra, lida na próxima vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e&nbsp;sigo em&nbsp;frente.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e&nbsp;às&nbsp;vezes anoto em&nbsp;algum canto.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A&nbsp;correção vira regra, lida na&nbsp;próxima vez.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
-          <p class="pl-perg">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;eu começo uma&nbsp;iniciativa nova, o&nbsp;que&nbsp;está definido antes?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela ideia que parece boa.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no ganho, mas sem número.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de começar e ponho meta com prazo.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no&nbsp;ganho, mas&nbsp;sem&nbsp;número.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
           </div>
         </div>
         <div class="pl-total"><span>Some os cinco números marcados:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
@@ -1284,54 +1291,53 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="pl-id-c"><div class="pl-id-r">O mesmo código de antes</div><div class="pl-id-l"></div></div>
           <div class="pl-id-c"><div class="pl-id-r">Sua área</div><div class="pl-id-l"></div></div>
         </div>
-        <p class="pl-nota">
-          As mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a
-          partir de segunda</strong>, e não como gostaria de ter respondido de manhã.
+        <p class="pl-nota p-curto">
+          As&nbsp;mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.
         </p>
         <div class="pl-fase">Parte 2 · no fim do dia</div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
-          <p class="pl-perg">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+          <p class="pl-perg p-curto">O&nbsp;que&nbsp;eu aprendo e&nbsp;decido no&nbsp;trabalho fica registrado em&nbsp;algum lugar?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na minha cabeça.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para mim, num lugar que só eu acho.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde outra pessoa acha sozinha.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Fica na&nbsp;minha&nbsp;cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Anoto para&nbsp;mim, num&nbsp;lugar que&nbsp;só&nbsp;eu acho.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Fica onde&nbsp;outra pessoa acha sozinha.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">2</span><span class="pl-rot">Contexto</span></div>
-          <p class="pl-perg">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;peço algo a&nbsp;uma&nbsp;inteligência artificial, quanto contexto eu dou antes?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e aceito o que vier.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a situação na hora, de cabeça.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um contexto pronto que eu reuso.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço direto e&nbsp;aceito o&nbsp;que&nbsp;vier.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Explico a&nbsp;situação na&nbsp;hora, de&nbsp;cabeça.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Tenho um&nbsp;contexto pronto que&nbsp;eu reuso.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
-          <p class="pl-perg">Como eu peço um trabalho grande?</p>
+          <p class="pl-perg p-curto">Como eu peço um&nbsp;trabalho grande?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o trabalho todo de uma vez.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em etapas quando é grande.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e confiro entre as etapas.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Divido em&nbsp;etapas quando&nbsp;é grande.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Divido sempre e&nbsp;confiro entre&nbsp;as&nbsp;etapas.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">4</span><span class="pl-rot">Correção vira regra</span></div>
-          <p class="pl-perg">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;eu corrijo um&nbsp;erro, o&nbsp;que&nbsp;acontece com&nbsp;essa correção?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e sigo em frente.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e às vezes anoto em algum canto.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A correção vira regra, lida na próxima vez.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Corrijo e&nbsp;sigo em&nbsp;frente.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Corrijo e&nbsp;às&nbsp;vezes anoto em&nbsp;algum canto.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">A&nbsp;correção vira regra, lida na&nbsp;próxima vez.</span></label>
           </div>
         </div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
-          <p class="pl-perg">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+          <p class="pl-perg p-curto">Quando&nbsp;eu começo uma&nbsp;iniciativa nova, o&nbsp;que&nbsp;está definido antes?</p>
           <div class="pl-ops">
-            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela ideia que parece boa.</span></label>
-            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no ganho, mas sem número.</span></label>
-            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de começar e ponho meta com prazo.</span></label>
+            <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
+            <label class="pl-op"><span class="pl-cx">2</span><span class="pl-tx">Penso no&nbsp;ganho, mas&nbsp;sem&nbsp;número.</span></label>
+            <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
           </div>
         </div>
         <div class="pl-total"><span>Some de novo:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
@@ -1346,10 +1352,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div><div class="folha-t">A ficha dos quatro campos</div></div>
           <div class="folha-s">Uma iniciativa da sua área<br>Meta de sessenta dias</div>
         </div>
-        <p class="pl-nota">
-          Escolha uma iniciativa real, que você começaria na segunda-feira. Se não
-          conseguir preencher os quatro campos, <strong>a iniciativa ainda não está pronta
-          para começar</strong>, e descobrir isso agora custa uma folha de papel.
+        <p class="pl-nota p-curto">
+          Escolha uma&nbsp;iniciativa real, que&nbsp;você começaria na&nbsp;segunda-feira. Se&nbsp;não&nbsp;conseguir preencher os&nbsp;quatro campos, <strong>a&nbsp;iniciativa ainda não&nbsp;está pronta
+          para&nbsp;começar</strong>, e&nbsp;descobrir isso agora custa uma&nbsp;folha de&nbsp;papel.
         </p>
         <div class="fi-l">
           <div class="fi-r">A iniciativa</div>
@@ -1392,7 +1397,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 </main>
 
 <footer class="site-footer">
-  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com AI First · Facilitação de Rafael Lima · IEL Ceará</p>
+  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 </body>

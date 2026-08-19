@@ -101,6 +101,110 @@ PAGINAS = {
 }
 
 
+# ----------------------------------------------------------------- quebra de linha
+# O Rafael reprovou duas vezes a quebra feia: linha que termina em "na sua" e
+# joga "área." para a linha de baixo. text-wrap:pretty não resolve, porque ele
+# só evita palavra órfã na ÚLTIMA linha. text-wrap:balance resolve parte. O que
+# fecha a conta é colar a palavra-função na palavra seguinte com espaço rígido,
+# do jeito que uma gráfica faz: aí a quebra procura outro lugar, e costuma achar
+# a fronteira da frase.
+#
+# Só nos blocos curtos e em evidência (títulos e as chamadas), porque é neles
+# que a quebra é visível. Parágrafo corrido de seis linhas ninguém repara, e
+# colar lá tiraria do navegador a liberdade de achar a melhor linha.
+PALAVRAS_QUE_COLAM = {
+    # artigo e possessivo
+    "a", "o", "as", "os", "um", "uma", "uns", "umas",
+    "seu", "sua", "seus", "suas", "meu", "minha", "nosso", "nossa",
+    # preposicao curta e contracao
+    "de", "da", "do", "das", "dos", "em", "na", "no", "nas", "nos",
+    "por", "pelo", "pela", "com", "sem", "ao", "aos", "\u00e0", "\u00e0s",
+    "para", "pra", "num", "numa", "dum", "duma",
+    # preposicao longa: "durante a atividade" quebrando em "durante" foi o caso
+    # que sobrou na primeira medicao
+    "sobre", "entre", "durante", "at\u00e9", "desde", "ap\u00f3s", "contra", "sob",
+    "perante", "conforme", "mediante",
+    # conjuncao e relativo, que pedem complemento na mesma linha
+    "e", "ou", "mas", "se", "que", "quando", "onde", "enquanto", "porque",
+    "n\u00e3o", "j\u00e1", "s\u00f3",
+}
+# Nenhum trecho colado passa disso: unidade indivisível maior que a linha do
+# celular vira rolagem lateral, que é o defeito que a correção deveria evitar.
+# 24 foi calibrado medindo: em 20 sobrava "sobre onde a / informação fica",
+# porque a corrente já tinha gasto o limite. Em 24 sobra zero, e nenhuma das
+# 7 páginas estoura a largura em nenhuma das 5 larguras medidas.
+LIMITE_DO_GRUDADO = 24
+
+# Medido no navegador em 5 larguras x 5 paginas: colar so em titulo e chamada
+# nao mudou nada (57 antes, 57 depois), porque quase toda quebra ruim mora em
+# paragrafo. Cobrindo paragrafo de ate 400 caracteres a conta cai de 169 para
+# 17, e nenhuma pagina passa a estourar a largura em nenhuma das 5 larguras.
+LIMITE_DO_PARAGRAFO = 400
+
+# label entra por causa do canvas: as alternativas da régua são
+# <label class="op"><input><span>texto</span></label>, e é a página que a turma
+# abre no celular. Medido lá: 13 quebras ruins em 375px antes de colar.
+BLOCO_QUE_COLA = re.compile(
+    r'(<h[1-4]\b[^>]*>)(.*?)(</h[1-4]>)'
+    r'|(<label\b[^>]*>)(.*?)(</label>)'
+    r'|(<p\b[^>]*>)(.*?)(</p>)',
+    re.S,
+)
+SEM_TAG = re.compile(r"<[^>]+>")
+
+
+# Estes ja recebem text-wrap:balance por classe propria. Marcar de novo so
+# poluiria o atributo, e mexer no class= de um bloco que outro gate procura pelo
+# nome exato foi o que deixou o G21 cego na primeira tentativa.
+JA_TEM_BALANCE = ("hero-lead", "block-lead", "fig-leg", "lp-perda")
+
+
+def _marca_curto(abertura):
+    """Poe a classe que liga o text-wrap:balance so nos paragrafos colados."""
+    if "p-curto" in abertura or any(c in abertura for c in JA_TEM_BALANCE):
+        return abertura
+    m = re.search(r'class="([^"]*)"', abertura)
+    if m:
+        return abertura[:m.start(1)] + (m.group(1) + " p-curto").strip() + abertura[m.end(1):]
+    return abertura[:-1].rstrip() + ' class="p-curto">' 
+PECA = re.compile(r'(<[^>]+>|\s+|[^<\s]+)')
+
+
+def _cola_no_trecho(interno):
+    pecas = PECA.findall(interno)
+    saida, grudado = [], 0
+    for i, p in enumerate(pecas):
+        if p and not p.strip():
+            anterior = next((x for x in reversed(saida)
+                             if x.strip() and not x.startswith("<")), "")
+            palavra = re.sub(r"[^\w\u00c0-\u00ff]", "", anterior, flags=re.U).lower()
+            seguinte = next((pecas[j] for j in range(i + 1, len(pecas))
+                             if pecas[j].strip() and not pecas[j].startswith("<")), "")
+            if (palavra in PALAVRAS_QUE_COLAM and seguinte
+                    and grudado + len(anterior) + len(seguinte) + 1 <= LIMITE_DO_GRUDADO):
+                grudado += len(anterior) + 1
+                saida.append("&nbsp;")
+                continue
+            grudado = 0
+        saida.append(p)
+    return "".join(saida)
+
+
+def cola_quebra_de_linha(html):
+    """Idempotente: rodar de novo no resultado não muda nada."""
+    def troca(m):
+        if m.group(1):                                   # titulo
+            return m.group(1) + _cola_no_trecho(m.group(2)) + m.group(3)
+        if m.group(4):                                   # label, sem marcar classe
+            return m.group(4) + _cola_no_trecho(m.group(5)) + m.group(6)
+        interno = m.group(8)                             # paragrafo
+        visivel = SEM_TAG.sub("", interno).replace("&nbsp;", " ").strip()
+        if len(visivel) > LIMITE_DO_PARAGRAFO:
+            return m.group(0)          # paragrafo longo fica com pretty, intocado
+        return _marca_curto(m.group(7)) + _cola_no_trecho(interno) + m.group(9)
+    return BLOCO_QUE_COLA.sub(troca, html)
+
+
 def extrai_nav(fragmento):
     """Monta a nav lateral a partir dos <section class="block" id="..."> do fragmento."""
     itens = []
@@ -345,7 +449,7 @@ def main():
             print("  falta o conteúdo: " + frag_path)
             continue
         fragmento = open(frag_path, encoding="utf-8").read()
-        html = monta(slug, cfg, fragmento)
+        html = cola_quebra_de_linha(monta(slug, cfg, fragmento))
         for rel_md, n in grava_prompts(slug, fragmento):
             print("  prompt:  {:45s} {} caracteres".format(rel_md, n))
         destino = os.path.join(RAIZ, slug, "index.html") if slug else os.path.join(RAIZ, "index.html")

@@ -155,6 +155,16 @@ h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
   text-wrap:balance;
 }
 p,li,dd,figcaption{text-wrap:pretty}
+/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
+   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
+   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
+   substantivo para baixo. Medido no navegador em cinco larguras: balance
+   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
+.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
+/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
+   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
+   ignorado pelo navegador acima de seis linhas e ali a proteção contra
+   palavra órfã vale mais. */
 
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
@@ -1146,8 +1156,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; O que fica com você</div>
       <div class="hero">
         <div class="hero-eyebrow">O que fica com você</div>
-        <h1>Os cinco pilares em uma folha</h1>
-        <p class="hero-lead">A folha para imprimir e deixar à vista. Cada pilar tem o que é, o que você passa a fazer e a pergunta que você faz para saber se está aplicando.</p>
+        <h1>Os&nbsp;cinco pilares em&nbsp;uma&nbsp;folha</h1>
+        <p class="hero-lead">A&nbsp;folha para&nbsp;imprimir e&nbsp;deixar à&nbsp;vista. Cada pilar tem o&nbsp;que&nbsp;é, o&nbsp;que&nbsp;você passa a&nbsp;fazer e&nbsp;a&nbsp;pergunta que&nbsp;você faz para&nbsp;saber se&nbsp;está aplicando.</p>
         <div class="hero-meta">
         <span class="chip">Imprimível</span>
         <span class="chip">Uma folha A4</span>
@@ -1219,10 +1229,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-info no-print">
         <div class="callout-title">Para imprimir</div>
-        <p>
-          Use imprimir do navegador. A folha sai em uma página A4 e o resto desta tela sai
-          de fora. Deixe à vista na sua mesa: a coluna <em>a pergunta</em> é a que faz o
-          pilar virar hábito.
+        <p class="p-curto">
+          Use imprimir do&nbsp;navegador. A&nbsp;folha sai em&nbsp;uma&nbsp;página A4 e&nbsp;o&nbsp;resto desta tela sai
+          de&nbsp;fora. Deixe à&nbsp;vista na&nbsp;sua&nbsp;mesa: a&nbsp;coluna <em>a&nbsp;pergunta</em> é a&nbsp;que&nbsp;faz o&nbsp;pilar virar hábito.
         </p>
       </div>
 
@@ -1345,10 +1354,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-warn no-print">
         <div class="callout-title">Nenhum dos cinco custa dinheiro</div>
-        <p>
-          Nenhum depende de licença paga, de TI ou de aprovação de orçamento. O mais barato
-          de todos é o primeiro: não se compra nada, decide-se registrar. Comece por ele na
-          segunda-feira.
+        <p class="p-curto">
+          Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;aprovação de&nbsp;orçamento. O&nbsp;mais barato
+          de&nbsp;todos é o&nbsp;primeiro: não&nbsp;se&nbsp;compra nada, decide-se registrar. Comece por&nbsp;ele na&nbsp;segunda-feira.
         </p>
       </div>
       <div class="nav-bottom">
@@ -1358,7 +1366,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 </main>
 
 <footer class="site-footer">
-  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com AI First · Facilitação de Rafael Lima · IEL Ceará</p>
+  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 </body>

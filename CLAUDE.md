@@ -32,7 +32,7 @@ workshop-ia-longevidade/
 └── _build/
     ├── base.css          o CSS, fonte única
     ├── gerar.py          monta as páginas a partir dos fragmentos
-    ├── gates.py          vinte e quatro gates, cada um provado contra defeito injetado
+    ├── gates.py          vinte e oito gates, cada um provado contra defeito injetado
     └── conteudo/         o conteúdo de cada página, em fragmento
 ```
 
@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda vinte e quatro gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda vinte e oito gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -95,6 +95,10 @@ defeito derruba o script como **cego**.
 | G22 | A folha em papel divergindo da régua da tela |
 | G23 | Numeração de seção repetida ou fora de ordem |
 | G24 | A página imprimível declarando um número de folhas que não tem |
+| G25 | Cartão de vídeo incompleto, ou com número que envelhece sozinho |
+| G26 | Imagem referenciada que não existe no disco |
+| G27 | Página que não cabe num celular de 375px |
+| G28 | O passo de quebra de linha que deixou de rodar sobre a página |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -136,8 +140,45 @@ contexto seguro, e mesmo lá recusa sem foco. Quando os dois caminhos falham a
 página diz *"selecione e copie na mão"* em vez de mentir que copiou. É por isso
 que o arquivo para baixar existe: ele é o caminho que não depende de permissão.
 
+## A quebra de linha é tratada no gerador, não à mão
+
+Rafael reprovou duas vezes a quebra feia: a linha termina em *"na sua"* e joga
+*"área."* para a linha de baixo. Três coisas importam aqui:
+
+1. **`text-wrap:pretty` não resolve.** Ele só evita palavra órfã na última linha.
+2. **`text-wrap:balance` resolve parte.** Vale nos blocos curtos e em evidência.
+3. **O que fecha a conta é colar a palavra-função na seguinte com espaço rígido**,
+   do jeito que uma gráfica faz. Aí a quebra procura outro lugar, e costuma achar
+   a fronteira da frase.
+
+O passo vive em `gerar.py` (`cola_quebra_de_linha`) e cobre título, `<label>` e
+parágrafo de até 400 caracteres. Parágrafo longo fica com `pretty`: ninguém repara
+numa quebra ruim no meio de seis linhas, e colar lá tiraria do navegador a
+liberdade de achar a melhor linha.
+
+**Nenhum trecho colado passa de 24 caracteres.** Acima disso a unidade indivisível
+fica maior que a linha do celular e vira rolagem lateral, que é justamente o
+defeito que a correção deveria evitar.
+
+**O canvas não passa pelo gerador**, então a cola foi aplicada nele uma vez e está
+gravada no arquivo. Se alguém recopiar de `../1-entregaveis/`, a cola some e o
+**G28 acusa**.
+
+Medido no navegador, 8 páginas por 8 larguras, de 1400px a 375px: **0 quebras
+ruins publicadas, 369 com a cola desfeita**, nenhuma página estourando a largura.
+
+Linha terminando no verbo *"é"* não conta como defeito: o que incomoda, e o que
+os prints mostravam, é artigo e preposição separados do seu substantivo.
+
 ## Armadilhas já pagas nesta pasta
 
+- **Acrescentar uma classe ao `<p>` deixou dois gates cegos.** O G21 procurava
+  `<p class="fig-leg">` como literal e o G11 casava a frase da Capgemini com
+  espaço comum. Gate que casa atributo ou frase por literal quebra quando o
+  gerador ganha um passo novo: procurar pelo **efeito**, com regex tolerante.
+- **`\s` em JavaScript inclui o espaço rígido.** A sonda que media o maior trecho
+  colado devolveu 0 porque partia justamente o que devia medir. Separar por
+  `[ \t\n\r]` quando o espaço rígido é o objeto da medida.
 - **O painel do navegador reporta `clientWidth: 0`** para arquivos fora da pasta do
   projeto. Toda medida derivada disso vira lixo com cara de número. Assertar a premissa no
   próprio retorno antes de acreditar em qualquer medição.

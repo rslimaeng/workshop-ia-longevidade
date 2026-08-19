@@ -73,6 +73,9 @@
   .bloco .lead { font-size: 14px; color: var(--ink-soft); margin: 0 0 14px; line-height: 1.55; }
   .bloco .lead strong { color: var(--ink); font-weight: 600; }
 
+  /* posta pelo passo de quebra de linha: paragrafo curto colado pede
+     balance, para as duas linhas ficarem parecidas */
+  .p-curto { text-wrap: balance; }
   label.campo-l { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin: 14px 0 3px; }
   .hint { font-size: 12px; color: var(--ink-muted); margin: 0 0 6px; line-height: 1.45; }
   /* cada coluna vira flex e o campo desce para a base: dica de 1 ou 2 linhas
@@ -151,10 +154,10 @@
 
 <div class="top">
   <div class="wrap">
-    <p class="eyebrow">Trilha de Cultura de Inteligência Artificial · Encerramento</p>
-    <h1>Canvas <span class="it">Ideação com AI First</span></h1>
-    <p>Preencha ao longo do dia. O rascunho fica salvo neste aparelho. No fim, um toque copia a sua linha para a planilha da sala.</p>
-    <p style="margin-top:14px"><a href="../" style="color:#fff;opacity:.85;font-size:14px;text-decoration:underline">← voltar ao material do dia</a></p>
+    <p class="eyebrow p-curto">Trilha de&nbsp;Cultura de&nbsp;Inteligência Artificial · Encerramento</p>
+    <h1>Canvas <span class="it">Ideação com&nbsp;AI First</span></h1>
+    <p class="p-curto">Preencha ao&nbsp;longo do&nbsp;dia. O&nbsp;rascunho fica salvo neste aparelho. No&nbsp;fim, um&nbsp;toque copia a&nbsp;sua&nbsp;linha para&nbsp;a&nbsp;planilha da&nbsp;sala.</p>
+    <p style="margin-top:14px" class="p-curto"><a href="../" style="color:#fff;opacity:.85;font-size:14px;text-decoration:underline">← voltar ao&nbsp;material do&nbsp;dia</a></p>
   </div>
 </div>
 
@@ -162,19 +165,19 @@
 
   <!-- ============ IDENTIFICAÇÃO ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Antes de começar</p>
-    <h2>Sem nome, de propósito</h2>
-    <p class="lead">Isto não é avaliação de desempenho. <strong>Não escreva seu nome.</strong> Crie um código que só você reconheça e repita o mesmo no fim do dia, para comparar com você mesmo.</p>
+    <p class="bloco-rot p-curto">Antes de&nbsp;começar</p>
+    <h2>Sem&nbsp;nome, de&nbsp;propósito</h2>
+    <p class="lead p-curto">Isto não&nbsp;é avaliação de&nbsp;desempenho. <strong>Não&nbsp;escreva seu&nbsp;nome.</strong> Crie um&nbsp;código que&nbsp;só&nbsp;você reconheça e&nbsp;repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia, para&nbsp;comparar com&nbsp;você mesmo.</p>
 
     <div class="dupla">
       <div>
-        <label class="campo-l" for="c-codigo">Seu código</label>
-        <p class="hint">Ex: MAR14. Repita o mesmo no fim do dia.</p>
+        <label class="campo-l" for="c-codigo">Seu&nbsp;código</label>
+        <p class="hint p-curto">Ex: MAR14. Repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia.</p>
         <input class="txt" id="c-codigo" type="text" inputmode="text" placeholder="ex: MAR14" autocomplete="off">
       </div>
       <div>
-        <label class="campo-l" for="c-area">Sua área</label>
-        <p class="hint">Serve para comparar setores, não pessoas.</p>
+        <label class="campo-l" for="c-area">Sua&nbsp;área</label>
+        <p class="hint p-curto">Serve para&nbsp;comparar setores, não&nbsp;pessoas.</p>
         <select class="txt" id="c-area">
           <option value="">selecione</option>
           <option>Educacional e Pedagógico</option>
@@ -195,58 +198,58 @@
 
   <!-- ============ RÉGUA · ABERTURA ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Parte 1 de 4 · responda agora</p>
-    <h2>Onde eu estou hoje</h2>
-    <p class="lead">Cinco perguntas, uma por pilar. Marque <strong>o que é verdade hoje</strong>, não o que seria bonito responder. A régua só funciona se for honesta, e ninguém vai saber quem respondeu o quê.</p>
+    <p class="bloco-rot p-curto">Parte 1 de&nbsp;4 · responda agora</p>
+    <h2>Onde&nbsp;eu estou hoje</h2>
+    <p class="lead p-curto">Cinco perguntas, uma&nbsp;por&nbsp;pilar. Marque <strong>o&nbsp;que&nbsp;é verdade hoje</strong>, não&nbsp;o&nbsp;que&nbsp;seria bonito responder. A&nbsp;régua só&nbsp;funciona se&nbsp;for honesta, e&nbsp;ninguém vai saber quem respondeu o&nbsp;quê.</p>
 
     <div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">1</span><p class="item-t">Registro</p></div>
-        <p class="item-p">O que eu aprendo e decido no trabalho fica registrado em algum lugar?</p>
+        <div class="item-cab"><span class="item-n">1</span><p class="item-t p-curto">Registro</p></div>
+        <p class="item-p p-curto">O&nbsp;que&nbsp;eu aprendo e&nbsp;decido no&nbsp;trabalho fica registrado em&nbsp;algum lugar?</p>
         <div class="ops">
-          <label class="op"><input type="radio" name="a1" value="1"><span>Fica na minha cabeça.</span></label>
-          <label class="op"><input type="radio" name="a1" value="2"><span>Anoto para mim, num lugar que só eu acho.</span></label>
-          <label class="op"><input type="radio" name="a1" value="3"><span>Fica onde outra pessoa acha sozinha.</span></label>
+          <label class="op"><input type="radio" name="a1" value="1"><span>Fica na&nbsp;minha&nbsp;cabeça.</span></label>
+          <label class="op"><input type="radio" name="a1" value="2"><span>Anoto para&nbsp;mim, num&nbsp;lugar que&nbsp;só&nbsp;eu acho.</span></label>
+          <label class="op"><input type="radio" name="a1" value="3"><span>Fica onde&nbsp;outra pessoa acha sozinha.</span></label>
         </div>
       </div>
 
       <div class="item">
-        <div class="item-cab"><span class="item-n">2</span><p class="item-t">Contexto</p></div>
-        <p class="item-p">Quando peço algo a uma inteligência artificial, quanto contexto eu dou antes?</p>
+        <div class="item-cab"><span class="item-n">2</span><p class="item-t p-curto">Contexto</p></div>
+        <p class="item-p p-curto">Quando&nbsp;peço algo a&nbsp;uma&nbsp;inteligência artificial, quanto contexto eu dou antes?</p>
         <div class="ops">
-          <label class="op"><input type="radio" name="a2" value="1"><span>Peço direto e aceito o que vier.</span></label>
-          <label class="op"><input type="radio" name="a2" value="2"><span>Explico a situação na hora, de cabeça.</span></label>
-          <label class="op"><input type="radio" name="a2" value="3"><span>Tenho um contexto pronto que eu reuso.</span></label>
+          <label class="op"><input type="radio" name="a2" value="1"><span>Peço direto e&nbsp;aceito o&nbsp;que&nbsp;vier.</span></label>
+          <label class="op"><input type="radio" name="a2" value="2"><span>Explico a&nbsp;situação na&nbsp;hora, de&nbsp;cabeça.</span></label>
+          <label class="op"><input type="radio" name="a2" value="3"><span>Tenho um&nbsp;contexto pronto que&nbsp;eu reuso.</span></label>
         </div>
       </div>
 
       <div class="item">
-        <div class="item-cab"><span class="item-n">3</span><p class="item-t">Fases e conferência</p></div>
-        <p class="item-p">Como eu peço um trabalho grande?</p>
+        <div class="item-cab"><span class="item-n">3</span><p class="item-t p-curto">Fases e&nbsp;conferência</p></div>
+        <p class="item-p p-curto">Como eu peço um&nbsp;trabalho grande?</p>
         <div class="ops">
-          <label class="op"><input type="radio" name="a3" value="1"><span>Peço o trabalho todo de uma vez.</span></label>
-          <label class="op"><input type="radio" name="a3" value="2"><span>Divido em etapas quando é grande.</span></label>
-          <label class="op"><input type="radio" name="a3" value="3"><span>Divido sempre e confiro entre as etapas.</span></label>
+          <label class="op"><input type="radio" name="a3" value="1"><span>Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
+          <label class="op"><input type="radio" name="a3" value="2"><span>Divido em&nbsp;etapas quando&nbsp;é grande.</span></label>
+          <label class="op"><input type="radio" name="a3" value="3"><span>Divido sempre e&nbsp;confiro entre&nbsp;as&nbsp;etapas.</span></label>
         </div>
       </div>
 
       <div class="item">
-        <div class="item-cab"><span class="item-n">4</span><p class="item-t">Correção vira regra</p></div>
-        <p class="item-p">Quando eu corrijo um erro, o que acontece com essa correção?</p>
+        <div class="item-cab"><span class="item-n">4</span><p class="item-t p-curto">Correção vira regra</p></div>
+        <p class="item-p p-curto">Quando&nbsp;eu corrijo um&nbsp;erro, o&nbsp;que&nbsp;acontece com&nbsp;essa correção?</p>
         <div class="ops">
-          <label class="op"><input type="radio" name="a4" value="1"><span>Corrijo e sigo em frente.</span></label>
-          <label class="op"><input type="radio" name="a4" value="2"><span>Corrijo e às vezes anoto em algum canto.</span></label>
-          <label class="op"><input type="radio" name="a4" value="3"><span>A correção vira regra, lida na próxima vez.</span></label>
+          <label class="op"><input type="radio" name="a4" value="1"><span>Corrijo e&nbsp;sigo em&nbsp;frente.</span></label>
+          <label class="op"><input type="radio" name="a4" value="2"><span>Corrijo e&nbsp;às&nbsp;vezes anoto em&nbsp;algum canto.</span></label>
+          <label class="op"><input type="radio" name="a4" value="3"><span>A&nbsp;correção vira regra, lida na&nbsp;próxima vez.</span></label>
         </div>
       </div>
 
       <div class="item">
-        <div class="item-cab"><span class="item-n">5</span><p class="item-t">Escopo com métrica</p></div>
-        <p class="item-p">Quando eu começo uma iniciativa nova, o que está definido antes?</p>
+        <div class="item-cab"><span class="item-n">5</span><p class="item-t p-curto">Escopo com&nbsp;métrica</p></div>
+        <p class="item-p p-curto">Quando&nbsp;eu começo uma&nbsp;iniciativa nova, o&nbsp;que&nbsp;está definido antes?</p>
         <div class="ops">
-          <label class="op"><input type="radio" name="a5" value="1"><span>Começo pela ideia que parece boa.</span></label>
-          <label class="op"><input type="radio" name="a5" value="2"><span>Penso no ganho, mas sem número.</span></label>
-          <label class="op"><input type="radio" name="a5" value="3"><span>Meço antes de começar e ponho meta com prazo.</span></label>
+          <label class="op"><input type="radio" name="a5" value="1"><span>Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
+          <label class="op"><input type="radio" name="a5" value="2"><span>Penso no&nbsp;ganho, mas&nbsp;sem&nbsp;número.</span></label>
+          <label class="op"><input type="radio" name="a5" value="3"><span>Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
         </div>
       </div>
     </div>
@@ -262,17 +265,17 @@
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
-    <p class="bloco-rot">Parte 2 de 4 · durante o dia</p>
-    <h2>O que só existe na cabeça</h2>
-    <p class="lead">Três coisas da sua área que <strong>ninguém escreveu em lugar nenhum</strong>. Se está escrito, não vale.</p>
+    <p class="bloco-rot p-curto">Parte 2 de&nbsp;4 · durante&nbsp;o&nbsp;dia</p>
+    <h2>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</h2>
+    <p class="lead p-curto">Três coisas da&nbsp;sua&nbsp;área que&nbsp;<strong>ninguém escreveu em&nbsp;lugar nenhum</strong>. Se&nbsp;está escrito, não&nbsp;vale.</p>
 
-    <label class="campo-l" for="c-cab1">Um jeito de fazer que só se aprende observando alguém</label>
+    <label class="campo-l" for="c-cab1">Um&nbsp;jeito de&nbsp;fazer que&nbsp;só&nbsp;se&nbsp;aprende observando alguém</label>
     <textarea class="txt" id="c-cab1" rows="2" placeholder="ex: como se decide a ordem de contato quando três coisas urgentes caem juntas"></textarea>
 
-    <label class="campo-l" for="c-cab2">Uma regra que todo mundo segue e ninguém escreveu</label>
+    <label class="campo-l" for="c-cab2">Uma&nbsp;regra que&nbsp;todo mundo segue e&nbsp;ninguém escreveu</label>
     <textarea class="txt" id="c-cab2" rows="2" placeholder="ex: o que nunca se promete por escrito antes de confirmar com a coordenação"></textarea>
 
-    <label class="campo-l" for="c-cab3">Uma exceção que só uma pessoa sabe tratar</label>
+    <label class="campo-l" for="c-cab3">Uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa sabe tratar</label>
     <textarea class="txt" id="c-cab3" rows="2" placeholder="ex: o caso raro que sempre para na mesma mesa porque ninguém mais sabe resolver"></textarea>
 
     <div class="aviso info">
@@ -292,15 +295,15 @@
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
-    <p class="bloco-rot">Parte 3 de 4 · no fim do dia</p>
-    <h2>A ficha dos quatro campos</h2>
-    <p class="lead">Escolha <strong>uma iniciativa real da sua área</strong> e preencha os quatro. Se você não conseguir preencher algum, isso já é a descoberta do exercício.</p>
+    <p class="bloco-rot p-curto">Parte 3 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
+    <h2>A&nbsp;ficha dos&nbsp;quatro campos</h2>
+    <p class="lead p-curto">Escolha <strong>uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área</strong> e&nbsp;preencha os&nbsp;quatro. Se&nbsp;você não&nbsp;conseguir preencher algum, isso já&nbsp;é a&nbsp;descoberta do&nbsp;exercício.</p>
 
-    <label class="campo-l" for="c-iniciativa">Qual é a iniciativa</label>
-    <p class="hint">Em uma frase, o que você quer fazer.</p>
+    <label class="campo-l" for="c-iniciativa">Qual é a&nbsp;iniciativa</label>
+    <p class="hint p-curto">Em&nbsp;uma&nbsp;frase, o&nbsp;que&nbsp;você quer fazer.</p>
     <textarea class="txt" id="c-iniciativa" rows="2" placeholder="ex: responder as dúvidas repetidas de inscrição sem depender de uma pessoa lendo uma a uma"></textarea>
 
-    <label class="campo-l" for="c-campo1">Campo 1 · Em que isso ajuda</label>
+    <label class="campo-l" for="c-campo1">Campo 1 · Em&nbsp;que&nbsp;isso ajuda</label>
     <select class="txt" id="c-campo1">
       <option value="">selecione um só</option>
       <option>Trazer mais alunos e pacientes</option>
@@ -308,15 +311,15 @@
       <option>Reduzir custo e retrabalho</option>
     </select>
 
-    <label class="campo-l" for="c-campo2">Campo 2 · Qual é o número</label>
-    <p class="hint">A medida específica. Não "melhorar o atendimento", e sim o que se conta.</p>
+    <label class="campo-l" for="c-campo2">Campo 2 · Qual é o&nbsp;número</label>
+    <p class="hint p-curto">A&nbsp;medida específica. Não&nbsp;"melhorar o&nbsp;atendimento", e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta.</p>
     <input class="txt" id="c-campo2" type="text" placeholder="ex: horas por semana gastas respondendo dúvida repetida">
 
     <label class="campo-l" for="c-campo3">Campo 3 · Quanto é hoje</label>
-    <p class="hint">Se ninguém sabe, escreva "não medido". Essa é a primeira tarefa, e não a automação.</p>
+    <p class="hint p-curto">Se&nbsp;ninguém sabe, escreva "não&nbsp;medido". Essa é a&nbsp;primeira tarefa, e&nbsp;não&nbsp;a&nbsp;automação.</p>
     <input class="txt" id="c-campo3" type="text" placeholder="ex: 6 horas por semana · ou: não medido">
 
-    <label class="campo-l" for="c-campo4">Campo 4 · Quanto em 60 dias</label>
+    <label class="campo-l" for="c-campo4">Campo 4 · Quanto em&nbsp;60 dias</label>
     <input class="txt" id="c-campo4" type="text" placeholder="ex: 1 hora e meia por semana">
 
     <div class="aviso warn">
@@ -336,49 +339,49 @@
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
-    <p class="bloco-rot">Parte 4 de 4 · no fim do dia</p>
-    <h2>Onde eu cheguei</h2>
-    <p class="lead">As mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a partir de segunda</strong>, e não como gostaria de ter respondido de manhã.</p>
+    <p class="bloco-rot p-curto">Parte 4 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
+    <h2>Onde&nbsp;eu cheguei</h2>
+    <p class="lead p-curto">As&nbsp;mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.</p>
 
     <div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">1</span><p class="item-t">Registro</p></div>
+        <div class="item-cab"><span class="item-n">1</span><p class="item-t p-curto">Registro</p></div>
         <div class="ops">
-          <label class="op"><input type="radio" name="f1" value="1"><span>Fica na minha cabeça.</span></label>
-          <label class="op"><input type="radio" name="f1" value="2"><span>Anoto para mim, num lugar que só eu acho.</span></label>
-          <label class="op"><input type="radio" name="f1" value="3"><span>Fica onde outra pessoa acha sozinha.</span></label>
+          <label class="op"><input type="radio" name="f1" value="1"><span>Fica na&nbsp;minha&nbsp;cabeça.</span></label>
+          <label class="op"><input type="radio" name="f1" value="2"><span>Anoto para&nbsp;mim, num&nbsp;lugar que&nbsp;só&nbsp;eu acho.</span></label>
+          <label class="op"><input type="radio" name="f1" value="3"><span>Fica onde&nbsp;outra pessoa acha sozinha.</span></label>
         </div>
       </div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">2</span><p class="item-t">Contexto</p></div>
+        <div class="item-cab"><span class="item-n">2</span><p class="item-t p-curto">Contexto</p></div>
         <div class="ops">
-          <label class="op"><input type="radio" name="f2" value="1"><span>Peço direto e aceito o que vier.</span></label>
-          <label class="op"><input type="radio" name="f2" value="2"><span>Explico a situação na hora, de cabeça.</span></label>
-          <label class="op"><input type="radio" name="f2" value="3"><span>Tenho um contexto pronto que eu reuso.</span></label>
+          <label class="op"><input type="radio" name="f2" value="1"><span>Peço direto e&nbsp;aceito o&nbsp;que&nbsp;vier.</span></label>
+          <label class="op"><input type="radio" name="f2" value="2"><span>Explico a&nbsp;situação na&nbsp;hora, de&nbsp;cabeça.</span></label>
+          <label class="op"><input type="radio" name="f2" value="3"><span>Tenho um&nbsp;contexto pronto que&nbsp;eu reuso.</span></label>
         </div>
       </div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">3</span><p class="item-t">Fases e conferência</p></div>
+        <div class="item-cab"><span class="item-n">3</span><p class="item-t p-curto">Fases e&nbsp;conferência</p></div>
         <div class="ops">
-          <label class="op"><input type="radio" name="f3" value="1"><span>Peço o trabalho todo de uma vez.</span></label>
-          <label class="op"><input type="radio" name="f3" value="2"><span>Divido em etapas quando é grande.</span></label>
-          <label class="op"><input type="radio" name="f3" value="3"><span>Divido sempre e confiro entre as etapas.</span></label>
+          <label class="op"><input type="radio" name="f3" value="1"><span>Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
+          <label class="op"><input type="radio" name="f3" value="2"><span>Divido em&nbsp;etapas quando&nbsp;é grande.</span></label>
+          <label class="op"><input type="radio" name="f3" value="3"><span>Divido sempre e&nbsp;confiro entre&nbsp;as&nbsp;etapas.</span></label>
         </div>
       </div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">4</span><p class="item-t">Correção vira regra</p></div>
+        <div class="item-cab"><span class="item-n">4</span><p class="item-t p-curto">Correção vira regra</p></div>
         <div class="ops">
-          <label class="op"><input type="radio" name="f4" value="1"><span>Corrijo e sigo em frente.</span></label>
-          <label class="op"><input type="radio" name="f4" value="2"><span>Corrijo e às vezes anoto em algum canto.</span></label>
-          <label class="op"><input type="radio" name="f4" value="3"><span>A correção vira regra, lida na próxima vez.</span></label>
+          <label class="op"><input type="radio" name="f4" value="1"><span>Corrijo e&nbsp;sigo em&nbsp;frente.</span></label>
+          <label class="op"><input type="radio" name="f4" value="2"><span>Corrijo e&nbsp;às&nbsp;vezes anoto em&nbsp;algum canto.</span></label>
+          <label class="op"><input type="radio" name="f4" value="3"><span>A&nbsp;correção vira regra, lida na&nbsp;próxima vez.</span></label>
         </div>
       </div>
       <div class="item">
-        <div class="item-cab"><span class="item-n">5</span><p class="item-t">Escopo com métrica</p></div>
+        <div class="item-cab"><span class="item-n">5</span><p class="item-t p-curto">Escopo com&nbsp;métrica</p></div>
         <div class="ops">
-          <label class="op"><input type="radio" name="f5" value="1"><span>Começo pela ideia que parece boa.</span></label>
-          <label class="op"><input type="radio" name="f5" value="2"><span>Penso no ganho, mas sem número.</span></label>
-          <label class="op"><input type="radio" name="f5" value="3"><span>Meço antes de começar e ponho meta com prazo.</span></label>
+          <label class="op"><input type="radio" name="f5" value="1"><span>Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
+          <label class="op"><input type="radio" name="f5" value="2"><span>Penso no&nbsp;ganho, mas&nbsp;sem&nbsp;número.</span></label>
+          <label class="op"><input type="radio" name="f5" value="3"><span>Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
         </div>
       </div>
     </div>
@@ -387,12 +390,12 @@
 
   <!-- ============ COMO ENVIAR ============ -->
   <div class="bloco">
-    <p class="bloco-rot">Para fechar</p>
-    <h2>Mandar para a planilha da sala</h2>
-    <p class="lead">Toque no botão azul lá embaixo. A sua linha vai para a área de transferência do aparelho. Abra a planilha projetada, toque na <strong>primeira célula vazia da coluna A</strong> e cole. As colunas se separam sozinhas.</p>
+    <p class="bloco-rot p-curto">Para&nbsp;fechar</p>
+    <h2>Mandar para&nbsp;a&nbsp;planilha da&nbsp;sala</h2>
+    <p class="lead p-curto">Toque no&nbsp;botão azul lá embaixo. A&nbsp;sua&nbsp;linha vai para&nbsp;a&nbsp;área de&nbsp;transferência do&nbsp;aparelho. Abra a&nbsp;planilha projetada, toque na&nbsp;<strong>primeira célula vazia da&nbsp;coluna A</strong>&nbsp;e&nbsp;cole. As&nbsp;colunas se&nbsp;separam sozinhas.</p>
 
     <div class="esquema">
-      <p class="esquema-t">As colunas, nesta ordem</p>
+      <p class="esquema-t p-curto">As&nbsp;colunas, nesta ordem</p>
       <div class="cols">
         <span class="col">codigo</span><span class="col">area</span>
         <span class="col">abertura_1</span><span class="col">abertura_2</span><span class="col">abertura_3</span><span class="col">abertura_4</span><span class="col">abertura_5</span><span class="col">abertura_total</span>
@@ -409,7 +412,7 @@
     </div>
   </div>
 
-  <p class="rodape">Grupo Longevidade Saudável · Ideação com AI First · IEL Ceará</p>
+  <p class="rodape p-curto">Grupo Longevidade Saudável · Ideação com&nbsp;AI First · IEL Ceará</p>
 </div>
 
 <div class="barra">
@@ -417,7 +420,7 @@
     <button class="btn primary" id="btn-copiar">Copiar minha linha</button>
     <button class="btn ghost" id="btn-limpar">Limpar</button>
   </div>
-  <p class="estado" id="estado">Rascunho salvo neste aparelho</p>
+  <p class="estado p-curto" id="estado">Rascunho salvo neste aparelho</p>
 </div>
 
 <div class="toast" id="toast"></div>

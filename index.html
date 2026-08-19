@@ -155,6 +155,16 @@ h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
   text-wrap:balance;
 }
 p,li,dd,figcaption{text-wrap:pretty}
+/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
+   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
+   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
+   substantivo para baixo. Medido no navegador em cinco larguras: balance
+   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
+.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
+/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
+   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
+   ignorado pelo navegador acima de seis linhas e ali a proteção contra
+   palavra órfã vale mais. */
 
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
@@ -1145,8 +1155,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="hero">
         <div class="hero-eyebrow">Encerramento da Trilha de Cultura de IA · 4 horas · presencial</div>
-        <h1>Não é qual IA a empresa usa. É como a informação circula.</h1>
-        <p class="hero-lead">Este é o material do dia. Cada página fica no ar depois do workshop, para você consultar e aplicar na sua área sem precisar de mim.</p>
+        <h1>Não&nbsp;é qual IA a&nbsp;empresa usa. É como a&nbsp;informação circula.</h1>
+        <p class="hero-lead">Este é o&nbsp;material do&nbsp;dia. Cada página fica no&nbsp;ar depois do&nbsp;workshop, para&nbsp;você consultar e&nbsp;aplicar na&nbsp;sua&nbsp;área sem&nbsp;precisar de&nbsp;mim.</p>
         <div class="hero-meta">
         <span class="chip">4 horas</span>
         <span class="chip">Turma única</span>
@@ -1156,65 +1166,59 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
 <section class="block" id="s-comecar">
         <div class="block-num">Comece por aqui</div>
-        <h2>Antes de qualquer coisa, responda a régua</h2>
+        <h2>Antes de&nbsp;qualquer coisa, responda a&nbsp;régua</h2>
         <p class="block-lead">
-          Cinco perguntas sobre como o trabalho acontece hoje na sua área. Leva menos de
-          cinco minutos e não pede o seu nome.
+          Cinco perguntas sobre&nbsp;como o&nbsp;trabalho acontece hoje na&nbsp;sua&nbsp;área. Leva menos de&nbsp;cinco minutos e&nbsp;não&nbsp;pede o&nbsp;seu&nbsp;nome.
         </p>
 
         <div class="card card-highlight" style="margin:24px 0">
           <div class="card-eyebrow">No celular</div>
-          <h4 style="font-size:20px">A régua e a ficha</h4>
-          <p>
-            Você responde na abertura, guarda o seu código, e responde de novo no
-            fechamento. As respostas da turma inteira caem numa planilha projetada na
-            sala, e a análise roda ali na frente de todos, com o dado que a sala acabou
-            de gerar sobre ela mesma.
+          <h4 style="font-size:20px">A&nbsp;régua e&nbsp;a&nbsp;ficha</h4>
+          <p class="p-curto">
+            Você responde na&nbsp;abertura, guarda o&nbsp;seu&nbsp;código, e&nbsp;responde de&nbsp;novo no&nbsp;fechamento. As&nbsp;respostas da&nbsp;turma inteira caem numa&nbsp;planilha projetada na&nbsp;sala, e&nbsp;a&nbsp;análise roda ali na&nbsp;frente de&nbsp;todos, com&nbsp;o&nbsp;dado que&nbsp;a&nbsp;sala acabou
+            de&nbsp;gerar sobre&nbsp;ela mesma.
           </p>
-          <p style="margin-top:14px">
-            <a href="./canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:11px 20px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a régua →</a>
+          <p style="margin-top:14px" class="p-curto">
+            <a href="./canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:11px 20px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a&nbsp;régua →</a>
           </p>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">Sem rede na sala</div>
-          <p>
-            Se a rede não abrir, a régua tem versão em papel e o dia roda igual. A
-            contagem é feita em voz alta e a planilha é montada depois.
+          <p class="p-curto">
+            Se&nbsp;a&nbsp;rede não&nbsp;abrir, a&nbsp;régua tem versão em&nbsp;papel e&nbsp;o&nbsp;dia roda igual. A&nbsp;contagem é feita em&nbsp;voz alta e&nbsp;a&nbsp;planilha é montada depois.
           </p>
         </div>
       </section>
 
       <section class="block" id="s-objetivo">
         <div class="block-num">O que este dia é</div>
-        <h2>A virada de pergunta que organiza as quatro horas</h2>
+        <h2>A&nbsp;virada de&nbsp;pergunta que&nbsp;organiza as&nbsp;quatro horas</h2>
 
         <div class="compare">
           <div class="compare-side antes">
             <span class="label">A pergunta de sempre</span>
             <div class="compare-quote">Como eu faço isso mais rápido?</div>
-            <p>
-              Leva a usar a inteligência artificial no fim do trabalho, para acelerar uma
-              tarefa que já está desenhada. O ganho é pontual e some quando a pessoa que
-              descobriu o atalho sai de férias.
+            <p class="p-curto">
+              Leva a&nbsp;usar a&nbsp;inteligência artificial no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada. O&nbsp;ganho é pontual e&nbsp;some quando&nbsp;a&nbsp;pessoa que&nbsp;descobriu o&nbsp;atalho sai de&nbsp;férias.
             </p>
           </div>
           <div class="compare-side depois">
             <span class="label">A pergunta deste dia</span>
             <div class="compare-quote">Se eu fosse desenhar isso hoje, com a IA
 disponível desde o começo, como seria?</div>
-            <p>
-              Leva a colocar a inteligência artificial no desenho do processo. O ganho
-              fica no processo, e não na pessoa. É isso que se chama AI First.
+            <p class="p-curto">
+              Leva a&nbsp;colocar a&nbsp;inteligência artificial no&nbsp;desenho do&nbsp;processo. O&nbsp;ganho
+              fica no&nbsp;processo, e&nbsp;não&nbsp;na&nbsp;pessoa. É isso que&nbsp;se&nbsp;chama AI First.
             </p>
           </div>
         </div>
 
         <p class="block-lead">
-          A diferença entre as duas perguntas tem um desenho, e ele vem de fora daqui:
-          Diana Hu, sócia da aceleradora Y Combinator, descreve as duas como
-          <strong>loop aberto</strong> e <strong>loop fechado</strong>. A distinção não é
-          sobre o que a empresa faz. É sobre existir ou não a seta de volta.
+          A&nbsp;diferença entre&nbsp;as&nbsp;duas perguntas tem um&nbsp;desenho, e&nbsp;ele vem de&nbsp;fora daqui:
+          Diana Hu, sócia da&nbsp;aceleradora Y Combinator, descreve as&nbsp;duas como
+          <strong>loop aberto</strong> e&nbsp;<strong>loop fechado</strong>. A&nbsp;distinção não&nbsp;é
+          sobre&nbsp;o&nbsp;que&nbsp;a&nbsp;empresa faz. É sobre&nbsp;existir ou&nbsp;não&nbsp;a&nbsp;seta de&nbsp;volta.
         </p>
 
         <div class="loops">
@@ -1230,8 +1234,8 @@ disponível desde o começo, como seria?</div>
               <span class="lp-fim">fim</span>
             </div>
             <p class="lp-perda">
-              Na próxima vez, começa de novo do zero. Se a pessoa que fez saiu de férias,
-              começa mais do zero ainda.
+              Na&nbsp;próxima vez, começa de&nbsp;novo do&nbsp;zero. Se&nbsp;a&nbsp;pessoa que&nbsp;fez saiu de&nbsp;férias,
+              começa mais do&nbsp;zero ainda.
             </p>
           </div>
 
@@ -1255,9 +1259,9 @@ disponível desde o começo, como seria?</div>
           </div>
         </div>
         <p class="fig-leg">
-          As duas caixas do meio são iguais. O que muda são as duas últimas do loop
-          fechado e a linha de volta. <strong>É só isso que este dia trata</strong>, e é
-          por isso que ele não depende de trocar de ferramenta.
+          As&nbsp;duas caixas do&nbsp;meio são iguais. O&nbsp;que&nbsp;muda são as&nbsp;duas últimas do&nbsp;loop
+          fechado e&nbsp;a&nbsp;linha de&nbsp;volta. <strong>É só&nbsp;isso que&nbsp;este dia trata</strong>, e&nbsp;é
+          por&nbsp;isso que&nbsp;ele não&nbsp;depende de&nbsp;trocar de&nbsp;ferramenta.
         </p>
 
         <a class="fonte" href="https://www.youtube.com/watch?v=Z3JyAqh4ixg"
@@ -1273,17 +1277,15 @@ disponível desde o começo, como seria?</div>
           </div>
         </a>
 
-        <p>
-          O dia trata de três coisas: <strong>o que muda quando a IA entra no desenho do
-          trabalho</strong>, <strong>os cinco padrões que fazem isso acontecer na
-          prática</strong>, e <strong>a aplicação deles em dois casos reais resolvidos
-          pela sala</strong>.
+        <p class="p-curto">
+          O&nbsp;dia trata de&nbsp;três coisas: <strong>o&nbsp;que&nbsp;muda quando&nbsp;a&nbsp;IA entra no&nbsp;desenho do&nbsp;trabalho</strong>, <strong>os&nbsp;cinco padrões que&nbsp;fazem isso acontecer na&nbsp;prática</strong>, e&nbsp;<strong>a&nbsp;aplicação deles em&nbsp;dois casos reais resolvidos
+          pela&nbsp;sala</strong>.
         </p>
       </section>
 
       <section class="block" id="s-contrato">
         <div class="block-num">O combinado</div>
-        <h2>O que você traz, o que acontece, o que você leva</h2>
+        <h2>O&nbsp;que&nbsp;você traz, o&nbsp;que&nbsp;acontece, o&nbsp;que&nbsp;você leva</h2>
 
         <div class="contrato">
           <div class="contrato-c">
@@ -1314,16 +1316,15 @@ disponível desde o começo, como seria?</div>
 
       <section class="block" id="s-pilares">
         <div class="block-num">O mapa</div>
-        <h2>Os cinco pilares</h2>
+        <h2>Os&nbsp;cinco pilares</h2>
         <p class="block-lead">
-          São os conceitos de AI First traduzidos em comportamento. Nenhum depende de
-          licença paga, de TI ou de orçamento. E nenhum é dado como aula à parte: todos
-          saem dos casos.
+          São os&nbsp;conceitos de&nbsp;AI First traduzidos em&nbsp;comportamento. Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;orçamento. E&nbsp;nenhum é dado como aula à&nbsp;parte: todos
+          saem dos&nbsp;casos.
         </p>
 
-        <p>
-          Eles não são cinco assuntos soltos: são as cinco etapas de um mesmo ciclo. É
-          por isso que nenhum funciona sozinho, e é por isso que o dia trata os cinco.
+        <p class="p-curto">
+          Eles não&nbsp;são cinco assuntos soltos: são as&nbsp;cinco etapas de&nbsp;um&nbsp;mesmo ciclo. É
+          por&nbsp;isso que&nbsp;nenhum funciona sozinho, e&nbsp;é por&nbsp;isso que&nbsp;o&nbsp;dia trata os&nbsp;cinco.
         </p>
 
         <div class="loop">
@@ -1380,8 +1381,7 @@ disponível desde o começo, como seria?</div>
         </div>
 
         <p class="fig-leg">
-          Os cinco pilares como um ciclo. A volta é a parte que quase todo mundo deixa de
-          fora, e é ela que separa melhorar de repetir.
+          Os&nbsp;cinco pilares como um&nbsp;ciclo. A&nbsp;volta é a&nbsp;parte que&nbsp;quase todo mundo deixa de&nbsp;fora, e&nbsp;é ela que&nbsp;separa melhorar de&nbsp;repetir.
         </p>
 
 
@@ -1391,9 +1391,9 @@ disponível desde o começo, como seria?</div>
 
         <div class="callout callout-info">
           <div class="callout-title">Os pilares são também a régua</div>
-          <p>
-            As cinco perguntas que você responde na abertura são exatamente estes cinco
-            pilares. Por isso a comparação do fim do dia faz sentido: é a mesma régua,
+          <p class="p-curto">
+            As&nbsp;cinco perguntas que&nbsp;você responde na&nbsp;abertura são exatamente estes cinco
+            pilares. Por&nbsp;isso a&nbsp;comparação do&nbsp;fim do&nbsp;dia faz sentido: é a&nbsp;mesma régua,
             aplicada quatro horas depois.
           </p>
         </div>
@@ -1401,19 +1401,18 @@ disponível desde o começo, como seria?</div>
 
       <section class="block" id="s-paginas">
         <div class="block-num">O material</div>
-        <h2>As páginas do dia</h2>
+        <h2>As&nbsp;páginas do&nbsp;dia</h2>
         <p class="block-lead">
-          Ficam no ar depois do workshop. Você abre no celular durante a atividade e
-          consulta na sua mesa na semana seguinte.
+          Ficam no&nbsp;ar depois do&nbsp;workshop. Você abre no&nbsp;celular durante&nbsp;a&nbsp;atividade e&nbsp;consulta na&nbsp;sua&nbsp;mesa na&nbsp;semana seguinte.
         </p>
 
         <div class="modules">
           <a href="./ai-first/" class="mod-card">
             <div class="mod-num"><span>Bloco 2</span><span class="mod-tag">Conceito</span></div>
             <div class="mod-title">O que muda com AI First</div>
-            <p class="mod-desc">
-              Onde a inteligência artificial entra no trabalho, por que ferramenta melhor
-              não resolve sozinha, o que ela consegue enxergar e onde ela não deve entrar.
+            <p class="mod-desc p-curto">
+              Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;trabalho, por&nbsp;que&nbsp;ferramenta melhor
+              não&nbsp;resolve sozinha, o&nbsp;que&nbsp;ela consegue enxergar e&nbsp;onde&nbsp;ela não&nbsp;deve entrar.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1421,9 +1420,9 @@ disponível desde o começo, como seria?</div>
           <a href="./caso-1/" class="mod-card">
             <div class="mod-num"><span>Bloco 3</span><span class="mod-tag">Caso</span></div>
             <div class="mod-title">Conhecimento espalhado e muitas frentes</div>
-            <p class="mod-desc">
-              Doze frentes ao mesmo tempo, um papel diferente em cada uma. O grupo desenha
-              a solução antes de saber o que de fato foi feito.
+            <p class="mod-desc p-curto">
+              Doze frentes ao&nbsp;mesmo tempo, um&nbsp;papel diferente em&nbsp;cada uma.&nbsp;O&nbsp;grupo desenha
+              a&nbsp;solução antes de&nbsp;saber o&nbsp;que&nbsp;de&nbsp;fato foi feito.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1431,9 +1430,9 @@ disponível desde o começo, como seria?</div>
           <a href="./caso-2/" class="mod-card">
             <div class="mod-num"><span>Bloco 4</span><span class="mod-tag">Caso</span></div>
             <div class="mod-title">Informação sensível e prazo curto</div>
-            <p class="mod-desc">
-              Trezentas páginas, três dias, e uma decisão de investimento no fim. O grupo
-              desenha primeiro, depois descobre onde a primeira tentativa falhou.
+            <p class="mod-desc p-curto">
+              Trezentas páginas, três dias, e&nbsp;uma&nbsp;decisão de&nbsp;investimento no&nbsp;fim. O&nbsp;grupo
+              desenha primeiro, depois descobre onde&nbsp;a&nbsp;primeira tentativa falhou.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1441,9 +1440,8 @@ disponível desde o começo, como seria?</div>
           <a href="./ficha/" class="mod-card">
             <div class="mod-num"><span>Bloco 5</span><span class="mod-tag">Fechamento</span></div>
             <div class="mod-title">A ficha dos quatro campos</div>
-            <p class="mod-desc">
-              Quatro perguntas que separam a iniciativa que anda da que morre na
-              demonstração. Você preenche para uma iniciativa real da sua área.
+            <p class="mod-desc p-curto">
+              Quatro perguntas que&nbsp;separam a&nbsp;iniciativa que&nbsp;anda da&nbsp;que&nbsp;morre na&nbsp;demonstração. Você preenche para&nbsp;uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1451,9 +1449,9 @@ disponível desde o começo, como seria?</div>
           <a href="./canvas/" class="mod-card">
             <div class="mod-num"><span>Abertura e fechamento</span><span class="mod-tag">Celular</span></div>
             <div class="mod-title">A régua e a ficha</div>
-            <p class="mod-desc">
-              As cinco perguntas da abertura, o que só existe na cabeça de alguém, a ficha
-              dos quatro campos e a reaplicação da régua no fim.
+            <p class="mod-desc p-curto">
+              As&nbsp;cinco perguntas da&nbsp;abertura, o&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém, a&nbsp;ficha
+              dos&nbsp;quatro campos e&nbsp;a&nbsp;reaplicação da&nbsp;régua no&nbsp;fim.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1461,9 +1459,9 @@ disponível desde o começo, como seria?</div>
           <a href="./pilares/" class="mod-card">
             <div class="mod-num"><span>Leva para casa</span><span class="mod-tag">Imprimível</span></div>
             <div class="mod-title">Os cinco pilares em uma folha</div>
-            <p class="mod-desc">
-              Uma folha A4 com o que é cada pilar, o que você passa a fazer e a pergunta
-              que revela se você está aplicando.
+            <p class="mod-desc p-curto">
+              Uma&nbsp;folha A4 com&nbsp;o&nbsp;que&nbsp;é cada pilar, o&nbsp;que&nbsp;você passa a&nbsp;fazer e&nbsp;a&nbsp;pergunta
+              que&nbsp;revela se&nbsp;você está aplicando.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1471,9 +1469,9 @@ disponível desde o começo, como seria?</div>
           <a href="./papel/" class="mod-card">
             <div class="mod-num"><span>Se a internet falhar</span><span class="mod-tag">Imprimível</span></div>
             <div class="mod-title">A régua e a ficha em papel</div>
-            <p class="mod-desc">
-              As mesmas cinco perguntas e a mesma ficha, em duas folhas A4 para preencher
-              à mão. Servem para quem prefere caneta e servem se a rede não ajudar.
+            <p class="mod-desc p-curto">
+              As&nbsp;mesmas cinco perguntas e&nbsp;a&nbsp;mesma ficha, em&nbsp;duas folhas A4 para&nbsp;preencher
+              à&nbsp;mão. Servem para&nbsp;quem prefere caneta e&nbsp;servem se&nbsp;a&nbsp;rede não&nbsp;ajudar.
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1482,7 +1480,7 @@ disponível desde o começo, como seria?</div>
 
       <section class="block" id="s-agenda">
         <div class="block-num">O tempo</div>
-        <h2>Como as quatro horas se dividem</h2>
+        <h2>Como as&nbsp;quatro horas se&nbsp;dividem</h2>
 
         <div class="agenda">
           <div class="agenda-row">
@@ -1547,11 +1545,10 @@ disponível desde o começo, como seria?</div>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que os casos vêm antes da resposta</div>
-          <p>
-            Nos dois casos o problema vem primeiro e a solução vem depois. Se a solução
-            viesse primeiro, a sala assistiria. Vindo o problema primeiro, a sala trabalha,
-            erra junto, e só então recebe a correção. Adulto aprende resolvendo, não
-            acumulando conceito.
+          <p class="p-curto">
+            Nos&nbsp;dois casos o&nbsp;problema vem primeiro e&nbsp;a&nbsp;solução vem depois. Se&nbsp;a&nbsp;solução
+            viesse primeiro, a&nbsp;sala assistiria. Vindo o&nbsp;problema primeiro, a&nbsp;sala trabalha,
+            erra junto, e&nbsp;só&nbsp;então recebe a&nbsp;correção. Adulto aprende resolvendo, não&nbsp;acumulando conceito.
           </p>
         </div>
       </section>
@@ -1562,7 +1559,7 @@ disponível desde o começo, como seria?</div>
 </main>
 
 <footer class="site-footer">
-  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com AI First · Facilitação de Rafael Lima · IEL Ceará</p>
+  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 </body>

@@ -155,6 +155,16 @@ h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
   text-wrap:balance;
 }
 p,li,dd,figcaption{text-wrap:pretty}
+/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
+   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
+   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
+   substantivo para baixo. Medido no navegador em cinco larguras: balance
+   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
+.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
+/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
+   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
+   ignorado pelo navegador acima de seis linhas e ali a proteção contra
+   palavra órfã vale mais. */
 
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
@@ -1157,8 +1167,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Bloco 5</div>
       <div class="hero">
         <div class="hero-eyebrow">Bloco 5 · Pilar 5</div>
-        <h1>A ficha dos quatro campos</h1>
-        <p class="hero-lead">O filtro que separa a iniciativa que chega à produção da que morre na demonstração. São quatro perguntas, e nenhuma delas é sobre tecnologia.</p>
+        <h1>A&nbsp;ficha dos&nbsp;quatro campos</h1>
+        <p class="hero-lead">O&nbsp;filtro que&nbsp;separa a&nbsp;iniciativa que&nbsp;chega à&nbsp;produção da&nbsp;que&nbsp;morre na&nbsp;demonstração. São quatro perguntas, e&nbsp;nenhuma delas é sobre&nbsp;tecnologia.</p>
         <div class="hero-meta">
         <span class="chip">Pilar 5 · Escopo com métrica</span>
         <span class="chip">Individual</span>
@@ -1167,20 +1177,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
 <section class="block" id="s1">
         <div class="block-num">01 · Por que este filtro existe</div>
-        <h2>Oitenta e sete de cada cem morrem na demonstração</h2>
+        <h2>Oitenta e&nbsp;sete de&nbsp;cada cem morrem na&nbsp;demonstração</h2>
 
         <p class="block-lead">
-          A parte difícil de um projeto de inteligência artificial não é fazer funcionar
-          uma vez. É fazer virar rotina.
+          A&nbsp;parte difícil de&nbsp;um&nbsp;projeto de&nbsp;inteligência artificial não&nbsp;é fazer funcionar
+          uma&nbsp;vez. É fazer virar rotina.
         </p>
 
         <div class="card card-highlight">
           <div class="card-eyebrow">Dado de mercado</div>
-          <p style="font-size:17px;line-height:1.55">
-            Segundo pesquisa da Capgemini, <strong>13% dos projetos de inteligência
-            artificial chegam à produção</strong>. Os outros 87 de cada 100 param na
-            demonstração: funcionaram na apresentação, agradaram, e nunca entraram no dia a
-            dia de ninguém.
+          <p style="font-size:17px;line-height:1.55" class="p-curto">
+            Segundo pesquisa da&nbsp;Capgemini, <strong>13% dos&nbsp;projetos de&nbsp;inteligência
+            artificial chegam à&nbsp;produção</strong>. Os&nbsp;outros 87 de&nbsp;cada 100 param na&nbsp;demonstração: funcionaram na&nbsp;apresentação, agradaram, e&nbsp;nunca entraram no&nbsp;dia a&nbsp;dia de&nbsp;ninguém.
           </p>
         </div>
 
@@ -1294,35 +1302,30 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         </div>
 
         <p class="fig-leg">
-          Cada quadrado é um projeto de inteligência artificial. Os treze acesos são os
-          que viraram rotina. Fonte: pesquisa da Capgemini.
+          Cada quadrado é um&nbsp;projeto de&nbsp;inteligência artificial. Os&nbsp;treze acesos são os&nbsp;que&nbsp;viraram rotina. Fonte: pesquisa da&nbsp;Capgemini.
         </p>
 
-        <p>
-          O que separa os dois grupos não é a qualidade da ferramenta nem o tamanho do
-          orçamento. É uma coisa bem mais simples: <strong>o grupo que chega à produção
-          tinha número e prazo definidos antes de começar.</strong> O outro grupo tinha
+        <p class="p-curto">
+          O&nbsp;que&nbsp;separa os&nbsp;dois grupos não&nbsp;é a&nbsp;qualidade da&nbsp;ferramenta nem o&nbsp;tamanho do&nbsp;orçamento. É uma&nbsp;coisa bem mais simples: <strong>o&nbsp;grupo que&nbsp;chega à&nbsp;produção
+          tinha número e&nbsp;prazo definidos antes de&nbsp;começar.</strong> O&nbsp;outro grupo tinha
           vontade.
         </p>
 
         <div class="callout callout-info">
           <div class="callout-title">Por isso a ficha é o fechamento do dia</div>
-          <p>
-            Ela não avalia pessoa: avalia iniciativa. É a mesma lógica de uma avaliação de
-            antes e depois, aplicada ao que vai ser feito em vez de a quem vai fazer. E é o
-            instrumento que fica com a instituição para reaplicar sem depender de ninguém
-            de fora.
+          <p class="p-curto">
+            Ela não&nbsp;avalia pessoa: avalia iniciativa. É a&nbsp;mesma lógica de&nbsp;uma&nbsp;avaliação de&nbsp;antes e&nbsp;depois, aplicada ao&nbsp;que&nbsp;vai ser feito em&nbsp;vez de&nbsp;a&nbsp;quem vai fazer. E&nbsp;é o&nbsp;instrumento que&nbsp;fica com&nbsp;a&nbsp;instituição para&nbsp;reaplicar sem&nbsp;depender de&nbsp;ninguém
+            de&nbsp;fora.
           </p>
         </div>
       </section>
 
       <section class="block" id="s2">
         <div class="block-num">02 · A ficha</div>
-        <h2>Os quatro campos</h2>
+        <h2>Os&nbsp;quatro campos</h2>
 
         <p class="block-lead">
-          Escolha uma iniciativa real da sua área. Uma que você faria se pudesse começar na
-          segunda-feira. E preencha os quatro.
+          Escolha uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área. Uma&nbsp;que&nbsp;você faria se&nbsp;pudesse começar na&nbsp;segunda-feira. E&nbsp;preencha os&nbsp;quatro.
         </p>
 
         <div class="quadro">
@@ -1350,17 +1353,17 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         </div>
 
         <p class="fig-leg">
-          O formato da ficha. Repare que o campo 3 é o que costuma travar: quase ninguém
-          sabe quanto é hoje, e sem ele o campo 4 vira chute.
+          O&nbsp;formato da&nbsp;ficha. Repare que&nbsp;o&nbsp;campo 3 é o&nbsp;que&nbsp;costuma travar: quase ninguém
+          sabe quanto é hoje, e&nbsp;sem&nbsp;ele o&nbsp;campo 4 vira chute.
         </p>
 
         <div class="card-grid-2">
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 1</div>
-            <h4>Em que isso ajuda</h4>
-            <p>
-              Escolha <strong>um só</strong> dos três destinos abaixo. Iniciativa que ajuda
-              nos três costuma não ajudar em nenhum.
+            <h4>Em&nbsp;que&nbsp;isso ajuda</h4>
+            <p class="p-curto">
+              Escolha <strong>um&nbsp;só</strong>&nbsp;dos&nbsp;três destinos abaixo. Iniciativa que&nbsp;ajuda
+              nos&nbsp;três costuma não&nbsp;ajudar em&nbsp;nenhum.
             </p>
             <ul>
               <li>Trazer mais alunos e mais pacientes</li>
@@ -1371,14 +1374,13 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 2</div>
-            <h4>Qual é o número</h4>
-            <p>
-              A medida específica que essa escolha move. <strong>Não "melhorar o
-              atendimento"</strong>, e sim o que se conta: horas, dias, quantidade,
+            <h4>Qual é o&nbsp;número</h4>
+            <p class="p-curto">
+              A&nbsp;medida específica que&nbsp;essa escolha move. <strong>Não&nbsp;"melhorar o&nbsp;atendimento"</strong>, e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta: horas, dias, quantidade,
               porcentagem.
             </p>
-            <p>
-              Teste: se duas pessoas medirem, elas chegam ao mesmo valor? Se não, o número
+            <p class="p-curto">
+              Teste: se&nbsp;duas pessoas medirem, elas chegam ao&nbsp;mesmo valor? Se&nbsp;não,&nbsp;o&nbsp;número
               ainda está vago.
             </p>
           </div>
@@ -1386,48 +1388,46 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 3</div>
             <h4>Quanto é hoje</h4>
-            <p>
-              O valor atual, antes de mudar nada. Sem ele não existe antes e depois, existe
-              só depois.
+            <p class="p-curto">
+              O&nbsp;valor atual, antes de&nbsp;mudar nada. Sem&nbsp;ele não&nbsp;existe antes e&nbsp;depois, existe
+              só&nbsp;depois.
             </p>
-            <p>
-              <strong>Se ninguém sabe, essa é a primeira tarefa</strong>, e não a
-              automação. Medir uma semana costuma bastar.
+            <p class="p-curto">
+              <strong>Se&nbsp;ninguém sabe, essa é a&nbsp;primeira tarefa</strong>, e&nbsp;não&nbsp;a&nbsp;automação. Medir uma&nbsp;semana costuma bastar.
             </p>
           </div>
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 4</div>
-            <h4>Quanto em sessenta dias</h4>
-            <p>
-              A meta, com prazo. É o que transforma a iniciativa em algo que a gestão
-              consegue acompanhar sem precisar entender de tecnologia.
+            <h4>Quanto em&nbsp;sessenta dias</h4>
+            <p class="p-curto">
+              A&nbsp;meta, com&nbsp;prazo. É o&nbsp;que&nbsp;transforma a&nbsp;iniciativa em&nbsp;algo que&nbsp;a&nbsp;gestão
+              consegue acompanhar sem&nbsp;precisar entender de&nbsp;tecnologia.
             </p>
-            <p>
-              Sessenta dias é curto de propósito: obriga a escolher um pedaço que cabe.
+            <p class="p-curto">
+              Sessenta dias é curto de&nbsp;propósito: obriga a&nbsp;escolher um&nbsp;pedaço que&nbsp;cabe.
             </p>
           </div>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">A regra que dá o nome ao pilar</div>
-          <p>
-            <strong>Se você não consegue preencher os quatro, você não tem um projeto. Você
-            tem uma vontade.</strong> E isso não é reprovação: é diagnóstico. O campo que
-            você não conseguiu preencher é exatamente a próxima tarefa.
+          <p class="p-curto">
+            <strong>Se&nbsp;você não&nbsp;consegue preencher os&nbsp;quatro, você não&nbsp;tem um&nbsp;projeto. Você
+            tem uma&nbsp;vontade.</strong> E&nbsp;isso não&nbsp;é reprovação: é diagnóstico. O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher é exatamente a&nbsp;próxima tarefa.
           </p>
         </div>
       </section>
 
       <section class="block" id="s3">
         <div class="block-num">03 · Como fica preenchida</div>
-        <h2>Três exemplos, um de cada destino</h2>
+        <h2>Três exemplos, um&nbsp;de&nbsp;cada destino</h2>
 
         <div class="callout callout-warn">
           <div class="callout-title">Os números abaixo são inventados</div>
-          <p>
-            Servem para mostrar o formato, não para sugerir meta. O número da sua ficha sai
-            da sua área, e o campo 3 sai de medição, não de estimativa.
+          <p class="p-curto">
+            Servem para&nbsp;mostrar o&nbsp;formato, não&nbsp;para&nbsp;sugerir meta. O&nbsp;número da&nbsp;sua&nbsp;ficha sai
+            da&nbsp;sua&nbsp;área, e&nbsp;o&nbsp;campo 3 sai de&nbsp;medição, não&nbsp;de&nbsp;estimativa.
           </p>
         </div>
 
@@ -1477,7 +1477,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </table>
         </div>
 
-        <h3>Repare no que os três têm em comum</h3>
+        <h3>Repare no&nbsp;que&nbsp;os&nbsp;três têm em&nbsp;comum</h3>
         <ul>
           <li>
             <strong>Nenhum menciona ferramenta.</strong> Não dizem qual inteligência
@@ -1496,10 +1496,10 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <section class="block" id="s4">
         <div class="block-num">04 · Quando trava</div>
-        <h2>O campo que você não conseguiu preencher</h2>
+        <h2>O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher</h2>
 
         <p class="block-lead">
-          Cada trava tem um significado diferente, e uma saída diferente.
+          Cada trava tem um&nbsp;significado diferente, e&nbsp;uma&nbsp;saída diferente.
         </p>
 
         <div class="table-wrap">
@@ -1562,36 +1562,35 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Onde preencher</div>
-          <p>
-            A ficha tem os quatro campos na régua do celular, no bloco final. O que você
-            escrever ali sai numa planilha junto com o da turma inteira, e volta para a
-            instituição como uma lista de iniciativas com número, ponto de partida e meta.
+          <p class="p-curto">
+            A&nbsp;ficha tem os&nbsp;quatro campos na&nbsp;régua do&nbsp;celular, no&nbsp;bloco final. O&nbsp;que&nbsp;você
+            escrever ali sai numa&nbsp;planilha junto com&nbsp;o&nbsp;da&nbsp;turma inteira, e&nbsp;volta para&nbsp;a&nbsp;instituição como uma&nbsp;lista de&nbsp;iniciativas com&nbsp;número, ponto de&nbsp;partida e&nbsp;meta.
           </p>
-          <p style="margin-top:14px">
-            <a href="../canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a ficha →</a>
+          <p style="margin-top:14px" class="p-curto">
+            <a href="../canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a&nbsp;ficha →</a>
           </p>
         </div>
       </section>
 
       <section class="block" id="s5">
         <div class="block-num">05 · Fechamento</div>
-        <h2>O que fica com você e com a instituição</h2>
+        <h2>O&nbsp;que&nbsp;fica com&nbsp;você e&nbsp;com&nbsp;a&nbsp;instituição</h2>
 
         <div class="card-grid-2">
           <div class="card">
             <div class="card-eyebrow">Com você</div>
-            <h4>Uma iniciativa que dá para defender</h4>
-            <p>
-              Com destino, número, ponto de partida e meta com prazo. Cabe em quatro linhas
-              e sobrevive à pergunta <em>e isso dá quanto?</em>
+            <h4>Uma&nbsp;iniciativa que&nbsp;dá para&nbsp;defender</h4>
+            <p class="p-curto">
+              Com&nbsp;destino, número, ponto de&nbsp;partida e&nbsp;meta com&nbsp;prazo. Cabe em&nbsp;quatro linhas
+              e&nbsp;sobrevive à&nbsp;pergunta <em>e&nbsp;isso dá quanto?</em>
             </p>
           </div>
           <div class="card">
             <div class="card-eyebrow">Com a instituição</div>
-            <h4>Um filtro para o que já existe</h4>
-            <p>
-              A mesma ficha aplicada às iniciativas que já estão na fila separa as que têm
-              projeto das que têm vontade. Sem precisar refazer trabalho nenhum.
+            <h4>Um&nbsp;filtro para&nbsp;o&nbsp;que&nbsp;já&nbsp;existe</h4>
+            <p class="p-curto">
+              A&nbsp;mesma ficha aplicada às&nbsp;iniciativas que&nbsp;já&nbsp;estão na&nbsp;fila separa as&nbsp;que&nbsp;têm
+              projeto das&nbsp;que&nbsp;têm vontade. Sem&nbsp;precisar refazer trabalho nenhum.
             </p>
           </div>
         </div>
@@ -1632,7 +1631,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 </div>
 
 <footer class="site-footer">
-  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com AI First · Facilitação de Rafael Lima · IEL Ceará</p>
+  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 <script>

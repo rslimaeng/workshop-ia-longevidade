@@ -62,6 +62,10 @@ def texto_visivel(html):
     s = re.sub(r"<style[^>]*>.*?</style>", " ", html, flags=re.S)
     s = re.sub(r"<script[^>]*>.*?</script>", " ", s, flags=re.S)
     s = re.sub(r"<!--.*?-->", " ", s, flags=re.S)
+    # O espaço rígido que o gerador cola entre "na" e "sua" é espaço para quem
+    # lê. Se ele chegasse aqui como caractere próprio, todo gate que compara
+    # frase passaria a acusar a si mesmo depois da correção de quebra de linha.
+    s = s.replace("&nbsp;", " ").replace("\u00a0", " ")
     # Colapsa ANTES de marcar bloco: quebra de linha no arquivo-fonte não é
     # quebra na tela, e tratar as duas como iguais partia a frase da Capgemini.
     s = re.sub(r"\s+", " ", s)
@@ -537,7 +541,10 @@ def g21_loops_comecam_igual(rel, html):
     # zero etapas num HTML correto.
     ini_aberto = html.find('<div class="lp">')
     ini_fechado = html.find('<div class="lp fechado">')
-    fim = html.find('<p class="fig-leg">', ini_fechado if ini_fechado > 0 else 0)
+    # Procurar por 'class="fig-leg"' inteiro amarra o gate à ordem exata do
+    # atributo: acrescentar uma classe ao <p> deixou este gate cego uma vez.
+    m_fim = re.search(r'<p [^>]*class="[^"]*\bfig-leg\b', html[ini_fechado:]) if ini_fechado > 0 else None
+    fim = ini_fechado + m_fim.start() if m_fim else -1
     if ini_aberto < 0 or ini_fechado < 0 or fim < 0:
         return ["não achei os dois loops desenhados na capa"]
     if not (ini_aberto < ini_fechado < fim):
@@ -588,11 +595,19 @@ def g22_papel_bate_com_a_tela(rel, html):
         falhas.append("o papel tem {} blocos de pergunta, e a régua tem cinco em cada ponta".format(
             len(do_papel)))
         return falhas
+    # Os dois lados carregam o espaço rígido da correção de quebra de linha, mas
+    # em codificações diferentes: a tela guarda "&nbsp;" literal e o papel já sai
+    # do gerador com o caractere. Comparar sem normalizar acusava dez divergências
+    # que ninguém vê na folha. O que se compara é o que o leitor lê.
     import html as _h
+
+    def como_se_le(t):
+        return _h.unescape(t).replace("\u00a0", " ").strip()
+
     for i in range(5):
-        tela = [t.strip() for t in da_tela[i]]
+        tela = [como_se_le(t) for t in da_tela[i]]
         for ponta, bloco in (("abertura", do_papel[i]), ("fechamento", do_papel[i + 5])):
-            papel = [_h.unescape(t).strip() for t in bloco]
+            papel = [como_se_le(t) for t in bloco]
             if papel != tela:
                 falhas.append("pergunta {} na {} do papel diverge da tela: {} contra {}".format(
                     i + 1, ponta, papel, tela))
@@ -741,6 +756,43 @@ def g27_cabe_no_celular(rel, html):
     return falhas
 
 
+
+# ---------------------------------------------------------------- G28
+# O Rafael reprovou a quebra de linha duas vezes. A correção é um passo do
+# gerador: ele cola a palavra-função na seguinte com espaço rígido nos blocos
+# curtos. Passo de geração some em silêncio (basta alguém editar o HTML
+# publicado à mão), e o defeito só reaparece na tela. Aqui a prova é a mesma da
+# régua em papel: rodar o passo de novo no artefato final não pode mudar nada.
+#
+# Medido no navegador, 7 páginas x 3 larguras: 0 quebras ruins com a cola,
+# 128 sem ela. Maior trecho colado: 24 caracteres, e nenhuma página estoura.
+import importlib.util as _il
+
+_spec = _il.spec_from_file_location(
+    "gerador_do_site", os.path.join(RAIZ, "_build", "gerar.py"))
+_gerador = _il.module_from_spec(_spec)
+_spec.loader.exec_module(_gerador)
+
+
+def g28_quebra_de_linha_tratada(rel, html):
+    falhas = []
+    if _gerador.cola_quebra_de_linha(html) != html:
+        falhas.append("a cola de quebra de linha não está aplicada nesta página: "
+                      "rodar o passo do gerador de novo ainda muda o arquivo")
+    limite = _gerador.LIMITE_DO_GRUDADO
+    # Unidade colada maior que a linha do celular vira rolagem lateral, que é o
+    # defeito que esta correção deveria evitar. Mede no HTML, porque o texto
+    # visível já trocou o rígido por espaço comum.
+    for m in re.finditer(r"(?:[^\s<>]+(?:&nbsp;)){1,}[^\s<>]+", html):
+        colado = m.group(0).replace("&nbsp;", " ")
+        if "<" in colado or ">" in colado:
+            continue
+        if len(colado) > limite:
+            falhas.append("trecho colado maior que o limite de {}: {!r}".format(
+                limite, colado[:60]))
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -766,8 +818,13 @@ GATES = [
     ("G10", "pilares com o rótulo canônico", g10_pilares_literais,
      lambda h: h.replace("Toda correção vira regra", "Correções viram regras", 1),
      "index.html"),
+    # O defeito tira a fonte e deixa o número sozinho. Casa por regex e não por
+    # literal, porque o gerador cola espaço rígido no meio de "da Capgemini" e
+    # um literal com espaço comum passou a não encontrar nada, deixando o gate
+    # cego sem que nada no site tivesse mudado.
     ("G11", "número de terceiro com a fonte", g11_capgemini_com_fonte,
-     lambda h: h.replace("Segundo pesquisa da Capgemini, <strong>13%", "<strong>13%", 1),
+     lambda h: re.sub(r"Segundo pesquisa da(&nbsp;|\s)Capgemini,\s*(<strong>13%)",
+                      r"\2", h, count=1),
      "ficha/index.html"),
     ("G16", "as caixas do canvas têm piso", g16_campos_do_canvas_com_piso,
      lambda h: h.replace("input.txt, select.txt { min-height: 47px; }", "", 1),
@@ -787,9 +844,12 @@ GATES = [
      lambda h: h.replace('<span class="ex-area">15 de 22</span>',
                          '<span class="ex-area">19 de 22</span>', 1),
      "ai-first/index.html"),
+    # O defeito troca o texto de uma alternativa, quebrando a simetria entre as
+    # duas pontas. Casa por regex porque o texto carrega espaço rígido depois da
+    # correção de quebra de linha, e o literal com espaço comum não achava nada.
     ("G19", "a régua é simétrica e de três", g19_regua_simetrica,
-     lambda h: h.replace('<input type="radio" name="f1" value="3"><span>Fica onde outra pessoa acha sozinha.</span>',
-                         '<input type="radio" name="f1" value="3"><span>Fica registrado em algum lugar.</span>', 1),
+     lambda h: re.sub(r'(<input type="radio" name="f1" value="3"><span>)[^<]+(</span>)',
+                      r'\1Fica registrado em algum lugar.\2', h, count=1),
      "canvas/index.html"),
     ("G20", "todo passo diz quem faz", g20_passo_tem_ator,
      lambda h: h.replace('<span class="fl-ator pessoa">Ryan</span>', '<span class="fl-nada">Ryan</span>', 1),
@@ -798,9 +858,12 @@ GATES = [
      lambda h: h.replace('<span class="lp-et">Alguém executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>',
                          '<span class="lp-et">Alguem executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>', 1),
      "index.html"),
+    # O defeito muda o texto de uma alternativa só no papel, e o gate tem que
+    # ver que ele deixou de bater com a tela. Regex pelo mesmo motivo do G19:
+    # o texto carrega espaço rígido e o literal com espaço comum não acha nada.
     ("G22", "o papel bate com a régua da tela", g22_papel_bate_com_a_tela,
-     lambda h: h.replace('<span class="pl-tx">Fica na minha cabeça.</span>',
-                         '<span class="pl-tx">Fica só na minha cabeça.</span>', 1),
+     lambda h: re.sub(r'(<span class="pl-tx">)[^<]*(</span>)',
+                      r'\1Texto trocado só no papel.\2', h, count=1),
      "papel/index.html"),
     ("G23", "as seções são numeradas em ordem", g23_numeracao_das_secoes,
      lambda h: h.replace('<div class="block-num">07 · O limite</div>',
@@ -822,6 +885,9 @@ GATES = [
     ("G27", "a página cabe no celular", g27_cabe_no_celular,
      lambda h: h.replace(ESCAPATORIA, "", 1),
      "ai-first/index.html"),
+    ("G28", "a quebra de linha foi tratada", g28_quebra_de_linha_tratada,
+     lambda h: h.replace("&nbsp;", " ", 1),
+     "index.html"),
 ]
 
 
