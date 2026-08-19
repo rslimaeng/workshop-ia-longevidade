@@ -46,7 +46,17 @@
         .folha-fio{background:#fff;border:1px solid #999;color:#000}
         .fp-n{background:#000;color:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
         .folha-cab{border-bottom:2px solid #000}
-        .fp{page-break-inside:avoid;padding:13px 0}
+        /* Medido no navegador com as regras de impressão aplicadas e a largura
+           útil de uma A4: sem estes ajustes a folha dava 1179px contra 1032px
+           de altura útil, 114% de uma página. Com eles, 928px e 27mm de sobra.
+           A página afirma que cabe em uma folha, então isto é conteúdo. */
+        .fp{page-break-inside:avoid;padding:11px 0}
+        .fp-t{font-size:14.5px;margin-bottom:5px}
+        .fp-v{font-size:13px;line-height:1.38}
+        .fp-linha{margin-bottom:3px}
+        .folha-fio{padding:10px 13px;margin:12px 0 15px;font-size:14px}
+        .folha-t{font-size:21px}
+        .folha-cab{padding-bottom:14px}
         .fp-v.perg{color:#000}
       }
       </style>
