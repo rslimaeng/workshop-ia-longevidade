@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda vinte e oito gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -99,6 +99,8 @@ defeito derruba o script como **cego**.
 | G26 | Imagem referenciada que não existe no disco |
 | G27 | Página que não cabe num celular de 375px |
 | G28 | O passo de quebra de linha que deixou de rodar sobre a página |
+| G29 | Frase que não ganhou a sua linha, e o container query que faz isso valer |
+| G30 | Número de auxiliares escrito que não bate com o que está listado |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -170,6 +172,32 @@ ruins publicadas, 369 com a cola desfeita**, nenhuma página estourando a largur
 Linha terminando no verbo *"é"* não conta como defeito: o que incomoda, e o que
 os prints mostravam, é artigo e preposição separados do seu substantivo.
 
+## Uma frase por linha, e por que não é a mesma coisa que a cola
+
+O Rafael reclamou **três vezes** da quebra de linha, e as duas primeiras eu consertei o
+sintoma errado. A queixa dele, nas palavras dele: *"era sobrar o espaço para continuar a
+frase e vc quebrar ela"*.
+
+**Não é a linha terminar em preposição. É a frase quebrar quando ainda sobra coluna.**
+Medido: 283 das 491 frases quebravam no meio, e a frase mediana ocupa 497px numa medida de
+720px. Três de cada quatro já cabiam numa linha. Elas quebram porque **não começam no
+início da linha**.
+
+**Alargar a coluna não resolve:** de 720 para 920 ganha 13% e dá 122 caracteres por linha.
+
+O conserto é `uma_frase_por_linha` em `gerar.py`: cada frase vira `<span class="fr">`, e o
+**container query** decide onde isso vira bloco. O corte é 600px, e ele veio de medição:
+a fatia de frases que cabem numa linha é 10% até 300px, 54% entre 400 e 500, e 77% a
+partir de 600. Abaixo disso, meia correção parece acidente.
+
+**O passo é varredura com pilha, não regex.** Um terço do texto do site mora em `<div>` e
+`<span>` de bloco, e `<div>(.*?)</div>` fecha na tag errada. A cola de espaço rígido ganhou
+a mesma varredura (`_cola_em_folhas`), porque ela só alcançava `h1-4`, `label`, `<p>` e
+`<li>`.
+
+Medido nas 8 páginas: **241 → 139 frases partidas, 25 → 8 linhas em preposição, e 0
+frases que caberiam e quebraram assim mesmo.**
+
 ## Armadilhas já pagas nesta pasta
 
 - **Acrescentar uma classe ao `<p>` deixou dois gates cegos.** O G21 procurava
@@ -203,6 +231,22 @@ os prints mostravam, é artigo e preposição separados do seu substantivo.
 - **A página imprimível não cabia na A4 que ela promete.** A folha dos pilares
   dava 114% e afirmava em três lugares que saía em uma folha. Medir, e não
   estimar por contagem de linhas.
+- 🔴 **`container-type:inline-size` zera a largura de quem se dimensiona pelo conteúdo.**
+  Num item de flex o bloco foi para 0px e o texto saiu **uma palavra por linha**. O gate
+  estático não vê isso, e a página parecia normal no HTML. A marca do contêiner sobe até o
+  primeiro ancestral de largura definida, e o **G29 acusa** quem estiver em item de flex.
+- 🔴 **Seis gates cegaram de uma vez** quando o gerador ganhou o passo de frases: os
+  injetores casavam literal com espaço comum, e o espaço rígido entrou no meio. Todo
+  injetor passou a usar `como_escrito()`, e o **G10 compara o que se lê**, não os bytes.
+- **Constante com o mesmo nome em dois gates.** `NUMERO_POR_EXTENSO` já existia no G24 sem
+  acento e o G30 redefiniu com acento, quebrando o G24. Nome de constante nova confere
+  antes.
+- **`requestAnimationFrame` não dispara com o painel do navegador escondido.** Toda sonda
+  que redimensiona iframe trava em 30s. Usar `setTimeout` e forçar reflow lendo
+  `offsetHeight`.
+- **Dentro de `<svg>` um `<span>` não desenha nada.** Cortar frase ali apagaria texto da
+  figura na tela sem apagar nada do HTML. O gerador proíbe pela **árvore**, não pelo
+  elemento: proibir só o elemento deixou a cola entrar no `.fonte-cta` lá dentro.
 - **Altura de campo não se resolve por altura de linha.** O navegador dá ao
   seletor uma altura interna própria, de 20px contra 23px do campo de texto.
   Só piso explícito iguala. Provado com defeito injetado no DOM vivo.
