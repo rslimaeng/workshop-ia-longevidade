@@ -198,11 +198,34 @@ def g8_direcao_de_cena(rel, html):
     return falhas
 
 
+
+def sem_cartoes_de_video(html):
+    """Devolve o HTML sem os blocos <a class="fonte">, para gates que não devem
+    ler o cartão de fonte. Recorta só o cartão: o que vem antes e depois dele
+    continua sendo auditado."""
+    saida, i = [], 0
+    while True:
+        ini = html.find('<a class="fonte"', i)
+        if ini == -1:
+            saida.append(html[i:])
+            return "".join(saida)
+        fim = html.find("</a>", ini)
+        if fim == -1:
+            saida.append(html[i:])
+            return "".join(saida)
+        saida.append(html[i:ini])
+        i = fim + 4
+
+
 def g9_minutagem_fora_da_capa(rel, html):
     """Minutagem é controle de condução. Só a capa carrega, porque lá é o contrato."""
     if rel in PAGINAS_COM_AGENDA:
         return []
-    vis = texto_visivel(html)
+    # O cartão de fonte em vídeo declara a duração da gravação ("13 minutos"),
+    # que é fato do material, igual a "sete páginas", e não diz nada sobre como
+    # conduzir o dia. A exceção é ESTRUTURAL, não por vizinhança de palavra:
+    # vale só dentro de <a class="fonte"> ... </a>, e para de valer no </a>.
+    vis = texto_visivel(sem_cartoes_de_video(html))
     falhas = []
     # A regra protegida é "quanto tempo dura o bloco da aula", que é condução.
     # A duração de um MATERIAL (uma gravação de 48 minutos) é fato do insumo, do
@@ -632,6 +655,92 @@ def g24_folhas_declaradas(rel, html):
     return falhas
 
 
+
+# ---------------------------------------------------------------- G25
+# O cartão do vídeo é o que dá dono e data ao número que a página cita. Se ele
+# vier quebrado (sem link, sem alt, sem chamada), a fonte deixa de ser
+# conferível e a página volta a afirmar sozinha. Confere CADA cartão, e não a
+# presença de um cartão certo em algum canto do arquivo.
+PECAS_DO_CARTAO = ("fonte-rot", "fonte-titulo", "fonte-meta", "fonte-cta")
+ENVELHECE = re.compile(r"visualiza\u00e7\u00f5es|inscritos|h\u00e1 \d+ (dia|m\u00eas|mes|semana|ano)", re.I)
+
+
+def cartoes_de_video(html):
+    """Devolve o HTML de cada <a class="fonte"> ... </a>, um por cartão."""
+    blocos = []
+    for m in re.finditer(r'<a class="fonte"', html):
+        fim = html.find("</a>", m.start())
+        if fim == -1:
+            blocos.append(html[m.start():m.start() + 1200])
+        else:
+            blocos.append(html[m.start():fim + 4])
+    return blocos
+
+
+def g25_cartao_de_video_completo(rel, html):
+    falhas = []
+    for i, bloco in enumerate(cartoes_de_video(html), 1):
+        rotulo = "cartão {} de {}".format(i, rel)
+        if not re.search(r'href="https://www\.youtube\.com/watch\?v=[\w-]+"', bloco):
+            falhas.append(rotulo + ": sem link para o vídeo no YouTube")
+        capa = re.search(r'<img class="fonte-capa"[^>]*>', bloco)
+        if not capa:
+            falhas.append(rotulo + ": sem a capa do vídeo")
+        else:
+            alt = re.search(r'alt="([^"]*)"', capa.group(0))
+            if not alt or len(alt.group(1).strip()) < 15:
+                falhas.append(rotulo + ": a capa não tem alt que descreva o vídeo")
+        for peca in PECAS_DO_CARTAO:
+            if peca not in bloco:
+                falhas.append("{}: falta {}".format(rotulo, peca))
+        gasto = ENVELHECE.search(bloco)
+        if gasto:
+            falhas.append("{}: traz número que envelhece sozinho ({})".format(
+                rotulo, gasto.group(0)))
+    return falhas
+
+
+# ---------------------------------------------------------------- G26
+# G6 confere href. Ninguém conferia src, e o caminho da imagem muda entre a capa
+# (_img/) e as páginas internas (../_img/): é exatamente o tipo de erro que só
+# aparece como quadrado vazio na tela de quem abriu.
+def g26_imagens_existem(rel, html):
+    base = os.path.dirname(os.path.join(RAIZ, rel))
+    falhas = []
+    for src_ in re.findall(r'<img[^>]+src="([^"]+)"', html):
+        if src_.startswith(("http://", "https://", "data:")):
+            continue
+        alvo = os.path.normpath(os.path.join(base, src_))
+        if not os.path.exists(alvo):
+            falhas.append("imagem que não existe: {} (procurei em {})".format(
+                src_, os.path.relpath(alvo, RAIZ)))
+    return falhas
+
+
+
+# ---------------------------------------------------------------- G27
+# A pagina precisa caber num celular de 375px. Duas coisas garantem isso e as
+# duas somem sem aviso: (a) a tabela larga fica dentro de um envelope que rola
+# sozinho, (b) os itens do grid .layout podem encolher. Sem (b), o overflow-x
+# de (a) nao serve de nada e a pagina inteira passa a rolar de lado, levando o
+# h1 e todo paragrafo junto. Medido no navegador: 582px de rolagem sem a
+# escapatoria, 375px com ela.
+ESCAPATORIA = ".layout > *{min-width:0}"
+
+
+def g27_cabe_no_celular(rel, html):
+    falhas = []
+    if 'class="layout"' in html and ESCAPATORIA not in html:
+        falhas.append("usa o grid .layout mas nao declara " + ESCAPATORIA
+                      + ": a coluna trava na largura do conteudo mais largo")
+    for m in re.finditer(r"<table\b", html):
+        antes = html[max(0, m.start() - 600):m.start()]
+        if antes.rfind('<div class="table-wrap">') <= antes.rfind("</div>"):
+            trecho = html[m.start():m.start() + 70].replace("\n", " ")
+            falhas.append("tabela fora do envelope que rola: " + trecho)
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -703,6 +812,16 @@ GATES = [
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),
+    ("G25", "o cartão de vídeo está completo", g25_cartao_de_video_completo,
+     lambda h: h.replace('<span class="fonte-cta">assistir no YouTube &rarr;</span>', '', 1),
+     "ai-first/index.html"),
+    ("G26", "as imagens existem no disco", g26_imagens_existem,
+     lambda h: h.replace('src="../_img/video-greg-ai-native.jpg"',
+                         'src="../_img/capa-que-nao-existe.jpg"', 1),
+     "ai-first/index.html"),
+    ("G27", "a página cabe no celular", g27_cabe_no_celular,
+     lambda h: h.replace(ESCAPATORIA, "", 1),
+     "ai-first/index.html"),
 ]
 
 

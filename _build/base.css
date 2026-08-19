@@ -82,6 +82,13 @@ body{
   max-width:1280px;margin:0 auto;padding:32px 24px 96px;
   display:grid;grid-template-columns:240px 1fr;gap:56px;
 }
+/* Item de grid nasce com min-width:auto, ou seja, não encolhe abaixo do
+   conteúdo mais largo que tem dentro. Com a tabela em min-width:560px lá
+   dentro, a coluna inteira travava em 562px e a página passava a rolar de
+   lado num celular de 375px: o cabeçalho, o h1 e todo parágrafo saíam da
+   tela. O overflow-x da .table-wrap só funciona se o pai puder encolher.
+   Medido no navegador em 375px: 582px de rolagem antes, 375px depois. */
+.layout > *{min-width:0}
 @media (max-width:900px){
   .layout{grid-template-columns:1fr;gap:24px;padding:24px 20px 64px}
 }
@@ -1074,4 +1081,35 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 @media (max-width:640px){
   .ex-l{grid-template-columns:1fr;gap:4px}
   .ex-rot{padding-top:0}
+}
+
+/* ---------- CARTÃO DA FONTE EM VÍDEO ---------- */
+/* A figura ao lado nasceu de um slide destes vídeos. O cartão existe para que
+   quem quiser conferir o original chegue lá em um clique, e para que o número
+   citado tenha dono e data visíveis na própria página. Sem cor: material de
+   apoio não disputa atenção com o que a pessoa precisa fazer. Forma herdada da
+   aula 1.2 do treinamento do Pouchain, onde o padrão já foi usado em sala. */
+.fonte{
+  display:flex;gap:20px;align-items:center;text-decoration:none;
+  background:var(--bg-elev);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:16px 20px 16px 16px;
+  margin:0 0 26px;max-width:720px;flex-wrap:wrap;
+}
+.fonte:hover{border-color:var(--accent)}
+.fonte-capa{
+  width:224px;height:auto;max-width:100%;border-radius:var(--radius);
+  display:block;flex-shrink:0;border:1px solid var(--border);
+}
+.fonte-txt{flex:1;min-width:210px;display:flex;flex-direction:column;gap:5px}
+.fonte-rot{
+  font-family:var(--font-mono);font-size:10.5px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.fonte-titulo{font-size:15.5px;font-weight:600;color:var(--text);line-height:1.35}
+.fonte-meta{font-size:12.5px;color:var(--text-dim);line-height:1.45}
+.fonte-cta{margin-top:3px;font-size:13.5px;font-weight:600;color:var(--accent)}
+.fonte:hover .fonte-cta{color:var(--accent-dark)}
+@media (max-width:640px){
+  .fonte{gap:14px;padding:14px}
+  .fonte-capa{width:100%}
 }
