@@ -528,9 +528,9 @@ def g19_regua_simetrica(rel, html):
 # sem saber se aquilo é trabalho dele ou da máquina.
 def g20_passo_tem_ator(rel, html):
     falhas = []
-    for m in re.finditer(r'<div class="fl">(.*?)</div>\s*</div>', html, flags=re.S):
+    for m in re.finditer("<div " + CL("fl") + r">(.*?)</div>\s*</div>", html, flags=re.S):
         bloco = m.group(1)
-        if 'class="fl-ator' not in bloco:
+        if not re.search(r'class="[^"]*\bfl-ator\b', bloco):
             t = re.search(r'<div class="fl-t">([^<]*)', bloco)
             falhas.append("passo sem ator nomeado: " + (t.group(1)[:70] if t else "?"))
     return falhas
@@ -1101,6 +1101,91 @@ def g32_papeis_batem_com_a_frase(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G33
+# Classe de defeito encontrada NO AR: inserir uma seção renumera as seguintes, e
+# as referências cruzadas continuam apontando para o número velho. Duas frases da
+# página do conceito mandavam "releia a seção 04" e "o exercício da seção 05"
+# quando os blocos eram outros, e nenhum gate via.
+RE_REF = re.compile(r"\b(?:d[ao]s?\s+)?(?:seção|secao|bloco)\s+(\d{2})\b", re.I)
+RE_BLOCO_NUM = re.compile(r'<div class="[^"]*\bblock-num\b[^"]*">\s*(\d{2})\s*·\s*([^<]*)</div>')
+
+
+def g33_referencia_a_bloco_existe(rel, html):
+    """Referência a 'seção NN' aponta para um bloco que existe, e é o certo."""
+    blocos = {n: t.strip() for n, t in RE_BLOCO_NUM.findall(html)}
+    if not blocos:
+        return []
+    falhas = []
+    rotulos = {_sem_acento(t.replace("&nbsp;", " ")).lower().strip(): n
+               for n, t in blocos.items()}
+    vis = texto_visivel(html)
+    for m in RE_REF.finditer(vis):
+        n = m.group(1)
+        if n not in blocos:
+            falhas.append("aponta para a seção {} e esta página vai até a {}: {!r}".format(
+                n, max(blocos), vis[max(0, m.start() - 45):m.end() + 10].strip()))
+            continue
+        # e o assunto citado na frase tem que ser o assunto daquele bloco
+        # só a frase, e não o que vem antes dela: o texto visível traz o rótulo
+        # do próprio bloco logo acima, e a janela larga acusava a si mesma
+        antes = _sem_acento(vis[max(0, m.start() - 60):m.start()]).lower()
+        antes = antes[antes.rfind("\n") + 1:]
+        for rot, dono in rotulos.items():
+            if len(rot) < 5:
+                continue
+            if re.search(r"\b" + re.escape(rot) + r"\b", antes) and dono != n:
+                falhas.append("a frase fala de {!r}, que é o bloco {}, e manda ir para o {}: {!r}"
+                              .format(rot, dono, n,
+                                      vis[max(0, m.start() - 45):m.end() + 10].strip()))
+    return falhas
+
+
+# ---------------------------------------------------------------- G34
+# A escada é PROVA de que o custo cresce degrau a degrau: a caixa fica mais alta
+# à direita e todas apoiam na mesma base. Se a geometria deixar de crescer, a
+# figura passa a dizer que os quatro custam igual, que é o contrário do texto.
+def g34_escada_cresce(rel, html):
+    """Na figura da escada, a caixa cresce a cada degrau e todas têm a mesma base."""
+    svg = None
+    for m in re.finditer(r"<svg\b.*?</svg>", html, re.S):
+        if "Escada de quatro degraus" in m.group(0):
+            svg = m.group(0)
+    if svg is None:
+        return []
+    falhas = []
+    caixas = []
+    for x, y, w, alt in RE_RECT.findall(svg):
+        x, y, w, alt = float(x), float(y), float(w), float(alt)
+        if w > 400:
+            continue
+        caixas.append((x, y, w, alt))
+    caixas.sort()
+
+    rotulos = re.findall(r">\s*DEGRAU (\d)\s*<", svg)
+    if rotulos != ["1", "2", "3", "4"]:
+        falhas.append("os degraus estão rotulados {} e deveriam ser 1, 2, 3 e 4 da esquerda "
+                      "para a direita".format(rotulos))
+    if len(caixas) != 4:
+        falhas.append("a escada tem {} caixas e deveria ter 4".format(len(caixas)))
+        return falhas
+
+    alturas = [c[3] for c in caixas]
+    if alturas != sorted(alturas) or len(set(alturas)) != 4:
+        falhas.append("a altura não cresce a cada degrau: {}".format(alturas))
+    bases = {round(c[1] + c[3]) for c in caixas}
+    if len(bases) != 1:
+        falhas.append("os degraus não apoiam na mesma base: {}".format(sorted(bases)))
+
+    # e o texto que promete o número de alturas bate com o desenho
+    vis = _sem_acento(texto_visivel(html)).lower()
+    for m in re.finditer(r"\b([a-z]+) (?:alturas|degraus)\b", vis):
+        n = NUM_SEM_ACENTO.get(m.group(1)) or NUM_ALTO.get(m.group(1))
+        if n is not None and n != len(caixas):
+            falhas.append("o texto fala em {} degraus e a figura tem {}: {!r}".format(
+                n, len(caixas), vis[max(0, m.start() - 35):m.end() + 8]))
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -1226,6 +1311,14 @@ GATES = [
     ("G32", "os papéis batem com a frase", g32_papeis_batem_com_a_frase,
      lambda h: h.replace("<span>frente 3</span>", "<span>frente 9</span>", 1),
      "caso-1/index.html"),
+    ("G33", "referência a bloco que existe", g33_referencia_a_bloco_existe,
+     lambda h: re.sub(como_escrito("o exercício do bloco") + r"(&nbsp;|\s)*09",
+                      "o exercício do bloco 05", h, count=1),
+     "ai-first/index.html"),
+    ("G34", "a escada cresce a cada degrau", g34_escada_cresce,
+     lambda h: re.sub(r'(<rect x="580" y=")260(" width="260" height=")310(")',
+                      r'\g<1>460\g<2>110\g<3>', h, count=1),
+     "ai-first/index.html"),
 ]
 
 
