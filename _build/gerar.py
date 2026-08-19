@@ -80,9 +80,9 @@ PAGINAS = {
         titulo="A régua e a ficha em papel · Ideação com AI First",
         eyebrow="Se a internet falhar",
         h1="A régua e a ficha em papel",
-        lead="As duas folhas para imprimir e distribuir. Servem quando o celular não "
+        lead="As folhas para imprimir e distribuir. Servem quando o celular não "
              "ajuda, e servem para quem prefere caneta.",
-        chips=["Imprimível", "Duas folhas A4"],
+        chips=["Imprimível", "Três páginas A4"],
         nav=False,
         anterior=("../pilares/", "Os cinco pilares em uma folha"),
         proxima=None,

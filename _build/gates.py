@@ -603,6 +603,33 @@ def g23_numeracao_das_secoes(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G24
+# A página do papel afirma quantas folhas saem, em dois lugares: o chip do
+# topo e a caixa "para imprimir". Quando a régua virou frente e verso, o chip
+# continuou dizendo duas. Número que a página afirma sobre ela mesma é
+# conteúdo, e conteúdo tem que bater com o que ela tem.
+NUMERO_POR_EXTENSO = {"uma": 1, "duas": 2, "três": 3, "quatro": 4, "cinco": 5}
+
+
+def g24_folhas_declaradas(rel, html):
+    if rel not in ("papel/index.html", "pilares/index.html"):
+        return []
+    reais = len(re.findall(r'<div class="folha">', html))
+    if not reais:
+        return ["a página não tem nenhuma folha"]
+    vis = texto_visivel(html)
+    falhas, achou = [], 0
+    padrao = r"\b(uma|duas|três|quatro|cinco)\s+(?:folhas?|páginas?)\s*A4"
+    for m in re.finditer(padrao, vis, re.I):
+        achou += 1
+        dito = NUMERO_POR_EXTENSO[m.group(1).lower()]
+        if dito != reais:
+            falhas.append("a página diz {} folha(s) A4 e tem {}".format(dito, reais))
+    if not achou:
+        falhas.append("a página imprimível não declara quantas folhas A4 saem")
+    return falhas
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -668,6 +695,9 @@ GATES = [
      lambda h: h.replace('<div class="block-num">07 · O limite</div>',
                          '<div class="block-num">04 · O limite</div>', 1),
      "ai-first/index.html"),
+    ("G24", "as folhas declaradas batem", g24_folhas_declaradas,
+     lambda h: h.replace("Três páginas A4", "Duas páginas A4", 1),
+     "papel/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
      lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
      "index.html"),

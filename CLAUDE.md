@@ -32,7 +32,7 @@ workshop-ia-longevidade/
 └── _build/
     ├── base.css          o CSS, fonte única
     ├── gerar.py          monta as páginas a partir dos fragmentos
-    ├── gates.py          doze gates, cada um provado contra defeito injetado
+    ├── gates.py          vinte e quatro gates, cada um provado contra defeito injetado
     └── conteudo/         o conteúdo de cada página, em fragmento
 ```
 
@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda dezesseis gates contra as sete páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda vinte e quatro gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -87,6 +87,14 @@ defeito derruba o script como **cego**.
 | G14 | A figura dos cem quadrados contando diferente do texto |
 | G15 | O prompt baixado divergindo do que está na tela |
 | G16 | As caixas lado a lado do canvas sem piso de altura |
+| G17 | Caractere de outro alfabeto que renderiza igual ao latino |
+| G18 | Os números da turma conferidos contra a planilha do cliente |
+| G19 | A régua com três alternativas e simétrica nas duas pontas |
+| G20 | Passo do fluxo sem dizer quem faz |
+| G21 | Os dois loops da capa começando com etapas diferentes |
+| G22 | A folha em papel divergindo da régua da tela |
+| G23 | Numeração de seção repetida ou fora de ordem |
+| G24 | A página imprimível declarando um número de folhas que não tem |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -107,6 +115,10 @@ criatividade para criar referências visuais"*. O conserto não foi decorar, foi
 | `.ciclo` | caso 2 | A correção que vira regra, e a etapa 4 onde quase todo mundo para |
 | `.cem-grade` | ficha | Cem quadrados, treze acesos. O número da Capgemini que se vê em vez de ler |
 | `.quadro` | ficha | A ficha preenchida, no formato em que ela existe |
+| `.loops` | capa | Loop aberto e loop fechado. As três primeiras caixas são iguais nos dois: o que muda é a volta. G21 |
+| `.fluxo` | conceito | Passo a passo com **ator nomeado**. Sem a etiqueta de quem faz, o participante não sabe se aquilo é trabalho dele ou da máquina. G20 |
+| `.ex` | conceito | As sete rotinas que a turma apontou no diagnóstico, cada uma como está hoje, como fecharia e o primeiro passo |
+| `.tipos` | conceito, pilar 1 | As três gavetas de registro: o que é fato, como aqui se faz, o passo a passo |
 
 **Figura que afirma número tem gate em cima.** A grade dos cem quadrados é
 conferida contra o número escrito no texto (G14): se a frase disser 13 e a
@@ -143,6 +155,13 @@ que o arquivo para baixar existe: ele é o caminho que não depende de permissã
   esperava `line-height: 1.5` passou de primeira porque a string já existia em
   quatro outros pontos do arquivo. Procurar no contexto exato, ou comparar a
   contagem do publicado com a do local.
+- **`<style>` injetado no `<head>` não vence o `<style>` da própria página**, que
+  vive no corpo do fragmento e vem depois. A primeira medição de impressão disse
+  144% porque as regras não pegavam. Injetar no fim do `body` e **assertar que a
+  regra mudou o valor computado** antes de acreditar em qualquer medida.
+- **A página imprimível não cabia na A4 que ela promete.** A folha dos pilares
+  dava 114% e afirmava em três lugares que saía em uma folha. Medir, e não
+  estimar por contagem de linhas.
 - **Altura de campo não se resolve por altura de linha.** O navegador dá ao
   seletor uma altura interna própria, de 20px contra 23px do campo de texto.
   Só piso explícito iguala. Provado com defeito injetado no DOM vivo.
