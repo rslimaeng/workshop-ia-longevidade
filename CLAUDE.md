@@ -65,7 +65,7 @@ celular e na folha impressa. Paráfrase quebra a comparação de antes e depois.
 
 ## O que os gates cobrem
 
-`python3 _build/gates.py` roda trinta e seis gates contra as oito páginas. Todo gate é calibrado
+`python3 _build/gates.py` roda trinta e sete gates contra as oito páginas. Todo gate é calibrado
 contra um defeito injetado numa cópia em memória, e um gate que não acusa o próprio
 defeito derruba o script como **cego**.
 
@@ -107,6 +107,7 @@ defeito derruba o script como **cego**.
 | G34 | Degrau da escada cuja altura não cresce, ou que não apoia na mesma base |
 | G35 | Callout sem variante de cor, que nasce sem caixa |
 | G36 | Seta do ciclo que, empilhada, estica uma linha por cima dos cartões |
+| G37 | Pergunta do bloco em grupo sem as três perguntas de destrave e o "não conta" |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -250,6 +251,20 @@ frases que caberiam e quebraram assim mesmo.**
 - **`requestAnimationFrame` não dispara com o painel do navegador escondido.** Toda sonda
   que redimensiona iframe trava em 30s. Usar `setTimeout` e forçar reflow lendo
   `offsetHeight`.
+- 🔴 **Direção de cena não é só fala de palco: condução de dinâmica também é.** "Um grupo
+  por vez, dois minutos cada", "leia só até o fim da seção 02" e "escutem os outros" são
+  instrução para o instrutor, e estavam nas duas páginas de caso. O G8 ganhou esses termos.
+- **`<div class="callout` casa também `<div class="callout-title`.** Um script de remoção
+  cortou a abertura do callout e deixou o parágrafo órfão na página. Prefixo de classe
+  precisa do delimitador: `<div class="callout(?=[ "])`.
+- **Remoção de bloco se faz por balanceamento, e se confere contando as tags.** Antes e
+  depois: `<div>` contra `</div>`, e o texto removido tem que sumir do arquivo. Sem essa
+  conferência o corte parece ter dado certo e sobrou meio bloco.
+- **Página com vários grupos e um instrutor só precisa responder a dúvida antes dela
+  virar mão levantada.** Toda pergunta de trabalho em grupo carrega três perguntas menores
+  que destravam e um exemplo do que NÃO conta como resposta. G37 confere que o padrão vale
+  para todas, e não para algumas.
+
 - 🔴 **`transform:rotate` num elemento largo estica tudo que ele desenha.** A seta do ciclo,
   empilhada no celular, virava uma **barra vertical de 669px cortando os cartões** de cima
   e de baixo, porque a linha do `::before` ia de `left:0` a `right:0`. Estava no ar na capa
