@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1155,20 +1170,20 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>Oitenta e sete de cada cem morrem na demonstração</a></li>
-      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Os quatro campos</a></li>
-      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Três exemplos, um de cada destino</a></li>
-      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>O campo que você não conseguiu preencher</a></li>
-      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>O que fica com você e com a instituição</a></li>
+      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>Oitenta e&nbsp;sete de&nbsp;cada cem morrem na&nbsp;demonstração</a></li>
+      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Os&nbsp;quatro campos</a></li>
+      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>Três exemplos, um&nbsp;de&nbsp;cada destino</a></li>
+      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher</a></li>
+      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;fica com&nbsp;você e&nbsp;com&nbsp;a&nbsp;instituição</a></li>
     </ul>
   </nav>
   <main>
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Bloco 5</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; Bloco 5</div>
       <div class="hero">
         <div class="hero-eyebrow">Bloco 5 · Pilar 5</div>
         <h1>A&nbsp;ficha dos&nbsp;quatro campos</h1>
-        <p class="hero-lead">O&nbsp;filtro que&nbsp;separa a&nbsp;iniciativa que&nbsp;chega à&nbsp;produção da&nbsp;que&nbsp;morre na&nbsp;demonstração. São quatro perguntas, e&nbsp;nenhuma delas é sobre&nbsp;tecnologia.</p>
+        <p class="hero-lead fr-host"><span class="fr">O&nbsp;filtro que&nbsp;separa a&nbsp;iniciativa que&nbsp;chega à&nbsp;produção da&nbsp;que&nbsp;morre na&nbsp;demonstração.</span> <span class="fr">São quatro perguntas, e&nbsp;nenhuma delas é sobre&nbsp;tecnologia.</span></p>
         <div class="hero-meta">
         <span class="chip">Pilar 5 · Escopo com métrica</span>
         <span class="chip">Individual</span>
@@ -1176,19 +1191,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       </div>
 
 <section class="block" id="s1">
-        <div class="block-num">01 · Por que este filtro existe</div>
+        <div class="block-num">01 · Por&nbsp;que&nbsp;este filtro existe</div>
         <h2>Oitenta e&nbsp;sete de&nbsp;cada cem morrem na&nbsp;demonstração</h2>
 
-        <p class="block-lead">
-          A&nbsp;parte difícil de&nbsp;um&nbsp;projeto de&nbsp;inteligência artificial não&nbsp;é fazer funcionar
-          uma&nbsp;vez. É fazer virar rotina.
+        <p class="block-lead fr-host">
+          <span class="fr">A&nbsp;parte difícil de&nbsp;um&nbsp;projeto de&nbsp;inteligência artificial não&nbsp;é fazer funcionar
+          uma&nbsp;vez.</span> <span class="fr">É fazer virar rotina.</span>
         </p>
 
         <div class="card card-highlight">
-          <div class="card-eyebrow">Dado de mercado</div>
-          <p style="font-size:17px;line-height:1.55" class="p-curto">
-            Segundo pesquisa da&nbsp;Capgemini, <strong>13% dos&nbsp;projetos de&nbsp;inteligência
-            artificial chegam à&nbsp;produção</strong>. Os&nbsp;outros 87 de&nbsp;cada 100 param na&nbsp;demonstração: funcionaram na&nbsp;apresentação, agradaram, e&nbsp;nunca entraram no&nbsp;dia a&nbsp;dia de&nbsp;ninguém.
+          <div class="card-eyebrow">Dado de&nbsp;mercado</div>
+          <p style="font-size:17px;line-height:1.55" class="p-curto fr-host">
+            <span class="fr">Segundo pesquisa da&nbsp;Capgemini, <strong>13% dos&nbsp;projetos de&nbsp;inteligência
+            artificial chegam à&nbsp;produção</strong>.</span> <span class="fr">Os&nbsp;outros 87 de&nbsp;cada 100 param na&nbsp;demonstração: funcionaram na&nbsp;apresentação, agradaram, e&nbsp;nunca entraram no&nbsp;dia a&nbsp;dia de&nbsp;ninguém.</span>
           </p>
         </div>
 
@@ -1301,108 +1316,108 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
 
-        <p class="fig-leg">
-          Cada quadrado é um&nbsp;projeto de&nbsp;inteligência artificial. Os&nbsp;treze acesos são os&nbsp;que&nbsp;viraram rotina. Fonte: pesquisa da&nbsp;Capgemini.
+        <p class="fig-leg fr-host">
+          <span class="fr">Cada quadrado é um&nbsp;projeto de&nbsp;inteligência artificial.</span> <span class="fr">Os&nbsp;treze acesos são os&nbsp;que&nbsp;viraram rotina.</span> <span class="fr">Fonte: pesquisa da&nbsp;Capgemini.</span>
         </p>
 
-        <p class="p-curto">
-          O&nbsp;que&nbsp;separa os&nbsp;dois grupos não&nbsp;é a&nbsp;qualidade da&nbsp;ferramenta nem o&nbsp;tamanho do&nbsp;orçamento. É uma&nbsp;coisa bem mais simples: <strong>o&nbsp;grupo que&nbsp;chega à&nbsp;produção
-          tinha número e&nbsp;prazo definidos antes de&nbsp;começar.</strong> O&nbsp;outro grupo tinha
-          vontade.
+        <p class="p-curto fr-host">
+          <span class="fr">O&nbsp;que&nbsp;separa os&nbsp;dois grupos não&nbsp;é a&nbsp;qualidade da&nbsp;ferramenta nem o&nbsp;tamanho do&nbsp;orçamento.</span> <span class="fr">É uma&nbsp;coisa bem mais simples: <strong>o&nbsp;grupo que&nbsp;chega à&nbsp;produção
+          tinha número e&nbsp;prazo definidos antes de&nbsp;começar.</strong></span> <span class="fr">O&nbsp;outro grupo tinha
+          vontade.</span>
         </p>
 
         <div class="callout callout-info">
           <div class="callout-title">Por isso a ficha é o fechamento do dia</div>
-          <p class="p-curto">
-            Ela não&nbsp;avalia pessoa: avalia iniciativa. É a&nbsp;mesma lógica de&nbsp;uma&nbsp;avaliação de&nbsp;antes e&nbsp;depois, aplicada ao&nbsp;que&nbsp;vai ser feito em&nbsp;vez de&nbsp;a&nbsp;quem vai fazer. E&nbsp;é o&nbsp;instrumento que&nbsp;fica com&nbsp;a&nbsp;instituição para&nbsp;reaplicar sem&nbsp;depender de&nbsp;ninguém
-            de&nbsp;fora.
+          <p class="p-curto fr-host">
+            <span class="fr">Ela não&nbsp;avalia pessoa: avalia iniciativa.</span> <span class="fr">É a&nbsp;mesma lógica de&nbsp;uma&nbsp;avaliação de&nbsp;antes e&nbsp;depois, aplicada ao&nbsp;que&nbsp;vai ser feito em&nbsp;vez de&nbsp;a&nbsp;quem vai fazer.</span> <span class="fr">E&nbsp;é o&nbsp;instrumento que&nbsp;fica com&nbsp;a&nbsp;instituição para&nbsp;reaplicar sem&nbsp;depender de&nbsp;ninguém
+            de&nbsp;fora.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s2">
-        <div class="block-num">02 · A ficha</div>
+        <div class="block-num">02 · A&nbsp;ficha</div>
         <h2>Os&nbsp;quatro campos</h2>
 
-        <p class="block-lead">
-          Escolha uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área. Uma&nbsp;que&nbsp;você faria se&nbsp;pudesse começar na&nbsp;segunda-feira. E&nbsp;preencha os&nbsp;quatro.
+        <p class="block-lead fr-host">
+          <span class="fr">Escolha uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área.</span> <span class="fr">Uma&nbsp;que&nbsp;você faria se&nbsp;pudesse começar na&nbsp;segunda-feira.</span> <span class="fr">E&nbsp;preencha os&nbsp;quatro.</span>
         </p>
 
         <div class="quadro">
-          <div class="quadro-topo">A ficha, preenchida · uma iniciativa</div>
+          <div class="quadro-topo">A&nbsp;ficha, preenchida · uma&nbsp;iniciativa</div>
           <div class="quadro-linha">
-            <div class="quadro-c">A iniciativa</div>
-            <div class="quadro-v preenchido">Responder as dúvidas repetidas de inscrição sem depender de uma pessoa lendo uma a uma</div>
+            <div class="quadro-c">A&nbsp;iniciativa</div>
+            <div class="quadro-v preenchido">Responder as&nbsp;dúvidas repetidas de&nbsp;inscrição sem&nbsp;depender de&nbsp;uma&nbsp;pessoa lendo uma&nbsp;a&nbsp;uma</div>
           </div>
           <div class="quadro-linha">
-            <div class="quadro-c">1 · Em que isso ajuda</div>
-            <div class="quadro-v preenchido">O candidato recebe resposta no mesmo dia, e a equipe para de responder a mesma coisa vinte vezes</div>
+            <div class="quadro-c">1 · Em&nbsp;que&nbsp;isso ajuda</div>
+            <div class="quadro-v preenchido">O&nbsp;candidato recebe resposta no&nbsp;mesmo dia, e&nbsp;a&nbsp;equipe para&nbsp;de&nbsp;responder a&nbsp;mesma coisa vinte vezes</div>
           </div>
           <div class="quadro-linha">
-            <div class="quadro-c">2 · Qual é o número</div>
-            <div class="quadro-v preenchido">Horas por semana gastas respondendo dúvida repetida</div>
+            <div class="quadro-c">2 · Qual é o&nbsp;número</div>
+            <div class="quadro-v preenchido">Horas por&nbsp;semana gastas respondendo dúvida repetida</div>
           </div>
           <div class="quadro-linha">
             <div class="quadro-c">3 · Quanto é hoje</div>
-            <div class="quadro-v preenchido">6 horas por semana, medidas em uma semana comum</div>
+            <div class="quadro-v preenchido">6 horas por&nbsp;semana, medidas em&nbsp;uma&nbsp;semana comum</div>
           </div>
           <div class="quadro-linha">
-            <div class="quadro-c">4 · Quanto em 60 dias</div>
-            <div class="quadro-v preenchido">2 horas por semana</div>
+            <div class="quadro-c">4 · Quanto em&nbsp;60 dias</div>
+            <div class="quadro-v preenchido">2 horas por&nbsp;semana</div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          O&nbsp;formato da&nbsp;ficha. Repare que&nbsp;o&nbsp;campo 3 é o&nbsp;que&nbsp;costuma travar: quase ninguém
-          sabe quanto é hoje, e&nbsp;sem&nbsp;ele o&nbsp;campo 4 vira chute.
+        <p class="fig-leg fr-host">
+          <span class="fr">O&nbsp;formato da&nbsp;ficha.</span> <span class="fr">Repare que&nbsp;o&nbsp;campo 3 é o&nbsp;que&nbsp;costuma travar: quase ninguém
+          sabe quanto é hoje, e&nbsp;sem&nbsp;ele o&nbsp;campo 4 vira chute.</span>
         </p>
 
         <div class="card-grid-2">
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 1</div>
             <h4>Em&nbsp;que&nbsp;isso ajuda</h4>
-            <p class="p-curto">
-              Escolha <strong>um&nbsp;só</strong>&nbsp;dos&nbsp;três destinos abaixo. Iniciativa que&nbsp;ajuda
-              nos&nbsp;três costuma não&nbsp;ajudar em&nbsp;nenhum.
+            <p class="p-curto fr-host">
+              <span class="fr">Escolha <strong>um&nbsp;só</strong>&nbsp;dos&nbsp;três destinos abaixo.</span> <span class="fr">Iniciativa que&nbsp;ajuda
+              nos&nbsp;três costuma não&nbsp;ajudar em&nbsp;nenhum.</span>
             </p>
             <ul>
-              <li>Trazer mais alunos e mais pacientes</li>
-              <li>Fazer cada um valer mais</li>
-              <li>Reduzir custo e retrabalho</li>
+              <li class="p-curto">Trazer mais alunos e&nbsp;mais pacientes</li>
+              <li class="p-curto">Fazer cada um&nbsp;valer mais</li>
+              <li class="p-curto">Reduzir custo e&nbsp;retrabalho</li>
             </ul>
           </div>
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 2</div>
             <h4>Qual é o&nbsp;número</h4>
-            <p class="p-curto">
-              A&nbsp;medida específica que&nbsp;essa escolha move. <strong>Não&nbsp;"melhorar o&nbsp;atendimento"</strong>, e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta: horas, dias, quantidade,
-              porcentagem.
+            <p class="p-curto fr-host">
+              <span class="fr">A&nbsp;medida específica que&nbsp;essa escolha move.</span> <span class="fr"><strong>Não&nbsp;"melhorar o&nbsp;atendimento"</strong>, e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta: horas, dias, quantidade,
+              porcentagem.</span>
             </p>
-            <p class="p-curto">
-              Teste: se&nbsp;duas pessoas medirem, elas chegam ao&nbsp;mesmo valor? Se&nbsp;não,&nbsp;o&nbsp;número
-              ainda está vago.
+            <p class="p-curto fr-host">
+              <span class="fr">Teste: se&nbsp;duas pessoas medirem, elas chegam ao&nbsp;mesmo valor?</span> <span class="fr">Se&nbsp;não,&nbsp;o&nbsp;número
+              ainda está vago.</span>
             </p>
           </div>
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 3</div>
             <h4>Quanto é hoje</h4>
-            <p class="p-curto">
-              O&nbsp;valor atual, antes de&nbsp;mudar nada. Sem&nbsp;ele não&nbsp;existe antes e&nbsp;depois, existe
-              só&nbsp;depois.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;valor atual, antes de&nbsp;mudar nada.</span> <span class="fr">Sem&nbsp;ele não&nbsp;existe antes e&nbsp;depois, existe
+              só&nbsp;depois.</span>
             </p>
-            <p class="p-curto">
-              <strong>Se&nbsp;ninguém sabe, essa é a&nbsp;primeira tarefa</strong>, e&nbsp;não&nbsp;a&nbsp;automação. Medir uma&nbsp;semana costuma bastar.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>Se&nbsp;ninguém sabe, essa é a&nbsp;primeira tarefa</strong>, e&nbsp;não&nbsp;a&nbsp;automação.</span> <span class="fr">Medir uma&nbsp;semana costuma bastar.</span>
             </p>
           </div>
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 4</div>
             <h4>Quanto em&nbsp;sessenta dias</h4>
-            <p class="p-curto">
-              A&nbsp;meta, com&nbsp;prazo. É o&nbsp;que&nbsp;transforma a&nbsp;iniciativa em&nbsp;algo que&nbsp;a&nbsp;gestão
-              consegue acompanhar sem&nbsp;precisar entender de&nbsp;tecnologia.
+            <p class="p-curto fr-host">
+              <span class="fr">A&nbsp;meta, com&nbsp;prazo.</span> <span class="fr">É o&nbsp;que&nbsp;transforma a&nbsp;iniciativa em&nbsp;algo que&nbsp;a&nbsp;gestão
+              consegue acompanhar sem&nbsp;precisar entender de&nbsp;tecnologia.</span>
             </p>
             <p class="p-curto">
               Sessenta dias é curto de&nbsp;propósito: obriga a&nbsp;escolher um&nbsp;pedaço que&nbsp;cabe.
@@ -1412,9 +1427,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">A regra que dá o nome ao pilar</div>
-          <p class="p-curto">
-            <strong>Se&nbsp;você não&nbsp;consegue preencher os&nbsp;quatro, você não&nbsp;tem um&nbsp;projeto. Você
-            tem uma&nbsp;vontade.</strong> E&nbsp;isso não&nbsp;é reprovação: é diagnóstico. O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher é exatamente a&nbsp;próxima tarefa.
+          <p class="p-curto fr-host">
+            <span class="fr"><strong>Se&nbsp;você não&nbsp;consegue preencher os&nbsp;quatro, você não&nbsp;tem um&nbsp;projeto. Você
+            tem uma&nbsp;vontade.</strong></span> <span class="fr">E&nbsp;isso não&nbsp;é reprovação: é diagnóstico.</span> <span class="fr">O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher é exatamente a&nbsp;próxima tarefa.</span>
           </p>
         </div>
       </section>
@@ -1425,9 +1440,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Os números abaixo são inventados</div>
-          <p class="p-curto">
-            Servem para&nbsp;mostrar o&nbsp;formato, não&nbsp;para&nbsp;sugerir meta. O&nbsp;número da&nbsp;sua&nbsp;ficha sai
-            da&nbsp;sua&nbsp;área, e&nbsp;o&nbsp;campo 3 sai de&nbsp;medição, não&nbsp;de&nbsp;estimativa.
+          <p class="p-curto fr-host">
+            <span class="fr">Servem para&nbsp;mostrar o&nbsp;formato, não&nbsp;para&nbsp;sugerir meta.</span> <span class="fr">O&nbsp;número da&nbsp;sua&nbsp;ficha sai
+            da&nbsp;sua&nbsp;área, e&nbsp;o&nbsp;campo 3 sai de&nbsp;medição, não&nbsp;de&nbsp;estimativa.</span>
           </p>
         </div>
 
@@ -1435,41 +1450,40 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <table>
             <thead>
               <tr>
-                <th style="width:16%">Em que ajuda</th>
-                <th style="width:26%">A iniciativa</th>
-                <th style="width:26%">Qual é o número</th>
+                <th style="width:16%">Em&nbsp;que&nbsp;ajuda</th>
+                <th style="width:26%">A&nbsp;iniciativa</th>
+                <th style="width:26%">Qual é o&nbsp;número</th>
                 <th style="width:16%">Hoje</th>
-                <th style="width:16%">Em 60 dias</th>
+                <th style="width:16%">Em&nbsp;60 dias</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Reduzir custo e retrabalho</strong></td>
+                <td><strong>Reduzir custo e&nbsp;retrabalho</strong></td>
                 <td>
-                  Escrever as respostas das dúvidas que se repetem a cada turma, uma vez,
-                  em um lugar que a coordenação consulta
+                  Escrever as&nbsp;respostas das&nbsp;dúvidas que&nbsp;se&nbsp;repetem a&nbsp;cada turma, uma&nbsp;vez,
+                  em&nbsp;um&nbsp;lugar que&nbsp;a&nbsp;coordenação consulta
                 </td>
-                <td>Horas por semana da coordenação respondendo dúvida já respondida antes</td>
+                <td>Horas por&nbsp;semana da&nbsp;coordenação respondendo dúvida já&nbsp;respondida antes</td>
                 <td class="cell-num">6 h / semana</td>
                 <td class="cell-num">3 h / semana</td>
               </tr>
               <tr>
                 <td><strong>Trazer mais alunos</strong></td>
                 <td>
-                  Padronizar o material de divulgação de turma nova, com o contexto do
-                  público escrito uma vez
+                  Padronizar o&nbsp;material de&nbsp;divulgação de&nbsp;turma nova, com&nbsp;o&nbsp;contexto do&nbsp;público escrito uma&nbsp;vez
                 </td>
-                <td>Dias entre a turma ser aprovada e o material estar no ar</td>
+                <td>Dias entre&nbsp;a&nbsp;turma ser aprovada e&nbsp;o&nbsp;material estar no&nbsp;ar</td>
                 <td class="cell-num">9 dias</td>
                 <td class="cell-num">3 dias</td>
               </tr>
               <tr>
-                <td><strong>Fazer cada um valer mais</strong></td>
+                <td><strong>Fazer cada um&nbsp;valer mais</strong></td>
                 <td>
-                  Conferir a documentação de matrícula com uma lista fixa antes de o aluno
-                  ser cobrado por falta de documento
+                  Conferir a&nbsp;documentação de&nbsp;matrícula com&nbsp;uma&nbsp;lista fixa antes de&nbsp;o&nbsp;aluno
+                  ser cobrado por&nbsp;falta de&nbsp;documento
                 </td>
-                <td>Percentual de matrículas que voltam por documento faltando</td>
+                <td>Percentual de&nbsp;matrículas que&nbsp;voltam por&nbsp;documento faltando</td>
                 <td class="cell-num">22%</td>
                 <td class="cell-num">10%</td>
               </tr>
@@ -1479,23 +1493,23 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <h3>Repare no&nbsp;que&nbsp;os&nbsp;três têm em&nbsp;comum</h3>
         <ul>
-          <li>
-            <strong>Nenhum menciona ferramenta.</strong> Não dizem qual inteligência
-            artificial, nem se vai ter uma. Dizem o que muda no processo.
+          <li class="p-curto fr-host">
+            <span class="fr"><strong>Nenhum menciona ferramenta.</strong></span> <span class="fr">Não&nbsp;dizem qual inteligência
+            artificial, nem se&nbsp;vai ter uma.&nbsp;Dizem o&nbsp;que&nbsp;muda no&nbsp;processo.</span>
           </li>
-          <li>
-            <strong>O número é contável por qualquer pessoa.</strong> Horas, dias,
-            porcentagem. Nada que dependa de interpretação.
+          <li class="p-curto fr-host">
+            <span class="fr"><strong>O&nbsp;número é contável por&nbsp;qualquer pessoa.</strong></span> <span class="fr">Horas, dias,
+            porcentagem.</span> <span class="fr">Nada que&nbsp;dependa de&nbsp;interpretação.</span>
           </li>
-          <li>
-            <strong>A meta é modesta.</strong> Metade, um terço, alguns dias. Meta agressiva
-            em sessenta dias é o jeito mais rápido de a iniciativa virar demonstração.
+          <li class="p-curto fr-host">
+            <span class="fr"><strong>A&nbsp;meta é modesta.</strong></span> <span class="fr">Metade, um&nbsp;terço, alguns dias.</span> <span class="fr">Meta agressiva
+            em&nbsp;sessenta dias é o&nbsp;jeito mais rápido de&nbsp;a&nbsp;iniciativa virar demonstração.</span>
           </li>
         </ul>
       </section>
 
       <section class="block" id="s4">
-        <div class="block-num">04 · Quando trava</div>
+        <div class="block-num">04 · Quando&nbsp;trava</div>
         <h2>O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher</h2>
 
         <p class="block-lead">
@@ -1506,54 +1520,51 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <table>
             <thead>
               <tr>
-                <th style="width:24%">Travou em</th>
-                <th style="width:38%">O que isso quer dizer</th>
-                <th>O que fazer</th>
+                <th style="width:24%">Travou em</th>&nbsp;<th style="width:38%">O&nbsp;que&nbsp;isso quer dizer</th>
+                <th>O&nbsp;que&nbsp;fazer</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Campo 1 · em que ajuda</strong></td>
-                <td>
-                  A iniciativa nasceu da ferramenta, não do problema. Alguém viu algo
-                  interessante e procurou onde usar.
+                <td><strong>Campo 1 · em&nbsp;que&nbsp;ajuda</strong></td>
+                <td class="fr-host">
+                  <span class="fr">A&nbsp;iniciativa nasceu da&nbsp;ferramenta, não&nbsp;do&nbsp;problema.</span> <span class="fr">Alguém viu algo
+                  interessante e&nbsp;procurou onde&nbsp;usar.</span>
                 </td>
                 <td>
-                  Comece de novo pelo incômodo: o que na sua semana faz você pensar
-                  <em>de novo isso</em>.
+                  Comece de&nbsp;novo pelo&nbsp;incômodo: o&nbsp;que&nbsp;na&nbsp;sua&nbsp;semana faz você pensar
+                  <em>de&nbsp;novo isso</em>.
                 </td>
               </tr>
               <tr>
-                <td><strong>Campo 2 · qual é o número</strong></td>
-                <td>
-                  O ganho é real mas difuso. Costuma aparecer como <em>ficar mais
-                  organizado</em> ou <em>ganhar agilidade</em>.
+                <td><strong>Campo 2 · qual é o&nbsp;número</strong></td>
+                <td class="fr-host">
+                  <span class="fr">O&nbsp;ganho é real mas&nbsp;difuso.</span> <span class="fr">Costuma aparecer como <em>ficar mais
+                  organizado</em> ou&nbsp;<em>ganhar agilidade</em>.</span>
                 </td>
-                <td>
-                  Pergunte o que uma pessoa faria de diferente se desse certo. O número está
-                  nessa ação.
+                <td class="fr-host">
+                  <span class="fr">Pergunte o&nbsp;que&nbsp;uma&nbsp;pessoa faria de&nbsp;diferente se&nbsp;desse certo.</span> <span class="fr">O&nbsp;número está
+                  nessa ação.</span>
                 </td>
               </tr>
               <tr>
                 <td><strong>Campo 3 · quanto é hoje</strong></td>
-                <td>
-                  <strong>A trava mais comum, e a mais fácil de resolver.</strong> O número
-                  existe, ninguém contou.
+                <td class="fr-host">
+                  <span class="fr"><strong>A&nbsp;trava mais comum, e&nbsp;a&nbsp;mais fácil de&nbsp;resolver.</strong></span> <span class="fr">O&nbsp;número
+                  existe, ninguém contou.</span>
                 </td>
-                <td>
-                  Meça uma semana. Contar à mão numa folha vale. É a primeira tarefa, e não
-                  a automação.
+                <td class="fr-host">
+                  <span class="fr">Meça uma&nbsp;semana.</span> <span class="fr">Contar à&nbsp;mão numa&nbsp;folha vale.</span> <span class="fr">É a&nbsp;primeira tarefa, e&nbsp;não&nbsp;a&nbsp;automação.</span>
                 </td>
               </tr>
               <tr>
-                <td><strong>Campo 4 · quanto em 60 dias</strong></td>
-                <td>
-                  Você não sabe se dá. Isso costuma indicar que o pedaço escolhido é grande
-                  demais.
+                <td><strong>Campo 4 · quanto em&nbsp;60 dias</strong></td>
+                <td class="fr-host">
+                  <span class="fr">Você não&nbsp;sabe se&nbsp;dá.</span> <span class="fr">Isso costuma indicar que&nbsp;o&nbsp;pedaço escolhido é grande
+                  demais.</span>
                 </td>
-                <td>
-                  Corte o escopo até caber. Um curso, uma turma, um tipo de documento. E
-                  depois repita.
+                <td class="fr-host">
+                  <span class="fr">Corte o&nbsp;escopo até&nbsp;caber.</span> <span class="fr">Um&nbsp;curso, uma&nbsp;turma, um&nbsp;tipo de&nbsp;documento.</span> <span class="fr">E&nbsp;depois repita.</span>
                 </td>
               </tr>
             </tbody>
@@ -1562,9 +1573,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Onde preencher</div>
-          <p class="p-curto">
-            A&nbsp;ficha tem os&nbsp;quatro campos na&nbsp;régua do&nbsp;celular, no&nbsp;bloco final. O&nbsp;que&nbsp;você
-            escrever ali sai numa&nbsp;planilha junto com&nbsp;o&nbsp;da&nbsp;turma inteira, e&nbsp;volta para&nbsp;a&nbsp;instituição como uma&nbsp;lista de&nbsp;iniciativas com&nbsp;número, ponto de&nbsp;partida e&nbsp;meta.
+          <p class="p-curto fr-host">
+            <span class="fr">A&nbsp;ficha tem os&nbsp;quatro campos na&nbsp;régua do&nbsp;celular, no&nbsp;bloco final.</span> <span class="fr">O&nbsp;que&nbsp;você
+            escrever ali sai numa&nbsp;planilha junto com&nbsp;o&nbsp;da&nbsp;turma inteira, e&nbsp;volta para&nbsp;a&nbsp;instituição como uma&nbsp;lista de&nbsp;iniciativas com&nbsp;número, ponto de&nbsp;partida e&nbsp;meta.</span>
           </p>
           <p style="margin-top:14px" class="p-curto">
             <a href="../canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a&nbsp;ficha →</a>
@@ -1578,54 +1589,54 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="card-grid-2">
           <div class="card">
-            <div class="card-eyebrow">Com você</div>
+            <div class="card-eyebrow">Com&nbsp;você</div>
             <h4>Uma&nbsp;iniciativa que&nbsp;dá para&nbsp;defender</h4>
-            <p class="p-curto">
-              Com&nbsp;destino, número, ponto de&nbsp;partida e&nbsp;meta com&nbsp;prazo. Cabe em&nbsp;quatro linhas
-              e&nbsp;sobrevive à&nbsp;pergunta <em>e&nbsp;isso dá quanto?</em>
+            <p class="p-curto fr-host">
+              <span class="fr">Com&nbsp;destino, número, ponto de&nbsp;partida e&nbsp;meta com&nbsp;prazo.</span> <span class="fr">Cabe em&nbsp;quatro linhas
+              e&nbsp;sobrevive à&nbsp;pergunta <em>e&nbsp;isso dá quanto?</em></span>
             </p>
           </div>
           <div class="card">
-            <div class="card-eyebrow">Com a instituição</div>
+            <div class="card-eyebrow">Com&nbsp;a&nbsp;instituição</div>
             <h4>Um&nbsp;filtro para&nbsp;o&nbsp;que&nbsp;já&nbsp;existe</h4>
-            <p class="p-curto">
-              A&nbsp;mesma ficha aplicada às&nbsp;iniciativas que&nbsp;já&nbsp;estão na&nbsp;fila separa as&nbsp;que&nbsp;têm
-              projeto das&nbsp;que&nbsp;têm vontade. Sem&nbsp;precisar refazer trabalho nenhum.
+            <p class="p-curto fr-host">
+              <span class="fr">A&nbsp;mesma ficha aplicada às&nbsp;iniciativas que&nbsp;já&nbsp;estão na&nbsp;fila separa as&nbsp;que&nbsp;têm
+              projeto das&nbsp;que&nbsp;têm vontade.</span> <span class="fr">Sem&nbsp;precisar refazer trabalho nenhum.</span>
             </p>
           </div>
         </div>
 
         <div class="checagem">
-          <div class="checagem-head">Confira em você mesmo</div>
+          <div class="checagem-head">Confira em&nbsp;você mesmo</div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Minha ficha tem um destino só, não três</div>
-              <div class="checagem-como">Se marcou mais de um, escolha o que você defenderia numa reunião</div>
+              <div class="checagem-o">Minha&nbsp;ficha tem um&nbsp;destino só,&nbsp;não&nbsp;três</div>
+              <div class="checagem-como">Se&nbsp;marcou mais de&nbsp;um,&nbsp;escolha o&nbsp;que&nbsp;você defenderia numa&nbsp;reunião</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Duas pessoas medindo o meu número chegariam ao mesmo valor</div>
-              <div class="checagem-como">Se não chegariam, o número ainda é uma frase, não uma medida</div>
+              <div class="checagem-o">Duas pessoas medindo o&nbsp;meu&nbsp;número chegariam ao&nbsp;mesmo valor</div>
+              <div class="checagem-como">Se&nbsp;não&nbsp;chegariam, o&nbsp;número ainda é uma&nbsp;frase, não&nbsp;uma&nbsp;medida</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">O campo 3 veio de contagem, não de estimativa</div>
-              <div class="checagem-como">Se veio de estimativa, escreva ao lado quando você vai medir de verdade</div>
+              <div class="checagem-o">O&nbsp;campo 3 veio de&nbsp;contagem, não&nbsp;de&nbsp;estimativa</div>
+              <div class="checagem-como">Se&nbsp;veio de&nbsp;estimativa, escreva ao&nbsp;lado quando&nbsp;você vai medir de&nbsp;verdade</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei qual campo travou, e sei que ele é a próxima tarefa</div>
-              <div class="checagem-como">Travar não reprova a iniciativa. Travar mostra por onde ela começa</div>
+              <div class="checagem-o">Sei qual campo travou, e&nbsp;sei que&nbsp;ele é a&nbsp;próxima tarefa</div>
+              <div class="checagem-como fr-host"><span class="fr">Travar não&nbsp;reprova a&nbsp;iniciativa.</span> <span class="fr">Travar mostra por&nbsp;onde&nbsp;ela começa</span></div>
             </div>
           </div>
         </div>
       </section>
       <div class="nav-bottom">
         <a class="nav-link prev" href="../caso-2/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">Caso 2 · Informação sensível</span></a>
-        <a class="nav-link next" href="../pilares/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">Os cinco pilares em uma folha</span></a>
+        <a class="nav-link next" href="../pilares/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">Os&nbsp;cinco pilares em&nbsp;uma&nbsp;folha</span></a>
       </div>
   </main>
 </div>

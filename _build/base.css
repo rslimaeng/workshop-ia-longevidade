@@ -155,6 +155,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{

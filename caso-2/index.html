@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1155,21 +1170,21 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>O problema, antes da resposta</a></li>
-      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a solução em grupo</a></li>
-      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>O que de fato aconteceu</a></li>
-      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>Onde eu confiro</a></li>
-      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>O que este caso prova</a></li>
-      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">06</span>Refaça isto com uma conversa da sua área</a></li>
+      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>O&nbsp;problema, antes da&nbsp;resposta</a></li>
+      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a&nbsp;solução em&nbsp;grupo</a></li>
+      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
+      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>Onde&nbsp;eu confiro</a></li>
+      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;este caso prova</a></li>
+      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">06</span>Refaça isto com&nbsp;uma&nbsp;conversa da&nbsp;sua&nbsp;área</a></li>
     </ul>
   </nav>
   <main>
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Bloco 4</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; Bloco 4</div>
       <div class="hero">
-        <div class="hero-eyebrow">Bloco 4 · Caso em três passos</div>
+        <div class="hero-eyebrow">Bloco 4 · Caso em&nbsp;três passos</div>
         <h1>Análise com&nbsp;informação sensível e&nbsp;prazo curto</h1>
-        <p class="hero-lead">Seis entrevistas de&nbsp;uma&nbsp;hora, trezentas páginas de&nbsp;transcrição, três dias até&nbsp;a&nbsp;entrega. E&nbsp;alguém vai investir dinheiro com&nbsp;base no&nbsp;resultado.</p>
+        <p class="hero-lead fr-host"><span class="fr">Seis entrevistas de&nbsp;uma&nbsp;hora, trezentas páginas de&nbsp;transcrição, três dias até&nbsp;a&nbsp;entrega.</span> <span class="fr">E&nbsp;alguém vai investir dinheiro com&nbsp;base no&nbsp;resultado.</span></p>
         <div class="hero-meta">
         <span class="chip">Prova os pilares 3 e 4</span>
         <span class="chip">Trabalho em grupo</span>
@@ -1182,89 +1197,87 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Leia só até o fim da seção 02</div>
-          <p class="p-curto">
-            O&nbsp;que&nbsp;de&nbsp;fato aconteceu está atrás de&nbsp;um&nbsp;botão fechado, mais abaixo.
-            <strong>A&nbsp;graça deste caso é que&nbsp;a&nbsp;primeira tentativa que&nbsp;falhou é, quase
-            sempre, a&nbsp;que&nbsp;a&nbsp;sala propõe.</strong> Abrir antes tira isso.
+          <p class="p-curto fr-host">
+            <span class="fr">O&nbsp;que&nbsp;de&nbsp;fato aconteceu está atrás de&nbsp;um&nbsp;botão fechado, mais abaixo.</span>
+            <span class="fr"><strong>A&nbsp;graça deste caso é que&nbsp;a&nbsp;primeira tentativa que&nbsp;falhou é, quase
+            sempre, a&nbsp;que&nbsp;a&nbsp;sala propõe.</strong></span> <span class="fr">Abrir antes tira isso.</span>
           </p>
         </div>
 
-        <p class="block-lead">
-          Seis entrevistas de&nbsp;uma&nbsp;hora. Cerca de&nbsp;trezentas páginas de&nbsp;transcrição. Três
-          dias até&nbsp;a&nbsp;entrega.
+        <p class="block-lead fr-host">
+          <span class="fr">Seis entrevistas de&nbsp;uma&nbsp;hora.</span> <span class="fr">Cerca de&nbsp;trezentas páginas de&nbsp;transcrição.</span> <span class="fr">Três
+          dias até&nbsp;a&nbsp;entrega.</span>
         </p>
 
         <div class="funil">
           <div class="funil-et">
             <div class="funil-n">6</div>
-            <div class="funil-t">entrevistas de <strong>uma hora</strong>, com pessoas de áreas diferentes</div>
+            <div class="funil-t">entrevistas de&nbsp;<strong>uma&nbsp;hora</strong>, com&nbsp;pessoas de&nbsp;áreas diferentes</div>
           </div>
           <div class="funil-et">
             <div class="funil-n">~300</div>
-            <div class="funil-t">páginas de transcrição, com nome de gente e coisa dita em confiança</div>
+            <div class="funil-t">páginas de&nbsp;transcrição, com&nbsp;nome de&nbsp;gente e&nbsp;coisa dita em&nbsp;confiança</div>
           </div>
-          <div class="funil-et">
+          <div class="funil-et fr-host">
             <div class="funil-n">3</div>
-            <div class="funil-t">dias até a entrega. Só ler com atenção já consome mais do que isso</div>
+            <div class="funil-t"><span class="fr">dias até&nbsp;a&nbsp;entrega.</span> <span class="fr">Só&nbsp;ler com&nbsp;atenção já&nbsp;consome mais do&nbsp;que&nbsp;isso</span></div>
           </div>
           <div class="funil-et">
             <div class="funil-n">1</div>
-            <div class="funil-t">decisão de <strong>onde investir dinheiro</strong>, tomada em cima do que sair daqui</div>
+            <div class="funil-t">decisão de&nbsp;<strong>onde&nbsp;investir dinheiro</strong>, tomada em&nbsp;cima do&nbsp;que&nbsp;sair daqui</div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          O&nbsp;aperto do&nbsp;caso não&nbsp;é o&nbsp;volume sozinho. É o&nbsp;volume, o&nbsp;prazo e&nbsp;a&nbsp;consequência
-          ao&nbsp;mesmo tempo, com&nbsp;informação que&nbsp;não&nbsp;pode vazar no&nbsp;meio.
+        <p class="fig-leg fr-host">
+          <span class="fr">O&nbsp;aperto do&nbsp;caso não&nbsp;é o&nbsp;volume sozinho.</span> <span class="fr">É o&nbsp;volume, o&nbsp;prazo e&nbsp;a&nbsp;consequência
+          ao&nbsp;mesmo tempo, com&nbsp;informação que&nbsp;não&nbsp;pode vazar no&nbsp;meio.</span>
         </p>
 
         <div class="card card-accent">
-          <div class="card-eyebrow">A situação</div>
-          <p class="p-curto">
-            Seis pessoas de&nbsp;áreas diferentes de&nbsp;uma&nbsp;mesma empresa foram entrevistadas, uma&nbsp;hora cada. As&nbsp;gravações viraram texto. No&nbsp;fim precisa sair um&nbsp;diagnóstico com&nbsp;<strong>prioridades ordenadas</strong>: o&nbsp;que&nbsp;atacar primeiro, o&nbsp;que&nbsp;vem depois,
-            e&nbsp;o&nbsp;que&nbsp;não&nbsp;vale a&nbsp;pena agora.
+          <div class="card-eyebrow">A&nbsp;situação</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Seis pessoas de&nbsp;áreas diferentes de&nbsp;uma&nbsp;mesma empresa foram entrevistadas, uma&nbsp;hora cada.</span> <span class="fr">As&nbsp;gravações viraram texto.</span> <span class="fr">No&nbsp;fim precisa sair um&nbsp;diagnóstico com&nbsp;<strong>prioridades ordenadas</strong>: o&nbsp;que&nbsp;atacar primeiro, o&nbsp;que&nbsp;vem depois,
+            e&nbsp;o&nbsp;que&nbsp;não&nbsp;vale a&nbsp;pena agora.</span>
           </p>
           <p class="p-curto"><strong>Três coisas apertam ao&nbsp;mesmo tempo:</strong></p>
           <ul>
-            <li>
-              <strong>O prazo.</strong> Três dias. Ler as trezentas páginas com atenção já
-              consome mais do que isso.
+            <li class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;prazo.</strong></span> <span class="fr">Três dias.</span> <span class="fr">Ler as&nbsp;trezentas páginas com&nbsp;atenção já&nbsp;consome mais do&nbsp;que&nbsp;isso.</span>
             </li>
-            <li>
-              <strong>A consequência.</strong> Alguém vai investir dinheiro com base nesse
-              documento. Se a prioridade estiver errada, o erro custa caro e demora a
-              aparecer.
+            <li class="p-curto fr-host">
+              <span class="fr"><strong>A&nbsp;consequência.</strong></span> <span class="fr">Alguém vai investir dinheiro com&nbsp;base nesse
+              documento.</span> <span class="fr">Se&nbsp;a&nbsp;prioridade estiver errada, o&nbsp;erro custa caro e&nbsp;demora a&nbsp;aparecer.</span>
             </li>
-            <li>
-              <strong>O conteúdo.</strong> As transcrições têm nome de pessoa, reclamação
-              sobre colega, número interno e coisa dita em confiança.
+            <li class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;conteúdo.</strong></span> <span class="fr">As&nbsp;transcrições têm nome de&nbsp;pessoa, reclamação
+              sobre&nbsp;colega, número interno e&nbsp;coisa dita em&nbsp;confiança.</span>
             </li>
           </ul>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">A pergunta que o documento vai ter que aguentar</div>
-          <p class="p-curto">
-            Na&nbsp;reunião de&nbsp;apresentação, alguém vai apontar para&nbsp;uma&nbsp;das&nbsp;prioridades e&nbsp;perguntar: <strong>de&nbsp;onde&nbsp;é que&nbsp;vocês tiraram isso?</strong> A&nbsp;resposta precisa
-            existir.
+          <p class="p-curto fr-host">
+            <span class="fr">Na&nbsp;reunião de&nbsp;apresentação, alguém vai apontar para&nbsp;uma&nbsp;das&nbsp;prioridades e&nbsp;perguntar: <strong>de&nbsp;onde&nbsp;é que&nbsp;vocês tiraram isso?</strong></span> <span class="fr">A&nbsp;resposta precisa
+            existir.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s2">
-        <div class="block-num">02 · O que o seu grupo entrega</div>
+        <div class="block-num">02 · O&nbsp;que&nbsp;o&nbsp;seu&nbsp;grupo entrega</div>
         <h2>Desenhem a&nbsp;solução em&nbsp;grupo</h2>
 
-        <p class="block-lead">
-          Desenhem o&nbsp;caminho do&nbsp;texto bruto até&nbsp;o&nbsp;documento final. Em&nbsp;etapas, com&nbsp;o&nbsp;que&nbsp;entra e&nbsp;o&nbsp;que&nbsp;sai de&nbsp;cada uma.
+        <p class="block-lead fr-host">
+          <span class="fr">Desenhem o&nbsp;caminho do&nbsp;texto bruto até&nbsp;o&nbsp;documento final.</span> <span class="fr">Em&nbsp;etapas, com&nbsp;o&nbsp;que&nbsp;entra e&nbsp;o&nbsp;que&nbsp;sai de&nbsp;cada uma.</span>
         </p>
 
         <div class="passo">
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>As&nbsp;etapas, em&nbsp;ordem</h3>
-            <p class="p-curto">
-              Da&nbsp;transcrição crua ao&nbsp;documento entregue. Quantas etapas, e&nbsp;o&nbsp;que&nbsp;cada uma&nbsp;produz.
+            <p class="p-curto fr-host">
+              <span class="fr">Da&nbsp;transcrição crua ao&nbsp;documento entregue.</span> <span class="fr">Quantas etapas, e&nbsp;o&nbsp;que&nbsp;cada uma&nbsp;produz.</span>
             </p>
           </div>
         </div>
@@ -1273,9 +1286,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>O&nbsp;que&nbsp;a&nbsp;inteligência artificial faz e&nbsp;o&nbsp;que&nbsp;a&nbsp;pessoa faz</h3>
-            <p class="p-curto">
-              Em&nbsp;cada etapa. Não&nbsp;vale "a&nbsp;IA ajuda": digam o&nbsp;que&nbsp;ela recebe e&nbsp;o&nbsp;que&nbsp;ela
-              devolve.
+            <p class="p-curto fr-host">
+              <span class="fr">Em&nbsp;cada etapa.</span> <span class="fr">Não&nbsp;vale "a&nbsp;IA ajuda": digam o&nbsp;que&nbsp;ela recebe e&nbsp;o&nbsp;que&nbsp;ela
+              devolve.</span>
             </p>
           </div>
         </div>
@@ -1284,8 +1297,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Como vocês respondem "de&nbsp;onde&nbsp;tiraram isso"</h3>
-            <p class="p-curto">
-              Para&nbsp;qualquer afirmação do&nbsp;documento final. Este é o&nbsp;requisito que&nbsp;derruba a&nbsp;maior parte dos&nbsp;desenhos.
+            <p class="p-curto fr-host">
+              <span class="fr">Para&nbsp;qualquer afirmação do&nbsp;documento final.</span> <span class="fr">Este é o&nbsp;requisito que&nbsp;derruba a&nbsp;maior parte dos&nbsp;desenhos.</span>
             </p>
           </div>
         </div>
@@ -1294,19 +1307,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">4</div>
           <div class="passo-body">
             <h3>O&nbsp;que&nbsp;vocês fazem com&nbsp;o&nbsp;nome das&nbsp;pessoas</h3>
-            <p class="p-curto">
-              As&nbsp;transcrições têm coisa dita em&nbsp;confiança. Em&nbsp;que&nbsp;ponto do&nbsp;caminho isso é
-              tratado, e&nbsp;como.
+            <p class="p-curto fr-host">
+              <span class="fr">As&nbsp;transcrições têm coisa dita em&nbsp;confiança.</span> <span class="fr">Em&nbsp;que&nbsp;ponto do&nbsp;caminho isso é
+              tratado, e&nbsp;como.</span>
             </p>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">Apresentem em voz alta</div>
-          <p class="p-curto">
-            Dois minutos por&nbsp;grupo. Prestem atenção em&nbsp;quantos grupos desenham
-            <strong>uma&nbsp;etapa só</strong>. Isso não&nbsp;é erro de&nbsp;grupo nenhum: é a&nbsp;solução mais
-            natural que&nbsp;existe, e&nbsp;é exatamente por&nbsp;onde&nbsp;eu comecei.
+          <p class="p-curto fr-host">
+            <span class="fr">Dois minutos por&nbsp;grupo.</span> <span class="fr">Prestem atenção em&nbsp;quantos grupos desenham
+            <strong>uma&nbsp;etapa só</strong>.</span> <span class="fr">Isso não&nbsp;é erro de&nbsp;grupo nenhum: é a&nbsp;solução mais
+            natural que&nbsp;existe, e&nbsp;é exatamente por&nbsp;onde&nbsp;eu comecei.</span>
           </p>
         </div>
       </section>
@@ -1315,43 +1328,43 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="block-num">03 · Passo 2</div>
         <h2>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</h2>
 
-        <p class="block-lead">
-          Este caso também é meu,&nbsp;e&nbsp;a&nbsp;primeira versão dele deu errado. As&nbsp;duas histórias do&nbsp;fim têm o&nbsp;custo medido em&nbsp;dias.
+        <p class="block-lead fr-host">
+          <span class="fr">Este caso também é meu,&nbsp;e&nbsp;a&nbsp;primeira versão dele deu errado.</span> <span class="fr">As&nbsp;duas histórias do&nbsp;fim têm o&nbsp;custo medido em&nbsp;dias.</span>
         </p>
 
         <details class="gabarito">
           <summary>
             <span>
               Abrir o que foi tentado, o que falhou e o que funcionou
-              <span class="gabarito-aviso">só depois que o seu grupo apresentar</span>
+              <span class="gabarito-aviso">só&nbsp;depois que&nbsp;o&nbsp;seu&nbsp;grupo apresentar</span>
             </span>
           </summary>
           <div class="gabarito-body">
 
             <h4>A&nbsp;primeira tentativa: jogar tudo e&nbsp;pedir um&nbsp;resumo</h4>
-            <p class="p-curto">
-              Coloquei as&nbsp;seis transcrições de&nbsp;uma&nbsp;vez e&nbsp;pedi um&nbsp;diagnóstico com&nbsp;prioridades. Voltou rápido, veio bem escrito, e&nbsp;parecia bom. Falhou de&nbsp;três
-              modos, e&nbsp;todos os&nbsp;três só&nbsp;aparecem quando&nbsp;alguém confere.
+            <p class="p-curto fr-host">
+              <span class="fr">Coloquei as&nbsp;seis transcrições de&nbsp;uma&nbsp;vez e&nbsp;pedi um&nbsp;diagnóstico com&nbsp;prioridades.</span> <span class="fr">Voltou rápido, veio bem escrito, e&nbsp;parecia bom.</span> <span class="fr">Falhou de&nbsp;três
+              modos, e&nbsp;todos os&nbsp;três só&nbsp;aparecem quando&nbsp;alguém confere.</span>
             </p>
 
             <div class="erros">
               <div class="erro">
                 <div class="erro-topo">
                   <span class="erro-n">1</span>
-                  <span class="erro-nome">Não dá para rastrear</span>
+                  <span class="erro-nome">Não&nbsp;dá para&nbsp;rastrear</span>
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">O texto afirma que existe retrabalho no processo, e não diz de qual entrevista veio nem quantas pessoas disseram.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">O&nbsp;texto afirma que&nbsp;existe retrabalho no&nbsp;processo, e&nbsp;não&nbsp;diz de&nbsp;qual entrevista veio nem quantas pessoas disseram.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">Tudo entrou de uma vez, então não existe caminho de volta de uma frase até a página que a originou.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx">Tudo entrou de&nbsp;uma&nbsp;vez, então não&nbsp;existe caminho de&nbsp;volta de&nbsp;uma&nbsp;frase até&nbsp;a&nbsp;página que&nbsp;a&nbsp;originou.</div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">Por que é grave aqui</div>
-                    <div class="erro-cel-tx">É exatamente a pergunta da reunião. Conclusão sem origem não sustenta decisão de investimento.</div>
+                    <div class="erro-cel-rot">Por&nbsp;que&nbsp;é grave aqui</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">É exatamente a&nbsp;pergunta da&nbsp;reunião.</span> <span class="fr">Conclusão sem&nbsp;origem não&nbsp;sustenta decisão de&nbsp;investimento.</span></div>
                   </div>
                 </div>
               </div>
@@ -1359,20 +1372,20 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="erro">
                 <div class="erro-topo">
                   <span class="erro-n">2</span>
-                  <span class="erro-nome">Tudo vira do mesmo tamanho</span>
+                  <span class="erro-nome">Tudo vira do&nbsp;mesmo tamanho</span>
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">A dor que cinco de seis pessoas citaram aparece com o mesmo peso da que uma citou de passagem.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">A&nbsp;dor que&nbsp;cinco de&nbsp;seis pessoas citaram aparece com&nbsp;o&nbsp;mesmo peso da&nbsp;que&nbsp;uma&nbsp;citou de&nbsp;passagem.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">Ninguém contou quantas vezes cada coisa apareceu, então não havia com o que ordenar.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx">Ninguém contou quantas vezes cada coisa apareceu, então não&nbsp;havia com&nbsp;o&nbsp;que&nbsp;ordenar.</div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">Por que é grave aqui</div>
-                    <div class="erro-cel-tx">Priorizar é o contrário de achatar. O resumo entrega uma lista, e o que se pediu foi uma ordem.</div>
+                    <div class="erro-cel-rot">Por&nbsp;que&nbsp;é grave aqui</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Priorizar é o&nbsp;contrário de&nbsp;achatar.</span> <span class="fr">O&nbsp;resumo entrega uma&nbsp;lista, e&nbsp;o&nbsp;que&nbsp;se&nbsp;pediu foi uma&nbsp;ordem.</span></div>
                   </div>
                 </div>
               </div>
@@ -1380,34 +1393,34 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="erro">
                 <div class="erro-topo">
                   <span class="erro-n">3</span>
-                  <span class="erro-nome">A conferência só cabe no fim</span>
+                  <span class="erro-nome">A&nbsp;conferência só&nbsp;cabe no&nbsp;fim</span>
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">Quando o resultado sai errado, não há como saber em que ponto do caminho errou.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">Quando&nbsp;o&nbsp;resultado sai errado, não&nbsp;há como saber em&nbsp;que&nbsp;ponto do&nbsp;caminho errou.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">Uma etapa só não tem meio. Ou está certo no fim, ou se recomeça do começo.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Uma&nbsp;etapa só&nbsp;não&nbsp;tem meio.</span> <span class="fr">Ou&nbsp;está certo no&nbsp;fim, ou&nbsp;se&nbsp;recomeça do&nbsp;começo.</span></div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">Por que é grave aqui</div>
-                    <div class="erro-cel-tx">Com três dias de prazo, refazer tudo não é opção. O erro precisa aparecer no primeiro dia.</div>
+                    <div class="erro-cel-rot">Por&nbsp;que&nbsp;é grave aqui</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Com&nbsp;três dias de&nbsp;prazo, refazer tudo não&nbsp;é opção.</span> <span class="fr">O&nbsp;erro precisa aparecer no&nbsp;primeiro dia.</span></div>
                   </div>
                 </div>
               </div>
             </div>
 
             <h4>O&nbsp;que&nbsp;funcionou: cinco fases, com&nbsp;um&nbsp;portão entre&nbsp;elas</h4>
-            <p class="p-curto">
-              O&nbsp;mesmo trabalho, quebrado. Cada fase produz uma&nbsp;coisa concreta, e&nbsp;só&nbsp;se&nbsp;passa para&nbsp;a&nbsp;próxima quando&nbsp;o&nbsp;que&nbsp;saiu foi conferido.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;mesmo trabalho, quebrado.</span> <span class="fr">Cada fase produz uma&nbsp;coisa concreta, e&nbsp;só&nbsp;se&nbsp;passa para&nbsp;a&nbsp;próxima quando&nbsp;o&nbsp;que&nbsp;saiu foi conferido.</span>
             </p>
             <div class="esteira">
               <div class="est-fase">
                 <div class="est-fase-n">FASE 1</div>
                 <div class="est-fase-t">Preparação</div>
-                <div class="est-fase-d">O que já se sabe e o que se quer descobrir.</div>
+                <div class="est-fase-d">O&nbsp;que&nbsp;já&nbsp;se&nbsp;sabe e&nbsp;o&nbsp;que&nbsp;se&nbsp;quer descobrir.</div>
               </div>
               <div class="est-portao">
                 <div class="est-portao-selo">✓</div>
@@ -1416,7 +1429,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="est-fase">
                 <div class="est-fase-n">FASE 2</div>
                 <div class="est-fase-t">Levantamento</div>
-                <div class="est-fase-d">As entrevistas, e a retirada do que identifica pessoa.</div>
+                <div class="est-fase-d">As&nbsp;entrevistas, e&nbsp;a&nbsp;retirada do&nbsp;que&nbsp;identifica pessoa.</div>
               </div>
               <div class="est-portao">
                 <div class="est-portao-selo">✓</div>
@@ -1424,8 +1437,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               </div>
               <div class="est-fase">
                 <div class="est-fase-n">FASE 3</div>
-                <div class="est-fase-t">Análise, uma por vez</div>
-                <div class="est-fase-d">Cada entrevista sozinha, com as frases que sustentam. Só depois o cruzamento.</div>
+                <div class="est-fase-t">Análise, uma&nbsp;por&nbsp;vez</div>
+                <div class="est-fase-d fr-host"><span class="fr">Cada entrevista sozinha, com&nbsp;as&nbsp;frases que&nbsp;sustentam.</span> <span class="fr">Só&nbsp;depois o&nbsp;cruzamento.</span></div>
               </div>
               <div class="est-portao">
                 <div class="est-portao-selo">✓</div>
@@ -1434,7 +1447,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="est-fase">
                 <div class="est-fase-n">FASE 4</div>
                 <div class="est-fase-t">Priorização</div>
-                <div class="est-fase-d">Nota com critério escrito, que vira uma ordem.</div>
+                <div class="est-fase-d">Nota com&nbsp;critério escrito, que&nbsp;vira uma&nbsp;ordem.</div>
               </div>
               <div class="est-portao">
                 <div class="est-portao-selo">✓</div>
@@ -1443,92 +1456,92 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="est-fase">
                 <div class="est-fase-n">FASE 5</div>
                 <div class="est-fase-t">Entrega</div>
-                <div class="est-fase-d">O documento e a apresentação.</div>
+                <div class="est-fase-d">O&nbsp;documento e&nbsp;a&nbsp;apresentação.</div>
               </div>
             </div>
 
-            <p class="fig-leg">
-              O&nbsp;que&nbsp;segura o&nbsp;trabalho não&nbsp;são as&nbsp;cinco caixas: são os&nbsp;quatro portões
-              entre&nbsp;elas. Cada portão é uma&nbsp;pessoa conferindo o&nbsp;que&nbsp;saiu antes de&nbsp;a&nbsp;fase seguinte começar. Sem&nbsp;eles, um&nbsp;erro da&nbsp;fase 2 só&nbsp;aparece na&nbsp;entrega.
+            <p class="fig-leg fr-host">
+              <span class="fr">O&nbsp;que&nbsp;segura o&nbsp;trabalho não&nbsp;são as&nbsp;cinco caixas: são os&nbsp;quatro portões
+              entre&nbsp;elas.</span> <span class="fr">Cada portão é uma&nbsp;pessoa conferindo o&nbsp;que&nbsp;saiu antes de&nbsp;a&nbsp;fase seguinte começar.</span> <span class="fr">Sem&nbsp;eles, um&nbsp;erro da&nbsp;fase 2 só&nbsp;aparece na&nbsp;entrega.</span>
             </p>
 
             <div class="info-grid">
               <div class="info-card">
-                <div class="info-card-label">Fase 2 · o portão que protege</div>
-                <p class="p-curto">Nada com&nbsp;nome de&nbsp;pessoa atravessa esta fase. Se&nbsp;atravessar, atravessa para&nbsp;todas as&nbsp;seguintes.</p>
+                <div class="info-card-label">Fase 2 · o&nbsp;portão que&nbsp;protege</div>
+                <p class="p-curto fr-host"><span class="fr">Nada com&nbsp;nome de&nbsp;pessoa atravessa esta fase.</span> <span class="fr">Se&nbsp;atravessar, atravessa para&nbsp;todas as&nbsp;seguintes.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Fase 3 · o portão que sustenta</div>
-                <p class="p-curto">Cada achado sai com&nbsp;a&nbsp;frase que&nbsp;o&nbsp;sustenta. É isso que&nbsp;responde depois "de&nbsp;onde&nbsp;tiraram isso".</p>
+                <div class="info-card-label">Fase 3 · o&nbsp;portão que&nbsp;sustenta</div>
+                <p class="p-curto fr-host"><span class="fr">Cada achado sai com&nbsp;a&nbsp;frase que&nbsp;o&nbsp;sustenta.</span> <span class="fr">É isso que&nbsp;responde depois "de&nbsp;onde&nbsp;tiraram isso".</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Fase 4 · o portão que ordena</div>
-                <p class="p-curto">O&nbsp;critério da&nbsp;nota é escrito antes de&nbsp;pontuar. Nota sem&nbsp;critério é opinião com&nbsp;número.</p>
+                <div class="info-card-label">Fase 4 · o&nbsp;portão que&nbsp;ordena</div>
+                <p class="p-curto fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota é escrito antes de&nbsp;pontuar.</span> <span class="fr">Nota sem&nbsp;critério é opinião com&nbsp;número.</span></p>
               </div>
             </div>
 
             <div class="callout callout-info">
               <div class="callout-title">Onde a rastreabilidade nasce</div>
-              <p class="p-curto">
-                É na&nbsp;fase 3, e&nbsp;é uma&nbsp;decisão de&nbsp;desenho, não&nbsp;de&nbsp;ferramenta. Como cada
-                entrevista foi analisada separada, cada afirmação do&nbsp;cruzamento aponta para&nbsp;as&nbsp;entrevistas que&nbsp;a&nbsp;sustentam. <strong>A&nbsp;pergunta "de&nbsp;onde&nbsp;tiraram isso"
-                passa a&nbsp;ter resposta porque&nbsp;o&nbsp;caminho foi construído para&nbsp;ter.</strong>
+              <p class="p-curto fr-host">
+                <span class="fr">É na&nbsp;fase 3, e&nbsp;é uma&nbsp;decisão de&nbsp;desenho, não&nbsp;de&nbsp;ferramenta.</span> <span class="fr">Como cada
+                entrevista foi analisada separada, cada afirmação do&nbsp;cruzamento aponta para&nbsp;as&nbsp;entrevistas que&nbsp;a&nbsp;sustentam.</span> <span class="fr"><strong>A&nbsp;pergunta "de&nbsp;onde&nbsp;tiraram isso"
+                passa a&nbsp;ter resposta porque&nbsp;o&nbsp;caminho foi construído para&nbsp;ter.</strong></span>
               </p>
             </div>
 
             <h4>A&nbsp;regra que&nbsp;mais pegou erro: quem planeja não&nbsp;é quem executa</h4>
-            <p class="p-curto">
-              Quem escreve o&nbsp;pedido não&nbsp;é quem o&nbsp;executa, e&nbsp;quem executa tem a&nbsp;obrigação de&nbsp;apontar contradição antes de&nbsp;começar. Parece burocracia e&nbsp;é o&nbsp;contrário:
+            <p class="p-curto fr-host">
+              <span class="fr">Quem escreve o&nbsp;pedido não&nbsp;é quem o&nbsp;executa, e&nbsp;quem executa tem a&nbsp;obrigação de&nbsp;apontar contradição antes de&nbsp;começar.</span> <span class="fr">Parece burocracia e&nbsp;é o&nbsp;contrário:
               várias vezes o&nbsp;executor viu no&nbsp;pedido uma&nbsp;contradição que&nbsp;o&nbsp;autor do&nbsp;pedido
-              não&nbsp;enxergava, porque&nbsp;estava perto demais.
+              não&nbsp;enxergava, porque&nbsp;estava perto demais.</span>
             </p>
 
             <h4 style="margin-top:32px">História 1 · O&nbsp;termo corrigido que&nbsp;voltou treze dias depois</h4>
-            <p class="p-curto">
-              Havia uma&nbsp;regra combinada: uma&nbsp;palavra específica não&nbsp;devia ser usada com&nbsp;o&nbsp;cliente, e&nbsp;sim outra no&nbsp;lugar dela. A&nbsp;correção tinha sido feita e&nbsp;registrada
-              num&nbsp;arquivo de&nbsp;lições aprendidas.
+            <p class="p-curto fr-host">
+              <span class="fr">Havia uma&nbsp;regra combinada: uma&nbsp;palavra específica não&nbsp;devia ser usada com&nbsp;o&nbsp;cliente, e&nbsp;sim outra no&nbsp;lugar dela.</span> <span class="fr">A&nbsp;correção tinha sido feita e&nbsp;registrada
+              num&nbsp;arquivo de&nbsp;lições aprendidas.</span>
             </p>
-            <p class="p-curto">
-              <strong>Treze dias depois</strong>, ao&nbsp;escrever as&nbsp;instruções de&nbsp;uma&nbsp;página
-              que&nbsp;iria para&nbsp;o&nbsp;cliente, eu não&nbsp;abri esse arquivo. A&nbsp;palavra errada voltou, e&nbsp;foi publicada. Quem viu primeiro foi o&nbsp;cliente.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>Treze dias depois</strong>, ao&nbsp;escrever as&nbsp;instruções de&nbsp;uma&nbsp;página
+              que&nbsp;iria para&nbsp;o&nbsp;cliente, eu não&nbsp;abri esse arquivo.</span> <span class="fr">A&nbsp;palavra errada voltou, e&nbsp;foi publicada.</span> <span class="fr">Quem viu primeiro foi o&nbsp;cliente.</span>
             </p>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;aprendi:</strong> a&nbsp;correção não&nbsp;tinha virado regra. Tinha
-              virado anotação. A&nbsp;diferença é onde&nbsp;ela é lida: <strong>regra é lida no&nbsp;momento em&nbsp;que&nbsp;se&nbsp;faz; anotação é lida quando&nbsp;alguém lembra dela</strong>. E&nbsp;ninguém lembra.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> a&nbsp;correção não&nbsp;tinha virado regra.</span> <span class="fr">Tinha
+              virado anotação.</span> <span class="fr">A&nbsp;diferença é onde&nbsp;ela é lida: <strong>regra é lida no&nbsp;momento em&nbsp;que&nbsp;se&nbsp;faz; anotação é lida quando&nbsp;alguém lembra dela</strong>.</span> <span class="fr">E&nbsp;ninguém lembra.</span>
             </p>
 
             <h4>História 2 · O&nbsp;protocolo que&nbsp;eu mesmo pulei, e&nbsp;os&nbsp;três dias</h4>
-            <p class="p-curto">
-              O&nbsp;sistema tinha um&nbsp;protocolo de&nbsp;abertura: antes de&nbsp;mexer em&nbsp;qualquer coisa de&nbsp;cliente, ler seis arquivos. Estava escrito, em&nbsp;destaque, marcado como
-              obrigatório.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;sistema tinha um&nbsp;protocolo de&nbsp;abertura: antes de&nbsp;mexer em&nbsp;qualquer coisa de&nbsp;cliente, ler seis arquivos.</span> <span class="fr">Estava escrito, em&nbsp;destaque, marcado como
+              obrigatório.</span>
             </p>
-            <p class="p-curto">
-              Cheguei numa&nbsp;sessão com&nbsp;um&nbsp;pedido que&nbsp;parecia claro, pulei o&nbsp;protocolo
-              inteiro, e&nbsp;não&nbsp;li o&nbsp;que&nbsp;já&nbsp;tinha sido feito dias antes. <strong>Descartei sem&nbsp;ler um&nbsp;trabalho bom que&nbsp;já&nbsp;estava pronto</strong> e&nbsp;refiz tudo de&nbsp;um&nbsp;jeito que&nbsp;não&nbsp;servia. O&nbsp;custo foi de&nbsp;três dias, e&nbsp;quem descobriu foi outra pessoa na&nbsp;revisão.
+            <p class="p-curto fr-host">
+              <span class="fr">Cheguei numa&nbsp;sessão com&nbsp;um&nbsp;pedido que&nbsp;parecia claro, pulei o&nbsp;protocolo
+              inteiro, e&nbsp;não&nbsp;li o&nbsp;que&nbsp;já&nbsp;tinha sido feito dias antes.</span> <span class="fr"><strong>Descartei sem&nbsp;ler um&nbsp;trabalho bom que&nbsp;já&nbsp;estava pronto</strong> e&nbsp;refiz tudo de&nbsp;um&nbsp;jeito que&nbsp;não&nbsp;servia.</span> <span class="fr">O&nbsp;custo foi de&nbsp;três dias, e&nbsp;quem descobriu foi outra pessoa na&nbsp;revisão.</span>
             </p>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;aprendi:</strong> regra que&nbsp;depende de&nbsp;disciplina para&nbsp;ser
-              seguida não&nbsp;é regra, é decoração. E&nbsp;a&nbsp;correção não&nbsp;foi escrever o&nbsp;protocolo
-              com&nbsp;mais ênfase. Foi <strong>criar uma&nbsp;trava</strong>: o&nbsp;sistema passou a&nbsp;impedir a&nbsp;edição enquanto&nbsp;as&nbsp;seis leituras não&nbsp;tivessem acontecido.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> regra que&nbsp;depende de&nbsp;disciplina para&nbsp;ser
+              seguida não&nbsp;é regra, é decoração.</span> <span class="fr">E&nbsp;a&nbsp;correção não&nbsp;foi escrever o&nbsp;protocolo
+              com&nbsp;mais ênfase.</span> <span class="fr">Foi <strong>criar uma&nbsp;trava</strong>: o&nbsp;sistema passou a&nbsp;impedir a&nbsp;edição enquanto&nbsp;as&nbsp;seis leituras não&nbsp;tivessem acontecido.</span>
             </p>
 
             <div class="callout callout-warn">
               <div class="callout-title">A tradução disso para uma área que não escreve software</div>
-              <p class="p-curto">
-                A&nbsp;trava não&nbsp;precisa ser técnica. <strong>A&nbsp;regra não&nbsp;vai no&nbsp;manual, vai no&nbsp;formulário.</strong> Campo obrigatório que&nbsp;não&nbsp;deixa avançar, item de&nbsp;conferência impresso na&nbsp;ordem de&nbsp;serviço, assinatura que&nbsp;falta e&nbsp;trava o&nbsp;envio. Se&nbsp;depender de&nbsp;lembrar, vai falhar no&nbsp;dia corrido.
+              <p class="p-curto fr-host">
+                <span class="fr">A&nbsp;trava não&nbsp;precisa ser técnica.</span> <span class="fr"><strong>A&nbsp;regra não&nbsp;vai no&nbsp;manual, vai no&nbsp;formulário.</strong></span> <span class="fr">Campo obrigatório que&nbsp;não&nbsp;deixa avançar, item de&nbsp;conferência impresso na&nbsp;ordem de&nbsp;serviço, assinatura que&nbsp;falta e&nbsp;trava o&nbsp;envio.</span> <span class="fr">Se&nbsp;depender de&nbsp;lembrar, vai falhar no&nbsp;dia corrido.</span>
               </p>
             </div>
 
             <h4>De&nbsp;brinde: o&nbsp;revisor que&nbsp;aprovou dez de&nbsp;dez, e&nbsp;o&nbsp;resultado tinha catorze problemas</h4>
-            <p class="p-curto">
-              Numa&nbsp;das&nbsp;entregas, um&nbsp;revisor independente conferiu os&nbsp;dez critérios da&nbsp;lista
-              e&nbsp;aprovou os&nbsp;dez. O&nbsp;resultado foi aberto e&nbsp;tinha catorze problemas. O&nbsp;revisor
+            <p class="p-curto fr-host">
+              <span class="fr">Numa&nbsp;das&nbsp;entregas, um&nbsp;revisor independente conferiu os&nbsp;dez critérios da&nbsp;lista
+              e&nbsp;aprovou os&nbsp;dez.</span> <span class="fr">O&nbsp;resultado foi aberto e&nbsp;tinha catorze problemas.</span> <span class="fr">O&nbsp;revisor
               não&nbsp;errou: <strong>ele conferiu o&nbsp;que&nbsp;a&nbsp;lista mandava conferir, e&nbsp;a&nbsp;lista é
-              que&nbsp;estava incompleta.</strong>
+              que&nbsp;estava incompleta.</strong></span>
             </p>
-            <p class="p-curto">
-              Conferir a&nbsp;saída não&nbsp;é a&nbsp;mesma coisa que&nbsp;conferir o&nbsp;pedido. Quando&nbsp;o&nbsp;resultado
-              vem errado e&nbsp;todos os&nbsp;critérios passaram, o&nbsp;defeito está no&nbsp;pedido.
+            <p class="p-curto fr-host">
+              <span class="fr">Conferir a&nbsp;saída não&nbsp;é a&nbsp;mesma coisa que&nbsp;conferir o&nbsp;pedido.</span> <span class="fr">Quando&nbsp;o&nbsp;resultado
+              vem errado e&nbsp;todos os&nbsp;critérios passaram, o&nbsp;defeito está no&nbsp;pedido.</span>
             </p>
 
           </div>
@@ -1547,8 +1560,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>Marquem o&nbsp;ponto em&nbsp;que&nbsp;uma&nbsp;pessoa revisa</h3>
-            <p class="p-curto">
-              No&nbsp;desenho de&nbsp;vocês, onde&nbsp;exatamente alguém olha antes de&nbsp;o&nbsp;resultado sair? Se&nbsp;não&nbsp;houver esse ponto, o&nbsp;desenho tem um&nbsp;problema, e&nbsp;não&nbsp;é culpa da&nbsp;IA.
+            <p class="p-curto fr-host">
+              <span class="fr">No&nbsp;desenho de&nbsp;vocês, onde&nbsp;exatamente alguém olha antes de&nbsp;o&nbsp;resultado sair?</span> <span class="fr">Se&nbsp;não&nbsp;houver esse ponto, o&nbsp;desenho tem um&nbsp;problema, e&nbsp;não&nbsp;é culpa da&nbsp;IA.</span>
             </p>
           </div>
         </div>
@@ -1557,9 +1570,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>Escrevam o&nbsp;que&nbsp;acontece se&nbsp;ninguém revisar</h3>
-            <p class="p-curto">
-              Em&nbsp;uma&nbsp;frase, e&nbsp;concreta. Não&nbsp;"pode dar problema": <em>sai um&nbsp;comunicado com&nbsp;a&nbsp;data errada para&nbsp;trezentos alunos</em>. A&nbsp;frase concreta é o&nbsp;que&nbsp;faz alguém
-              defender o&nbsp;ponto de&nbsp;conferência quando&nbsp;o&nbsp;prazo apertar.
+            <p class="p-curto fr-host">
+              <span class="fr">Em&nbsp;uma&nbsp;frase, e&nbsp;concreta.</span> <span class="fr">Não&nbsp;"pode dar problema": <em>sai um&nbsp;comunicado com&nbsp;a&nbsp;data errada para&nbsp;trezentos alunos</em>.</span> <span class="fr">A&nbsp;frase concreta é o&nbsp;que&nbsp;faz alguém
+              defender o&nbsp;ponto de&nbsp;conferência quando&nbsp;o&nbsp;prazo apertar.</span>
             </p>
           </div>
         </div>
@@ -1568,8 +1581,8 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Digam onde&nbsp;essa conferência fica registrada</h3>
-            <p class="p-curto">
-              Se&nbsp;ela vive só&nbsp;na&nbsp;cabeça de&nbsp;quem revisa, ela some quando&nbsp;essa pessoa mudar de&nbsp;área. Se&nbsp;ela é um&nbsp;campo do&nbsp;formulário, ela fica.
+            <p class="p-curto fr-host">
+              <span class="fr">Se&nbsp;ela vive só&nbsp;na&nbsp;cabeça de&nbsp;quem revisa, ela some quando&nbsp;essa pessoa mudar de&nbsp;área.</span> <span class="fr">Se&nbsp;ela é um&nbsp;campo do&nbsp;formulário, ela fica.</span>
             </p>
           </div>
         </div>
@@ -1582,12 +1595,12 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="pilar">
           <div><div class="pilar-n">3</div></div>
           <div>
-            <div class="pilar-t">Quebrar em fases e conferir entre elas</div>
-            <div class="pilar-d">
-              Trabalho pedido inteiro volta errado inteiro, e sem que se saiba onde errou.
-              Em etapas, o erro aparece cedo e sai barato. E é a quebra em fases que produz
-              a rastreabilidade: <strong>quem consegue responder "de onde veio isso" é quem
-              desenhou o caminho para que a resposta existisse.</strong>
+            <div class="pilar-t">Quebrar em&nbsp;fases e&nbsp;conferir entre&nbsp;elas</div>
+            <div class="pilar-d fr-host">
+              <span class="fr">Trabalho pedido inteiro volta errado inteiro, e&nbsp;sem&nbsp;que&nbsp;se&nbsp;saiba onde&nbsp;errou.</span>
+              <span class="fr">Em&nbsp;etapas, o&nbsp;erro aparece cedo e&nbsp;sai barato.</span> <span class="fr">E&nbsp;é a&nbsp;quebra em&nbsp;fases que&nbsp;produz
+              a&nbsp;rastreabilidade: <strong>quem consegue responder "de&nbsp;onde&nbsp;veio isso" é quem
+              desenhou o&nbsp;caminho para&nbsp;que&nbsp;a&nbsp;resposta existisse.</strong></span>
             </div>
           </div>
         </div>
@@ -1596,85 +1609,84 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div><div class="pilar-n">4</div></div>
           <div>
             <div class="pilar-t">Toda correção vira regra</div>
-            <div class="pilar-d">
-              Correção que fica na cabeça de quem corrigiu se repete para sempre. E
-              correção escrita em lugar que ninguém abre na hora certa também.
-              <strong>Regra é o que é lida no momento em que se faz.</strong> Quem escreve
-              a regra é quem conhece o negócio, não quem entende de tecnologia.
+            <div class="pilar-d fr-host">
+              <span class="fr">Correção que&nbsp;fica na&nbsp;cabeça de&nbsp;quem corrigiu se&nbsp;repete para&nbsp;sempre.</span> <span class="fr">E&nbsp;correção escrita em&nbsp;lugar que&nbsp;ninguém abre na&nbsp;hora certa também.</span>
+              <span class="fr"><strong>Regra é o&nbsp;que&nbsp;é lida no&nbsp;momento em&nbsp;que&nbsp;se&nbsp;faz.</strong></span> <span class="fr">Quem escreve
+              a&nbsp;regra é quem conhece o&nbsp;negócio, não&nbsp;quem entende de&nbsp;tecnologia.</span>
             </div>
           </div>
         </div>
 
-        <p class="p-curto">
-          O&nbsp;pilar 4 é o&nbsp;que&nbsp;separa uma&nbsp;correção que&nbsp;resolve hoje de&nbsp;uma&nbsp;que&nbsp;resolve
-          sempre. O&nbsp;caminho tem quatro etapas, e&nbsp;quase todo mundo para&nbsp;na&nbsp;segunda.
+        <p class="p-curto fr-host">
+          <span class="fr">O&nbsp;pilar 4 é o&nbsp;que&nbsp;separa uma&nbsp;correção que&nbsp;resolve hoje de&nbsp;uma&nbsp;que&nbsp;resolve
+          sempre.</span> <span class="fr">O&nbsp;caminho tem quatro etapas, e&nbsp;quase todo mundo para&nbsp;na&nbsp;segunda.</span>
         </p>
 
         <div class="ciclo">
           <div class="ciclo-et">
             <div class="ciclo-et-n">01</div>
-            <div class="ciclo-et-t">O erro acontece</div>
-            <div class="ciclo-et-d">Alguém entrega com um problema que já tinha aparecido antes.</div>
+            <div class="ciclo-et-t">O&nbsp;erro acontece</div>
+            <div class="ciclo-et-d">Alguém entrega com&nbsp;um&nbsp;problema que&nbsp;já&nbsp;tinha aparecido antes.</div>
           </div>
           <div class="ciclo-et">
             <div class="ciclo-et-n">02</div>
             <div class="ciclo-et-t">Alguém corrige</div>
-            <div class="ciclo-et-d">A correção é feita e explicada. Aqui a maioria para, e o erro volta.</div>
+            <div class="ciclo-et-d fr-host"><span class="fr">A&nbsp;correção é feita e&nbsp;explicada.</span> <span class="fr">Aqui a&nbsp;maioria para,&nbsp;e&nbsp;o&nbsp;erro volta.</span></div>
           </div>
           <div class="ciclo-et">
             <div class="ciclo-et-n">03</div>
-            <div class="ciclo-et-t">Vira uma frase escrita</div>
-            <div class="ciclo-et-d">Curta, no lugar onde o trabalho é feito. Não num manual que ninguém abre.</div>
+            <div class="ciclo-et-t">Vira uma&nbsp;frase escrita</div>
+            <div class="ciclo-et-d fr-host"><span class="fr">Curta, no&nbsp;lugar onde&nbsp;o&nbsp;trabalho é feito.</span> <span class="fr">Não&nbsp;num&nbsp;manual que&nbsp;ninguém abre.</span></div>
           </div>
           <div class="ciclo-et fecha">
             <div class="ciclo-et-n">04</div>
-            <div class="ciclo-et-t">É lida na hora de fazer</div>
-            <div class="ciclo-et-d">Quem faz a próxima vez encontra a regra sem procurar, porque ela está no caminho.</div>
+            <div class="ciclo-et-t">É lida na&nbsp;hora de&nbsp;fazer</div>
+            <div class="ciclo-et-d">Quem faz a&nbsp;próxima vez encontra a&nbsp;regra sem&nbsp;procurar, porque&nbsp;ela está no&nbsp;caminho.</div>
           </div>
         </div>
         <div class="ciclo-volta">
-          Sem a etapa 4, o ciclo volta para a 1 na próxima vez.
+          Sem&nbsp;a&nbsp;etapa 4, o&nbsp;ciclo volta para&nbsp;a&nbsp;1 na&nbsp;próxima vez.
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">O que decide se a regra pega</div>
-          <p class="p-curto">
-            Não&nbsp;é a&nbsp;qualidade do&nbsp;texto: é <strong>onde&nbsp;ele fica</strong>. Regra em&nbsp;manual
-            depende de&nbsp;alguém lembrar de&nbsp;abrir. Regra no&nbsp;formulário que&nbsp;a&nbsp;pessoa preenche
-            de&nbsp;qualquer jeito é lida sem&nbsp;esforço, na&nbsp;hora em&nbsp;que&nbsp;importa. A&nbsp;trava não&nbsp;precisa ser técnica.
+          <p class="p-curto fr-host">
+            <span class="fr">Não&nbsp;é a&nbsp;qualidade do&nbsp;texto: é <strong>onde&nbsp;ele fica</strong>.</span> <span class="fr">Regra em&nbsp;manual
+            depende de&nbsp;alguém lembrar de&nbsp;abrir.</span> <span class="fr">Regra no&nbsp;formulário que&nbsp;a&nbsp;pessoa preenche
+            de&nbsp;qualquer jeito é lida sem&nbsp;esforço, na&nbsp;hora em&nbsp;que&nbsp;importa.</span> <span class="fr">A&nbsp;trava não&nbsp;precisa ser técnica.</span>
           </p>
         </div>
 
         <div class="checagem">
-          <div class="checagem-head">Confira em você mesmo</div>
+          <div class="checagem-head">Confira em&nbsp;você mesmo</div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei quebrar um pedido grande em etapas com resultado conferível</div>
-              <div class="checagem-como">Teste com uma tarefa real da sua semana: quantas etapas, e o que sai de cada uma</div>
+              <div class="checagem-o">Sei quebrar um&nbsp;pedido grande em&nbsp;etapas com&nbsp;resultado conferível</div>
+              <div class="checagem-como">Teste com&nbsp;uma&nbsp;tarefa real da&nbsp;sua&nbsp;semana: quantas etapas, e&nbsp;o&nbsp;que&nbsp;sai de&nbsp;cada uma</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei dizer onde, no meu processo, uma pessoa revisa antes de o resultado sair</div>
-              <div class="checagem-como">E sei dizer, em uma frase concreta, o que acontece se ninguém revisar</div>
+              <div class="checagem-o">Sei dizer onde,&nbsp;no&nbsp;meu&nbsp;processo, uma&nbsp;pessoa revisa antes de&nbsp;o&nbsp;resultado sair</div>
+              <div class="checagem-como">E&nbsp;sei dizer, em&nbsp;uma&nbsp;frase concreta, o&nbsp;que&nbsp;acontece se&nbsp;ninguém revisar</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei transformar uma correção em algo que é lido na hora certa</div>
-              <div class="checagem-como">Campo obrigatório, item na ordem de serviço, linha no modelo. Não uma anotação em ata</div>
+              <div class="checagem-o">Sei transformar uma&nbsp;correção em&nbsp;algo que&nbsp;é lido na&nbsp;hora certa</div>
+              <div class="checagem-como fr-host"><span class="fr">Campo obrigatório, item na&nbsp;ordem de&nbsp;serviço, linha no&nbsp;modelo.</span> <span class="fr">Não&nbsp;uma&nbsp;anotação em&nbsp;ata</span></div>
             </div>
           </div>
         </div>
       </section>
 
       <section class="block" id="s6">
-        <div class="block-num">06 · Para levar</div>
+        <div class="block-num">06 · Para&nbsp;levar</div>
         <h2>Refaça isto com&nbsp;uma&nbsp;conversa da&nbsp;sua&nbsp;área</h2>
 
-        <p class="block-lead">
-          O&nbsp;caso mostrou seis entrevistas em&nbsp;três dias. Aqui está uma,&nbsp;em&nbsp;tamanho de&nbsp;exercício, com&nbsp;o&nbsp;pedido já&nbsp;quebrado nas&nbsp;fases e&nbsp;com&nbsp;o&nbsp;portão entre&nbsp;elas escrito
-          dentro do&nbsp;próprio pedido.
+        <p class="block-lead fr-host">
+          <span class="fr">O&nbsp;caso mostrou seis entrevistas em&nbsp;três dias.</span> <span class="fr">Aqui está uma,&nbsp;em&nbsp;tamanho de&nbsp;exercício, com&nbsp;o&nbsp;pedido já&nbsp;quebrado nas&nbsp;fases e&nbsp;com&nbsp;o&nbsp;portão entre&nbsp;elas escrito
+          dentro do&nbsp;próprio pedido.</span>
         </p>
 
         <div class="step">
@@ -1682,13 +1694,13 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <div class="step-num">01</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 1</div>
-              <div class="step-title">Baixe a transcrição de teste</div>
+              <div class="step-title">Baixe a&nbsp;transcrição de&nbsp;teste</div>
             </div>
           </div>
           <div class="step-body">
-            <p class="p-curto">
-              Está bruta de&nbsp;propósito, com&nbsp;repetição, frase cortada e&nbsp;nome de&nbsp;gente.
-              Tratar isso é a&nbsp;primeira fase do&nbsp;trabalho, e&nbsp;não&nbsp;a&nbsp;última.
+            <p class="p-curto fr-host">
+              <span class="fr">Está bruta de&nbsp;propósito, com&nbsp;repetição, frase cortada e&nbsp;nome de&nbsp;gente.</span>
+              <span class="fr">Tratar isso é a&nbsp;primeira fase do&nbsp;trabalho, e&nbsp;não&nbsp;a&nbsp;última.</span>
             </p>
             <div class="insumo">
               <div>
@@ -1696,7 +1708,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                   <span class="insumo-icone">DOC</span>
                   <span>insumo-entrevista-coordenacao.docx</span>
                 </div>
-                <div class="insumo-meta">48 minutos de transcrição · material fictício</div>
+                <div class="insumo-meta">48 minutos de&nbsp;transcrição · material fictício</div>
               </div>
               <a class="insumo-btn" href="insumo-entrevista-coordenacao.docx" download>Baixar</a>
             </div>
@@ -1708,16 +1720,16 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <div class="step-num">02</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 2</div>
-              <div class="step-title">Copie o pedido em fases</div>
+              <div class="step-title">Copie o&nbsp;pedido em&nbsp;fases</div>
             </div>
           </div>
           <div class="step-body">
-            <p class="p-curto">
-              Este é o&nbsp;pilar 3 escrito dentro do&nbsp;pedido. Repare na&nbsp;frase que&nbsp;se&nbsp;repete no&nbsp;fim de&nbsp;cada fase: é ela que&nbsp;impede a&nbsp;ferramenta de&nbsp;correr até&nbsp;o&nbsp;fim e&nbsp;entregar tudo de&nbsp;uma&nbsp;vez, que&nbsp;é justamente o&nbsp;que&nbsp;faz o&nbsp;erro aparecer tarde.
+            <p class="p-curto fr-host">
+              <span class="fr">Este é o&nbsp;pilar 3 escrito dentro do&nbsp;pedido.</span> <span class="fr">Repare na&nbsp;frase que&nbsp;se&nbsp;repete no&nbsp;fim de&nbsp;cada fase: é ela que&nbsp;impede a&nbsp;ferramenta de&nbsp;correr até&nbsp;o&nbsp;fim e&nbsp;entregar tudo de&nbsp;uma&nbsp;vez, que&nbsp;é justamente o&nbsp;que&nbsp;faz o&nbsp;erro aparecer tarde.</span>
             </p>
             <div class="prompt-box">
               <div class="prompt-toolbar">
-                <span>o pedido em quatro fases, pronto para colar</span>
+                <span>o&nbsp;pedido em&nbsp;quatro fases, pronto para&nbsp;colar</span>
                 <div class="prompt-acoes">
                   <a class="prompt-btn" href="caso-2.md" download>Baixar</a>
                   <button class="prompt-btn principal" data-copia="prompt-caso-2">Copiar</button>
@@ -1778,26 +1790,26 @@ Toda afirmação sua aponta para o horário da fala que a sustenta.</div>
             <div class="step-num">03</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 3</div>
-              <div class="step-title">Confira em cada portão</div>
+              <div class="step-title">Confira em&nbsp;cada portão</div>
             </div>
           </div>
           <div class="step-body">
             <div class="info-grid">
               <div class="info-card">
-                <div class="info-card-label">Portão da fase 1</div>
-                <p class="p-curto">Sobrou algum nome? Se&nbsp;sobrou, ele atravessa para&nbsp;todas as&nbsp;fases seguintes e&nbsp;vai parar no&nbsp;documento final.</p>
+                <div class="info-card-label">Portão da&nbsp;fase 1</div>
+                <p class="p-curto fr-host"><span class="fr">Sobrou algum nome?</span> <span class="fr">Se&nbsp;sobrou, ele atravessa para&nbsp;todas as&nbsp;fases seguintes e&nbsp;vai parar no&nbsp;documento final.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Portão da fase 2</div>
-                <p class="p-curto">Cada achado tem horário da&nbsp;fala. Achado sem&nbsp;horário é achado que&nbsp;você não&nbsp;consegue defender depois.</p>
+                <div class="info-card-label">Portão da&nbsp;fase 2</div>
+                <p class="p-curto fr-host"><span class="fr">Cada achado tem horário da&nbsp;fala.</span> <span class="fr">Achado sem&nbsp;horário é achado que&nbsp;você não&nbsp;consegue defender depois.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Portão da fase 3</div>
-                <p class="p-curto">O&nbsp;critério da&nbsp;nota foi escrito antes de&nbsp;pontuar? Se&nbsp;veio junto, a&nbsp;nota foi justificada depois do&nbsp;palpite.</p>
+                <div class="info-card-label">Portão da&nbsp;fase 3</div>
+                <p class="p-curto fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota foi escrito antes de&nbsp;pontuar?</span> <span class="fr">Se&nbsp;veio junto, a&nbsp;nota foi justificada depois do&nbsp;palpite.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Portão da fase 4</div>
-                <p class="p-curto">Apareceu número que&nbsp;não&nbsp;está na&nbsp;entrevista? É invenção com&nbsp;cara de&nbsp;dado, e&nbsp;é o&nbsp;erro mais caro dos&nbsp;quatro.</p>
+                <div class="info-card-label">Portão da&nbsp;fase 4</div>
+                <p class="p-curto fr-host"><span class="fr">Apareceu número que&nbsp;não&nbsp;está na&nbsp;entrevista?</span> <span class="fr">É invenção com&nbsp;cara de&nbsp;dado, e&nbsp;é o&nbsp;erro mais caro dos&nbsp;quatro.</span></p>
               </div>
             </div>
           </div>
@@ -1805,7 +1817,7 @@ Toda afirmação sua aponta para o horário da fala que a sustenta.</div>
       </section>
       <div class="nav-bottom">
         <a class="nav-link prev" href="../caso-1/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">Caso 1 · Conhecimento espalhado</span></a>
-        <a class="nav-link next" href="../ficha/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">A ficha dos quatro campos</span></a>
+        <a class="nav-link next" href="../ficha/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">A&nbsp;ficha dos&nbsp;quatro campos</span></a>
       </div>
   </main>
 </div>

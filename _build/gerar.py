@@ -9,6 +9,7 @@ CSS, header, nav lateral com scroll-spy, hero, rodapé e a navegação de pé.
 Rodar:  python3 _build/gerar.py
 """
 
+import io
 import os
 import re
 import sys
@@ -144,10 +145,15 @@ LIMITE_DO_PARAGRAFO = 400
 # label entra por causa do canvas: as alternativas da régua são
 # <label class="op"><input><span>texto</span></label>, e é a página que a turma
 # abre no celular. Medido lá: 13 quebras ruins em 375px antes de colar.
+# <li> entrou na terceira medicao: 8 das 9 linhas que ainda terminavam em
+# preposicao moravam em item de lista, seis delas na nav lateral de 232px, que
+# a cola nunca tinha coberto. Nenhuma lista do site tem lista dentro, entao o
+# .*? nao-guloso fecha no </li> certo.
 BLOCO_QUE_COLA = re.compile(
     r'(<h[1-4]\b[^>]*>)(.*?)(</h[1-4]>)'
     r'|(<label\b[^>]*>)(.*?)(</label>)'
-    r'|(<p\b[^>]*>)(.*?)(</p>)',
+    r'|(<p\b[^>]*>)(.*?)(</p>)'
+    r'|(<li\b[^>]*>)(.*?)(</li>)',
     re.S,
 )
 SEM_TAG = re.compile(r"<[^>]+>")
@@ -197,12 +203,331 @@ def cola_quebra_de_linha(html):
             return m.group(1) + _cola_no_trecho(m.group(2)) + m.group(3)
         if m.group(4):                                   # label, sem marcar classe
             return m.group(4) + _cola_no_trecho(m.group(5)) + m.group(6)
-        interno = m.group(8)                             # paragrafo
+        abre, interno, fecha = ((m.group(7), m.group(8), m.group(9)) if m.group(7)
+                                else (m.group(10), m.group(11), m.group(12)))
         visivel = SEM_TAG.sub("", interno).replace("&nbsp;", " ").strip()
         if len(visivel) > LIMITE_DO_PARAGRAFO:
-            return m.group(0)          # paragrafo longo fica com pretty, intocado
-        return _marca_curto(m.group(7)) + _cola_no_trecho(interno) + m.group(9)
+            return m.group(0)          # bloco longo fica com pretty, intocado
+        return _marca_curto(abre) + _cola_no_trecho(interno) + fecha
     return BLOCO_QUE_COLA.sub(troca, html)
+
+
+# ---------------------------------------------------------------------------
+# UMA FRASE POR LINHA
+#
+# Medido no navegador, 7 páginas a 1280px: 283 das 491 frases do site quebravam
+# no meio. A causa não é a coluna ser estreita. A frase mediana ocupa 497px de
+# uma medida de 720px, e 3 de cada 4 frases já cabem inteiras numa linha. Elas
+# quebram porque não COMEÇAM no início da linha: começam no resto que a frase
+# anterior deixou, e o resto não dá. Alargar a medida de 720 para 920 resolveria
+# só mais 13% e daria 122 caracteres por linha, que ninguém lê.
+#
+# O conserto é dar a cada frase a sua própria linha. Duas decisões importam:
+#
+# 1. Quem decide ONDE isso vale é o container query, não uma lista de seletores
+#    escrita à mão. Medido por faixa de largura, a fatia de frases que cabem
+#    numa linha é 10% até 300px, 54% entre 400 e 500, e 77% a partir de 600.
+#    Abaixo de 600 metade das frases quebraria do mesmo jeito, e meia correção
+#    parece acidente. Daí o corte em 600px.
+#
+# 2. O corte acontece na SUPERFÍCIE de qualquer elemento, não só de <p> e <li>.
+#    A primeira versão só cobria esses dois e deixou ~180 frases de prosa de
+#    fora, porque um terço do texto do site mora em <div> e <span> de bloco
+#    (.ex-tx, .fp-v, .fl-d, .checagem-como). Cobrir isso com regex é impossível:
+#    <div>(.*?)</div> fecha na primeira tag de fechamento, não na certa. Daí a
+#    varredura com pilha.
+FIM_DE_FRASE = re.compile(r'[.!?…]["\')”]?$')
+COMECO_DE_FRASE = re.compile(r'^["“(]?[A-ZÀ-Ü]')
+SPAN_FRASE = '<span class="fr">'
+FECHA_SPAN = "</span>"
+
+TAG = re.compile(r'<!--.*?-->|<(?P<fecha>/?)(?P<tag>[a-zA-Z][\w-]*)(?P<attrs>[^>]*)>', re.S)
+PALAVRA_CRUA = re.compile(r'[^ \t\n\r]+')
+
+VAZIA = {"br", "img", "input", "hr", "wbr", "source", "col", "meta", "link",
+         "area", "base", "embed", "param", "track"}
+# Dentro destes o conteúdo não é marcação: um "<" ali é texto, e deixar a
+# varredura interpretar isso desmonta a pilha.
+LITERAL = {"script", "style", "textarea"}
+# Elemento que tem filho de bloco nao e folha de texto: ali as "frases" sao os
+# proprios filhos, e envolve-los num span nao quer dizer nada.
+BLOCO = {"div", "p", "ul", "ol", "li", "section", "article", "table", "tbody",
+         "tr", "td", "figure", "figcaption", "blockquote", "header", "footer",
+         "nav", "main", "aside", "form", "dl", "dt", "dd", "details", "hr",
+         "h1", "h2", "h3", "h4", "h5", "h6"}
+# Onde não se corta: o que não é prosa, e o que é inline por natureza. O
+# container query só vale em elemento que estabelece bloco, então marcar um
+# <strong> não faria nada além de sujar o HTML.
+TAG_SEM_CORTE = LITERAL | {
+    "pre", "code", "title", "option", "select", "head", "svg", "path",
+    "a", "strong", "em", "b", "i", "u", "s", "small", "abbr", "cite", "q",
+    "sub", "sup", "mark", "kbd", "samp", "var", "time", "label", "button",
+    "summary", "th", "caption",
+}
+# .prompt-conteudo é a fonte do .md que o participante baixa, conferida byte a
+# byte pelo G15. .fonte é o cartão de vídeo, que já tem layout próprio. Vale
+# para a ÁRVORE inteira: proibir só o elemento deixou a cola entrar no
+# .fonte-cta lá dentro, e o G25 cegou porque o literal que ele procurava tinha
+# ganhado um espaço rígido no meio.
+CLASSE_SEM_CORTE = {"prompt-conteudo", "fonte", "fonte-txt"}
+
+
+def _classes_de_container(css):
+    """Classes que viram flex ou grid: ali o texto solto é item de layout, e
+    cortá-lo em blocos põe as frases lado a lado em vez de uma por linha."""
+    fora = set()
+    for bloco in css.split("}"):                 # fatiar, porque regex de bloco
+        sel, chave, corpo = bloco.partition("{")  # trava num CSS deste tamanho
+        if not chave or not re.search(r"display\s*:\s*(inline-)?(flex|grid)", corpo):
+            continue
+        fora.update(re.findall(r"\.([a-zA-Z][\w-]*)", sel))
+    return fora
+
+
+def _classes_de(attrs):
+    m = re.search(r'class\s*=\s*"([^"]*)"', attrs)
+    return m.group(1).split() if m else []
+
+
+def _poe_classe(abertura, classe):
+    m = re.search(r'(class\s*=\s*")([^"]*)(")', abertura)
+    if m:
+        nova = (m.group(2) + " " + classe).strip()
+        return abertura[:m.start(2)] + nova + abertura[m.end(2):]
+    corte = re.match(r"<[a-zA-Z][\w-]*", abertura).end()
+    return abertura[:corte] + ' class="' + classe + '"' + abertura[corte:]
+
+
+def _descortar(html):
+    """Tira todo <span class="fr"> com o seu par, e a marca fr-host. É o que faz
+    o passo ser idempotente de verdade: ele sempre recalcula do zero."""
+    remover, pilha = [], []
+    pos = 0
+    while True:
+        m = TAG.search(html, pos)
+        if not m:
+            break
+        pos = m.end()
+        if m.group(0).startswith("<!--"):
+            continue
+        tag = m.group("tag").lower()
+        if tag in LITERAL and not m.group("fecha"):
+            f = re.search(r"</\s*%s\s*>" % tag, html[pos:], re.I)
+            if f:
+                pos += f.end()
+            continue
+        if tag in VAZIA:
+            continue
+        if m.group("fecha"):
+            fundo = next((k for k in range(len(pilha) - 1, -1, -1)
+                          if pilha[k][0] == tag), None)
+            if fundo is None:
+                continue                       # fechamento sem abertura: ignora
+            del pilha[fundo + 1:]              # descarta o que ficou sem fechar
+            _, ehFrase, ini = pilha.pop()
+            if ehFrase:
+                remover.append((m.start(), m.end()))
+                remover.append(ini)
+        else:
+            pilha.append((tag, m.group(0) == SPAN_FRASE, (m.start(), m.end())))
+    saida, ult = [], 0
+    for a, b in sorted(remover):
+        saida.append(html[ult:a])
+        ult = b
+    saida.append(html[ult:])
+    limpo = "".join(saida)
+    # tira a marca; se a classe ficar vazia, o atributo inteiro sai
+    limpo = re.sub(r'(class\s*=\s*")([^"]*)(")',
+                   lambda m: (m.group(1) + " ".join(c for c in m.group(2).split()
+                                                    if c != "fr-host") + m.group(3)),
+                   limpo)
+    limpo = re.sub(r'\s+class\s*=\s*""', "", limpo)
+    return limpo
+
+
+def _cortar(html, fora_de_alcance):
+    ins = []
+
+    def onde_vai_o_container(q):
+        """container-type:inline-size zera a largura de quem se dimensiona pelo
+        conteúdo. Num item de flex isso faz o bloco virar 0px e o texto sair
+        uma palavra por linha: aconteceu, e só a medição no navegador pegou.
+        Então a marca sobe até o primeiro ancestral de largura definida."""
+        abre = q["abre"]
+        i = len(pilha) - 1
+        while i >= 1 and (pilha[i]["classes"] & fora_de_alcance):
+            abre = pilha[i]["abre"]
+            i -= 1
+        return abre
+
+    def fecha_quadro(q):
+        itens = q["itens"]
+        cortes = [i for i in range(len(itens) - 1)
+                  if FIM_DE_FRASE.search(itens[i]["txt"])
+                  and COMECO_DE_FRASE.match(itens[i + 1]["txt"])]
+        if q["corta"] and cortes:
+            ini = 0
+            for fim in [c + 1 for c in cortes] + [len(itens)]:
+                # na MESMA posicao, fechar tem de vir antes de abrir: o fim de
+                # um trecho e o comeco do seguinte caem no mesmo caractere
+                ins.append((itens[ini]["ini"], 1, SPAN_FRASE))
+                ins.append((itens[fim - 1]["fim"], 0, FECHA_SPAN))
+                ini = fim
+            ins.append((None, 2, ("HOST", onde_vai_o_container(q))))
+
+    def texto_do_quadro(q):
+        return " ".join(x["txt"] for x in q["itens"])
+
+    raiz = {"tag": None, "itens": [], "corta": False, "abre": (0, 0), "classes": set()}
+    pilha = [raiz]
+    pos = 0
+    while True:
+        m = TAG.search(html, pos)
+        fim_texto = m.start() if m else len(html)
+        if fim_texto > pos:
+            for p in PALAVRA_CRUA.finditer(html, pos, fim_texto):
+                pilha[-1]["itens"].append({"txt": p.group(0), "ini": p.start(), "fim": p.end()})
+        if not m:
+            break
+        pos = m.end()
+        if m.group(0).startswith("<!--"):
+            continue
+        tag = m.group("tag").lower()
+        if tag in LITERAL and not m.group("fecha"):
+            f = re.search(r"</\s*%s\s*>" % tag, html[pos:], re.I)
+            if f:
+                pos += f.end()
+            continue
+        if tag in VAZIA:
+            # <br> é quebra que o autor escolheu à mão: não disputar com ela
+            pilha[-1]["corta"] = False
+            continue
+        if m.group("fecha"):
+            fundo = next((k for k in range(len(pilha) - 1, 0, -1)
+                          if pilha[k]["tag"] == tag), None)
+            if fundo is None:
+                continue                       # fechamento sem abertura: ignora
+            while len(pilha) > fundo + 1:      # o que ficou sem fechar sai antes
+                fecha_quadro(pilha.pop())
+            q = pilha.pop()
+            fecha_quadro(q)
+            if tag in BLOCO:
+                pilha[-1]["corta"] = False
+            pilha[-1]["itens"].append(
+                {"txt": texto_do_quadro(q), "ini": q["abre"][0], "fim": m.end()})
+        else:
+            classes = _classes_de(m.group("attrs"))
+            proibido = (pilha[-1].get("proibido", False)
+                        or bool(set(classes) & CLASSE_SEM_CORTE))
+            pilha.append({
+                "tag": tag, "itens": [], "abre": (m.start(), m.end()),
+                "classes": set(classes),
+                "proibido": proibido,
+                "corta": (not proibido and tag not in TAG_SEM_CORTE
+                          and not (set(classes) & fora_de_alcance)),
+            })
+    while len(pilha) > 1:
+        fecha_quadro(pilha.pop())
+
+    if not ins:
+        return html
+    vistos, limpos = set(), []
+    for p, ordem, o in ins:
+        if ordem == 2:
+            if o[1] in vistos:
+                continue                       # dois filhos, um contêiner só
+            vistos.add(o[1])
+            p = o[1][0]
+        limpos.append((p, ordem, o))
+    saida, ult = [], 0
+    for p, ordem, o in sorted(limpos, key=lambda x: (x[0], x[1])):
+        if ordem == 2:
+            a, b = o[1]
+            saida.append(html[ult:a])
+            saida.append(_poe_classe(html[a:b], "fr-host"))
+            ult = b
+        else:
+            saida.append(html[ult:p])
+            saida.append(o)
+            ult = p
+    saida.append(html[ult:])
+    return "".join(saida)
+
+
+FORA_DE_ALCANCE = _classes_de_container(
+    io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "base.css"),
+            encoding="utf-8").read())
+ESTILO = re.compile(r"<style[^>]*>(.*?)</style>", re.S | re.I)
+# cola_quebra_de_linha alcança estes por regex; o resto do texto mora em <div> e
+# <span> de bloco, onde regex não fecha na tag certa. Medido: com a cola só
+# nestes, sobravam linhas terminando em artigo dentro de .loop-volta-txt e
+# .agenda-d, que são justamente prosa larga.
+JA_COLADO = {"h1", "h2", "h3", "h4", "label", "p", "li"}
+
+
+def _cola_em_folhas(html, fora_de_alcance):
+    """Cola espaço rígido nas folhas de texto que a regex da cola não alcança."""
+    faixas = []
+    raiz = {"tag": None, "classes": set(), "corta": False, "filho": False, "ini": 0}
+    pilha = [raiz]
+    pos = 0
+    while True:
+        m = TAG.search(html, pos)
+        if not m:
+            break
+        pos = m.end()
+        if m.group(0).startswith("<!--"):
+            continue
+        tag = m.group("tag").lower()
+        if tag in LITERAL and not m.group("fecha"):
+            f = re.search(r"</\s*%s\s*>" % tag, html[pos:], re.I)
+            if f:
+                pos += f.end()
+            continue
+        if tag in VAZIA:
+            pilha[-1]["corta"] = False           # <br> é quebra escolhida à mão
+            continue
+        if m.group("fecha"):
+            fundo = next((k for k in range(len(pilha) - 1, 0, -1)
+                          if pilha[k]["tag"] == tag), None)
+            if fundo is None:
+                continue
+            del pilha[fundo + 1:]
+            q = pilha.pop()
+            # só a folha: se tem descendente colável, quem cola é ele, e colar
+            # duas vezes na mesma faixa gastaria o limite do trecho grudado
+            if q["corta"] and not q["filho"] and q["tag"] not in JA_COLADO:
+                interno = html[q["ini"]:m.start()]
+                if len(SEM_TAG.sub("", interno).replace("&nbsp;", " ").strip()) \
+                        <= LIMITE_DO_PARAGRAFO:
+                    faixas.append((q["ini"], m.start()))
+                    pilha[-1]["filho"] = True
+            elif q["corta"] or q["filho"]:
+                pilha[-1]["filho"] = True
+            continue
+        classes = set(_classes_de(m.group("attrs")))
+        proibido = pilha[-1].get("proibido", False) or bool(classes & CLASSE_SEM_CORTE)
+        pilha.append({"tag": tag, "classes": classes, "ini": m.end(), "filho": False,
+                      "proibido": proibido,
+                      "corta": (not proibido and tag not in TAG_SEM_CORTE
+                                and not (classes & fora_de_alcance))})
+    if not faixas:
+        return html
+    saida, ult = [], 0
+    for a, b in sorted(faixas):
+        saida.append(html[ult:a])
+        saida.append(_cola_no_trecho(html[a:b]))
+        ult = b
+    saida.append(html[ult:])
+    return "".join(saida)
+
+
+def uma_frase_por_linha(html):
+    """Sempre recalcula do zero, então rodar de novo devolve o mesmo arquivo."""
+    # .folha-pe e outras vivem num <style> dentro do fragmento, não no base.css.
+    # Ler só o base.css deixaria de fora metade dos contêineres flex.
+    fora = FORA_DE_ALCANCE | _classes_de_container("\n".join(ESTILO.findall(html)))
+    return _cortar(_cola_em_folhas(_descortar(html), fora), fora)
 
 
 def extrai_nav(fragmento):
@@ -449,7 +774,7 @@ def main():
             print("  falta o conteúdo: " + frag_path)
             continue
         fragmento = open(frag_path, encoding="utf-8").read()
-        html = cola_quebra_de_linha(monta(slug, cfg, fragmento))
+        html = uma_frase_por_linha(cola_quebra_de_linha(monta(slug, cfg, fragmento)))
         for rel_md, n in grava_prompts(slug, fragmento):
             print("  prompt:  {:45s} {} caracteres".format(rel_md, n))
         destino = os.path.join(RAIZ, slug, "index.html") if slug else os.path.join(RAIZ, "index.html")

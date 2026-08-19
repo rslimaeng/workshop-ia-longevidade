@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1155,24 +1170,24 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>Onde a inteligência artificial entra no seu trabalho</a></li>
-      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>O que não vira registro não existe</a></li>
-      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Resultado ruim é falta de contexto, não de capacidade</a></li>
-      <li class="side-nav-item"><a href="#s-pratica"><span class="side-nav-num">04</span>Como isso vira rotina, e não projeto de tecnologia</a></li>
-      <li class="side-nav-item"><a href="#s-fora"><span class="side-nav-num">05</span>Três empresas que fecharam o loop, em passo a passo</a></li>
-      <li class="side-nav-item"><a href="#s-setor"><span class="side-nav-num">06</span>O mesmo desenho, na rotina que vocês apontaram</a></li>
-      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">07</span>Onde a inteligência artificial não deve entrar</a></li>
-      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">08</span>O que só existe na cabeça de alguém</a></li>
-      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">09</span>Você sabe fazer isto agora</a></li>
+      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;seu&nbsp;trabalho</a></li>
+      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</a></li>
+      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</a></li>
+      <li class="side-nav-item p-curto"><a href="#s-pratica"><span class="side-nav-num">04</span>Como isso vira rotina, e&nbsp;não&nbsp;projeto de&nbsp;tecnologia</a></li>
+      <li class="side-nav-item p-curto"><a href="#s-fora"><span class="side-nav-num">05</span>Três empresas que&nbsp;fecharam o&nbsp;loop, em&nbsp;passo a&nbsp;passo</a></li>
+      <li class="side-nav-item p-curto"><a href="#s-setor"><span class="side-nav-num">06</span>O&nbsp;mesmo desenho, na&nbsp;rotina que&nbsp;vocês apontaram</a></li>
+      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">07</span>Onde&nbsp;a&nbsp;inteligência artificial não&nbsp;deve entrar</a></li>
+      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">08</span>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém</a></li>
+      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">09</span>Você sabe fazer isto agora</a></li>
     </ul>
   </nav>
   <main>
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Bloco 2</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; Bloco 2</div>
       <div class="hero">
-        <div class="hero-eyebrow">Bloco 2 · Pilares 1 e 2</div>
+        <div class="hero-eyebrow">Bloco 2 · Pilares 1 e&nbsp;2</div>
         <h1>O&nbsp;que&nbsp;muda com&nbsp;AI First</h1>
-        <p class="hero-lead">A&nbsp;diferença entre&nbsp;usar a&nbsp;inteligência artificial no&nbsp;fim do&nbsp;trabalho e&nbsp;colocá-la no&nbsp;desenho desde&nbsp;o&nbsp;começo. E&nbsp;os&nbsp;dois pilares que&nbsp;sustentam isso.</p>
+        <p class="hero-lead fr-host"><span class="fr">A&nbsp;diferença entre&nbsp;usar a&nbsp;inteligência artificial no&nbsp;fim do&nbsp;trabalho e&nbsp;colocá-la no&nbsp;desenho desde&nbsp;o&nbsp;começo.</span> <span class="fr">E&nbsp;os&nbsp;dois pilares que&nbsp;sustentam isso.</span></p>
         <div class="hero-meta">
         <span class="chip">Pilar 1 · Registro</span>
         <span class="chip">Pilar 2 · Contexto</span>
@@ -1180,46 +1195,44 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       </div>
 
 <section class="block" id="s1">
-        <div class="block-num">01 · O conceito</div>
+        <div class="block-num">01 · O&nbsp;conceito</div>
         <h2>Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;seu&nbsp;trabalho</h2>
 
-        <p class="block-lead">
-          Quase todo mundo já&nbsp;usou IA para&nbsp;acelerar uma&nbsp;tarefa. Escrever um&nbsp;e-mail mais
-          rápido, resumir um&nbsp;texto, gerar uma&nbsp;imagem. Isso funciona, e&nbsp;não&nbsp;é o&nbsp;que&nbsp;este
-          dia trata.
+        <p class="block-lead fr-host">
+          <span class="fr">Quase todo mundo já&nbsp;usou IA para&nbsp;acelerar uma&nbsp;tarefa.</span> <span class="fr">Escrever um&nbsp;e-mail mais
+          rápido, resumir um&nbsp;texto, gerar uma&nbsp;imagem.</span> <span class="fr">Isso funciona, e&nbsp;não&nbsp;é o&nbsp;que&nbsp;este
+          dia trata.</span>
         </p>
 
-        <p class="p-curto">
-          A&nbsp;diferença aparece quando&nbsp;você desenha o&nbsp;processo inteiro e&nbsp;marca onde&nbsp;a&nbsp;inteligência artificial encosta. Veja o&nbsp;mesmo trabalho, das&nbsp;duas formas.
+        <p class="p-curto fr-host">
+          <span class="fr">A&nbsp;diferença aparece quando&nbsp;você desenha o&nbsp;processo inteiro e&nbsp;marca onde&nbsp;a&nbsp;inteligência artificial encosta.</span> <span class="fr">Veja o&nbsp;mesmo trabalho, das&nbsp;duas formas.</span>
         </p>
 
         <div class="vias">
           <div class="via antes">
             <div class="via-rot">A IA no fim · cinco passos</div>
-            <div class="via-passo"><span class="via-passo-n">01</span><span>Chega a dúvida de um candidato</span></div>
-            <div class="via-passo"><span class="via-passo-n">02</span><span>Alguém abre e lê</span></div>
-            <div class="via-passo"><span class="via-passo-n">03</span><span>Procura a resposta com quem sabe</span></div>
-            <div class="via-passo eh-ia"><span class="via-passo-n">04</span><span>Escreve a resposta com ajuda da IA</span></div>
-            <div class="via-passo"><span class="via-passo-n">05</span><span>Revisa e envia</span></div>
-            <div class="via-fecho">
-              A etapa 4 ficou mais rápida. As outras quatro continuam iguais, e o
-              processo continua dependendo de quem sabe a resposta.
+            <div class="via-passo"><span class="via-passo-n">01</span><span>Chega a&nbsp;dúvida de&nbsp;um&nbsp;candidato</span></div>
+            <div class="via-passo"><span class="via-passo-n">02</span><span>Alguém abre e&nbsp;lê</span></div>
+            <div class="via-passo"><span class="via-passo-n">03</span><span>Procura a&nbsp;resposta com&nbsp;quem sabe</span></div>
+            <div class="via-passo eh-ia"><span class="via-passo-n">04</span><span>Escreve a&nbsp;resposta com&nbsp;ajuda da&nbsp;IA</span></div>
+            <div class="via-passo"><span class="via-passo-n">05</span><span>Revisa e&nbsp;envia</span></div>
+            <div class="via-fecho fr-host">
+              <span class="fr">A&nbsp;etapa 4 ficou mais rápida.</span> <span class="fr">As&nbsp;outras quatro continuam iguais, e&nbsp;o&nbsp;processo continua dependendo de&nbsp;quem sabe a&nbsp;resposta.</span>
             </div>
           </div>
           <div class="via depois">
             <div class="via-rot">A IA no desenho · três passos</div>
-            <div class="via-passo"><span class="via-passo-n">01</span><span>Chega a dúvida de um candidato</span></div>
-            <div class="via-passo eh-ia"><span class="via-passo-n">02</span><span>Cai onde as respostas já estão escritas, e sai uma resposta pronta</span></div>
-            <div class="via-passo"><span class="via-passo-n">03</span><span>Uma pessoa confere só o que fugiu do padrão</span></div>
-            <div class="via-fecho">
-              Duas etapas deixaram de existir. O que mudou não foi a velocidade de
-              escrever: foi <strong>ter as respostas escritas em algum lugar</strong>.
+            <div class="via-passo"><span class="via-passo-n">01</span><span>Chega a&nbsp;dúvida de&nbsp;um&nbsp;candidato</span></div>
+            <div class="via-passo eh-ia"><span class="via-passo-n">02</span><span>Cai onde&nbsp;as&nbsp;respostas já&nbsp;estão escritas, e&nbsp;sai uma&nbsp;resposta pronta</span></div>
+            <div class="via-passo"><span class="via-passo-n">03</span><span>Uma&nbsp;pessoa confere só&nbsp;o&nbsp;que&nbsp;fugiu do&nbsp;padrão</span></div>
+            <div class="via-fecho fr-host">
+              <span class="fr">Duas etapas deixaram de&nbsp;existir.</span> <span class="fr">O&nbsp;que&nbsp;mudou não&nbsp;foi a&nbsp;velocidade de&nbsp;escrever: foi <strong>ter as&nbsp;respostas escritas em&nbsp;algum lugar</strong>.</span>
             </div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          O&nbsp;mesmo trabalho, desenhado das&nbsp;duas formas. À&nbsp;esquerda a&nbsp;IA entra no&nbsp;fim e&nbsp;acelera uma&nbsp;etapa. À&nbsp;direita ela entra no&nbsp;desenho, e&nbsp;o&nbsp;processo encolhe.
+        <p class="fig-leg fr-host">
+          <span class="fr">O&nbsp;mesmo trabalho, desenhado das&nbsp;duas formas.</span> <span class="fr">À&nbsp;esquerda a&nbsp;IA entra no&nbsp;fim e&nbsp;acelera uma&nbsp;etapa.</span> <span class="fr">À&nbsp;direita ela entra no&nbsp;desenho, e&nbsp;o&nbsp;processo encolhe.</span>
         </p>
 
         <a class="fonte" href="https://www.youtube.com/watch?v=LztPaNmcWGU"
@@ -1237,37 +1250,37 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="card-grid-2">
           <div class="card">
-            <div class="card-eyebrow">A IA no fim do trabalho</div>
+            <div class="card-eyebrow">A&nbsp;IA no&nbsp;fim do&nbsp;trabalho</div>
             <h4>Acelera uma&nbsp;tarefa já&nbsp;desenhada</h4>
-            <p class="p-curto">
-              O&nbsp;processo continua o&nbsp;mesmo. A&nbsp;pessoa faz o&nbsp;que&nbsp;sempre fez, só&nbsp;que&nbsp;mais
-              rápido em&nbsp;uma&nbsp;etapa.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;processo continua o&nbsp;mesmo.</span> <span class="fr">A&nbsp;pessoa faz o&nbsp;que&nbsp;sempre fez, só&nbsp;que&nbsp;mais
+              rápido em&nbsp;uma&nbsp;etapa.</span>
             </p>
             <ul>
-              <li>O ganho é de quem descobriu o atalho</li>
-              <li>Some quando essa pessoa sai de férias</li>
-              <li>Não aparece em indicador nenhum</li>
+              <li class="p-curto">O&nbsp;ganho é de&nbsp;quem descobriu o&nbsp;atalho</li>
+              <li class="p-curto">Some quando&nbsp;essa pessoa sai de&nbsp;férias</li>
+              <li class="p-curto">Não&nbsp;aparece em&nbsp;indicador nenhum</li>
             </ul>
           </div>
           <div class="card card-accent">
-            <div class="card-eyebrow">A IA no desenho do trabalho</div>
+            <div class="card-eyebrow">A&nbsp;IA no&nbsp;desenho do&nbsp;trabalho</div>
             <h4>Muda como o&nbsp;processo funciona</h4>
             <p class="p-curto">
               A&nbsp;pergunta deixa de&nbsp;ser sobre&nbsp;a&nbsp;tarefa e&nbsp;passa a&nbsp;ser sobre&nbsp;o&nbsp;processo
               inteiro: quais etapas ainda precisam existir?
             </p>
             <ul>
-              <li>O ganho fica no processo, não na pessoa</li>
-              <li>Sobrevive à troca de quem executa</li>
-              <li>Dá para medir antes e depois</li>
+              <li class="p-curto">O&nbsp;ganho fica no&nbsp;processo, não&nbsp;na&nbsp;pessoa</li>
+              <li class="p-curto">Sobrevive à&nbsp;troca de&nbsp;quem executa</li>
+              <li class="p-curto">Dá para&nbsp;medir antes e&nbsp;depois</li>
             </ul>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">A definição prática de AI First</div>
-          <p class="p-curto">
-            <strong>AI First é a&nbsp;diferença entre&nbsp;usar a&nbsp;IA no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada, e&nbsp;colocá-la no&nbsp;desenho desde&nbsp;o&nbsp;começo.</strong> A&nbsp;primeira forma dá ganho pontual e&nbsp;some. A&nbsp;segunda muda o&nbsp;processo, e&nbsp;é o&nbsp;que&nbsp;faz a&nbsp;IA passar de&nbsp;ferramenta ocasional a&nbsp;parte da&nbsp;rotina.
+          <p class="p-curto fr-host">
+            <span class="fr"><strong>AI First é a&nbsp;diferença entre&nbsp;usar a&nbsp;IA no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada, e&nbsp;colocá-la no&nbsp;desenho desde&nbsp;o&nbsp;começo.</strong></span> <span class="fr">A&nbsp;primeira forma dá ganho pontual e&nbsp;some.</span> <span class="fr">A&nbsp;segunda muda o&nbsp;processo, e&nbsp;é o&nbsp;que&nbsp;faz a&nbsp;IA passar de&nbsp;ferramenta ocasional a&nbsp;parte da&nbsp;rotina.</span>
           </p>
         </div>
       </section>
@@ -1276,15 +1289,15 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="block-num">02 · Pilar 1</div>
         <h2>O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</h2>
 
-        <p class="block-lead">
-          A&nbsp;inteligência artificial só&nbsp;enxerga o&nbsp;que&nbsp;está escrito. Esta é a&nbsp;limitação mais
-          simples de&nbsp;entender e&nbsp;a&nbsp;mais cara de&nbsp;ignorar.
+        <p class="block-lead fr-host">
+          <span class="fr">A&nbsp;inteligência artificial só&nbsp;enxerga o&nbsp;que&nbsp;está escrito.</span> <span class="fr">Esta é a&nbsp;limitação mais
+          simples de&nbsp;entender e&nbsp;a&nbsp;mais cara de&nbsp;ignorar.</span>
         </p>
 
-        <p class="p-curto">
-          Pense no&nbsp;que&nbsp;a&nbsp;sua&nbsp;área sabe fazer bem. Boa parte desse conhecimento não&nbsp;está em&nbsp;documento nenhum. Está na&nbsp;conversa de&nbsp;corredor, na&nbsp;reunião que&nbsp;ninguém registrou,
-          no&nbsp;jeito que&nbsp;uma&nbsp;pessoa específica resolve um&nbsp;caso difícil. Para&nbsp;a&nbsp;IA, nada disso
-          existe.
+        <p class="p-curto fr-host">
+          <span class="fr">Pense no&nbsp;que&nbsp;a&nbsp;sua&nbsp;área sabe fazer bem.</span> <span class="fr">Boa parte desse conhecimento não&nbsp;está em&nbsp;documento nenhum.</span> <span class="fr">Está na&nbsp;conversa de&nbsp;corredor, na&nbsp;reunião que&nbsp;ninguém registrou,
+          no&nbsp;jeito que&nbsp;uma&nbsp;pessoa específica resolve um&nbsp;caso difícil.</span> <span class="fr">Para&nbsp;a&nbsp;IA, nada disso
+          existe.</span>
         </p>
 
         <h3>O&nbsp;teste dos&nbsp;três tipos de&nbsp;conhecimento invisível</h3>
@@ -1293,73 +1306,71 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">Tipo 1</div>
             <h4>O&nbsp;jeito que&nbsp;se&nbsp;aprende observando</h4>
-            <p class="p-curto">
-              Ninguém ensinou, a&nbsp;pessoa viu alguém fazer e&nbsp;copiou. Se&nbsp;você tivesse que&nbsp;explicar a&nbsp;alguém que&nbsp;começou ontem, levaria meia hora e&nbsp;ainda faltaria coisa.
+            <p class="p-curto fr-host">
+              <span class="fr">Ninguém ensinou, a&nbsp;pessoa viu alguém fazer e&nbsp;copiou.</span> <span class="fr">Se&nbsp;você tivesse que&nbsp;explicar a&nbsp;alguém que&nbsp;começou ontem, levaria meia hora e&nbsp;ainda faltaria coisa.</span>
             </p>
           </div>
           <div class="card">
             <div class="card-eyebrow">Tipo 2</div>
             <h4>A&nbsp;regra que&nbsp;não&nbsp;está escrita</h4>
-            <p class="p-curto">
-              Todo mundo da&nbsp;área respeita, mas&nbsp;não&nbsp;está em&nbsp;manual nenhum. Quem chega novo
-              descobre errando uma&nbsp;vez.
+            <p class="p-curto fr-host">
+              <span class="fr">Todo mundo da&nbsp;área respeita, mas&nbsp;não&nbsp;está em&nbsp;manual nenhum.</span> <span class="fr">Quem chega novo
+              descobre errando uma&nbsp;vez.</span>
             </p>
           </div>
           <div class="card">
             <div class="card-eyebrow">Tipo 3</div>
             <h4>A&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa trata</h4>
-            <p class="p-curto">
-              Quando&nbsp;aparece aquele caso, todo mundo procura a&nbsp;mesma pessoa. Se&nbsp;ela estiver
-              de&nbsp;férias, o&nbsp;caso espera.
+            <p class="p-curto fr-host">
+              <span class="fr">Quando&nbsp;aparece aquele caso, todo mundo procura a&nbsp;mesma pessoa.</span> <span class="fr">Se&nbsp;ela estiver
+              de&nbsp;férias, o&nbsp;caso espera.</span>
             </p>
           </div>
         </div>
 
         <h3>E&nbsp;onde&nbsp;cada coisa registrada vai morar</h3>
-        <p class="p-curto">
-          Saber o&nbsp;que&nbsp;está faltando é metade. A&nbsp;outra metade é não&nbsp;jogar tudo no&nbsp;mesmo
-          lugar. Ayush, da&nbsp;Answer This, descreve três gavetas, e&nbsp;a&nbsp;divisão vale para&nbsp;qualquer área, com&nbsp;ou&nbsp;sem&nbsp;inteligência artificial envolvida.
+        <p class="p-curto fr-host">
+          <span class="fr">Saber o&nbsp;que&nbsp;está faltando é metade.</span> <span class="fr">A&nbsp;outra metade é não&nbsp;jogar tudo no&nbsp;mesmo
+          lugar.</span> <span class="fr">Ayush, da&nbsp;Answer This, descreve três gavetas, e&nbsp;a&nbsp;divisão vale para&nbsp;qualquer área, com&nbsp;ou&nbsp;sem&nbsp;inteligência artificial envolvida.</span>
         </p>
         <div class="tipos">
           <div class="tipo">
             <div class="tipo-n">1</div>
-            <div class="tipo-t">O que é fato sobre a instituição</div>
-            <div class="tipo-d">
-              Como as coisas são e funcionam aqui: estrutura, números, prazos, nomes das
-              etapas. Muda pouco, e quem chega precisa disso no primeiro dia.
+            <div class="tipo-t">O&nbsp;que&nbsp;é fato sobre&nbsp;a&nbsp;instituição</div>
+            <div class="tipo-d fr-host">
+              <span class="fr">Como as&nbsp;coisas são e&nbsp;funcionam aqui: estrutura, números, prazos, nomes das&nbsp;etapas.</span> <span class="fr">Muda pouco, e&nbsp;quem chega precisa disso no&nbsp;primeiro dia.</span>
             </div>
-            <div class="tipo-ex">Na prática: a lista das áreas, o calendário do ano, os prazos que não se movem.</div>
+            <div class="tipo-ex">Na&nbsp;prática: a&nbsp;lista das&nbsp;áreas, o&nbsp;calendário do&nbsp;ano, os&nbsp;prazos que&nbsp;não&nbsp;se&nbsp;movem.</div>
           </div>
           <div class="tipo">
             <div class="tipo-n">2</div>
-            <div class="tipo-t">Como aqui se faz</div>
-            <div class="tipo-d">
-              O jeito da casa, incluindo o que se corrige sempre. É a gaveta que mais
-              cresce, porque toda correção vai para cá.
+            <div class="tipo-t">Como aqui se&nbsp;faz</div>
+            <div class="tipo-d fr-host">
+              <span class="fr">O&nbsp;jeito da&nbsp;casa, incluindo o&nbsp;que&nbsp;se&nbsp;corrige sempre.</span> <span class="fr">É a&nbsp;gaveta que&nbsp;mais
+              cresce, porque&nbsp;toda correção vai para&nbsp;cá.</span>
             </div>
-            <div class="tipo-ex">Na prática: nunca prometer prazo sem confirmar com a coordenação; valor sempre em reais.</div>
+            <div class="tipo-ex">Na&nbsp;prática: nunca prometer prazo sem&nbsp;confirmar com&nbsp;a&nbsp;coordenação; valor sempre em&nbsp;reais.</div>
           </div>
           <div class="tipo">
             <div class="tipo-n">3</div>
-            <div class="tipo-t">O passo a passo de uma tarefa</div>
-            <div class="tipo-d">
-              A rotina que se repete, escrita na ordem em que acontece. Só serve para
-              aquela tarefa, e é longa de propósito.
+            <div class="tipo-t">O&nbsp;passo a&nbsp;passo de&nbsp;uma&nbsp;tarefa</div>
+            <div class="tipo-d fr-host">
+              <span class="fr">A&nbsp;rotina que&nbsp;se&nbsp;repete, escrita na&nbsp;ordem em&nbsp;que&nbsp;acontece.</span> <span class="fr">Só&nbsp;serve para&nbsp;aquela tarefa, e&nbsp;é longa de&nbsp;propósito.</span>
             </div>
-            <div class="tipo-ex">Na prática: como se fecha o relatório do mês, do primeiro filtro à última seção.</div>
+            <div class="tipo-ex">Na&nbsp;prática: como se&nbsp;fecha o&nbsp;relatório do&nbsp;mês, do&nbsp;primeiro filtro à&nbsp;última seção.</div>
           </div>
         </div>
-        <p class="fig-leg">
-          A&nbsp;gaveta 2 é a&nbsp;que&nbsp;quase ninguém tem, e&nbsp;é a&nbsp;que&nbsp;faz diferença: <strong>é nela
-          que&nbsp;a&nbsp;correção de&nbsp;hoje vira a&nbsp;regra de&nbsp;amanhã</strong>. Sem&nbsp;ela, você corrige a&nbsp;mesma coisa toda semana e&nbsp;chama isso de&nbsp;acompanhar de&nbsp;perto.
+        <p class="fig-leg fr-host">
+          <span class="fr">A&nbsp;gaveta 2 é a&nbsp;que&nbsp;quase ninguém tem, e&nbsp;é a&nbsp;que&nbsp;faz diferença: <strong>é nela
+          que&nbsp;a&nbsp;correção de&nbsp;hoje vira a&nbsp;regra de&nbsp;amanhã</strong>.</span> <span class="fr">Sem&nbsp;ela, você corrige a&nbsp;mesma coisa toda semana e&nbsp;chama isso de&nbsp;acompanhar de&nbsp;perto.</span>
         </p>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que este é o pilar mais barato do dia</div>
-          <p class="p-curto">
-            Os&nbsp;outros quatro pilares mudam como você pede e&nbsp;como você confere. Este muda
-            só&nbsp;uma&nbsp;coisa: <strong>o&nbsp;que&nbsp;estava na&nbsp;conversa passa a&nbsp;estar escrito</strong>.
-            Não&nbsp;se&nbsp;compra nada, não&nbsp;se&nbsp;pede nada a&nbsp;TI. Decide-se registrar.
+          <p class="p-curto fr-host">
+            <span class="fr">Os&nbsp;outros quatro pilares mudam como você pede e&nbsp;como você confere.</span> <span class="fr">Este muda
+            só&nbsp;uma&nbsp;coisa: <strong>o&nbsp;que&nbsp;estava na&nbsp;conversa passa a&nbsp;estar escrito</strong>.</span>
+            <span class="fr">Não&nbsp;se&nbsp;compra nada, não&nbsp;se&nbsp;pede nada a&nbsp;TI.</span> <span class="fr">Decide-se registrar.</span>
           </p>
         </div>
       </section>
@@ -1368,44 +1379,43 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="block-num">03 · Pilar 2</div>
         <h2>Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</h2>
 
-        <p class="block-lead">
-          Quando&nbsp;a&nbsp;resposta vem genérica, a&nbsp;reação natural é culpar a&nbsp;ferramenta. Quase
-          sempre a&nbsp;causa é outra: o&nbsp;pedido não&nbsp;disse o&nbsp;que&nbsp;a&nbsp;ferramenta precisava saber.
+        <p class="block-lead fr-host">
+          <span class="fr">Quando&nbsp;a&nbsp;resposta vem genérica, a&nbsp;reação natural é culpar a&nbsp;ferramenta.</span> <span class="fr">Quase
+          sempre a&nbsp;causa é outra: o&nbsp;pedido não&nbsp;disse o&nbsp;que&nbsp;a&nbsp;ferramenta precisava saber.</span>
         </p>
 
-        <p class="p-curto">
-          A&nbsp;comparação abaixo usa o&nbsp;mesmo pedido, para&nbsp;a&nbsp;mesma ferramenta, no&nbsp;mesmo dia. A&nbsp;única diferença é o&nbsp;que&nbsp;a&nbsp;pessoa escreveu antes de&nbsp;pedir.
+        <p class="p-curto fr-host">
+          <span class="fr">A&nbsp;comparação abaixo usa o&nbsp;mesmo pedido, para&nbsp;a&nbsp;mesma ferramenta, no&nbsp;mesmo dia.</span> <span class="fr">A&nbsp;única diferença é o&nbsp;que&nbsp;a&nbsp;pessoa escreveu antes de&nbsp;pedir.</span>
         </p>
 
-        <div class="compare">
+        <div class="compare fr-host">
           <div class="compare-side antes">
             <span class="label">Pedido sem contexto</span>
-            <div class="compare-quote">Escreva um comunicado avisando que
-a data do módulo mudou.</div>
+            <div class="compare-quote">Escreva um&nbsp;comunicado avisando que&nbsp;a&nbsp;data do&nbsp;módulo mudou.</div>
             <p class="p-curto">
-              Volta um&nbsp;texto correto, educado e&nbsp;inútil. Serve para&nbsp;qualquer instituição de&nbsp;qualquer setor. Vai precisar ser reescrito inteiro.
+              <span class="fr">Volta um&nbsp;texto correto, educado e&nbsp;inútil.</span> <span class="fr">Serve para&nbsp;qualquer instituição de&nbsp;qualquer setor.</span> <span class="fr">Vai precisar ser reescrito inteiro.</span>
             </p>
           </div>
           <div class="compare-side depois">
             <span class="label">Pedido com contexto</span>
-            <div class="compare-quote">Você escreve para alunos de um curso de
+            <div class="compare-quote"><span class="fr">Você escreve para alunos de um curso de
 pós-graduação em medicina, que são médicos em
 atividade e organizam plantão com semanas de
-antecedência.
+antecedência.</span>
 
-O módulo de sábado mudou de 12/09 para 26/09,
-por indisponibilidade do professor convidado.
-Quem já se programou precisa de tempo para
-remarcar plantão.
+<span class="fr">O módulo de sábado mudou de 12/09 para 26/09,
+por indisponibilidade do professor convidado.</span>
+<span class="fr">Quem já se programou precisa de tempo para
+remarcar plantão.</span>
 
-Nossa comunicação com aluno é sempre direta,
+<span class="fr">Nossa comunicação com aluno é sempre direta,
 sem rodeio, e sempre diz o que a pessoa precisa
-fazer agora. Nunca pedimos desculpas mais de
-uma vez no mesmo texto.
+fazer agora.</span> <span class="fr">Nunca pedimos desculpas mais de
+uma vez no mesmo texto.</span>
 
-Escreva o comunicado. No máximo dez linhas.</div>
+<span class="fr">Escreva o comunicado.</span> <span class="fr">No máximo dez linhas.</span></div>
             <p class="p-curto">
-              Volta um&nbsp;texto que&nbsp;reconhece o&nbsp;transtorno real, diz a&nbsp;data nova logo no&nbsp;começo e&nbsp;termina com&nbsp;a&nbsp;ação. Sai pronto ou&nbsp;perto disso.
+              <span class="fr">Volta um&nbsp;texto que&nbsp;reconhece o&nbsp;transtorno real, diz a&nbsp;data nova logo no&nbsp;começo e&nbsp;termina com&nbsp;a&nbsp;ação.</span> <span class="fr">Sai pronto ou&nbsp;perto disso.</span>
             </p>
           </div>
         </div>
@@ -1435,9 +1445,8 @@ Escreva o comunicado. No máximo dez linhas.</div>
                 </div>
               </div>
             </div>
-            <div class="via-fecho">
-              Não diz a data nova, não diz o que fazer, e pede desculpa antes de
-              informar. Serve para qualquer instituição de qualquer setor.
+            <div class="via-fecho fr-host">
+              <span class="fr">Não&nbsp;diz a&nbsp;data nova, não&nbsp;diz o&nbsp;que&nbsp;fazer, e&nbsp;pede desculpa antes de&nbsp;informar.</span> <span class="fr">Serve para&nbsp;qualquer instituição de&nbsp;qualquer setor.</span>
             </div>
           </div>
           <div class="via depois">
@@ -1461,15 +1470,14 @@ Escreva o comunicado. No máximo dez linhas.</div>
               </div>
             </div>
             <div class="via-fecho">
-              Abre com a informação, explica em uma linha, e termina com o que a
-              pessoa precisa fazer agora.
+              Abre com&nbsp;a&nbsp;informação, explica em&nbsp;uma&nbsp;linha, e&nbsp;termina com&nbsp;o&nbsp;que&nbsp;a&nbsp;pessoa precisa fazer agora.
             </div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          Mesma ferramenta, mesmo dia. A&nbsp;diferença inteira está no&nbsp;que&nbsp;a&nbsp;pessoa
-          escreveu antes de&nbsp;pedir.
+        <p class="fig-leg fr-host">
+          <span class="fr">Mesma ferramenta, mesmo dia.</span> <span class="fr">A&nbsp;diferença inteira está no&nbsp;que&nbsp;a&nbsp;pessoa
+          escreveu antes de&nbsp;pedir.</span>
         </p>
 
         <h3>Os&nbsp;quatro campos que&nbsp;quase sempre faltam</h3>
@@ -1478,31 +1486,31 @@ Escreva o comunicado. No máximo dez linhas.</div>
           <table>
             <thead>
               <tr>
-                <th style="width:22%">O campo</th>
-                <th style="width:38%">A pergunta que ele responde</th>
-                <th>Exemplo no pedido acima</th>
+                <th style="width:22%">O&nbsp;campo</th>
+                <th style="width:38%">A&nbsp;pergunta que&nbsp;ele responde</th>
+                <th>Exemplo no&nbsp;pedido acima</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><strong>Quem lê</strong></td>
-                <td>Para quem este resultado vai?</td>
-                <td>Médicos em atividade, que organizam plantão com antecedência</td>
+                <td>Para&nbsp;quem este resultado vai?</td>
+                <td>Médicos em&nbsp;atividade, que&nbsp;organizam plantão com&nbsp;antecedência</td>
               </tr>
               <tr>
-                <td><strong>O que está acontecendo</strong></td>
-                <td>Qual é a situação, com os fatos concretos?</td>
-                <td>A data mudou, de 12/09 para 26/09, por indisponibilidade do professor</td>
+                <td><strong>O&nbsp;que&nbsp;está acontecendo</strong></td>
+                <td>Qual é a&nbsp;situação, com&nbsp;os&nbsp;fatos concretos?</td>
+                <td>A&nbsp;data mudou, de&nbsp;12/09 para&nbsp;26/09, por&nbsp;indisponibilidade do&nbsp;professor</td>
               </tr>
               <tr>
-                <td><strong>A regra da casa</strong></td>
-                <td>Como aqui se faz isso, e como não se faz?</td>
-                <td>Direto, sem rodeio, e nunca pedir desculpa duas vezes</td>
+                <td><strong>A&nbsp;regra da&nbsp;casa</strong></td>
+                <td>Como aqui se&nbsp;faz isso, e&nbsp;como não&nbsp;se&nbsp;faz?</td>
+                <td>Direto, sem&nbsp;rodeio, e&nbsp;nunca pedir desculpa duas vezes</td>
               </tr>
               <tr>
-                <td><strong>O limite</strong></td>
-                <td>Qual é o formato e o tamanho?</td>
-                <td>Um comunicado, no máximo dez linhas</td>
+                <td><strong>O&nbsp;limite</strong></td>
+                <td>Qual é o&nbsp;formato e&nbsp;o&nbsp;tamanho?</td>
+                <td>Um&nbsp;comunicado, no&nbsp;máximo dez linhas</td>
               </tr>
             </tbody>
           </table>
@@ -1510,25 +1518,25 @@ Escreva o comunicado. No máximo dez linhas.</div>
 
         <div class="callout callout-info">
           <div class="callout-title">A régua de escrita do contexto</div>
-          <p class="p-curto">
-            Escreva o&nbsp;contexto como você explicaria a&nbsp;tarefa <strong>a&nbsp;alguém que&nbsp;começou
-            na&nbsp;função esta semana</strong>. Não&nbsp;a&nbsp;um&nbsp;colega que&nbsp;já&nbsp;sabe tudo, e&nbsp;não&nbsp;a&nbsp;uma&nbsp;máquina. A&nbsp;uma&nbsp;pessoa competente que&nbsp;ainda não&nbsp;conhece a&nbsp;casa.
+          <p class="p-curto fr-host">
+            <span class="fr">Escreva o&nbsp;contexto como você explicaria a&nbsp;tarefa <strong>a&nbsp;alguém que&nbsp;começou
+            na&nbsp;função esta semana</strong>.</span> <span class="fr">Não&nbsp;a&nbsp;um&nbsp;colega que&nbsp;já&nbsp;sabe tudo, e&nbsp;não&nbsp;a&nbsp;uma&nbsp;máquina.</span> <span class="fr">A&nbsp;uma&nbsp;pessoa competente que&nbsp;ainda não&nbsp;conhece a&nbsp;casa.</span>
           </p>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">Onde o pilar 1 e o pilar 2 se encontram</div>
-          <p class="p-curto">
-            Repare que&nbsp;a&nbsp;regra da&nbsp;casa do&nbsp;exemplo acima <em>é</em> conhecimento do&nbsp;tipo 2:
-            uma&nbsp;regra que&nbsp;todo mundo respeita e&nbsp;ninguém escreveu. Enquanto&nbsp;ela não&nbsp;vira
+          <p class="p-curto fr-host">
+            <span class="fr">Repare que&nbsp;a&nbsp;regra da&nbsp;casa do&nbsp;exemplo acima <em>é</em> conhecimento do&nbsp;tipo 2:
+            uma&nbsp;regra que&nbsp;todo mundo respeita e&nbsp;ninguém escreveu.</span> <span class="fr">Enquanto&nbsp;ela não&nbsp;vira
             registro, ela precisa ser digitada de&nbsp;novo a&nbsp;cada pedido, por&nbsp;quem lembrar
-            dela. É por&nbsp;isso que&nbsp;os&nbsp;dois pilares andam juntos.
+            dela.</span> <span class="fr">É por&nbsp;isso que&nbsp;os&nbsp;dois pilares andam juntos.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s-pratica">
-        <div class="block-num">04 · Na prática</div>
+        <div class="block-num">04 · Na&nbsp;prática</div>
         <h2>Como isso vira rotina, e&nbsp;não&nbsp;projeto de&nbsp;tecnologia</h2>
 
         <p class="block-lead">
@@ -1538,117 +1546,117 @@ Escreva o comunicado. No máximo dez linhas.</div>
 
         <h3>Quem executa e&nbsp;quem confere não&nbsp;são o&nbsp;mesmo papel</h3>
 
-        <p class="p-curto">
-          No&nbsp;sistema que&nbsp;aparece no&nbsp;caso 1, os&nbsp;auxiliares foram separados em&nbsp;dois grupos,
-          e&nbsp;a&nbsp;separação é a&nbsp;parte que&nbsp;importa. Não&nbsp;é vocabulário técnico: é a&nbsp;mesma
-          divisão que&nbsp;existe entre&nbsp;quem escreve um&nbsp;parecer e&nbsp;quem revisa antes de&nbsp;assinar.
+        <p class="p-curto fr-host">
+          <span class="fr">No&nbsp;sistema que&nbsp;aparece no&nbsp;caso 1, os&nbsp;auxiliares foram separados em&nbsp;dois grupos,
+          e&nbsp;a&nbsp;separação é a&nbsp;parte que&nbsp;importa.</span> <span class="fr">Não&nbsp;é vocabulário técnico: é a&nbsp;mesma
+          divisão que&nbsp;existe entre&nbsp;quem escreve um&nbsp;parecer e&nbsp;quem revisa antes de&nbsp;assinar.</span>
         </p>
 
         <div class="vias">
           <div class="via antes">
             <div class="via-rot">Quem executa</div>
-            <div class="via-passo"><span class="via-passo-n">01</span><span>Pesquisa o setor do cliente</span></div>
-            <div class="via-passo"><span class="via-passo-n">02</span><span>Organiza os pedidos na ordem certa</span></div>
-            <div class="via-passo"><span class="via-passo-n">03</span><span>Levanta onde a ferramenta já é usada sem ninguém saber</span></div>
-            <div class="via-passo"><span class="via-passo-n">04</span><span>Faz a conta que sustenta a proposta</span></div>
-            <div class="via-fecho">
-              Cada um faz uma coisa só, e faz sempre do mesmo jeito. Nenhum deles tem
-              permissão para dizer que o trabalho está pronto.
+            <div class="via-passo"><span class="via-passo-n">01</span><span>Pesquisa o&nbsp;setor do&nbsp;cliente</span></div>
+            <div class="via-passo"><span class="via-passo-n">02</span><span>Organiza os&nbsp;pedidos na&nbsp;ordem certa</span></div>
+            <div class="via-passo"><span class="via-passo-n">03</span><span>Levanta onde&nbsp;a&nbsp;ferramenta já&nbsp;é usada sem&nbsp;ninguém saber</span></div>
+            <div class="via-passo"><span class="via-passo-n">04</span><span>Faz a&nbsp;conta que&nbsp;sustenta a&nbsp;proposta</span></div>
+            <div class="via-fecho fr-host">
+              <span class="fr">Cada um&nbsp;faz uma&nbsp;coisa só,&nbsp;e&nbsp;faz sempre do&nbsp;mesmo jeito.</span> <span class="fr">Nenhum deles tem
+              permissão para&nbsp;dizer que&nbsp;o&nbsp;trabalho está pronto.</span>
             </div>
           </div>
           <div class="via depois">
             <div class="via-rot">Quem confere</div>
-            <div class="via-passo"><span class="via-passo-n">01</span><span>Confere se a linguagem serve a quem vai ler</span></div>
-            <div class="via-passo"><span class="via-passo-n">02</span><span>Confere se as peças não se contradizem entre si</span></div>
-            <div class="via-passo"><span class="via-passo-n">03</span><span>Confere se saiu nome de pessoa que não podia sair</span></div>
-            <div class="via-passo eh-ia"><span class="via-passo-n">04</span><span>Confere antes de qualquer etapa ser dada por encerrada</span></div>
-            <div class="via-fecho">
-              O último é o portão do pilar 3. Enquanto ele não passa, a etapa seguinte
-              não começa, mesmo que tudo pareça pronto.
+            <div class="via-passo"><span class="via-passo-n">01</span><span>Confere se&nbsp;a&nbsp;linguagem serve a&nbsp;quem vai ler</span></div>
+            <div class="via-passo"><span class="via-passo-n">02</span><span>Confere se&nbsp;as&nbsp;peças não&nbsp;se&nbsp;contradizem entre&nbsp;si</span></div>
+            <div class="via-passo"><span class="via-passo-n">03</span><span>Confere se&nbsp;saiu nome de&nbsp;pessoa que&nbsp;não&nbsp;podia sair</span></div>
+            <div class="via-passo eh-ia"><span class="via-passo-n">04</span><span>Confere antes de&nbsp;qualquer etapa ser dada por&nbsp;encerrada</span></div>
+            <div class="via-fecho fr-host">
+              <span class="fr">O&nbsp;último é o&nbsp;portão do&nbsp;pilar 3.</span> <span class="fr">Enquanto&nbsp;ele não&nbsp;passa, a&nbsp;etapa seguinte
+              não&nbsp;começa, mesmo que&nbsp;tudo pareça pronto.</span>
             </div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          Onze auxiliares, divididos por&nbsp;função. A&nbsp;divisão não&nbsp;é sobre&nbsp;a&nbsp;ferramenta: é
-          sobre&nbsp;nunca deixar quem produziu ser a&nbsp;única pessoa a&nbsp;dizer que&nbsp;está bom.
+        <p class="fig-leg fr-host">
+          <span class="fr">Onze auxiliares, divididos por&nbsp;função.</span> <span class="fr">A&nbsp;divisão não&nbsp;é sobre&nbsp;a&nbsp;ferramenta: é
+          sobre&nbsp;nunca deixar quem produziu ser a&nbsp;única pessoa a&nbsp;dizer que&nbsp;está bom.</span>
         </p>
 
         <h3>A&nbsp;trava que&nbsp;devolve o&nbsp;trabalho para&nbsp;a&nbsp;pessoa</h3>
 
-        <p class="p-curto">
-          Um&nbsp;desses auxiliares tem uma&nbsp;instrução que&nbsp;vale mais que&nbsp;o&nbsp;resto do&nbsp;sistema
-          junto. Ele <strong>não&nbsp;escreve nada</strong>: só&nbsp;confere se&nbsp;três coisas foram
-          preenchidas, e&nbsp;devolve para&nbsp;a&nbsp;pessoa quando&nbsp;faltar qualquer uma.
+        <p class="p-curto fr-host">
+          <span class="fr">Um&nbsp;desses auxiliares tem uma&nbsp;instrução que&nbsp;vale mais que&nbsp;o&nbsp;resto do&nbsp;sistema
+          junto.</span> <span class="fr">Ele <strong>não&nbsp;escreve nada</strong>: só&nbsp;confere se&nbsp;três coisas foram
+          preenchidas, e&nbsp;devolve para&nbsp;a&nbsp;pessoa quando&nbsp;faltar qualquer uma.</span>
         </p>
 
         <div class="quadro">
-          <div class="quadro-topo">A trava, como ela está escrita</div>
-          <div class="quadro-linha">
+          <div class="quadro-topo">A&nbsp;trava, como ela está escrita</div>
+          <div class="quadro-linha fr-host">
             <div class="quadro-c">Responsável</div>
-            <div class="quadro-v preenchido">Nomeado. Não vale "a equipe" nem "a coordenação"</div>
+            <div class="quadro-v preenchido"><span class="fr">Nomeado.</span> <span class="fr">Não&nbsp;vale "a&nbsp;equipe" nem "a&nbsp;coordenação"</span></div>
           </div>
-          <div class="quadro-linha">
+          <div class="quadro-linha fr-host">
             <div class="quadro-c">Métrica</div>
-            <div class="quadro-v preenchido">Quantificada. Não vale "melhorar" nem "reduzir bastante"</div>
+            <div class="quadro-v preenchido"><span class="fr">Quantificada.</span> <span class="fr">Não&nbsp;vale "melhorar" nem "reduzir bastante"</span></div>
           </div>
-          <div class="quadro-linha">
+          <div class="quadro-linha fr-host">
             <div class="quadro-c">Prazo</div>
-            <div class="quadro-v preenchido">Defensável. Uma data que a pessoa consegue justificar</div>
+            <div class="quadro-v preenchido"><span class="fr">Defensável.</span> <span class="fr">Uma&nbsp;data que&nbsp;a&nbsp;pessoa consegue justificar</span></div>
           </div>
-          <div class="quadro-linha">
-            <div class="quadro-c">Se faltar alguma</div>
-            <div class="quadro-v preenchido">Devolve para a pessoa. Não preenche sozinho, não sugere, não estima</div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">Se&nbsp;faltar alguma</div>
+            <div class="quadro-v preenchido"><span class="fr">Devolve para&nbsp;a&nbsp;pessoa.</span> <span class="fr">Não&nbsp;preenche sozinho, não&nbsp;sugere, não&nbsp;estima</span></div>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">Repare no que essa trava é</div>
-          <p class="p-curto">
-            É a&nbsp;ficha dos&nbsp;quatro campos que&nbsp;você preenche no&nbsp;fim do&nbsp;dia, só&nbsp;que&nbsp;morando
-            dentro do&nbsp;processo em&nbsp;vez de&nbsp;num&nbsp;manual. <strong>É por&nbsp;isso que&nbsp;ela funciona:
-            ninguém precisa lembrar dela.</strong> Ela aparece na&nbsp;hora em&nbsp;que&nbsp;o&nbsp;trabalho
-            passa, e&nbsp;não&nbsp;deixa passar.
+          <p class="p-curto fr-host">
+            <span class="fr">É a&nbsp;ficha dos&nbsp;quatro campos que&nbsp;você preenche no&nbsp;fim do&nbsp;dia, só&nbsp;que&nbsp;morando
+            dentro do&nbsp;processo em&nbsp;vez de&nbsp;num&nbsp;manual.</span> <span class="fr"><strong>É por&nbsp;isso que&nbsp;ela funciona:
+            ninguém precisa lembrar dela.</strong></span> <span class="fr">Ela aparece na&nbsp;hora em&nbsp;que&nbsp;o&nbsp;trabalho
+            passa, e&nbsp;não&nbsp;deixa passar.</span>
           </p>
         </div>
 
         <h3>O&nbsp;que&nbsp;outras empresas fizeram, e&nbsp;o&nbsp;que&nbsp;dá para&nbsp;copiar amanhã</h3>
 
-        <p class="p-curto">
-          Nenhuma das&nbsp;quatro regras abaixo é sobre&nbsp;inteligência artificial. Todas são
-          sobre&nbsp;onde&nbsp;a&nbsp;informação fica. Elas vêm de&nbsp;uma&nbsp;empresa de&nbsp;tecnologia, mas&nbsp;o&nbsp;mecanismo é o&nbsp;mesmo em&nbsp;qualquer área: <strong>o&nbsp;que&nbsp;só&nbsp;existe numa&nbsp;conversa
-          privada não&nbsp;existe para&nbsp;mais ninguém.</strong>
+        <p class="p-curto fr-host">
+          <span class="fr">Nenhuma das&nbsp;quatro regras abaixo é sobre&nbsp;inteligência artificial.</span> <span class="fr">Todas são
+          sobre&nbsp;onde&nbsp;a&nbsp;informação fica.</span> <span class="fr">Elas vêm de&nbsp;uma&nbsp;empresa de&nbsp;tecnologia, mas&nbsp;o&nbsp;mecanismo é o&nbsp;mesmo em&nbsp;qualquer área: <strong>o&nbsp;que&nbsp;só&nbsp;existe numa&nbsp;conversa
+          privada não&nbsp;existe para&nbsp;mais ninguém.</strong></span>
         </p>
 
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th style="width:30%">A regra, como eles escreveram</th>
-                <th style="width:34%">O que ela quer dizer</th>
-                <th>O que seria isso na sua área</th>
+                <th style="width:30%">A&nbsp;regra, como eles escreveram</th>
+                <th style="width:34%">O&nbsp;que&nbsp;ela quer dizer</th>
+                <th>O&nbsp;que&nbsp;seria isso na&nbsp;sua&nbsp;área</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>Nada de conversa privada interna</strong></td>
-                <td>Toda pergunta é respondida em canal aberto. Respondida uma vez, fica disponível para sempre.</td>
-                <td>A dúvida que chega no privado é respondida no grupo da equipe, mesmo quando chegou no privado</td>
+                <td><strong>Nada de&nbsp;conversa privada interna</strong></td>
+                <td class="fr-host"><span class="fr">Toda pergunta é respondida em&nbsp;canal aberto.</span> <span class="fr">Respondida uma&nbsp;vez, fica disponível para&nbsp;sempre.</span></td>
+                <td>A&nbsp;dúvida que&nbsp;chega no&nbsp;privado é respondida no&nbsp;grupo da&nbsp;equipe, mesmo quando&nbsp;chegou no&nbsp;privado</td>
               </tr>
               <tr>
                 <td><strong>Gravar toda reunião</strong></td>
-                <td>Cada conversa vira material que dá para consultar depois, em vez de sumir com quem estava lá.</td>
-                <td>A reunião de decisão sai com três linhas escritas: o que foi decidido, por quem, e o que muda</td>
+                <td>Cada conversa vira material que&nbsp;dá para&nbsp;consultar depois, em&nbsp;vez de&nbsp;sumir com&nbsp;quem estava lá.</td>
+                <td>A&nbsp;reunião de&nbsp;decisão sai com&nbsp;três linhas escritas: o&nbsp;que&nbsp;foi decidido, por&nbsp;quem, e&nbsp;o&nbsp;que&nbsp;muda</td>
               </tr>
               <tr>
-                <td><strong>Ligar pelo menos três fontes</strong></td>
-                <td>Com uma fonte só, a resposta é rasa. Com três, começa a cruzar informação e achar padrão.</td>
-                <td>A mesma iniciativa olhada pelo que o aluno reclama, pelo que a secretaria vive e pelo que o número mostra</td>
+                <td><strong>Ligar pelo&nbsp;menos três fontes</strong></td>
+                <td class="fr-host"><span class="fr">Com&nbsp;uma&nbsp;fonte só,&nbsp;a&nbsp;resposta é rasa.</span> <span class="fr">Com&nbsp;três, começa a&nbsp;cruzar informação e&nbsp;achar padrão.</span></td>
+                <td>A&nbsp;mesma iniciativa olhada pelo&nbsp;que&nbsp;o&nbsp;aluno reclama, pelo&nbsp;que&nbsp;a&nbsp;secretaria vive e&nbsp;pelo&nbsp;que&nbsp;o&nbsp;número mostra</td>
               </tr>
               <tr>
-                <td><strong>Quem entra já começa usando</strong></td>
-                <td>Não é bônus para quem tem tempo. Faz parte de aprender o trabalho.</td>
-                <td>Quem chega na equipe recebe o material de contexto da área no primeiro dia, não no terceiro mês</td>
+                <td><strong>Quem entra já&nbsp;começa usando</strong></td>
+                <td class="fr-host"><span class="fr">Não&nbsp;é bônus para&nbsp;quem tem tempo.</span> <span class="fr">Faz parte de&nbsp;aprender o&nbsp;trabalho.</span></td>
+                <td>Quem chega na&nbsp;equipe recebe o&nbsp;material de&nbsp;contexto da&nbsp;área no&nbsp;primeiro dia, não&nbsp;no&nbsp;terceiro mês</td>
               </tr>
             </tbody>
           </table>
@@ -1661,11 +1669,11 @@ Escreva o comunicado. No máximo dez linhas.</div>
 
         <div class="callout callout-warn">
           <div class="callout-title">Onde eu comecei, e por que conto isso</div>
-          <p class="p-curto">
-            O&nbsp;sistema do&nbsp;caso 1 não&nbsp;nasceu com&nbsp;onze auxiliares e&nbsp;com&nbsp;trava. Ele começou
+          <p class="p-curto fr-host">
+            <span class="fr">O&nbsp;sistema do&nbsp;caso 1 não&nbsp;nasceu com&nbsp;onze auxiliares e&nbsp;com&nbsp;trava.</span> <span class="fr">Ele começou
             com&nbsp;<strong>um&nbsp;arquivo de&nbsp;contexto numa&nbsp;pasta só</strong>, e&nbsp;o&nbsp;resto veio
-            porque&nbsp;o&nbsp;primeiro funcionou. Se&nbsp;você sair daqui querendo montar o&nbsp;sistema
-            inteiro, não&nbsp;vai começar. Se&nbsp;sair querendo escrever um&nbsp;arquivo, começa na&nbsp;segunda-feira.
+            porque&nbsp;o&nbsp;primeiro funcionou.</span> <span class="fr">Se&nbsp;você sair daqui querendo montar o&nbsp;sistema
+            inteiro, não&nbsp;vai começar.</span> <span class="fr">Se&nbsp;sair querendo escrever um&nbsp;arquivo, começa na&nbsp;segunda-feira.</span>
           </p>
         </div>
       </section>
@@ -1673,72 +1681,72 @@ Escreva o comunicado. No máximo dez linhas.</div>
       <section class="block" id="s-fora">
         <div class="block-num">05 · Fora daqui</div>
         <h2>Três empresas que&nbsp;fecharam o&nbsp;loop, em&nbsp;passo a&nbsp;passo</h2>
-        <p class="block-lead">
-          As&nbsp;três estão em&nbsp;vídeos públicos da&nbsp;aceleradora Y Combinator, gravados em&nbsp;2026.
-          Nenhuma delas é da&nbsp;área de&nbsp;saúde ou&nbsp;de&nbsp;educação, e&nbsp;é justamente por&nbsp;isso que&nbsp;servem: <strong>o&nbsp;que&nbsp;se&nbsp;copia não&nbsp;é o&nbsp;negócio, é o&nbsp;desenho.</strong> Repare em&nbsp;quem faz cada passo.
+        <p class="block-lead fr-host">
+          <span class="fr">As&nbsp;três estão em&nbsp;vídeos públicos da&nbsp;aceleradora Y Combinator, gravados em&nbsp;2026.</span>
+          <span class="fr">Nenhuma delas é da&nbsp;área de&nbsp;saúde ou&nbsp;de&nbsp;educação, e&nbsp;é justamente por&nbsp;isso que&nbsp;servem: <strong>o&nbsp;que&nbsp;se&nbsp;copia não&nbsp;é o&nbsp;negócio, é o&nbsp;desenho.</strong></span> <span class="fr">Repare em&nbsp;quem faz cada passo.</span>
         </p>
 
         <h3>1 · A&nbsp;correção que&nbsp;veio de&nbsp;quem não&nbsp;mexe em&nbsp;tecnologia</h3>
-        <p class="p-curto">
-          A&nbsp;Answer This é uma&nbsp;empresa de&nbsp;dois sócios. Ayush, um&nbsp;deles, contou que&nbsp;passaram
-          a&nbsp;usar um&nbsp;assistente para&nbsp;responder mensagens de&nbsp;clientes. Ele começou a&nbsp;errar
-          um&nbsp;tipo específico de&nbsp;resposta. Quem percebeu foi Ryan, o&nbsp;outro sócio, que&nbsp;<strong>não&nbsp;é da&nbsp;área técnica</strong>.
+        <p class="p-curto fr-host">
+          <span class="fr">A&nbsp;Answer This é uma&nbsp;empresa de&nbsp;dois sócios.</span> <span class="fr">Ayush, um&nbsp;deles, contou que&nbsp;passaram
+          a&nbsp;usar um&nbsp;assistente para&nbsp;responder mensagens de&nbsp;clientes.</span> <span class="fr">Ele começou a&nbsp;errar
+          um&nbsp;tipo específico de&nbsp;resposta.</span> <span class="fr">Quem percebeu foi Ryan, o&nbsp;outro sócio, que&nbsp;<strong>não&nbsp;é da&nbsp;área técnica</strong>.</span>
         </p>
         <div class="fluxo">
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator pessoa">Ryan</span><span class="fl-n">01 · Percebe</span></div>
-            <div class="fl-t">Nota que um tipo de resposta ao cliente está saindo errado, sempre do mesmo jeito.</div>
-            <div class="fl-d">Não é um erro isolado. É uma classe de erro, que se repete.</div>
+            <div class="fl-t">Nota que&nbsp;um&nbsp;tipo de&nbsp;resposta ao&nbsp;cliente está saindo errado, sempre do&nbsp;mesmo jeito.</div>
+            <div class="fl-d fr-host"><span class="fr">Não&nbsp;é um&nbsp;erro isolado.</span> <span class="fr">É uma&nbsp;classe de&nbsp;erro, que&nbsp;se&nbsp;repete.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator pessoa">Ryan</span><span class="fl-n">02 · Diz o que está errado</span></div>
-            <div class="fl-t">Escreve para o assistente explicando qual é o erro e o que era para ter sido feito.</div>
-            <div class="fl-d">Não abriu ticket, não chamou o sócio técnico, não esperou a próxima reunião. Escreveu como quem corrige uma pessoa da equipe.</div>
+            <div class="fl-topo"><span class="fl-ator pessoa">Ryan</span><span class="fl-n">02 · Diz o&nbsp;que&nbsp;está errado</span></div>
+            <div class="fl-t">Escreve para&nbsp;o&nbsp;assistente explicando qual é o&nbsp;erro e&nbsp;o&nbsp;que&nbsp;era para&nbsp;ter sido feito.</div>
+            <div class="fl-d fr-host"><span class="fr">Não&nbsp;abriu ticket, não&nbsp;chamou o&nbsp;sócio técnico, não&nbsp;esperou a&nbsp;próxima reunião.</span> <span class="fr">Escreveu como quem corrige uma&nbsp;pessoa da&nbsp;equipe.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">03 · Atualiza a própria instrução</span></div>
-            <div class="fl-t">A correção entra no arquivo de instruções que ele lê antes de toda tarefa.</div>
-            <div class="fl-d">A regra passa a existir por escrito, fora da cabeça do Ryan e fora daquela conversa.</div>
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">03 · Atualiza a&nbsp;própria instrução</span></div>
+            <div class="fl-t">A&nbsp;correção entra no&nbsp;arquivo de&nbsp;instruções que&nbsp;ele lê antes de&nbsp;toda tarefa.</div>
+            <div class="fl-d">A&nbsp;regra passa a&nbsp;existir por&nbsp;escrito, fora da&nbsp;cabeça do&nbsp;Ryan e&nbsp;fora daquela conversa.</div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">04 · Aquele erro para de acontecer</span></div>
-            <div class="fl-t">Não só naquele caso: em toda a classe de erro.</div>
-            <div class="fl-d">Ayush descreve o resultado assim: aquela categoria inteira de engano parou.</div>
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">04 · Aquele erro para&nbsp;de&nbsp;acontecer</span></div>
+            <div class="fl-t">Não&nbsp;só&nbsp;naquele caso: em&nbsp;toda a&nbsp;classe de&nbsp;erro.</div>
+            <div class="fl-d">Ayush descreve o&nbsp;resultado assim: aquela categoria inteira de&nbsp;engano parou.</div>
           </div>
         </div>
-        <p class="fig-leg">
-          <strong>Este é o&nbsp;pilar 4 inteiro</strong>, e&nbsp;quem o&nbsp;executou não&nbsp;era da&nbsp;área
-          técnica. É a&nbsp;resposta mais direta que&nbsp;existe para&nbsp;a&nbsp;pergunta de&nbsp;como trazer isso
+        <p class="fig-leg fr-host">
+          <span class="fr"><strong>Este é o&nbsp;pilar 4 inteiro</strong>, e&nbsp;quem o&nbsp;executou não&nbsp;era da&nbsp;área
+          técnica.</span> <span class="fr">É a&nbsp;resposta mais direta que&nbsp;existe para&nbsp;a&nbsp;pergunta de&nbsp;como trazer isso
           para&nbsp;dentro: a&nbsp;correção é feita por&nbsp;quem enxerga o&nbsp;erro, e&nbsp;não&nbsp;por&nbsp;quem entende
-          de&nbsp;tecnologia.
+          de&nbsp;tecnologia.</span>
         </p>
 
         <h3>2 · O&nbsp;manual que&nbsp;ninguém atualizava</h3>
-        <p class="p-curto">
-          Tom, sócio da&nbsp;Y Combinator, contou que&nbsp;o&nbsp;manual de&nbsp;orientação deles tinha sido
-          escrito entre&nbsp;cinco e&nbsp;dez anos antes e&nbsp;estava desatualizado. Em&nbsp;paralelo, eles
-          passaram a&nbsp;gravar as&nbsp;sessões de&nbsp;acompanhamento com&nbsp;as&nbsp;empresas.
+        <p class="p-curto fr-host">
+          <span class="fr">Tom, sócio da&nbsp;Y Combinator, contou que&nbsp;o&nbsp;manual de&nbsp;orientação deles tinha sido
+          escrito entre&nbsp;cinco e&nbsp;dez anos antes e&nbsp;estava desatualizado.</span> <span class="fr">Em&nbsp;paralelo, eles
+          passaram a&nbsp;gravar as&nbsp;sessões de&nbsp;acompanhamento com&nbsp;as&nbsp;empresas.</span>
         </p>
         <div class="fluxo">
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Registro</span><span class="fl-n">01 · O material passa a existir</span></div>
-            <div class="fl-t">Cerca de duas mil horas de sessões gravadas em três meses, segundo ele.</div>
-            <div class="fl-d">Antes disso, o mesmo conselho era dado dezenas de vezes e não ficava em lugar nenhum. Pilar 1.</div>
+            <div class="fl-topo"><span class="fl-ator">Registro</span><span class="fl-n">01 · O&nbsp;material passa a&nbsp;existir</span></div>
+            <div class="fl-t">Cerca de&nbsp;duas mil horas de&nbsp;sessões gravadas em&nbsp;três meses, segundo ele.</div>
+            <div class="fl-d fr-host"><span class="fr">Antes disso, o&nbsp;mesmo conselho era dado dezenas de&nbsp;vezes e&nbsp;não&nbsp;ficava em&nbsp;lugar nenhum.</span> <span class="fr">Pilar 1.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator pessoa">Uma pessoa</span><span class="fl-n">02 · Organiza por assunto</span></div>
-            <div class="fl-t">Separa o material em temas antes de pedir qualquer coisa.</div>
-            <div class="fl-d">Ele é explícito: não dá para jogar o material todo de uma vez. Tem que sintetizar antes. Pilar 3.</div>
+            <div class="fl-topo"><span class="fl-ator pessoa">Uma&nbsp;pessoa</span><span class="fl-n">02 · Organiza por&nbsp;assunto</span></div>
+            <div class="fl-t">Separa o&nbsp;material em&nbsp;temas antes de&nbsp;pedir qualquer coisa.</div>
+            <div class="fl-d fr-host"><span class="fr">Ele é explícito: não&nbsp;dá para&nbsp;jogar o&nbsp;material todo de&nbsp;uma&nbsp;vez.</span> <span class="fr">Tem que&nbsp;sintetizar antes.</span> <span class="fr">Pilar 3.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator pessoa">Uma pessoa</span><span class="fl-n">03 · Pede o manual novo</span></div>
-            <div class="fl-t">Em um fim de semana, sai uma versão que ele considera muito melhor que a antiga.</div>
-            <div class="fl-d">O ganho não veio da ferramenta. Veio de existir material organizado para ela ler.</div>
+            <div class="fl-topo"><span class="fl-ator pessoa">Uma&nbsp;pessoa</span><span class="fl-n">03 · Pede o&nbsp;manual novo</span></div>
+            <div class="fl-t">Em&nbsp;um&nbsp;fim de&nbsp;semana, sai uma&nbsp;versão que&nbsp;ele considera muito melhor que&nbsp;a&nbsp;antiga.</div>
+            <div class="fl-d fr-host"><span class="fr">O&nbsp;ganho não&nbsp;veio da&nbsp;ferramenta.</span> <span class="fr">Veio de&nbsp;existir material organizado para&nbsp;ela ler.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Rotina</span><span class="fl-n">04 · Passa a se atualizar sozinho</span></div>
-            <div class="fl-t">Todo conselho novo é comparado com o manual e, se acrescenta, entra.</div>
-            <div class="fl-d">O manual deixou de ser um documento que envelhece e virou um que acompanha. É o loop fechado da capa, aplicado a uma norma interna.</div>
+            <div class="fl-topo"><span class="fl-ator">Rotina</span><span class="fl-n">04 · Passa a&nbsp;se&nbsp;atualizar sozinho</span></div>
+            <div class="fl-t">Todo conselho novo é comparado com&nbsp;o&nbsp;manual e,&nbsp;se&nbsp;acrescenta, entra.</div>
+            <div class="fl-d fr-host"><span class="fr">O&nbsp;manual deixou de&nbsp;ser um&nbsp;documento que&nbsp;envelhece e&nbsp;virou um&nbsp;que&nbsp;acompanha.</span> <span class="fr">É o&nbsp;loop fechado da&nbsp;capa, aplicado a&nbsp;uma&nbsp;norma interna.</span></div>
           </div>
         </div>
 
@@ -1757,76 +1765,76 @@ Escreva o comunicado. No máximo dez linhas.</div>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que este caso é o mais parecido com o de vocês</div>
-          <p class="p-curto">
-            Uma&nbsp;instituição de&nbsp;ensino e&nbsp;de&nbsp;saúde é feita de&nbsp;norma, protocolo e&nbsp;manual: coisas
-            que&nbsp;alguém escreveu uma&nbsp;vez e&nbsp;que&nbsp;envelhecem em&nbsp;silêncio. A&nbsp;pergunta que&nbsp;este
-            caso devolve não&nbsp;é sobre&nbsp;tecnologia. É <strong>quanto do&nbsp;que&nbsp;vocês ensinam e&nbsp;decidem todo dia está registrado em&nbsp;algum lugar onde&nbsp;a&nbsp;próxima pessoa
-            acha</strong>.
+          <p class="p-curto fr-host">
+            <span class="fr">Uma&nbsp;instituição de&nbsp;ensino e&nbsp;de&nbsp;saúde é feita de&nbsp;norma, protocolo e&nbsp;manual: coisas
+            que&nbsp;alguém escreveu uma&nbsp;vez e&nbsp;que&nbsp;envelhecem em&nbsp;silêncio.</span> <span class="fr">A&nbsp;pergunta que&nbsp;este
+            caso devolve não&nbsp;é sobre&nbsp;tecnologia.</span> <span class="fr">É <strong>quanto do&nbsp;que&nbsp;vocês ensinam e&nbsp;decidem todo dia está registrado em&nbsp;algum lugar onde&nbsp;a&nbsp;próxima pessoa
+            acha</strong>.</span>
           </p>
         </div>
 
         <h3>3 · O&nbsp;primeiro resultado foi rejeitado pelo&nbsp;time</h3>
-        <p class="p-curto">
-          Sachin, da&nbsp;Skyvern, montou um&nbsp;assistente para&nbsp;escrever a&nbsp;primeira versão de&nbsp;documentos de&nbsp;especificação. Ele conta que&nbsp;mostrou para&nbsp;o&nbsp;time e&nbsp;a&nbsp;reação foi
-          direta: aquilo não&nbsp;prestava. Ele continuou ajustando até&nbsp;a&nbsp;equipe passar a&nbsp;usar o&nbsp;resultado como ponto de&nbsp;partida.
+        <p class="p-curto fr-host">
+          <span class="fr">Sachin, da&nbsp;Skyvern, montou um&nbsp;assistente para&nbsp;escrever a&nbsp;primeira versão de&nbsp;documentos de&nbsp;especificação.</span> <span class="fr">Ele conta que&nbsp;mostrou para&nbsp;o&nbsp;time e&nbsp;a&nbsp;reação foi
+          direta: aquilo não&nbsp;prestava.</span> <span class="fr">Ele continuou ajustando até&nbsp;a&nbsp;equipe passar a&nbsp;usar o&nbsp;resultado como ponto de&nbsp;partida.</span>
         </p>
         <div class="fluxo">
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">01 · Busca no que já existe</span></div>
-            <div class="fl-t">Procura o assunto nas gravações de conversas, nas mensagens internas e nos documentos.</div>
-            <div class="fl-d">Só é possível porque essas três coisas ficam registradas. Pilar 1 de novo.</div>
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">01 · Busca no&nbsp;que&nbsp;já&nbsp;existe</span></div>
+            <div class="fl-t">Procura o&nbsp;assunto nas&nbsp;gravações de&nbsp;conversas, nas&nbsp;mensagens internas e&nbsp;nos&nbsp;documentos.</div>
+            <div class="fl-d fr-host"><span class="fr">Só&nbsp;é possível porque&nbsp;essas três coisas ficam registradas.</span> <span class="fr">Pilar 1 de&nbsp;novo.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">02 · Escreve o rascunho com a origem de cada ponto</span></div>
-            <div class="fl-t">Cada afirmação vem com de onde saiu, e não solta.</div>
-            <div class="fl-d">Quem for trabalhar naquilo depois consegue voltar à conversa original.</div>
+            <div class="fl-topo"><span class="fl-ator">Assistente</span><span class="fl-n">02 · Escreve o&nbsp;rascunho com&nbsp;a&nbsp;origem de&nbsp;cada ponto</span></div>
+            <div class="fl-t">Cada afirmação vem com&nbsp;de&nbsp;onde&nbsp;saiu, e&nbsp;não&nbsp;solta.</div>
+            <div class="fl-d">Quem for trabalhar naquilo depois consegue voltar à&nbsp;conversa original.</div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator">Segunda leitura</span><span class="fl-n">03 · Critica o próprio rascunho</span></div>
-            <div class="fl-t">Uma etapa separada revisa o texto procurando o que está fraco.</div>
-            <div class="fl-d">Não é a mesma etapa que escreveu. Quem escreve não é bom juiz do que escreveu. Pilar 3.</div>
+            <div class="fl-topo"><span class="fl-ator">Segunda leitura</span><span class="fl-n">03 · Critica o&nbsp;próprio rascunho</span></div>
+            <div class="fl-t">Uma&nbsp;etapa separada revisa o&nbsp;texto procurando o&nbsp;que&nbsp;está fraco.</div>
+            <div class="fl-d fr-host"><span class="fr">Não&nbsp;é a&nbsp;mesma etapa que&nbsp;escreveu.</span> <span class="fr">Quem escreve não&nbsp;é bom juiz do&nbsp;que&nbsp;escreveu.</span> <span class="fr">Pilar 3.</span></div>
           </div>
           <div class="fl">
-            <div class="fl-topo"><span class="fl-ator pessoa">Sachin</span><span class="fl-n">04 · Ajusta até o time aceitar</span></div>
-            <div class="fl-t">A régua de pronto foi o time parar de reclamar, e não ele achar que estava bom.</div>
-            <div class="fl-d">Foram várias rodadas. A primeira versão foi reprovada.</div>
+            <div class="fl-topo"><span class="fl-ator pessoa">Sachin</span><span class="fl-n">04 · Ajusta até&nbsp;o&nbsp;time aceitar</span></div>
+            <div class="fl-t">A&nbsp;régua de&nbsp;pronto foi o&nbsp;time parar de&nbsp;reclamar, e&nbsp;não&nbsp;ele achar que&nbsp;estava bom.</div>
+            <div class="fl-d fr-host"><span class="fr">Foram várias rodadas.</span> <span class="fr">A&nbsp;primeira versão foi reprovada.</span></div>
           </div>
         </div>
-        <p class="fig-leg">
-          <strong>O&nbsp;passo 4 é o&nbsp;que&nbsp;mais importa aqui.</strong> A&nbsp;primeira versão de&nbsp;qualquer um&nbsp;destes três casos foi ruim. O&nbsp;que&nbsp;separa os&nbsp;três de&nbsp;uma&nbsp;demonstração
+        <p class="fig-leg fr-host">
+          <span class="fr"><strong>O&nbsp;passo 4 é o&nbsp;que&nbsp;mais importa aqui.</strong></span> <span class="fr">A&nbsp;primeira versão de&nbsp;qualquer um&nbsp;destes três casos foi ruim.</span> <span class="fr">O&nbsp;que&nbsp;separa os&nbsp;três de&nbsp;uma&nbsp;demonstração
           bonita que&nbsp;ninguém usa é alguém ter continuado ajustando depois que&nbsp;a&nbsp;novidade
-          passou.
+          passou.</span>
         </p>
 
         <h3>Só&nbsp;que&nbsp;essas três são pequenas e&nbsp;novas, e&nbsp;vocês não&nbsp;são</h3>
-        <p class="p-curto">
-          Diana, também da&nbsp;Y Combinator, é honesta sobre&nbsp;isso: empresa que&nbsp;já&nbsp;existe tem
-          <strong>mais dificuldade</strong> que&nbsp;empresa nova, e&nbsp;não&nbsp;menos. A&nbsp;razão é
-          concreta. Uma&nbsp;empresa nova desenha do&nbsp;zero. Uma&nbsp;empresa que&nbsp;já&nbsp;funciona precisa
+        <p class="p-curto fr-host">
+          <span class="fr">Diana, também da&nbsp;Y Combinator, é honesta sobre&nbsp;isso: empresa que&nbsp;já&nbsp;existe tem
+          <strong>mais dificuldade</strong> que&nbsp;empresa nova, e&nbsp;não&nbsp;menos.</span> <span class="fr">A&nbsp;razão é
+          concreta.</span> <span class="fr">Uma&nbsp;empresa nova desenha do&nbsp;zero.</span> <span class="fr">Uma&nbsp;empresa que&nbsp;já&nbsp;funciona precisa
           continuar funcionando enquanto&nbsp;muda, e&nbsp;cada mudança em&nbsp;processo que&nbsp;já&nbsp;roda
-          arrisca quebrar algo que&nbsp;hoje está de&nbsp;pé.
+          arrisca quebrar algo que&nbsp;hoje está de&nbsp;pé.</span>
         </p>
-        <p class="p-curto">
-          A&nbsp;saída que&nbsp;ela aponta não&nbsp;é reformar tudo. É o&nbsp;contrário: <strong>começar por&nbsp;um&nbsp;pedaço pequeno, separado do&nbsp;que&nbsp;não&nbsp;pode parar.</strong> Uma&nbsp;rotina, uma&nbsp;área, um&nbsp;relatório. Fecha o&nbsp;loop ali, com&nbsp;gente que&nbsp;já&nbsp;faz aquilo, e&nbsp;só&nbsp;depois
-          leva o&nbsp;desenho para&nbsp;o&nbsp;lado.
+        <p class="p-curto fr-host">
+          <span class="fr">A&nbsp;saída que&nbsp;ela aponta não&nbsp;é reformar tudo.</span> <span class="fr">É o&nbsp;contrário: <strong>começar por&nbsp;um&nbsp;pedaço pequeno, separado do&nbsp;que&nbsp;não&nbsp;pode parar.</strong></span> <span class="fr">Uma&nbsp;rotina, uma&nbsp;área, um&nbsp;relatório.</span> <span class="fr">Fecha o&nbsp;loop ali, com&nbsp;gente que&nbsp;já&nbsp;faz aquilo, e&nbsp;só&nbsp;depois
+          leva o&nbsp;desenho para&nbsp;o&nbsp;lado.</span>
         </p>
         <div class="callout">
           <div class="callout-title">É por isso que este dia termina numa ficha, e não num plano</div>
-          <p class="p-curto">
-            Plano de&nbsp;transformação de&nbsp;instituição inteira precisa de&nbsp;orçamento, comitê e&nbsp;um&nbsp;ano. Uma&nbsp;rotina da&nbsp;sua&nbsp;área, com&nbsp;número definido e&nbsp;meta de&nbsp;sessenta dias,
-            começa na&nbsp;segunda-feira e&nbsp;não&nbsp;depende de&nbsp;aprovação de&nbsp;ninguém de&nbsp;fora.
-            <strong>O&nbsp;pedaço pequeno não&nbsp;é a&nbsp;versão modesta da&nbsp;mudança. É o&nbsp;único formato
-            em&nbsp;que&nbsp;ela costuma acontecer.</strong>
+          <p class="p-curto fr-host">
+            <span class="fr">Plano de&nbsp;transformação de&nbsp;instituição inteira precisa de&nbsp;orçamento, comitê e&nbsp;um&nbsp;ano.</span> <span class="fr">Uma&nbsp;rotina da&nbsp;sua&nbsp;área, com&nbsp;número definido e&nbsp;meta de&nbsp;sessenta dias,
+            começa na&nbsp;segunda-feira e&nbsp;não&nbsp;depende de&nbsp;aprovação de&nbsp;ninguém de&nbsp;fora.</span>
+            <span class="fr"><strong>O&nbsp;pedaço pequeno não&nbsp;é a&nbsp;versão modesta da&nbsp;mudança. É o&nbsp;único formato
+            em&nbsp;que&nbsp;ela costuma acontecer.</strong></span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s-setor">
-        <div class="block-num">06 · Na sua rotina</div>
+        <div class="block-num">06 · Na&nbsp;sua&nbsp;rotina</div>
         <h2>O&nbsp;mesmo desenho, na&nbsp;rotina que&nbsp;vocês apontaram</h2>
-        <p class="block-lead">
-          Vinte e&nbsp;duas pessoas desta turma responderam um&nbsp;diagnóstico antes deste dia,
-          apontando onde&nbsp;viam mais potencial para&nbsp;usar inteligência artificial no&nbsp;trabalho. As&nbsp;sete atividades abaixo são as&nbsp;respostas, na&nbsp;ordem em&nbsp;que&nbsp;apareceram. <strong>Abra a&nbsp;que&nbsp;mais parece com&nbsp;o&nbsp;seu&nbsp;dia.</strong>
+        <p class="block-lead fr-host">
+          <span class="fr">Vinte e&nbsp;duas pessoas desta turma responderam um&nbsp;diagnóstico antes deste dia,
+          apontando onde&nbsp;viam mais potencial para&nbsp;usar inteligência artificial no&nbsp;trabalho.</span> <span class="fr">As&nbsp;sete atividades abaixo são as&nbsp;respostas, na&nbsp;ordem em&nbsp;que&nbsp;apareceram.</span> <span class="fr"><strong>Abra a&nbsp;que&nbsp;mais parece com&nbsp;o&nbsp;seu&nbsp;dia.</strong></span>
         </p>
 
         <div class="exemplos">
@@ -1837,221 +1845,203 @@ Escreva o comunicado. No máximo dez linhas.</div>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">15 de 22</span>
-              <span class="ex-t">Organizar e resumir grandes volumes de informação</span>
+              <span class="ex-area">15 de&nbsp;22</span>
+              <span class="ex-t">Organizar e&nbsp;resumir grandes volumes de&nbsp;informação</span>
             </summary>
             <div class="ex-corpo">
-              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                O material chega inteiro, alguém lê, e o resumo sai. Na próxima vez que
-                alguém precisar da mesma informação, lê tudo de novo.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 1.</strong> O resumo existe, mas fica no e-mail de quem
-                pediu. Ele nunca vira material que a próxima pessoa acha sozinha.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                O resumo é sempre salvo no mesmo lugar, com o nome do assunto. Quando
-                chega material novo do mesmo tema, ele é comparado com o resumo que já
-                existe e atualiza aquele arquivo, em vez de gerar mais um solto.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Escolha uma pasta compartilhada e um nome de arquivo. O próximo resumo
-                que você fizer vai para lá, e não para o corpo de um e-mail.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                <span class="fr">O&nbsp;material chega inteiro, alguém lê, e&nbsp;o&nbsp;resumo sai.</span> <span class="fr">Na&nbsp;próxima vez que&nbsp;alguém precisar da&nbsp;mesma informação, lê tudo de&nbsp;novo.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 1.</strong></span> <span class="fr">O&nbsp;resumo existe, mas&nbsp;fica no&nbsp;e-mail de&nbsp;quem
+                pediu.</span> <span class="fr">Ele nunca vira material que&nbsp;a&nbsp;próxima pessoa acha sozinha.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">O&nbsp;resumo é sempre salvo no&nbsp;mesmo lugar, com&nbsp;o&nbsp;nome do&nbsp;assunto.</span> <span class="fr">Quando&nbsp;chega material novo do&nbsp;mesmo tema, ele é comparado com&nbsp;o&nbsp;resumo que&nbsp;já&nbsp;existe e&nbsp;atualiza aquele arquivo, em&nbsp;vez de&nbsp;gerar mais um&nbsp;solto.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Escolha uma&nbsp;pasta compartilhada e&nbsp;um&nbsp;nome de&nbsp;arquivo.</span> <span class="fr">O&nbsp;próximo resumo
+                que&nbsp;você fizer vai para&nbsp;lá, e&nbsp;não&nbsp;para&nbsp;o&nbsp;corpo de&nbsp;um&nbsp;e-mail.</span></div></div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">14 de 22</span>
-              <span class="ex-t">Interpretar documentos, contratos e legislações</span>
+              <span class="ex-area">14 de&nbsp;22</span>
+              <span class="ex-t">Interpretar documentos, contratos e&nbsp;legislações</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                Cada contrato é lido do zero, e o que é padrão da instituição está na
-                cabeça de quem lê há mais tempo.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 2.</strong> Sem saber o que é praxe aqui, qualquer leitura
-                devolve o que é praxe em geral, que é diferente.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                Existe uma lista escrita do que a instituição sempre exige e do que nunca
-                aceita. Ela entra junto com o contrato em toda leitura. Cláusula nova que
-                gerou discussão vira mais uma linha da lista.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Abra um arquivo e escreva as cinco exigências que você repete em toda
-                revisão. Você já sabe as cinco de cor, e é justamente por isso que elas
-                nunca foram escritas.</div></div>
+                Cada contrato é lido do&nbsp;zero, e&nbsp;o&nbsp;que&nbsp;é padrão da&nbsp;instituição está na&nbsp;cabeça de&nbsp;quem lê há mais tempo.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 2.</strong></span> <span class="fr">Sem&nbsp;saber o&nbsp;que&nbsp;é praxe aqui, qualquer leitura
+                devolve o&nbsp;que&nbsp;é praxe em&nbsp;geral, que&nbsp;é diferente.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">Existe uma&nbsp;lista escrita do&nbsp;que&nbsp;a&nbsp;instituição sempre exige e&nbsp;do&nbsp;que&nbsp;nunca
+                aceita.</span> <span class="fr">Ela entra junto com&nbsp;o&nbsp;contrato em&nbsp;toda leitura.</span> <span class="fr">Cláusula nova que&nbsp;gerou discussão vira mais uma&nbsp;linha da&nbsp;lista.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Abra um&nbsp;arquivo e&nbsp;escreva as&nbsp;cinco exigências que&nbsp;você repete em&nbsp;toda
+                revisão.</span> <span class="fr">Você já&nbsp;sabe as&nbsp;cinco de&nbsp;cor, e&nbsp;é justamente por&nbsp;isso que&nbsp;elas
+                nunca foram escritas.</span></div></div>
               <div class="ex-fecho">
-                Este é o pilar 4 na forma mais barata que ele tem: a discussão de hoje
-                vira a linha que evita a discussão de amanhã.
+                Este é o&nbsp;pilar 4 na&nbsp;forma mais barata que&nbsp;ele tem: a&nbsp;discussão de&nbsp;hoje
+                vira a&nbsp;linha que&nbsp;evita a&nbsp;discussão de&nbsp;amanhã.
               </div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">13 de 22</span>
-              <span class="ex-t">Apoiar decisões com mais agilidade e embasamento</span>
+              <span class="ex-area">13 de&nbsp;22</span>
+              <span class="ex-t">Apoiar decisões com&nbsp;mais agilidade e&nbsp;embasamento</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                A decisão é tomada, executada, e raramente alguém volta para conferir se
-                deu o resultado esperado.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 5.</strong> Sem número definido antes, não existe como
-                voltar depois. É o loop aberto na forma mais cara.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                Toda decisão que vale a pena registrar sai com uma linha: o que se
-                esperava, em quanto tempo. Passado o prazo, alguém compara. O que deu
-                errado vira critério para a próxima decisão parecida.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Na próxima decisão, escreva uma frase antes de executar: o que você espera
-                que aconteça e quando você vai conferir. Uma frase.</div></div>
+                A&nbsp;decisão é tomada, executada, e&nbsp;raramente alguém volta para&nbsp;conferir se&nbsp;deu o&nbsp;resultado esperado.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 5.</strong></span> <span class="fr">Sem&nbsp;número definido antes, não&nbsp;existe como
+                voltar depois.</span> <span class="fr">É o&nbsp;loop aberto na&nbsp;forma mais cara.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">Toda decisão que&nbsp;vale a&nbsp;pena registrar sai com&nbsp;uma&nbsp;linha: o&nbsp;que&nbsp;se&nbsp;esperava, em&nbsp;quanto tempo.</span> <span class="fr">Passado o&nbsp;prazo, alguém compara.</span> <span class="fr">O&nbsp;que&nbsp;deu
+                errado vira critério para&nbsp;a&nbsp;próxima decisão parecida.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Na&nbsp;próxima decisão, escreva uma&nbsp;frase antes de&nbsp;executar: o&nbsp;que&nbsp;você espera
+                que&nbsp;aconteça e&nbsp;quando&nbsp;você vai conferir.</span> <span class="fr">Uma&nbsp;frase.</span></div></div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">11 de 22</span>
-              <span class="ex-t">Montar relatórios e apresentações para gestores</span>
+              <span class="ex-area">11 de&nbsp;22</span>
+              <span class="ex-t">Montar relatórios e&nbsp;apresentações para&nbsp;gestores</span>
             </summary>
             <div class="ex-corpo">
-              <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                Uma das respostas do diagnóstico descreve isso inteiro: puxar sempre os
-                mesmos filtros para montar o mesmo relatório. Todo mês, do começo.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 1 e pilar 3.</strong> O caminho até o relatório existe e
-                funciona, mas mora na cabeça de quem faz. E ele é pedido de uma vez só,
-                sem etapa de conferência no meio.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                Os passos do relatório estão escritos: quais filtros, em que ordem, o que
-                fazer com o caso fora do padrão, como é a seção final. O trabalho é pedido
-                por etapas, e você confere os números antes de virar apresentação.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Da próxima vez que montar o relatório, escreva o que você fez enquanto
-                faz. No mês seguinte você não monta: você segue o que escreveu, e corrige
-                o que estiver faltando.</div></div>
-              <div class="ex-fecho">
-                Escrever enquanto faz custa uma vez. Refazer de cabeça custa todo mês, e
-                custa duas vezes quando a pessoa que sabia está de férias.
+              <div class="ex-l fr-host"><div class="ex-rot">Hoje</div><div class="ex-tx">
+                <span class="fr">Uma&nbsp;das&nbsp;respostas do&nbsp;diagnóstico descreve isso inteiro: puxar sempre os&nbsp;mesmos filtros para&nbsp;montar o&nbsp;mesmo relatório.</span> <span class="fr">Todo mês, do&nbsp;começo.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 1 e&nbsp;pilar 3.</strong></span> <span class="fr">O&nbsp;caminho até&nbsp;o&nbsp;relatório existe e&nbsp;funciona, mas&nbsp;mora na&nbsp;cabeça de&nbsp;quem faz.</span> <span class="fr">E&nbsp;ele é pedido de&nbsp;uma&nbsp;vez só,&nbsp;sem&nbsp;etapa de&nbsp;conferência no&nbsp;meio.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">Os&nbsp;passos do&nbsp;relatório estão escritos: quais filtros, em&nbsp;que&nbsp;ordem, o&nbsp;que&nbsp;fazer com&nbsp;o&nbsp;caso fora do&nbsp;padrão, como é a&nbsp;seção final.</span> <span class="fr">O&nbsp;trabalho é pedido
+                por&nbsp;etapas, e&nbsp;você confere os&nbsp;números antes de&nbsp;virar apresentação.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Da&nbsp;próxima vez que&nbsp;montar o&nbsp;relatório, escreva o&nbsp;que&nbsp;você fez enquanto&nbsp;faz.</span> <span class="fr">No&nbsp;mês seguinte você não&nbsp;monta: você segue o&nbsp;que&nbsp;escreveu, e&nbsp;corrige
+                o&nbsp;que&nbsp;estiver faltando.</span></div></div>
+              <div class="ex-fecho fr-host">
+                <span class="fr">Escrever enquanto&nbsp;faz custa uma&nbsp;vez.</span> <span class="fr">Refazer de&nbsp;cabeça custa todo mês, e&nbsp;custa duas vezes quando&nbsp;a&nbsp;pessoa que&nbsp;sabia está de&nbsp;férias.</span>
               </div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">9 de 22</span>
-              <span class="ex-t">Analisar dados, planilhas e indicadores de resultado</span>
+              <span class="ex-area">9 de&nbsp;22</span>
+              <span class="ex-t">Analisar dados, planilhas e&nbsp;indicadores de&nbsp;resultado</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                Os dados estão em várias planilhas, e juntá-las é trabalho manual que
-                recomeça a cada consulta.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 3.</strong> Juntar, limpar e analisar são três trabalhos
-                diferentes, pedidos como se fossem um. O erro aparece só no fim.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                Primeiro juntar e conferir o total. Depois limpar e conferir o que sobrou.
-                Só então analisar. Cada etapa termina num número que você reconhece.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Escolha um número que você já conhece de cor, como o total do mês passado.
-                Ele é a sua conferência entre uma etapa e outra.</div></div>
+                Os&nbsp;dados estão em&nbsp;várias planilhas, e&nbsp;juntá-las é trabalho manual que&nbsp;recomeça a&nbsp;cada consulta.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 3.</strong></span> <span class="fr">Juntar, limpar e&nbsp;analisar são três trabalhos
+                diferentes, pedidos como se&nbsp;fossem um.&nbsp;O&nbsp;erro aparece só&nbsp;no&nbsp;fim.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">Primeiro juntar e&nbsp;conferir o&nbsp;total.</span> <span class="fr">Depois limpar e&nbsp;conferir o&nbsp;que&nbsp;sobrou.</span>
+                <span class="fr">Só&nbsp;então analisar.</span> <span class="fr">Cada etapa termina num&nbsp;número que&nbsp;você reconhece.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Escolha um&nbsp;número que&nbsp;você já&nbsp;conhece de&nbsp;cor, como o&nbsp;total do&nbsp;mês passado.</span>
+                <span class="fr">Ele é a&nbsp;sua&nbsp;conferência entre&nbsp;uma&nbsp;etapa e&nbsp;outra.</span></div></div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">8 de 22</span>
-              <span class="ex-t">Fazer cálculos e simular cenários</span>
+              <span class="ex-area">8 de&nbsp;22</span>
+              <span class="ex-t">Fazer cálculos e&nbsp;simular cenários</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                A conta é refeita a cada simulação, e a regra que a sustenta fica só no
-                arquivo de quem montou.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 3, e uma cerca.</strong> Cálculo com dinheiro é onde errar
-                uma vez em cem já é caro. Precisa de conferência humana marcada, não
-                opcional.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                As regras do cálculo estão escritas em português, fora da planilha. A
-                simulação é feita por etapas, e nenhum resultado circula sem alguém
-                nomeado ter conferido. Divergência encontrada vira nota na regra.</div></div>
-              <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Escreva em português as regras que hoje estão só dentro das fórmulas.
-                Quem entra amanhã não lê fórmula, lê português.</div></div>
+                A&nbsp;conta é refeita a&nbsp;cada simulação, e&nbsp;a&nbsp;regra que&nbsp;a&nbsp;sustenta fica só&nbsp;no&nbsp;arquivo de&nbsp;quem montou.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 3, e&nbsp;uma&nbsp;cerca.</strong></span> <span class="fr">Cálculo com&nbsp;dinheiro é onde&nbsp;errar
+                uma&nbsp;vez em&nbsp;cem já&nbsp;é caro.</span> <span class="fr">Precisa de&nbsp;conferência humana marcada, não&nbsp;opcional.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">As&nbsp;regras do&nbsp;cálculo estão escritas em&nbsp;português, fora da&nbsp;planilha.</span> <span class="fr">A&nbsp;simulação é feita por&nbsp;etapas, e&nbsp;nenhum resultado circula sem&nbsp;alguém
+                nomeado ter conferido.</span> <span class="fr">Divergência encontrada vira nota na&nbsp;regra.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
+                <span class="fr">Escreva em&nbsp;português as&nbsp;regras que&nbsp;hoje estão só&nbsp;dentro das&nbsp;fórmulas.</span>
+                <span class="fr">Quem entra amanhã não&nbsp;lê fórmula, lê português.</span></div></div>
             </div>
           </details>
 
           <details class="ex">
             <summary>
-              <span class="ex-area">7 de 22</span>
-              <span class="ex-t">Automatizar tarefas repetitivas e rotinas administrativas</span>
+              <span class="ex-area">7 de&nbsp;22</span>
+              <span class="ex-t">Automatizar tarefas repetitivas e&nbsp;rotinas administrativas</span>
             </summary>
             <div class="ex-corpo">
               <div class="ex-l"><div class="ex-rot">Hoje</div><div class="ex-tx">
-                A tarefa se repete toda semana e passa inteira por uma pessoa, do início
-                ao fim.</div></div>
-              <div class="ex-l"><div class="ex-rot">O que falta</div><div class="ex-tx">
-                <strong>Pilar 1.</strong> Automatizar o que ninguém escreveu é automatizar
-                um palpite. O passo a passo precisa existir antes.</div></div>
-              <div class="ex-l"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
-                O passo a passo está escrito e é seguido. O que a máquina faz e o que
-                a pessoa confere estão separados por escrito. Quando algo passa errado,
-                a correção entra no passo a passo, e não só naquele caso.</div></div>
+                A&nbsp;tarefa se&nbsp;repete toda semana e&nbsp;passa inteira por&nbsp;uma&nbsp;pessoa, do&nbsp;início
+                ao&nbsp;fim.</div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">O&nbsp;que&nbsp;falta</div><div class="ex-tx">
+                <span class="fr"><strong>Pilar 1.</strong></span> <span class="fr">Automatizar o&nbsp;que&nbsp;ninguém escreveu é automatizar
+                um&nbsp;palpite.</span> <span class="fr">O&nbsp;passo a&nbsp;passo precisa existir antes.</span></div></div>
+              <div class="ex-l fr-host"><div class="ex-rot">Loop fechado</div><div class="ex-tx">
+                <span class="fr">O&nbsp;passo a&nbsp;passo está escrito e&nbsp;é seguido.</span> <span class="fr">O&nbsp;que&nbsp;a&nbsp;máquina faz e&nbsp;o&nbsp;que&nbsp;a&nbsp;pessoa confere estão separados por&nbsp;escrito.</span> <span class="fr">Quando&nbsp;algo passa errado,
+                a&nbsp;correção entra no&nbsp;passo a&nbsp;passo, e&nbsp;não&nbsp;só&nbsp;naquele caso.</span></div></div>
               <div class="ex-l"><div class="ex-rot">Primeiro passo</div><div class="ex-tx">
-                Escolha a tarefa mais chata da sua semana e escreva os passos dela hoje,
-                antes de automatizar qualquer coisa.</div></div>
-              <div class="ex-fecho">
-                Escrever o passo a passo já reduz o tempo sozinho, mesmo que a automação
-                nunca aconteça. É por isso que ele é o primeiro passo e não o segundo.
+                Escolha a&nbsp;tarefa mais chata da&nbsp;sua&nbsp;semana e&nbsp;escreva os&nbsp;passos dela hoje,
+                antes de&nbsp;automatizar qualquer coisa.</div></div>
+              <div class="ex-fecho fr-host">
+                <span class="fr">Escrever o&nbsp;passo a&nbsp;passo já&nbsp;reduz o&nbsp;tempo sozinho, mesmo que&nbsp;a&nbsp;automação
+                nunca aconteça.</span> <span class="fr">É por&nbsp;isso que&nbsp;ele é o&nbsp;primeiro passo e&nbsp;não&nbsp;o&nbsp;segundo.</span>
               </div>
             </div>
           </details>
         </div>
 
-        <p class="fig-leg">
-          As&nbsp;sete têm o&nbsp;mesmo formato porque&nbsp;são o&nbsp;mesmo problema. Nenhuma delas começa
+        <p class="fig-leg fr-host">
+          <span class="fr">As&nbsp;sete têm o&nbsp;mesmo formato porque&nbsp;são o&nbsp;mesmo problema.</span> <span class="fr">Nenhuma delas começa
           por&nbsp;escolher uma&nbsp;ferramenta: <strong>todas começam por&nbsp;escrever alguma coisa
-          que&nbsp;hoje só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém.</strong>
+          que&nbsp;hoje só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém.</strong></span>
         </p>
       </section>
 
       <section class="block" id="s4">
-        <div class="block-num">07 · O limite</div>
+        <div class="block-num">07 · O&nbsp;limite</div>
         <h2>Onde&nbsp;a&nbsp;inteligência artificial não&nbsp;deve entrar</h2>
 
-        <p class="block-lead">
-          Em&nbsp;educação médica isso não&nbsp;é detalhe jurídico. É o&nbsp;que&nbsp;sustenta a&nbsp;confiança de&nbsp;quem estuda e&nbsp;de&nbsp;quem é atendido.
+        <p class="block-lead fr-host">
+          <span class="fr">Em&nbsp;educação médica isso não&nbsp;é detalhe jurídico.</span> <span class="fr">É o&nbsp;que&nbsp;sustenta a&nbsp;confiança de&nbsp;quem estuda e&nbsp;de&nbsp;quem é atendido.</span>
         </p>
 
         <div class="card-grid-2">
           <div class="card">
-            <div class="card-eyebrow">Não entra</div>
+            <div class="card-eyebrow">Não&nbsp;entra</div>
             <h4>Informação que&nbsp;identifica uma&nbsp;pessoa</h4>
-            <p class="p-curto">
-              Nome, documento, contato, dado de&nbsp;saúde, situação financeira, histórico
-              individual de&nbsp;aluno ou&nbsp;de&nbsp;paciente. Não&nbsp;se&nbsp;cola em&nbsp;ferramenta de&nbsp;IA aberta.
+            <p class="p-curto fr-host">
+              <span class="fr">Nome, documento, contato, dado de&nbsp;saúde, situação financeira, histórico
+              individual de&nbsp;aluno ou&nbsp;de&nbsp;paciente.</span> <span class="fr">Não&nbsp;se&nbsp;cola em&nbsp;ferramenta de&nbsp;IA aberta.</span>
             </p>
-            <p class="p-curto">
-              <strong>A&nbsp;saída prática:</strong> troque o&nbsp;dado por&nbsp;uma&nbsp;etiqueta antes de&nbsp;colar. Em&nbsp;vez do&nbsp;nome, escreva <em>aluno A</em>. A&nbsp;IA trabalha igual e&nbsp;a&nbsp;informação não&nbsp;sai.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>A&nbsp;saída prática:</strong> troque o&nbsp;dado por&nbsp;uma&nbsp;etiqueta antes de&nbsp;colar.</span> <span class="fr">Em&nbsp;vez do&nbsp;nome, escreva <em>aluno A</em>.</span> <span class="fr">A&nbsp;IA trabalha igual e&nbsp;a&nbsp;informação não&nbsp;sai.</span>
             </p>
           </div>
           <div class="card">
-            <div class="card-eyebrow">Não decide sozinha</div>
+            <div class="card-eyebrow">Não&nbsp;decide sozinha</div>
             <h4>O&nbsp;que&nbsp;tem consequência clínica ou&nbsp;de&nbsp;carreira</h4>
             <p class="p-curto">
               Conteúdo que&nbsp;orienta conduta médica, avaliação que&nbsp;define aprovação, resposta
               que&nbsp;vira posição oficial da&nbsp;instituição.
             </p>
-            <p class="p-curto">
-              <strong>A&nbsp;saída prática:</strong> a&nbsp;IA prepara, uma&nbsp;pessoa revisa e&nbsp;assina.
-              O&nbsp;ponto de&nbsp;revisão é marcado no&nbsp;fluxo, não&nbsp;deixado para&nbsp;quando&nbsp;der.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>A&nbsp;saída prática:</strong> a&nbsp;IA prepara, uma&nbsp;pessoa revisa e&nbsp;assina.</span>
+              <span class="fr">O&nbsp;ponto de&nbsp;revisão é marcado no&nbsp;fluxo, não&nbsp;deixado para&nbsp;quando&nbsp;der.</span>
             </p>
           </div>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">O limite é o que dá credibilidade</div>
-          <p class="p-curto">
-            Dizer com&nbsp;clareza onde&nbsp;a&nbsp;IA não&nbsp;entra é o&nbsp;que&nbsp;permite usá-la com&nbsp;tranquilidade
-            em&nbsp;todo o&nbsp;resto. Área que&nbsp;não&nbsp;sabe onde&nbsp;é a&nbsp;linha acaba não&nbsp;usando em&nbsp;lugar
-            nenhum, ou&nbsp;usando onde&nbsp;não&nbsp;devia.
+          <p class="p-curto fr-host">
+            <span class="fr">Dizer com&nbsp;clareza onde&nbsp;a&nbsp;IA não&nbsp;entra é o&nbsp;que&nbsp;permite usá-la com&nbsp;tranquilidade
+            em&nbsp;todo o&nbsp;resto.</span> <span class="fr">Área que&nbsp;não&nbsp;sabe onde&nbsp;é a&nbsp;linha acaba não&nbsp;usando em&nbsp;lugar
+            nenhum, ou&nbsp;usando onde&nbsp;não&nbsp;devia.</span>
           </p>
         </div>
       </section>
@@ -2060,18 +2050,18 @@ Escreva o comunicado. No máximo dez linhas.</div>
         <div class="block-num">08 · Exercício</div>
         <h2>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém</h2>
 
-        <p class="block-lead">
-          Em&nbsp;grupo. Levantem três coisas da&nbsp;área de&nbsp;vocês que&nbsp;ninguém escreveu, uma&nbsp;de&nbsp;cada
-          tipo.
+        <p class="block-lead fr-host">
+          <span class="fr">Em&nbsp;grupo.</span> <span class="fr">Levantem três coisas da&nbsp;área de&nbsp;vocês que&nbsp;ninguém escreveu, uma&nbsp;de&nbsp;cada
+          tipo.</span>
         </p>
 
         <div class="passo">
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>Cada pessoa lembra de&nbsp;um&nbsp;caso concreto</h3>
-            <p class="p-curto">
-              Não&nbsp;uma&nbsp;categoria genérica. Um&nbsp;caso que&nbsp;aconteceu: a&nbsp;vez em&nbsp;que&nbsp;alguém
-              precisou de&nbsp;uma&nbsp;resposta e&nbsp;teve que&nbsp;procurar uma&nbsp;pessoa específica.
+            <p class="p-curto fr-host">
+              <span class="fr">Não&nbsp;uma&nbsp;categoria genérica.</span> <span class="fr">Um&nbsp;caso que&nbsp;aconteceu: a&nbsp;vez em&nbsp;que&nbsp;alguém
+              precisou de&nbsp;uma&nbsp;resposta e&nbsp;teve que&nbsp;procurar uma&nbsp;pessoa específica.</span>
             </p>
           </div>
         </div>
@@ -2080,8 +2070,8 @@ Escreva o comunicado. No máximo dez linhas.</div>
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>O&nbsp;grupo escolhe um&nbsp;de&nbsp;cada tipo</h3>
-            <p class="p-curto">
-              Um&nbsp;jeito que&nbsp;se&nbsp;aprende observando, uma&nbsp;regra não&nbsp;escrita, e&nbsp;uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa trata. Escrevam em&nbsp;uma&nbsp;frase cada.
+            <p class="p-curto fr-host">
+              <span class="fr">Um&nbsp;jeito que&nbsp;se&nbsp;aprende observando, uma&nbsp;regra não&nbsp;escrita, e&nbsp;uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa trata.</span> <span class="fr">Escrevam em&nbsp;uma&nbsp;frase cada.</span>
             </p>
           </div>
         </div>
@@ -2090,75 +2080,75 @@ Escreva o comunicado. No máximo dez linhas.</div>
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Para&nbsp;cada um,&nbsp;respondam a&nbsp;pergunta que&nbsp;importa</h3>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;acontece hoje quando&nbsp;a&nbsp;pessoa que&nbsp;sabe não&nbsp;está?</strong> A&nbsp;resposta costuma ser um&nbsp;número: o&nbsp;caso espera dois dias, ou&nbsp;a&nbsp;resposta sai
-              errada e&nbsp;alguém corrige depois, ou&nbsp;simplesmente ninguém faz.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;acontece hoje quando&nbsp;a&nbsp;pessoa que&nbsp;sabe não&nbsp;está?</strong></span> <span class="fr">A&nbsp;resposta costuma ser um&nbsp;número: o&nbsp;caso espera dois dias, ou&nbsp;a&nbsp;resposta sai
+              errada e&nbsp;alguém corrige depois, ou&nbsp;simplesmente ninguém faz.</span>
             </p>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">Registrem no celular</div>
-          <p class="p-curto">
-            Os&nbsp;três itens têm campo próprio na&nbsp;régua, no&nbsp;bloco <em>o&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</em>. O&nbsp;que&nbsp;a&nbsp;turma inteira escrever vira uma&nbsp;lista consolidada por&nbsp;área, e&nbsp;é um&nbsp;dos&nbsp;entregáveis do&nbsp;dia.
+          <p class="p-curto fr-host">
+            <span class="fr">Os&nbsp;três itens têm campo próprio na&nbsp;régua, no&nbsp;bloco <em>o&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</em>.</span> <span class="fr">O&nbsp;que&nbsp;a&nbsp;turma inteira escrever vira uma&nbsp;lista consolidada por&nbsp;área, e&nbsp;é um&nbsp;dos&nbsp;entregáveis do&nbsp;dia.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s6">
-        <div class="block-num">09 · Antes de seguir</div>
+        <div class="block-num">09 · Antes de&nbsp;seguir</div>
         <h2>Você sabe fazer isto agora</h2>
 
         <div class="checagem">
-          <div class="checagem-head">Confira em você mesmo</div>
+          <div class="checagem-head">Confira em&nbsp;você mesmo</div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei dizer a diferença entre usar a IA no fim do trabalho e colocá-la no desenho</div>
-              <div class="checagem-como">Se não sai em uma frase, volte à seção 01</div>
+              <div class="checagem-o">Sei dizer a&nbsp;diferença entre&nbsp;usar a&nbsp;IA no&nbsp;fim do&nbsp;trabalho e&nbsp;colocá-la no&nbsp;desenho</div>
+              <div class="checagem-como">Se&nbsp;não&nbsp;sai em&nbsp;uma&nbsp;frase, volte à&nbsp;seção 01</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Consigo nomear três coisas que a minha área sabe e nunca escreveu</div>
-              <div class="checagem-como">Uma de cada tipo. Se só sai uma, o exercício da seção 05 ainda não terminou</div>
+              <div class="checagem-o">Consigo nomear três coisas que&nbsp;a&nbsp;minha&nbsp;área sabe e&nbsp;nunca escreveu</div>
+              <div class="checagem-como fr-host"><span class="fr">Uma&nbsp;de&nbsp;cada tipo.</span> <span class="fr">Se&nbsp;só&nbsp;sai uma,&nbsp;o&nbsp;exercício da&nbsp;seção 05 ainda não&nbsp;terminou</span></div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei escrever os quatro campos de contexto antes de pedir</div>
-              <div class="checagem-como">Quem lê, o que está acontecendo, a regra da casa e o limite. Teste com um pedido real da sua semana</div>
+              <div class="checagem-o">Sei escrever os&nbsp;quatro campos de&nbsp;contexto antes de&nbsp;pedir</div>
+              <div class="checagem-como fr-host"><span class="fr">Quem lê, o&nbsp;que&nbsp;está acontecendo, a&nbsp;regra da&nbsp;casa e&nbsp;o&nbsp;limite.</span> <span class="fr">Teste com&nbsp;um&nbsp;pedido real da&nbsp;sua&nbsp;semana</span></div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei desenhar o loop aberto de uma rotina da minha área</div>
-              <div class="checagem-como">Diga em voz alta onde ela termina hoje e qual seria a etapa de medir. Se as duas forem a mesma, ainda é loop aberto</div>
+              <div class="checagem-o">Sei desenhar o&nbsp;loop aberto de&nbsp;uma&nbsp;rotina da&nbsp;minha&nbsp;área</div>
+              <div class="checagem-como fr-host"><span class="fr">Diga em&nbsp;voz alta onde&nbsp;ela termina hoje e&nbsp;qual seria a&nbsp;etapa de&nbsp;medir.</span> <span class="fr">Se&nbsp;as&nbsp;duas forem a&nbsp;mesma, ainda é loop aberto</span></div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei em qual das três gavetas cada coisa que registro vai</div>
-              <div class="checagem-como">Pegue três registros que você já tem hoje e diga a gaveta de cada um. Se os três caem na primeira, a gaveta 2 ainda está vazia</div>
+              <div class="checagem-o">Sei em&nbsp;qual das&nbsp;três gavetas cada coisa que&nbsp;registro vai</div>
+              <div class="checagem-como">Pegue três registros que&nbsp;você já&nbsp;tem hoje e&nbsp;diga a&nbsp;gaveta de&nbsp;cada um.&nbsp;Se&nbsp;os&nbsp;três caem na&nbsp;primeira, a&nbsp;gaveta 2 ainda está vazia</div>
             </div>
           </div>
           <div class="checagem-item">
             <div>
-              <div class="checagem-o">Sei onde a IA não entra no meu trabalho</div>
-              <div class="checagem-como">Se a resposta é "em lugar nenhum" ou "em qualquer lugar", releia a seção 04</div>
+              <div class="checagem-o">Sei onde&nbsp;a&nbsp;IA não&nbsp;entra no&nbsp;meu&nbsp;trabalho</div>
+              <div class="checagem-como">Se&nbsp;a&nbsp;resposta é "em&nbsp;lugar nenhum" ou&nbsp;"em&nbsp;qualquer lugar", releia a&nbsp;seção 04</div>
             </div>
           </div>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">O que este bloco ainda não resolve</div>
-          <p class="p-curto">
-            Você já&nbsp;sabe registrar e&nbsp;já&nbsp;sabe dar contexto. Falta o&nbsp;problema que&nbsp;aparece
-            quando&nbsp;o&nbsp;trabalho é grande: <strong>pedido grande volta errado inteiro, e&nbsp;sem&nbsp;que&nbsp;se&nbsp;saiba onde&nbsp;errou.</strong> É o&nbsp;que&nbsp;os&nbsp;dois casos tratam.
+          <p class="p-curto fr-host">
+            <span class="fr">Você já&nbsp;sabe registrar e&nbsp;já&nbsp;sabe dar contexto.</span> <span class="fr">Falta o&nbsp;problema que&nbsp;aparece
+            quando&nbsp;o&nbsp;trabalho é grande: <strong>pedido grande volta errado inteiro, e&nbsp;sem&nbsp;que&nbsp;se&nbsp;saiba onde&nbsp;errou.</strong></span> <span class="fr">É o&nbsp;que&nbsp;os&nbsp;dois casos tratam.</span>
           </p>
         </div>
       </section>
       <div class="nav-bottom">
-        <a class="nav-link prev" href="../"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">A capa do dia</span></a>
+        <a class="nav-link prev" href="../"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">A&nbsp;capa do&nbsp;dia</span></a>
         <a class="nav-link next" href="../caso-1/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">Caso 1 · Conhecimento espalhado</span></a>
       </div>
   </main>

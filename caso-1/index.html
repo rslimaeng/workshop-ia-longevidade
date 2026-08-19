@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1155,18 +1170,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>O problema, antes da resposta</a></li>
-      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a solução em grupo</a></li>
-      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>O que de fato aconteceu</a></li>
-      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>O que este caso prova</a></li>
-      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>Refaça isto com o material da sua área</a></li>
+      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>O&nbsp;problema, antes da&nbsp;resposta</a></li>
+      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a&nbsp;solução em&nbsp;grupo</a></li>
+      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
+      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>O&nbsp;que&nbsp;este caso prova</a></li>
+      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>Refaça isto com&nbsp;o&nbsp;material da&nbsp;sua&nbsp;área</a></li>
     </ul>
   </nav>
   <main>
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Bloco 3</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; Bloco 3</div>
       <div class="hero">
-        <div class="hero-eyebrow">Bloco 3 · Caso em três passos</div>
+        <div class="hero-eyebrow">Bloco 3 · Caso em&nbsp;três passos</div>
         <h1>Conhecimento espalhado e&nbsp;muitas frentes ao&nbsp;mesmo tempo</h1>
         <p class="hero-lead">Doze frentes de&nbsp;trabalho ao&nbsp;mesmo tempo, cada uma&nbsp;com&nbsp;um&nbsp;papel diferente, e&nbsp;a&nbsp;resposta boa guardada com&nbsp;quem estava presente.</p>
         <div class="hero-meta">
@@ -1181,67 +1196,67 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Leia só até o fim da seção 02</div>
-          <p class="p-curto">
-            O&nbsp;que&nbsp;de&nbsp;fato aconteceu está mais abaixo, atrás de&nbsp;um&nbsp;botão fechado.
-            <strong>Abrir antes do&nbsp;seu&nbsp;grupo apresentar estraga o&nbsp;exercício</strong>, que&nbsp;é
-            justamente desenhar a&nbsp;solução sem&nbsp;saber a&nbsp;resposta.
+          <p class="p-curto fr-host">
+            <span class="fr">O&nbsp;que&nbsp;de&nbsp;fato aconteceu está mais abaixo, atrás de&nbsp;um&nbsp;botão fechado.</span>
+            <span class="fr"><strong>Abrir antes do&nbsp;seu&nbsp;grupo apresentar estraga o&nbsp;exercício</strong>, que&nbsp;é
+            justamente desenhar a&nbsp;solução sem&nbsp;saber a&nbsp;resposta.</span>
           </p>
         </div>
 
-        <p class="block-lead">
-          Uma&nbsp;pessoa toca doze frentes de&nbsp;trabalho ao&nbsp;mesmo tempo. E&nbsp;em&nbsp;cada uma&nbsp;delas ela
-          tem um&nbsp;papel diferente.
+        <p class="block-lead fr-host">
+          <span class="fr">Uma&nbsp;pessoa toca doze frentes de&nbsp;trabalho ao&nbsp;mesmo tempo.</span> <span class="fr">E&nbsp;em&nbsp;cada uma&nbsp;delas ela
+          tem um&nbsp;papel diferente.</span>
         </p>
 
         <div class="card card-accent">
-          <div class="card-eyebrow">A situação</div>
-          <p class="p-curto">
-            Numa&nbsp;frente ela decide e&nbsp;responde pelo&nbsp;resultado. Noutra ela executa o&nbsp;que&nbsp;outra pessoa decidiu. Noutra ela ensina. Cada frente tem o&nbsp;seu&nbsp;histórico, as&nbsp;suas&nbsp;decisões já&nbsp;tomadas, as&nbsp;suas&nbsp;pendências e&nbsp;o&nbsp;seu&nbsp;jeito de&nbsp;trabalhar, que&nbsp;não&nbsp;é igual ao&nbsp;das&nbsp;outras.
+          <div class="card-eyebrow">A&nbsp;situação</div>
+          <p class="p-curto fr-host">
+            <span class="fr">Numa&nbsp;frente ela decide e&nbsp;responde pelo&nbsp;resultado.</span> <span class="fr">Noutra ela executa o&nbsp;que&nbsp;outra pessoa decidiu.</span> <span class="fr">Noutra ela ensina.</span> <span class="fr">Cada frente tem o&nbsp;seu&nbsp;histórico, as&nbsp;suas&nbsp;decisões já&nbsp;tomadas, as&nbsp;suas&nbsp;pendências e&nbsp;o&nbsp;seu&nbsp;jeito de&nbsp;trabalhar, que&nbsp;não&nbsp;é igual ao&nbsp;das&nbsp;outras.</span>
           </p>
           <p class="p-curto">
             <strong>Três coisas quebram todo mês:</strong>
           </p>
           <ul>
-            <li>
-              Ao voltar a uma frente depois de duas semanas, a primeira hora vai embora
-              relembrando onde tinha parado.
+            <li class="p-curto">
+              Ao&nbsp;voltar a&nbsp;uma&nbsp;frente depois de&nbsp;duas semanas, a&nbsp;primeira hora vai embora
+              relembrando onde&nbsp;tinha parado.
             </li>
-            <li>
-              Ao pedir ajuda à inteligência artificial, ela precisa explicar tudo de novo,
-              do zero, porque a ferramenta não sabe de nada daquela frente.
+            <li class="p-curto">
+              Ao&nbsp;pedir ajuda à&nbsp;inteligência artificial, ela precisa explicar tudo de&nbsp;novo,
+              do&nbsp;zero, porque&nbsp;a&nbsp;ferramenta não&nbsp;sabe de&nbsp;nada daquela frente.
             </li>
-            <li>
-              De vez em quando ela decide de novo uma coisa que já tinha sido decidida
-              meses antes, e decide do jeito contrário. Ninguém percebe na hora.
+            <li class="p-curto fr-host">
+              <span class="fr">De&nbsp;vez em&nbsp;quando&nbsp;ela decide de&nbsp;novo uma&nbsp;coisa que&nbsp;já&nbsp;tinha sido decidida
+              meses antes, e&nbsp;decide do&nbsp;jeito contrário.</span> <span class="fr">Ninguém percebe na&nbsp;hora.</span>
             </li>
           </ul>
         </div>
 
         <div class="callout callout-warn">
           <div class="callout-title">A restrição que muda tudo</div>
-          <p class="p-curto">
-            Isso precisa funcionar <strong>sem&nbsp;virar um&nbsp;segundo emprego</strong>. Se&nbsp;manter
-            a&nbsp;organização custar mais tempo do&nbsp;que&nbsp;ela economiza, o&nbsp;sistema é abandonado no&nbsp;segundo mês. Já&nbsp;foi.
+          <p class="p-curto fr-host">
+            <span class="fr">Isso precisa funcionar <strong>sem&nbsp;virar um&nbsp;segundo emprego</strong>.</span> <span class="fr">Se&nbsp;manter
+            a&nbsp;organização custar mais tempo do&nbsp;que&nbsp;ela economiza, o&nbsp;sistema é abandonado no&nbsp;segundo mês.</span> <span class="fr">Já&nbsp;foi.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s2">
-        <div class="block-num">02 · O que o seu grupo entrega</div>
+        <div class="block-num">02 · O&nbsp;que&nbsp;o&nbsp;seu&nbsp;grupo entrega</div>
         <h2>Desenhem a&nbsp;solução em&nbsp;grupo</h2>
 
-        <p class="block-lead">
-          Não&nbsp;precisa ser bonito nem completo. Precisa responder quatro perguntas de&nbsp;forma
-          que&nbsp;outra pessoa consiga executar.
+        <p class="block-lead fr-host">
+          <span class="fr">Não&nbsp;precisa ser bonito nem completo.</span> <span class="fr">Precisa responder quatro perguntas de&nbsp;forma
+          que&nbsp;outra pessoa consiga executar.</span>
         </p>
 
         <div class="passo">
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>Onde&nbsp;a&nbsp;informação de&nbsp;cada frente mora</h3>
-            <p class="p-curto">
-              Um&nbsp;lugar por&nbsp;frente, um&nbsp;lugar só&nbsp;para&nbsp;tudo, ou&nbsp;os&nbsp;dois? E&nbsp;se&nbsp;forem os&nbsp;dois,
-              o&nbsp;que&nbsp;fica em&nbsp;cada um?
+            <p class="p-curto fr-host">
+              <span class="fr">Um&nbsp;lugar por&nbsp;frente, um&nbsp;lugar só&nbsp;para&nbsp;tudo, ou&nbsp;os&nbsp;dois?</span> <span class="fr">E&nbsp;se&nbsp;forem os&nbsp;dois,
+              o&nbsp;que&nbsp;fica em&nbsp;cada um?</span>
             </p>
           </div>
         </div>
@@ -1250,9 +1265,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>O&nbsp;que&nbsp;exatamente se&nbsp;escreve</h3>
-            <p class="p-curto">
-              Listem os&nbsp;campos. Não&nbsp;"as&nbsp;informações do&nbsp;projeto", e&nbsp;sim os&nbsp;itens concretos
-              que&nbsp;precisam estar lá para&nbsp;alguém retomar em&nbsp;cinco minutos.
+            <p class="p-curto fr-host">
+              <span class="fr">Listem os&nbsp;campos.</span> <span class="fr">Não&nbsp;"as&nbsp;informações do&nbsp;projeto", e&nbsp;sim os&nbsp;itens concretos
+              que&nbsp;precisam estar lá para&nbsp;alguém retomar em&nbsp;cinco minutos.</span>
             </p>
           </div>
         </div>
@@ -1261,9 +1276,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Quem escreve, e&nbsp;em&nbsp;que&nbsp;momento</h3>
-            <p class="p-curto">
-              Este é o&nbsp;passo em&nbsp;que&nbsp;a&nbsp;maioria das&nbsp;soluções morre. Se&nbsp;a&nbsp;resposta for "todo
-              mundo, sempre que&nbsp;puder", o&nbsp;sistema não&nbsp;vai ser mantido.
+            <p class="p-curto fr-host">
+              <span class="fr">Este é o&nbsp;passo em&nbsp;que&nbsp;a&nbsp;maioria das&nbsp;soluções morre.</span> <span class="fr">Se&nbsp;a&nbsp;resposta for "todo
+              mundo, sempre que&nbsp;puder", o&nbsp;sistema não&nbsp;vai ser mantido.</span>
             </p>
           </div>
         </div>
@@ -1272,50 +1287,50 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">4</div>
           <div class="passo-body">
             <h3>Como isso chega à&nbsp;inteligência artificial na&nbsp;hora do&nbsp;pedido</h3>
-            <p class="p-curto">
-              A&nbsp;pessoa copia e&nbsp;cola? Alguém mantém um&nbsp;resumo? A&nbsp;ferramenta lê sozinha?
-              Digam qual e&nbsp;por&nbsp;quê.
+            <p class="p-curto fr-host">
+              <span class="fr">A&nbsp;pessoa copia e&nbsp;cola?</span> <span class="fr">Alguém mantém um&nbsp;resumo?</span> <span class="fr">A&nbsp;ferramenta lê sozinha?</span>
+              <span class="fr">Digam qual e&nbsp;por&nbsp;quê.</span>
             </p>
           </div>
         </div>
 
         <h3>O&nbsp;nível de&nbsp;detalhe que&nbsp;conta como resposta</h3>
-        <p class="p-curto">
-          O&nbsp;exemplo abaixo é de&nbsp;<strong>outra rotina, de&nbsp;propósito</strong>: fechar o&nbsp;relatório mensal de&nbsp;uma&nbsp;área administrativa. Ele não&nbsp;serve como resposta deste
-          caso. Serve para&nbsp;mostrar o&nbsp;quanto uma&nbsp;resposta precisa descer para&nbsp;outra pessoa
-          conseguir executar.
+        <p class="p-curto fr-host">
+          <span class="fr">O&nbsp;exemplo abaixo é de&nbsp;<strong>outra rotina, de&nbsp;propósito</strong>: fechar o&nbsp;relatório mensal de&nbsp;uma&nbsp;área administrativa.</span> <span class="fr">Ele não&nbsp;serve como resposta deste
+          caso.</span> <span class="fr">Serve para&nbsp;mostrar o&nbsp;quanto uma&nbsp;resposta precisa descer para&nbsp;outra pessoa
+          conseguir executar.</span>
         </p>
 
         <div class="quadro">
-          <div class="quadro-topo">Exemplo de outra rotina · fechar o relatório mensal</div>
-          <div class="quadro-linha">
-            <div class="quadro-c">1 · Onde mora</div>
-            <div class="quadro-v preenchido">Uma pasta compartilhada por ano, uma subpasta por mês. Dentro, sempre os mesmos três arquivos, com os mesmos nomes.</div>
+          <div class="quadro-topo">Exemplo de&nbsp;outra rotina · fechar o&nbsp;relatório mensal</div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">1 · Onde&nbsp;mora</div>
+            <div class="quadro-v preenchido"><span class="fr">Uma&nbsp;pasta compartilhada por&nbsp;ano, uma&nbsp;subpasta por&nbsp;mês.</span> <span class="fr">Dentro, sempre os&nbsp;mesmos três arquivos, com&nbsp;os&nbsp;mesmos nomes.</span></div>
           </div>
           <div class="quadro-linha">
-            <div class="quadro-c">2 · O que se escreve</div>
-            <div class="quadro-v preenchido">Data do fechamento, quais filtros foram usados, o total antes e depois da limpeza, os casos fora do padrão e o que se decidiu sobre cada um.</div>
+            <div class="quadro-c">2 · O&nbsp;que&nbsp;se&nbsp;escreve</div>
+            <div class="quadro-v preenchido">Data do&nbsp;fechamento, quais filtros foram usados, o&nbsp;total antes e&nbsp;depois da&nbsp;limpeza, os&nbsp;casos fora do&nbsp;padrão e&nbsp;o&nbsp;que&nbsp;se&nbsp;decidiu sobre&nbsp;cada um.</div>
+          </div>
+          <div class="quadro-linha fr-host">
+            <div class="quadro-c">3 · Quem escreve, e&nbsp;quando</div>
+            <div class="quadro-v preenchido"><span class="fr">Quem fecha o&nbsp;relatório, no&nbsp;mesmo dia em&nbsp;que&nbsp;fecha.</span> <span class="fr">Não&nbsp;no&nbsp;fim do&nbsp;mês, não&nbsp;depois.</span> <span class="fr">O&nbsp;registro faz parte do&nbsp;fechamento, e&nbsp;não&nbsp;é tarefa à&nbsp;parte.</span></div>
           </div>
           <div class="quadro-linha">
-            <div class="quadro-c">3 · Quem escreve, e quando</div>
-            <div class="quadro-v preenchido">Quem fecha o relatório, no mesmo dia em que fecha. Não no fim do mês, não depois. O registro faz parte do fechamento, e não é tarefa à parte.</div>
-          </div>
-          <div class="quadro-linha">
-            <div class="quadro-c">4 · Como chega ao pedido</div>
-            <div class="quadro-v preenchido">O arquivo do mês anterior é anexado junto com o pedido, para o trabalho novo seguir o mesmo critério do anterior.</div>
+            <div class="quadro-c">4 · Como chega ao&nbsp;pedido</div>
+            <div class="quadro-v preenchido">O&nbsp;arquivo do&nbsp;mês anterior é anexado junto com&nbsp;o&nbsp;pedido, para&nbsp;o&nbsp;trabalho novo seguir o&nbsp;mesmo critério do&nbsp;anterior.</div>
           </div>
         </div>
 
-        <p class="fig-leg">
-          Repare no&nbsp;campo 3. <strong>"No&nbsp;mesmo dia em&nbsp;que&nbsp;fecha" é uma&nbsp;resposta. "Sempre
-          que&nbsp;possível" não&nbsp;é</strong>, porque&nbsp;não&nbsp;dá para&nbsp;saber se&nbsp;foi cumprido. A&nbsp;diferença entre&nbsp;um&nbsp;sistema que&nbsp;sobrevive e&nbsp;um&nbsp;que&nbsp;morre no&nbsp;segundo mês costuma
-          estar exatamente nessa linha.
+        <p class="fig-leg fr-host">
+          <span class="fr">Repare no&nbsp;campo 3.</span> <span class="fr"><strong>"No&nbsp;mesmo dia em&nbsp;que&nbsp;fecha" é uma&nbsp;resposta. "Sempre
+          que&nbsp;possível" não&nbsp;é</strong>, porque&nbsp;não&nbsp;dá para&nbsp;saber se&nbsp;foi cumprido.</span> <span class="fr">A&nbsp;diferença entre&nbsp;um&nbsp;sistema que&nbsp;sobrevive e&nbsp;um&nbsp;que&nbsp;morre no&nbsp;segundo mês costuma
+          estar exatamente nessa linha.</span>
         </p>
 
         <div class="callout callout-info">
           <div class="callout-title">Apresentem em voz alta</div>
-          <p class="p-curto">
-            Um&nbsp;grupo por&nbsp;vez, dois minutos cada. Escutem os&nbsp;outros antes de&nbsp;abrir a&nbsp;resposta: a&nbsp;maioria das&nbsp;soluções vai acertar duas das&nbsp;quatro perguntas, e&nbsp;as&nbsp;duas que&nbsp;ficam de&nbsp;fora costumam ser as&nbsp;mesmas em&nbsp;todos os&nbsp;grupos.
+          <p class="p-curto fr-host">
+            <span class="fr">Um&nbsp;grupo por&nbsp;vez, dois minutos cada.</span> <span class="fr">Escutem os&nbsp;outros antes de&nbsp;abrir a&nbsp;resposta: a&nbsp;maioria das&nbsp;soluções vai acertar duas das&nbsp;quatro perguntas, e&nbsp;as&nbsp;duas que&nbsp;ficam de&nbsp;fora costumam ser as&nbsp;mesmas em&nbsp;todos os&nbsp;grupos.</span>
           </p>
         </div>
       </section>
@@ -1332,150 +1347,145 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <summary>
             <span>
               Abrir a solução que foi implementada
-              <span class="gabarito-aviso">só depois que o seu grupo apresentar</span>
+              <span class="gabarito-aviso">só&nbsp;depois que&nbsp;o&nbsp;seu&nbsp;grupo apresentar</span>
             </span>
           </summary>
           <div class="gabarito-body">
 
             <h4>A&nbsp;estrutura: três camadas, e&nbsp;cada uma&nbsp;aponta para&nbsp;a&nbsp;outra</h4>
-            <p class="p-curto">
-              Não&nbsp;é um&nbsp;lugar só,&nbsp;e&nbsp;não&nbsp;é um&nbsp;lugar por&nbsp;frente. São três níveis, e&nbsp;o&nbsp;mesmo
-              padrão se&nbsp;repete em&nbsp;cada um&nbsp;deles.
+            <p class="p-curto fr-host">
+              <span class="fr">Não&nbsp;é um&nbsp;lugar só,&nbsp;e&nbsp;não&nbsp;é um&nbsp;lugar por&nbsp;frente.</span> <span class="fr">São três níveis, e&nbsp;o&nbsp;mesmo
+              padrão se&nbsp;repete em&nbsp;cada um&nbsp;deles.</span>
             </p>
 
             <div class="camadas">
               <div class="camada topo">
                 <div class="camada-rot">Camada 1</div>
                 <div class="camada-corpo">
-                  <div class="camada-t">A memória cruzada</div>
-                  <div class="camada-d">
-                    Só o que atravessa todas as frentes: os tipos de trabalho, as
-                    decisões que valem para tudo, o que se aprendeu numa frente e serve
-                    na outra. Não tem trabalho próprio.
+                  <div class="camada-t">A&nbsp;memória cruzada</div>
+                  <div class="camada-d fr-host">
+                    <span class="fr">Só&nbsp;o&nbsp;que&nbsp;atravessa todas as&nbsp;frentes: os&nbsp;tipos de&nbsp;trabalho, as&nbsp;decisões que&nbsp;valem para&nbsp;tudo, o&nbsp;que&nbsp;se&nbsp;aprendeu numa&nbsp;frente e&nbsp;serve
+                    na&nbsp;outra.</span> <span class="fr">Não&nbsp;tem trabalho próprio.</span>
                   </div>
-                  <div class="camada-ex">aqui seria: a visão da instituição inteira, acima das áreas</div>
+                  <div class="camada-ex">aqui seria: a&nbsp;visão da&nbsp;instituição inteira, acima das&nbsp;áreas</div>
                 </div>
               </div>
               <div class="camada">
                 <div class="camada-rot">Camada 2</div>
                 <div class="camada-corpo">
-                  <div class="camada-t">A frente</div>
+                  <div class="camada-t">A&nbsp;frente</div>
                   <div class="camada-d">
-                    O contexto daquela frente: como ela funciona, quem decide o quê, e
-                    onde ela parou.
+                    O&nbsp;contexto daquela frente: como ela funciona, quem decide o&nbsp;quê, e&nbsp;onde&nbsp;ela parou.
                   </div>
-                  <div class="camada-ex">aqui seria: a área, como educacional, marketing ou back office</div>
+                  <div class="camada-ex">aqui seria: a&nbsp;área, como educacional, marketing ou&nbsp;back office</div>
                 </div>
               </div>
               <div class="camada">
                 <div class="camada-rot">Camada 3</div>
                 <div class="camada-corpo">
-                  <div class="camada-t">O projeto</div>
+                  <div class="camada-t">O&nbsp;projeto</div>
                   <div class="camada-d">
-                    O mesmo padrão, agora para um projeto específico dentro da frente.
+                    O&nbsp;mesmo padrão, agora para&nbsp;um&nbsp;projeto específico dentro da&nbsp;frente.
                   </div>
-                  <div class="camada-ex">aqui seria: uma turma, um evento, um curso</div>
+                  <div class="camada-ex">aqui seria: uma&nbsp;turma, um&nbsp;evento, um&nbsp;curso</div>
                 </div>
               </div>
             </div>
 
-            <p class="fig-leg">
-              A&nbsp;camada de&nbsp;cima é a&nbsp;única que&nbsp;enxerga todas as&nbsp;outras. É ela que&nbsp;faz o&nbsp;que&nbsp;se&nbsp;aprende numa&nbsp;frente chegar na&nbsp;frente do&nbsp;lado.
+            <p class="fig-leg fr-host">
+              <span class="fr">A&nbsp;camada de&nbsp;cima é a&nbsp;única que&nbsp;enxerga todas as&nbsp;outras.</span> <span class="fr">É ela que&nbsp;faz o&nbsp;que&nbsp;se&nbsp;aprende numa&nbsp;frente chegar na&nbsp;frente do&nbsp;lado.</span>
             </p>
 
             <h4>Os&nbsp;quatro arquivos que&nbsp;se&nbsp;repetem em&nbsp;cada nível</h4>
             <ul>
-              <li>
-                <strong>O contexto:</strong> como as coisas funcionam aqui, o que nunca se
-                faz, quem responde pelo quê. É o que a IA lê antes de qualquer pedido.
+              <li class="p-curto fr-host">
+                <span class="fr"><strong>O&nbsp;contexto:</strong> como as&nbsp;coisas funcionam aqui, o&nbsp;que&nbsp;nunca se&nbsp;faz, quem responde pelo&nbsp;quê.</span> <span class="fr">É o&nbsp;que&nbsp;a&nbsp;IA lê antes de&nbsp;qualquer pedido.</span>
               </li>
-              <li>
-                <strong>Onde paramos:</strong> o estado atual em uma frase, e o próximo
-                passo concreto. É o que a pessoa lê ao voltar.
+              <li class="p-curto fr-host">
+                <span class="fr"><strong>Onde&nbsp;paramos:</strong> o&nbsp;estado atual em&nbsp;uma&nbsp;frase, e&nbsp;o&nbsp;próximo
+                passo concreto.</span> <span class="fr">É o&nbsp;que&nbsp;a&nbsp;pessoa lê ao&nbsp;voltar.</span>
               </li>
-              <li>
-                <strong>O histórico de decisões:</strong> o que foi decidido, quando, e por
-                quê. Nunca se reescreve, só se acrescenta. É o que impede decidir de novo
-                do jeito contrário.
+              <li class="p-curto fr-host">
+                <span class="fr"><strong>O&nbsp;histórico de&nbsp;decisões:</strong> o&nbsp;que&nbsp;foi decidido, quando,&nbsp;e&nbsp;por&nbsp;quê.</span> <span class="fr">Nunca se&nbsp;reescreve, só&nbsp;se&nbsp;acrescenta.</span> <span class="fr">É o&nbsp;que&nbsp;impede decidir de&nbsp;novo
+                do&nbsp;jeito contrário.</span>
               </li>
-              <li>
-                <strong>As pendências:</strong> o que está esperando decisão. Com o nome de
-                quem decide.
+              <li class="p-curto fr-host">
+                <span class="fr"><strong>As&nbsp;pendências:</strong> o&nbsp;que&nbsp;está esperando decisão.</span> <span class="fr">Com&nbsp;o&nbsp;nome de&nbsp;quem decide.</span>
               </li>
             </ul>
 
             <h4>Como isso fica no&nbsp;disco</h4>
-            <p class="p-curto">
-              A&nbsp;estrutura abaixo é a&nbsp;de&nbsp;verdade, com&nbsp;os&nbsp;nomes que&nbsp;ela tem hoje. Repare que&nbsp;o&nbsp;mesmo conjunto de&nbsp;arquivos aparece em&nbsp;cada nível, e&nbsp;que&nbsp;só&nbsp;o&nbsp;nome da&nbsp;pasta
-              muda.
+            <p class="p-curto fr-host">
+              <span class="fr">A&nbsp;estrutura abaixo é a&nbsp;de&nbsp;verdade, com&nbsp;os&nbsp;nomes que&nbsp;ela tem hoje.</span> <span class="fr">Repare que&nbsp;o&nbsp;mesmo conjunto de&nbsp;arquivos aparece em&nbsp;cada nível, e&nbsp;que&nbsp;só&nbsp;o&nbsp;nome da&nbsp;pasta
+              muda.</span>
             </p>
 
             <div class="arvore">
-              <div class="arv-l"><span class="arv-pasta">os-geral/</span> <span class="arv-nota">a camada que enxerga todas as frentes</span></div>
-              <div class="arv-l">├── <span class="arv-arq">CLAUDE.md</span> <span class="arv-nota">o contexto: como se trabalha aqui, quem responde pelo quê</span></div>
-              <div class="arv-l">├── <span class="arv-arq">00-aqui-paramos.md</span> <span class="arv-nota">onde parei e qual é o próximo passo</span></div>
-              <div class="arv-l">├── <span class="arv-arq">01-changelog.md</span> <span class="arv-nota">o que foi decidido, quando e por quê</span></div>
-              <div class="arv-l">├── <span class="arv-arq">02-fios-em-aberto.md</span> <span class="arv-nota">o que espera decisão, e de quem</span></div>
+              <div class="arv-l"><span class="arv-pasta">os-geral/</span> <span class="arv-nota">a&nbsp;camada que&nbsp;enxerga todas as&nbsp;frentes</span></div>
+              <div class="arv-l">├── <span class="arv-arq">CLAUDE.md</span> <span class="arv-nota">o&nbsp;contexto: como se&nbsp;trabalha aqui, quem responde pelo&nbsp;quê</span></div>
+              <div class="arv-l">├── <span class="arv-arq">00-aqui-paramos.md</span> <span class="arv-nota">onde&nbsp;parei e&nbsp;qual é o&nbsp;próximo passo</span></div>
+              <div class="arv-l">├── <span class="arv-arq">01-changelog.md</span> <span class="arv-nota">o&nbsp;que&nbsp;foi decidido, quando&nbsp;e&nbsp;por&nbsp;quê</span></div>
+              <div class="arv-l">├── <span class="arv-arq">02-fios-em-aberto.md</span> <span class="arv-nota">o&nbsp;que&nbsp;espera decisão, e&nbsp;de&nbsp;quem</span></div>
               <div class="arv-l">│</div>
-              <div class="arv-l">├── <span class="arv-pasta">frente-a/</span> <span class="arv-nota">uma área de trabalho</span></div>
+              <div class="arv-l">├── <span class="arv-pasta">frente-a/</span> <span class="arv-nota">uma&nbsp;área de&nbsp;trabalho</span></div>
               <div class="arv-l">│   ├── <span class="arv-destaque">CLAUDE.md · 00-aqui-paramos.md · 01-changelog.md · 02-fios-em-aberto.md</span></div>
-              <div class="arv-l">│   │   <span class="arv-nota">os mesmos quatro, agora sobre esta frente</span></div>
+              <div class="arv-l">│   │   <span class="arv-nota">os&nbsp;mesmos quatro, agora sobre&nbsp;esta frente</span></div>
               <div class="arv-l">│   ├── <span class="arv-pasta">projeto-1/</span></div>
-              <div class="arv-l">│   │   └── <span class="arv-destaque">os mesmos quatro, agora sobre este projeto</span></div>
+              <div class="arv-l">│   │   └── <span class="arv-destaque">os&nbsp;mesmos quatro, agora sobre&nbsp;este projeto</span></div>
               <div class="arv-l">│   └── <span class="arv-pasta">projeto-2/</span></div>
-              <div class="arv-l">│       └── <span class="arv-destaque">os mesmos quatro</span></div>
+              <div class="arv-l">│       └── <span class="arv-destaque">os&nbsp;mesmos quatro</span></div>
               <div class="arv-l">│</div>
               <div class="arv-l">└── <span class="arv-pasta">frente-b/</span> <span class="arv-nota">outra área, mesma estrutura</span></div>
-              <div class="arv-l">    └── <span class="arv-destaque">os mesmos quatro</span></div>
+              <div class="arv-l">    └── <span class="arv-destaque">os&nbsp;mesmos quatro</span></div>
             </div>
 
-            <p class="fig-leg">
-              Quem chega numa&nbsp;frente que&nbsp;não&nbsp;conhece lê quatro arquivos e&nbsp;sabe onde&nbsp;as&nbsp;coisas estão. É o&nbsp;mesmo desenho em&nbsp;qualquer nível, então não&nbsp;é preciso
-              aprender a&nbsp;organização de&nbsp;cada área separadamente.
+            <p class="fig-leg fr-host">
+              <span class="fr">Quem chega numa&nbsp;frente que&nbsp;não&nbsp;conhece lê quatro arquivos e&nbsp;sabe onde&nbsp;as&nbsp;coisas estão.</span> <span class="fr">É o&nbsp;mesmo desenho em&nbsp;qualquer nível, então não&nbsp;é preciso
+              aprender a&nbsp;organização de&nbsp;cada área separadamente.</span>
             </p>
 
             <div class="callout callout-warn">
               <div class="callout-title">A regra que evita o inchaço</div>
-              <p class="p-curto">
-                Cada informação mora em&nbsp;<strong>um</strong>&nbsp;nível só.&nbsp;O&nbsp;que&nbsp;vale para&nbsp;tudo
-                fica em&nbsp;cima e&nbsp;não&nbsp;se&nbsp;repete embaixo; o&nbsp;que&nbsp;é do&nbsp;projeto fica no&nbsp;projeto e&nbsp;não&nbsp;sobe. Sem&nbsp;essa regra, a&nbsp;mesma decisão aparece em&nbsp;três lugares, as&nbsp;três
-                versões divergem com&nbsp;o&nbsp;tempo, e&nbsp;nenhuma delas é confiável.
+              <p class="p-curto fr-host">
+                <span class="fr">Cada informação mora em&nbsp;<strong>um</strong>&nbsp;nível só.&nbsp;O&nbsp;que&nbsp;vale para&nbsp;tudo
+                fica em&nbsp;cima e&nbsp;não&nbsp;se&nbsp;repete embaixo; o&nbsp;que&nbsp;é do&nbsp;projeto fica no&nbsp;projeto e&nbsp;não&nbsp;sobe.</span> <span class="fr">Sem&nbsp;essa regra, a&nbsp;mesma decisão aparece em&nbsp;três lugares, as&nbsp;três
+                versões divergem com&nbsp;o&nbsp;tempo, e&nbsp;nenhuma delas é confiável.</span>
               </p>
             </div>
 
 
             <div class="callout callout-info">
               <div class="callout-title">A regra que segura tudo</div>
-              <p class="p-curto">
-                <strong>Cada nível aponta para&nbsp;o&nbsp;outro. Nenhum copia.</strong> Se&nbsp;o&nbsp;mesmo
-                fato está escrito em&nbsp;dois lugares, um&nbsp;dos&nbsp;dois vai envelhecer, e&nbsp;daqui a&nbsp;três meses ninguém sabe qual é o&nbsp;certo. Duplicação parece organização e&nbsp;é
-                dívida.
+              <p class="p-curto fr-host">
+                <span class="fr"><strong>Cada nível aponta para&nbsp;o&nbsp;outro. Nenhum copia.</strong></span> <span class="fr">Se&nbsp;o&nbsp;mesmo
+                fato está escrito em&nbsp;dois lugares, um&nbsp;dos&nbsp;dois vai envelhecer, e&nbsp;daqui a&nbsp;três meses ninguém sabe qual é o&nbsp;certo.</span> <span class="fr">Duplicação parece organização e&nbsp;é
+                dívida.</span>
               </p>
             </div>
 
             <h4>As&nbsp;três falhas, em&nbsp;resumo</h4>
-            <p class="p-curto">
-              O&nbsp;relato de&nbsp;cada uma&nbsp;vem depois. Antes disso, as&nbsp;três lado a&nbsp;lado, porque&nbsp;elas se&nbsp;parecem com&nbsp;o&nbsp;que&nbsp;costuma acontecer em&nbsp;qualquer área.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;relato de&nbsp;cada uma&nbsp;vem depois.</span> <span class="fr">Antes disso, as&nbsp;três lado a&nbsp;lado, porque&nbsp;elas se&nbsp;parecem com&nbsp;o&nbsp;que&nbsp;costuma acontecer em&nbsp;qualquer área.</span>
             </p>
 
             <div class="erros">
               <div class="erro">
                 <div class="erro-topo">
                   <span class="erro-n">1</span>
-                  <span class="erro-nome">Ficou tudo especificado e nada instalado</span>
+                  <span class="erro-nome">Ficou tudo especificado e&nbsp;nada instalado</span>
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">Um mês inteiro com o diagnóstico pronto e o problema número um parado no mesmo lugar.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">Um&nbsp;mês inteiro com&nbsp;o&nbsp;diagnóstico pronto e&nbsp;o&nbsp;problema número um&nbsp;parado no&nbsp;mesmo lugar.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">O arquivo que faria o sistema funcionar existia na especificação, e não na pasta onde o trabalho acontece.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx">O&nbsp;arquivo que&nbsp;faria o&nbsp;sistema funcionar existia na&nbsp;especificação, e&nbsp;não&nbsp;na&nbsp;pasta onde&nbsp;o&nbsp;trabalho acontece.</div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">O conserto</div>
-                    <div class="erro-cel-tx">Instalar o arquivo numa frente só, e usar. Registrar não é organizar, e organizar não é instalar.</div>
+                    <div class="erro-cel-rot">O&nbsp;conserto</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Instalar o&nbsp;arquivo numa&nbsp;frente só,&nbsp;e&nbsp;usar.</span> <span class="fr">Registrar não&nbsp;é organizar, e&nbsp;organizar não&nbsp;é instalar.</span></div>
                   </div>
                 </div>
               </div>
@@ -1483,20 +1493,20 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
               <div class="erro">
                 <div class="erro-topo">
                   <span class="erro-n">2</span>
-                  <span class="erro-nome">O sistema servia mais à ferramenta do que à pessoa</span>
+                  <span class="erro-nome">O&nbsp;sistema servia mais à&nbsp;ferramenta do&nbsp;que&nbsp;à&nbsp;pessoa</span>
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">A primeira hora de cada retomada continuava sendo gasta para lembrar onde parou.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">A&nbsp;primeira hora de&nbsp;cada retomada continuava sendo gasta para&nbsp;lembrar onde&nbsp;parou.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">O que a ferramenta cobrava na hora de executar ficava atualizado. O que a pessoa lia ao voltar ficava semanas parado.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">O&nbsp;que&nbsp;a&nbsp;ferramenta cobrava na&nbsp;hora de&nbsp;executar ficava atualizado.</span> <span class="fr">O&nbsp;que&nbsp;a&nbsp;pessoa lia ao&nbsp;voltar ficava semanas parado.</span></div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">O conserto</div>
-                    <div class="erro-cel-tx">Escrever para quem lê, não para quem escreve. Registro que não é lido na hora certa não resolve.</div>
+                    <div class="erro-cel-rot">O&nbsp;conserto</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Escrever para&nbsp;quem lê, não&nbsp;para&nbsp;quem escreve.</span> <span class="fr">Registro que&nbsp;não&nbsp;é lido na&nbsp;hora certa não&nbsp;resolve.</span></div>
                   </div>
                 </div>
               </div>
@@ -1508,68 +1518,68 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                 </div>
                 <div class="erro-grade">
                   <div class="erro-cel sintoma">
-                    <div class="erro-cel-rot">O sintoma</div>
-                    <div class="erro-cel-tx">Um arquivo com cerca de trinta mil palavras, que ninguém abria e que quebrava com um caractere errado no meio.</div>
+                    <div class="erro-cel-rot">O&nbsp;sintoma</div>
+                    <div class="erro-cel-tx">Um&nbsp;arquivo com&nbsp;cerca de&nbsp;trinta mil palavras, que&nbsp;ninguém abria e&nbsp;que&nbsp;quebrava com&nbsp;um&nbsp;caractere errado no&nbsp;meio.</div>
                   </div>
                   <div class="erro-cel causa">
-                    <div class="erro-cel-rot">A causa</div>
-                    <div class="erro-cel-tx">Mais da metade era ficha técnica, e não conteúdo. O arquivo virou depósito do que já se soube.</div>
+                    <div class="erro-cel-rot">A&nbsp;causa</div>
+                    <div class="erro-cel-tx fr-host"><span class="fr">Mais da&nbsp;metade era ficha técnica, e&nbsp;não&nbsp;conteúdo.</span> <span class="fr">O&nbsp;arquivo virou depósito do&nbsp;que&nbsp;já&nbsp;se&nbsp;soube.</span></div>
                   </div>
                   <div class="erro-cel conserto">
-                    <div class="erro-cel-rot">O conserto</div>
-                    <div class="erro-cel-tx">Cortar de duzentas e cinquenta e três linhas para oitenta e três, e mandar o detalhe para onde ele só é lido quando é preciso.</div>
+                    <div class="erro-cel-rot">O&nbsp;conserto</div>
+                    <div class="erro-cel-tx">Cortar de&nbsp;duzentas e&nbsp;cinquenta e&nbsp;três linhas para&nbsp;oitenta e&nbsp;três, e&nbsp;mandar o&nbsp;detalhe para&nbsp;onde&nbsp;ele só&nbsp;é lido quando&nbsp;é preciso.</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <p class="fig-leg">
-              As&nbsp;três têm a&nbsp;mesma raiz: o&nbsp;registro existia, mas&nbsp;não&nbsp;no&nbsp;lugar onde&nbsp;alguém
-              iria lê-lo. É o&nbsp;pilar 1 uma&nbsp;camada mais fundo.
+            <p class="fig-leg fr-host">
+              <span class="fr">As&nbsp;três têm a&nbsp;mesma raiz: o&nbsp;registro existia, mas&nbsp;não&nbsp;no&nbsp;lugar onde&nbsp;alguém
+              iria lê-lo.</span> <span class="fr">É o&nbsp;pilar 1 uma&nbsp;camada mais fundo.</span>
             </p>
 
             <h4>Falha 1 · Ficou tudo especificado e&nbsp;nada instalado</h4>
-            <p class="p-curto">
-              Passei um&nbsp;mês com&nbsp;onze decisões de&nbsp;arquitetura escritas, dezenove pendências
-              catalogadas e&nbsp;um&nbsp;diagnóstico bem-feito de&nbsp;cada frente. E&nbsp;o&nbsp;mecanismo que&nbsp;faria tudo isso funcionar, que&nbsp;é o&nbsp;arquivo de&nbsp;contexto dentro de&nbsp;cada pasta,
+            <p class="p-curto fr-host">
+              <span class="fr">Passei um&nbsp;mês com&nbsp;onze decisões de&nbsp;arquitetura escritas, dezenove pendências
+              catalogadas e&nbsp;um&nbsp;diagnóstico bem-feito de&nbsp;cada frente.</span> <span class="fr">E&nbsp;o&nbsp;mecanismo que&nbsp;faria tudo isso funcionar, que&nbsp;é o&nbsp;arquivo de&nbsp;contexto dentro de&nbsp;cada pasta,
               <strong>estava previsto no&nbsp;papel e&nbsp;não&nbsp;tinha sido instalado em&nbsp;nenhuma
-              delas</strong>.
+              delas</strong>.</span>
             </p>
-            <p class="p-curto">
-              O&nbsp;problema estava identificado, nomeado como prioridade número um,&nbsp;e&nbsp;parado.
-              Só&nbsp;saiu do&nbsp;lugar quando&nbsp;eu abri uma&nbsp;conversa para&nbsp;resolver outra coisa e&nbsp;esbarrei nele de&nbsp;novo.
+            <p class="p-curto fr-host">
+              <span class="fr">O&nbsp;problema estava identificado, nomeado como prioridade número um,&nbsp;e&nbsp;parado.</span>
+              <span class="fr">Só&nbsp;saiu do&nbsp;lugar quando&nbsp;eu abri uma&nbsp;conversa para&nbsp;resolver outra coisa e&nbsp;esbarrei nele de&nbsp;novo.</span>
             </p>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;aprendi:</strong> registrar não&nbsp;é organizar, e&nbsp;organizar não&nbsp;é
-              instalar. O&nbsp;sistema só&nbsp;passa a&nbsp;existir quando&nbsp;o&nbsp;arquivo está no&nbsp;lugar onde&nbsp;o&nbsp;trabalho acontece. Enquanto&nbsp;ele estiver numa&nbsp;pasta de&nbsp;especificação, ele é
-              intenção.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> registrar não&nbsp;é organizar, e&nbsp;organizar não&nbsp;é
+              instalar.</span> <span class="fr">O&nbsp;sistema só&nbsp;passa a&nbsp;existir quando&nbsp;o&nbsp;arquivo está no&nbsp;lugar onde&nbsp;o&nbsp;trabalho acontece.</span> <span class="fr">Enquanto&nbsp;ele estiver numa&nbsp;pasta de&nbsp;especificação, ele é
+              intenção.</span>
             </p>
 
             <h4>Falha 2 · O&nbsp;sistema servia mais à&nbsp;IA do&nbsp;que&nbsp;a&nbsp;mim</h4>
-            <p class="p-curto">
-              No&nbsp;diagnóstico apareceu um&nbsp;padrão que&nbsp;eu não&nbsp;tinha visto: as&nbsp;partes que&nbsp;a&nbsp;IA
-              lia para&nbsp;executar estavam sempre atualizadas. As&nbsp;partes de&nbsp;navegação humana,
-              o&nbsp;<em>onde&nbsp;paramos</em> e&nbsp;as&nbsp;pendências, estavam paradas havia semanas.
+            <p class="p-curto fr-host">
+              <span class="fr">No&nbsp;diagnóstico apareceu um&nbsp;padrão que&nbsp;eu não&nbsp;tinha visto: as&nbsp;partes que&nbsp;a&nbsp;IA
+              lia para&nbsp;executar estavam sempre atualizadas.</span> <span class="fr">As&nbsp;partes de&nbsp;navegação humana,
+              o&nbsp;<em>onde&nbsp;paramos</em> e&nbsp;as&nbsp;pendências, estavam paradas havia semanas.</span>
             </p>
-            <p class="p-curto">
-              Ou&nbsp;seja: eu escrevia o&nbsp;que&nbsp;era cobrado na&nbsp;hora de&nbsp;executar, e&nbsp;não&nbsp;escrevia o&nbsp;que&nbsp;era útil para&nbsp;retomar. O&nbsp;sintoma original, perder a&nbsp;primeira hora ao&nbsp;voltar, continuava lá.
+            <p class="p-curto fr-host">
+              <span class="fr">Ou&nbsp;seja: eu escrevia o&nbsp;que&nbsp;era cobrado na&nbsp;hora de&nbsp;executar, e&nbsp;não&nbsp;escrevia o&nbsp;que&nbsp;era útil para&nbsp;retomar.</span> <span class="fr">O&nbsp;sintoma original, perder a&nbsp;primeira hora ao&nbsp;voltar, continuava lá.</span>
             </p>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;aprendi:</strong> registro que&nbsp;não&nbsp;é lido na&nbsp;hora certa não&nbsp;resolve. É o&nbsp;pilar 1 uma&nbsp;camada mais fundo, e&nbsp;é o&nbsp;erro mais comum de&nbsp;todos os&nbsp;sistemas de&nbsp;organização: eles são mantidos por&nbsp;quem escreve, não&nbsp;por&nbsp;quem lê.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> registro que&nbsp;não&nbsp;é lido na&nbsp;hora certa não&nbsp;resolve.</span> <span class="fr">É o&nbsp;pilar 1 uma&nbsp;camada mais fundo, e&nbsp;é o&nbsp;erro mais comum de&nbsp;todos os&nbsp;sistemas de&nbsp;organização: eles são mantidos por&nbsp;quem escreve, não&nbsp;por&nbsp;quem lê.</span>
             </p>
 
             <h4>Falha 3 · Encher também estraga</h4>
-            <p class="p-curto">
-              Um&nbsp;dos&nbsp;arquivos chegou a&nbsp;cerca de&nbsp;trinta mil palavras, e&nbsp;<strong>mais da&nbsp;metade disso era ficha técnica, não&nbsp;conteúdo</strong>. Quanto maior ficava,
+            <p class="p-curto fr-host">
+              <span class="fr">Um&nbsp;dos&nbsp;arquivos chegou a&nbsp;cerca de&nbsp;trinta mil palavras, e&nbsp;<strong>mais da&nbsp;metade disso era ficha técnica, não&nbsp;conteúdo</strong>.</span> <span class="fr">Quanto maior ficava,
               mais frágil: duas vezes um&nbsp;caractere errado no&nbsp;meio derrubou a&nbsp;exibição
-              inteira.
+              inteira.</span>
             </p>
             <p class="p-curto">
               A&nbsp;correção foi cortar o&nbsp;arquivo de&nbsp;contexto de&nbsp;duzentas e&nbsp;cinquenta e&nbsp;três
               linhas para&nbsp;oitenta e&nbsp;três, movendo o&nbsp;detalhe para&nbsp;onde&nbsp;ele só&nbsp;é lido quando&nbsp;é necessário.
             </p>
-            <p class="p-curto">
-              <strong>O&nbsp;que&nbsp;aprendi:</strong> o&nbsp;arquivo de&nbsp;contexto não&nbsp;é depósito. Ele é o&nbsp;que&nbsp;precisa ser verdade em&nbsp;toda leitura. Quando&nbsp;ele vira arquivo morto de&nbsp;tudo que&nbsp;já&nbsp;se&nbsp;soube, ninguém abre, nem a&nbsp;IA nem a&nbsp;pessoa.
+            <p class="p-curto fr-host">
+              <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> o&nbsp;arquivo de&nbsp;contexto não&nbsp;é depósito.</span> <span class="fr">Ele é o&nbsp;que&nbsp;precisa ser verdade em&nbsp;toda leitura.</span> <span class="fr">Quando&nbsp;ele vira arquivo morto de&nbsp;tudo que&nbsp;já&nbsp;se&nbsp;soube, ninguém abre, nem a&nbsp;IA nem a&nbsp;pessoa.</span>
             </p>
 
           </div>
@@ -1580,20 +1590,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="block-num">04 · Passo 3</div>
         <h2>O&nbsp;que&nbsp;este caso prova</h2>
 
-        <p class="block-lead">
-          Duas coisas para&nbsp;levar, em&nbsp;linguagem que&nbsp;serve a&nbsp;qualquer área. As&nbsp;duas são
-          processo, não&nbsp;ferramenta.
+        <p class="block-lead fr-host">
+          <span class="fr">Duas coisas para&nbsp;levar, em&nbsp;linguagem que&nbsp;serve a&nbsp;qualquer área.</span> <span class="fr">As&nbsp;duas são
+          processo, não&nbsp;ferramenta.</span>
         </p>
 
         <div class="pilar">
           <div><div class="pilar-n">1</div></div>
           <div>
-            <div class="pilar-t">O que não vira registro não existe</div>
-            <div class="pilar-d">
-              Com a ressalva que este caso acrescenta: <strong>o registro precisa morar
-              onde o trabalho acontece, e precisa ser lido por quem chega, não só por quem
-              escreveu.</strong> Documento numa pasta que ninguém abre é o mesmo que a
-              conversa que ninguém registrou.
+            <div class="pilar-t">O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</div>
+            <div class="pilar-d fr-host">
+              <span class="fr">Com&nbsp;a&nbsp;ressalva que&nbsp;este caso acrescenta: <strong>o&nbsp;registro precisa morar
+              onde&nbsp;o&nbsp;trabalho acontece, e&nbsp;precisa ser lido por&nbsp;quem chega, não&nbsp;só&nbsp;por&nbsp;quem
+              escreveu.</strong></span> <span class="fr">Documento numa&nbsp;pasta que&nbsp;ninguém abre é o&nbsp;mesmo que&nbsp;a&nbsp;conversa que&nbsp;ninguém registrou.</span>
             </div>
           </div>
         </div>
@@ -1601,30 +1610,29 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="pilar">
           <div><div class="pilar-n">2</div></div>
           <div>
-            <div class="pilar-t">Resultado ruim é falta de contexto, não de capacidade</div>
-            <div class="pilar-d">
-              O arquivo de contexto de cada frente é exatamente isto: o contexto escrito
-              <strong>uma vez</strong>, em vez de digitado de novo a cada pedido. É a
-              diferença entre explicar a casa toda semana e ter a casa explicada.
+            <div class="pilar-t">Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</div>
+            <div class="pilar-d fr-host">
+              <span class="fr">O&nbsp;arquivo de&nbsp;contexto de&nbsp;cada frente é exatamente isto: o&nbsp;contexto escrito
+              <strong>uma&nbsp;vez</strong>, em&nbsp;vez de&nbsp;digitado de&nbsp;novo a&nbsp;cada pedido.</span> <span class="fr">É a&nbsp;diferença entre&nbsp;explicar a&nbsp;casa toda semana e&nbsp;ter a&nbsp;casa explicada.</span>
             </div>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">A pergunta para levar para a sua área</div>
-          <p class="p-curto">
-            <strong>Se&nbsp;você saísse de&nbsp;férias por&nbsp;trinta dias hoje, o&nbsp;que&nbsp;a&nbsp;pessoa que&nbsp;assume precisaria perguntar a&nbsp;você?</strong> Cada pergunta dessa lista é uma&nbsp;linha que&nbsp;deveria estar escrita, e&nbsp;não&nbsp;está. É o&nbsp;começo mais barato que&nbsp;existe,
-            e&nbsp;não&nbsp;depende de&nbsp;ninguém aprovar nada.
+          <p class="p-curto fr-host">
+            <span class="fr"><strong>Se&nbsp;você saísse de&nbsp;férias por&nbsp;trinta dias hoje, o&nbsp;que&nbsp;a&nbsp;pessoa que&nbsp;assume precisaria perguntar a&nbsp;você?</strong></span> <span class="fr">Cada pergunta dessa lista é uma&nbsp;linha que&nbsp;deveria estar escrita, e&nbsp;não&nbsp;está.</span> <span class="fr">É o&nbsp;começo mais barato que&nbsp;existe,
+            e&nbsp;não&nbsp;depende de&nbsp;ninguém aprovar nada.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s5">
-        <div class="block-num">05 · Para levar</div>
+        <div class="block-num">05 · Para&nbsp;levar</div>
         <h2>Refaça isto com&nbsp;o&nbsp;material da&nbsp;sua&nbsp;área</h2>
 
-        <p class="block-lead">
-          O&nbsp;caso mostrou o&nbsp;que&nbsp;aconteceu com&nbsp;doze frentes. Aqui está o&nbsp;mesmo trabalho em&nbsp;tamanho de&nbsp;exercício, com&nbsp;um&nbsp;material pronto para&nbsp;você testar antes de&nbsp;usar o&nbsp;seu,&nbsp;que&nbsp;é real e&nbsp;tem informação que&nbsp;não&nbsp;deve sair daqui.
+        <p class="block-lead fr-host">
+          <span class="fr">O&nbsp;caso mostrou o&nbsp;que&nbsp;aconteceu com&nbsp;doze frentes.</span> <span class="fr">Aqui está o&nbsp;mesmo trabalho em&nbsp;tamanho de&nbsp;exercício, com&nbsp;um&nbsp;material pronto para&nbsp;você testar antes de&nbsp;usar o&nbsp;seu,&nbsp;que&nbsp;é real e&nbsp;tem informação que&nbsp;não&nbsp;deve sair daqui.</span>
         </p>
 
         <div class="step">
@@ -1632,7 +1640,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <div class="step-num">01</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 1</div>
-              <div class="step-title">Baixe o material de teste</div>
+              <div class="step-title">Baixe o&nbsp;material de&nbsp;teste</div>
             </div>
           </div>
           <div class="step-body">
@@ -1646,7 +1654,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                   <span class="insumo-icone">DOC</span>
                   <span>insumo-anotacoes-de-uma-coordenacao.docx</span>
                 </div>
-                <div class="insumo-meta">quatro semanas de anotações · material fictício</div>
+                <div class="insumo-meta">quatro semanas de&nbsp;anotações · material fictício</div>
               </div>
               <a class="insumo-btn" href="insumo-anotacoes-de-uma-coordenacao.docx" download>Baixar</a>
             </div>
@@ -1658,7 +1666,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <div class="step-num">02</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 2</div>
-              <div class="step-title">Copie o pedido e cole junto com o arquivo</div>
+              <div class="step-title">Copie o&nbsp;pedido e&nbsp;cole junto com&nbsp;o&nbsp;arquivo</div>
             </div>
           </div>
           <div class="step-body">
@@ -1667,7 +1675,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </p>
             <div class="prompt-box">
               <div class="prompt-toolbar">
-                <span>o pedido, pronto para colar</span>
+                <span>o&nbsp;pedido, pronto para&nbsp;colar</span>
                 <div class="prompt-acoes">
                   <a class="prompt-btn" href="caso-1.md" download>Baixar</a>
                   <button class="prompt-btn principal" data-copia="prompt-caso-1">Copiar</button>
@@ -1726,21 +1734,21 @@ Espere o meu OK e só depois gere os quatro blocos.</div>
             <div class="step-num">03</div>
             <div class="step-title-block">
               <div class="step-eyebrow">Passo 3</div>
-              <div class="step-title">Confira antes de aceitar</div>
+              <div class="step-title">Confira antes de&nbsp;aceitar</div>
             </div>
           </div>
           <div class="step-body">
             <div class="info-grid">
               <div class="info-card">
-                <div class="info-card-label">O que confere</div>
-                <p class="p-curto">Cada regra achada tem o&nbsp;trecho que&nbsp;a&nbsp;sustenta. Se&nbsp;não&nbsp;tem, foi inventada.</p>
+                <div class="info-card-label">O&nbsp;que&nbsp;confere</div>
+                <p class="p-curto fr-host"><span class="fr">Cada regra achada tem o&nbsp;trecho que&nbsp;a&nbsp;sustenta.</span> <span class="fr">Se&nbsp;não&nbsp;tem, foi inventada.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">O que denuncia problema</div>
-                <p class="p-curto">Tudo virou "camada da&nbsp;organização". Se&nbsp;nada ficou na&nbsp;camada do&nbsp;projeto, a&nbsp;separação não&nbsp;foi feita.</p>
+                <div class="info-card-label">O&nbsp;que&nbsp;denuncia problema</div>
+                <p class="p-curto fr-host"><span class="fr">Tudo virou "camada da&nbsp;organização".</span> <span class="fr">Se&nbsp;nada ficou na&nbsp;camada do&nbsp;projeto, a&nbsp;separação não&nbsp;foi feita.</span></p>
               </div>
               <div class="info-card">
-                <div class="info-card-label">Quando usar no seu material</div>
+                <div class="info-card-label">Quando&nbsp;usar no&nbsp;seu&nbsp;material</div>
                 <p class="p-curto">Só&nbsp;depois de&nbsp;tirar nome de&nbsp;pessoa, número de&nbsp;contrato e&nbsp;o&nbsp;que&nbsp;foi dito em&nbsp;confiança.</p>
               </div>
             </div>
@@ -1748,7 +1756,7 @@ Espere o meu OK e só depois gere os quatro blocos.</div>
         </div>
       </section>
       <div class="nav-bottom">
-        <a class="nav-link prev" href="../ai-first/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">O que muda com AI First</span></a>
+        <a class="nav-link prev" href="../ai-first/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">O&nbsp;que&nbsp;muda com&nbsp;AI First</span></a>
         <a class="nav-link next" href="../caso-2/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">Caso 2 · Informação sensível</span></a>
       </div>
   </main>

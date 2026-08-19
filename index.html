@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="./" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1154,9 +1169,9 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 <main class="wrap" style="padding-top:32px;padding-bottom:80px">
 
       <div class="hero">
-        <div class="hero-eyebrow">Encerramento da Trilha de Cultura de IA · 4 horas · presencial</div>
-        <h1>Não&nbsp;é qual IA a&nbsp;empresa usa. É como a&nbsp;informação circula.</h1>
-        <p class="hero-lead">Este é o&nbsp;material do&nbsp;dia. Cada página fica no&nbsp;ar depois do&nbsp;workshop, para&nbsp;você consultar e&nbsp;aplicar na&nbsp;sua&nbsp;área sem&nbsp;precisar de&nbsp;mim.</p>
+        <div class="hero-eyebrow">Encerramento da&nbsp;Trilha de&nbsp;Cultura de&nbsp;IA · 4 horas · presencial</div>
+        <h1 class="fr-host"><span class="fr">Não&nbsp;é qual IA a&nbsp;empresa usa.</span> <span class="fr">É como a&nbsp;informação circula.</span></h1>
+        <p class="hero-lead fr-host"><span class="fr">Este é o&nbsp;material do&nbsp;dia.</span> <span class="fr">Cada página fica no&nbsp;ar depois do&nbsp;workshop, para&nbsp;você consultar e&nbsp;aplicar na&nbsp;sua&nbsp;área sem&nbsp;precisar de&nbsp;mim.</span></p>
         <div class="hero-meta">
         <span class="chip">4 horas</span>
         <span class="chip">Turma única</span>
@@ -1165,18 +1180,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
       </div>
 
 <section class="block" id="s-comecar">
-        <div class="block-num">Comece por aqui</div>
+        <div class="block-num">Comece por&nbsp;aqui</div>
         <h2>Antes de&nbsp;qualquer coisa, responda a&nbsp;régua</h2>
-        <p class="block-lead">
-          Cinco perguntas sobre&nbsp;como o&nbsp;trabalho acontece hoje na&nbsp;sua&nbsp;área. Leva menos de&nbsp;cinco minutos e&nbsp;não&nbsp;pede o&nbsp;seu&nbsp;nome.
+        <p class="block-lead fr-host">
+          <span class="fr">Cinco perguntas sobre&nbsp;como o&nbsp;trabalho acontece hoje na&nbsp;sua&nbsp;área.</span> <span class="fr">Leva menos de&nbsp;cinco minutos e&nbsp;não&nbsp;pede o&nbsp;seu&nbsp;nome.</span>
         </p>
 
         <div class="card card-highlight" style="margin:24px 0">
-          <div class="card-eyebrow">No celular</div>
+          <div class="card-eyebrow">No&nbsp;celular</div>
           <h4 style="font-size:20px">A&nbsp;régua e&nbsp;a&nbsp;ficha</h4>
-          <p class="p-curto">
-            Você responde na&nbsp;abertura, guarda o&nbsp;seu&nbsp;código, e&nbsp;responde de&nbsp;novo no&nbsp;fechamento. As&nbsp;respostas da&nbsp;turma inteira caem numa&nbsp;planilha projetada na&nbsp;sala, e&nbsp;a&nbsp;análise roda ali na&nbsp;frente de&nbsp;todos, com&nbsp;o&nbsp;dado que&nbsp;a&nbsp;sala acabou
-            de&nbsp;gerar sobre&nbsp;ela mesma.
+          <p class="p-curto fr-host">
+            <span class="fr">Você responde na&nbsp;abertura, guarda o&nbsp;seu&nbsp;código, e&nbsp;responde de&nbsp;novo no&nbsp;fechamento.</span> <span class="fr">As&nbsp;respostas da&nbsp;turma inteira caem numa&nbsp;planilha projetada na&nbsp;sala, e&nbsp;a&nbsp;análise roda ali na&nbsp;frente de&nbsp;todos, com&nbsp;o&nbsp;dado que&nbsp;a&nbsp;sala acabou
+            de&nbsp;gerar sobre&nbsp;ela mesma.</span>
           </p>
           <p style="margin-top:14px" class="p-curto">
             <a href="./canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:11px 20px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a&nbsp;régua →</a>
@@ -1185,46 +1200,46 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Sem rede na sala</div>
-          <p class="p-curto">
-            Se&nbsp;a&nbsp;rede não&nbsp;abrir, a&nbsp;régua tem versão em&nbsp;papel e&nbsp;o&nbsp;dia roda igual. A&nbsp;contagem é feita em&nbsp;voz alta e&nbsp;a&nbsp;planilha é montada depois.
+          <p class="p-curto fr-host">
+            <span class="fr">Se&nbsp;a&nbsp;rede não&nbsp;abrir, a&nbsp;régua tem versão em&nbsp;papel e&nbsp;o&nbsp;dia roda igual.</span> <span class="fr">A&nbsp;contagem é feita em&nbsp;voz alta e&nbsp;a&nbsp;planilha é montada depois.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s-objetivo">
-        <div class="block-num">O que este dia é</div>
+        <div class="block-num">O&nbsp;que&nbsp;este dia é</div>
         <h2>A&nbsp;virada de&nbsp;pergunta que&nbsp;organiza as&nbsp;quatro horas</h2>
 
-        <div class="compare">
+        <div class="compare fr-host">
           <div class="compare-side antes">
             <span class="label">A pergunta de sempre</span>
             <div class="compare-quote">Como eu faço isso mais rápido?</div>
             <p class="p-curto">
-              Leva a&nbsp;usar a&nbsp;inteligência artificial no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada. O&nbsp;ganho é pontual e&nbsp;some quando&nbsp;a&nbsp;pessoa que&nbsp;descobriu o&nbsp;atalho sai de&nbsp;férias.
+              <span class="fr">Leva a&nbsp;usar a&nbsp;inteligência artificial no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada.</span> <span class="fr">O&nbsp;ganho é pontual e&nbsp;some quando&nbsp;a&nbsp;pessoa que&nbsp;descobriu o&nbsp;atalho sai de&nbsp;férias.</span>
             </p>
           </div>
           <div class="compare-side depois">
             <span class="label">A pergunta deste dia</span>
-            <div class="compare-quote">Se eu fosse desenhar isso hoje, com a IA
-disponível desde o começo, como seria?</div>
+            <div class="compare-quote">Se&nbsp;eu fosse desenhar isso hoje, com&nbsp;a&nbsp;IA
+disponível desde&nbsp;o&nbsp;começo, como seria?</div>
             <p class="p-curto">
-              Leva a&nbsp;colocar a&nbsp;inteligência artificial no&nbsp;desenho do&nbsp;processo. O&nbsp;ganho
-              fica no&nbsp;processo, e&nbsp;não&nbsp;na&nbsp;pessoa. É isso que&nbsp;se&nbsp;chama AI First.
+              <span class="fr">Leva a&nbsp;colocar a&nbsp;inteligência artificial no&nbsp;desenho do&nbsp;processo.</span> <span class="fr">O&nbsp;ganho
+              fica no&nbsp;processo, e&nbsp;não&nbsp;na&nbsp;pessoa.</span> <span class="fr">É isso que&nbsp;se&nbsp;chama AI First.</span>
             </p>
           </div>
         </div>
 
-        <p class="block-lead">
-          A&nbsp;diferença entre&nbsp;as&nbsp;duas perguntas tem um&nbsp;desenho, e&nbsp;ele vem de&nbsp;fora daqui:
+        <p class="block-lead fr-host">
+          <span class="fr">A&nbsp;diferença entre&nbsp;as&nbsp;duas perguntas tem um&nbsp;desenho, e&nbsp;ele vem de&nbsp;fora daqui:
           Diana Hu, sócia da&nbsp;aceleradora Y Combinator, descreve as&nbsp;duas como
-          <strong>loop aberto</strong> e&nbsp;<strong>loop fechado</strong>. A&nbsp;distinção não&nbsp;é
-          sobre&nbsp;o&nbsp;que&nbsp;a&nbsp;empresa faz. É sobre&nbsp;existir ou&nbsp;não&nbsp;a&nbsp;seta de&nbsp;volta.
+          <strong>loop aberto</strong> e&nbsp;<strong>loop fechado</strong>.</span> <span class="fr">A&nbsp;distinção não&nbsp;é
+          sobre&nbsp;o&nbsp;que&nbsp;a&nbsp;empresa faz.</span> <span class="fr">É sobre&nbsp;existir ou&nbsp;não&nbsp;a&nbsp;seta de&nbsp;volta.</span>
         </p>
 
         <div class="loops">
           <div class="lp">
             <div class="lp-rot">Loop aberto</div>
-            <div class="lp-t">O trabalho acontece, termina, e o que se aprendeu fica com quem estava lá.</div>
+            <div class="lp-t">O&nbsp;trabalho acontece, termina, e&nbsp;o&nbsp;que&nbsp;se&nbsp;aprendeu fica com&nbsp;quem estava lá.</div>
             <div class="lp-linha">
               <span class="lp-et">Alguém decide</span>
               <span class="lp-seta"></span>
@@ -1233,15 +1248,15 @@ disponível desde o começo, como seria?</div>
               <span class="lp-et">Entrega</span>
               <span class="lp-fim">fim</span>
             </div>
-            <p class="lp-perda">
-              Na&nbsp;próxima vez, começa de&nbsp;novo do&nbsp;zero. Se&nbsp;a&nbsp;pessoa que&nbsp;fez saiu de&nbsp;férias,
-              começa mais do&nbsp;zero ainda.
+            <p class="lp-perda fr-host">
+              <span class="fr">Na&nbsp;próxima vez, começa de&nbsp;novo do&nbsp;zero.</span> <span class="fr">Se&nbsp;a&nbsp;pessoa que&nbsp;fez saiu de&nbsp;férias,
+              começa mais do&nbsp;zero ainda.</span>
             </p>
           </div>
 
           <div class="lp fechado">
             <div class="lp-rot">Loop fechado</div>
-            <div class="lp-t">O mesmo trabalho, com duas etapas a mais: alguém mede o que saiu e a correção volta para o começo.</div>
+            <div class="lp-t">O&nbsp;mesmo trabalho, com&nbsp;duas etapas a&nbsp;mais: alguém mede o&nbsp;que&nbsp;saiu e&nbsp;a&nbsp;correção volta para&nbsp;o&nbsp;começo.</div>
             <div class="lp-linha">
               <span class="lp-et">Alguém decide</span>
               <span class="lp-seta"></span>
@@ -1249,19 +1264,19 @@ disponível desde o começo, como seria?</div>
               <span class="lp-seta"></span>
               <span class="lp-et">Entrega</span>
               <span class="lp-seta"></span>
-              <span class="lp-et">Mede o que saiu</span>
+              <span class="lp-et">Mede o&nbsp;que&nbsp;saiu</span>
               <span class="lp-seta"></span>
-              <span class="lp-et">Corrige a regra</span>
+              <span class="lp-et">Corrige a&nbsp;regra</span>
             </div>
             <div class="lp-volta">
               E a regra corrigida entra na próxima vez, sem ninguém precisar lembrar dela.
             </div>
           </div>
         </div>
-        <p class="fig-leg">
-          As&nbsp;duas caixas do&nbsp;meio são iguais. O&nbsp;que&nbsp;muda são as&nbsp;duas últimas do&nbsp;loop
-          fechado e&nbsp;a&nbsp;linha de&nbsp;volta. <strong>É só&nbsp;isso que&nbsp;este dia trata</strong>, e&nbsp;é
-          por&nbsp;isso que&nbsp;ele não&nbsp;depende de&nbsp;trocar de&nbsp;ferramenta.
+        <p class="fig-leg fr-host">
+          <span class="fr">As&nbsp;duas caixas do&nbsp;meio são iguais.</span> <span class="fr">O&nbsp;que&nbsp;muda são as&nbsp;duas últimas do&nbsp;loop
+          fechado e&nbsp;a&nbsp;linha de&nbsp;volta.</span> <span class="fr"><strong>É só&nbsp;isso que&nbsp;este dia trata</strong>, e&nbsp;é
+          por&nbsp;isso que&nbsp;ele não&nbsp;depende de&nbsp;trocar de&nbsp;ferramenta.</span>
         </p>
 
         <a class="fonte" href="https://www.youtube.com/watch?v=Z3JyAqh4ixg"
@@ -1284,47 +1299,47 @@ disponível desde o começo, como seria?</div>
       </section>
 
       <section class="block" id="s-contrato">
-        <div class="block-num">O combinado</div>
+        <div class="block-num">O&nbsp;combinado</div>
         <h2>O&nbsp;que&nbsp;você traz, o&nbsp;que&nbsp;acontece, o&nbsp;que&nbsp;você leva</h2>
 
         <div class="contrato">
           <div class="contrato-c">
             <div class="contrato-rot">Você chega com</div>
             <div class="contrato-tx">
-              O conhecimento profundo da sua área e algum uso solto de inteligência
-              artificial, cada um do seu jeito.
+              O&nbsp;conhecimento profundo da&nbsp;sua&nbsp;área e&nbsp;algum uso solto de&nbsp;inteligência
+              artificial, cada um&nbsp;do&nbsp;seu&nbsp;jeito.
             </div>
           </div>
           <div class="contrato-seta">&rarr;</div>
           <div class="contrato-c">
-            <div class="contrato-rot">O que acontece aqui</div>
+            <div class="contrato-rot">O&nbsp;que&nbsp;acontece aqui</div>
             <div class="contrato-tx">
-              Você mede como o trabalho acontece hoje, resolve dois casos reais em grupo
-              e descobre onde a informação da sua área trava.
+              Você mede como o&nbsp;trabalho acontece hoje, resolve dois casos reais em&nbsp;grupo
+              e&nbsp;descobre onde&nbsp;a&nbsp;informação da&nbsp;sua&nbsp;área trava.
             </div>
           </div>
           <div class="contrato-seta">&rarr;</div>
           <div class="contrato-c chega">
             <div class="contrato-rot">Você sai com</div>
             <div class="contrato-tx">
-              Uma iniciativa da sua área com número definido e meta de sessenta dias,
-              escrita numa ficha que a instituição reaplica sem depender de ninguém de fora.
+              Uma&nbsp;iniciativa da&nbsp;sua&nbsp;área com&nbsp;número definido e&nbsp;meta de&nbsp;sessenta dias,
+              escrita numa&nbsp;ficha que&nbsp;a&nbsp;instituição reaplica sem&nbsp;depender de&nbsp;ninguém de&nbsp;fora.
             </div>
           </div>
         </div>
       </section>
 
       <section class="block" id="s-pilares">
-        <div class="block-num">O mapa</div>
+        <div class="block-num">O&nbsp;mapa</div>
         <h2>Os&nbsp;cinco pilares</h2>
-        <p class="block-lead">
-          São os&nbsp;conceitos de&nbsp;AI First traduzidos em&nbsp;comportamento. Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;orçamento. E&nbsp;nenhum é dado como aula à&nbsp;parte: todos
-          saem dos&nbsp;casos.
+        <p class="block-lead fr-host">
+          <span class="fr">São os&nbsp;conceitos de&nbsp;AI First traduzidos em&nbsp;comportamento.</span> <span class="fr">Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;orçamento.</span> <span class="fr">E&nbsp;nenhum é dado como aula à&nbsp;parte: todos
+          saem dos&nbsp;casos.</span>
         </p>
 
-        <p class="p-curto">
-          Eles não&nbsp;são cinco assuntos soltos: são as&nbsp;cinco etapas de&nbsp;um&nbsp;mesmo ciclo. É
-          por&nbsp;isso que&nbsp;nenhum funciona sozinho, e&nbsp;é por&nbsp;isso que&nbsp;o&nbsp;dia trata os&nbsp;cinco.
+        <p class="p-curto fr-host">
+          <span class="fr">Eles não&nbsp;são cinco assuntos soltos: são as&nbsp;cinco etapas de&nbsp;um&nbsp;mesmo ciclo.</span> <span class="fr">É
+          por&nbsp;isso que&nbsp;nenhum funciona sozinho, e&nbsp;é por&nbsp;isso que&nbsp;o&nbsp;dia trata os&nbsp;cinco.</span>
         </p>
 
         <div class="loop">
@@ -1332,56 +1347,55 @@ disponível desde o começo, como seria?</div>
             <div class="loop-no">
               <div class="loop-no-n">1</div>
               <div class="loop-no-etapa">captura</div>
-              <div class="loop-no-t">O que não vira registro não existe</div>
-              <div class="loop-no-d">Se ficou só na conversa, a próxima pessoa começa do zero.</div>
-              <span class="loop-no-onde">provado no caso 1</span>
+              <div class="loop-no-t">O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</div>
+              <div class="loop-no-d">Se&nbsp;ficou só&nbsp;na&nbsp;conversa, a&nbsp;próxima pessoa começa do&nbsp;zero.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 1</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
               <div class="loop-no-n">2</div>
               <div class="loop-no-etapa">contexto</div>
-              <div class="loop-no-t">Resultado ruim é falta de contexto, não de capacidade</div>
-              <div class="loop-no-d">O que está registrado é o que a ferramenta consegue usar.</div>
-              <span class="loop-no-onde">provado no caso 1</span>
+              <div class="loop-no-t">Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</div>
+              <div class="loop-no-d">O&nbsp;que&nbsp;está registrado é o&nbsp;que&nbsp;a&nbsp;ferramenta consegue usar.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 1</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
               <div class="loop-no-n">3</div>
               <div class="loop-no-etapa">execução</div>
-              <div class="loop-no-t">Quebrar em fases e conferir entre elas</div>
-              <div class="loop-no-d">O trabalho anda em etapas, e alguém confere no meio do caminho.</div>
-              <span class="loop-no-onde">provado no caso 2</span>
+              <div class="loop-no-t">Quebrar em&nbsp;fases e&nbsp;conferir entre&nbsp;elas</div>
+              <div class="loop-no-d">O&nbsp;trabalho anda em&nbsp;etapas, e&nbsp;alguém confere no&nbsp;meio do&nbsp;caminho.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 2</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
               <div class="loop-no-n">4</div>
               <div class="loop-no-etapa">memória</div>
               <div class="loop-no-t">Toda correção vira regra</div>
-              <div class="loop-no-d">O que foi corrigido uma vez não precisa ser corrigido de novo.</div>
-              <span class="loop-no-onde">provado no caso 2</span>
+              <div class="loop-no-d">O&nbsp;que&nbsp;foi corrigido uma&nbsp;vez não&nbsp;precisa ser corrigido de&nbsp;novo.</div>
+              <span class="loop-no-onde">provado no&nbsp;caso 2</span>
             </div>
             <div class="loop-seta"><span>&rarr;</span></div>
             <div class="loop-no">
               <div class="loop-no-n">5</div>
               <div class="loop-no-etapa">medição</div>
-              <div class="loop-no-t">Nada começa sem quatro campos preenchidos</div>
-              <div class="loop-no-d">Sem número, não há como saber se o ciclo melhorou alguma coisa.</div>
-              <span class="loop-no-onde">provado na ficha</span>
+              <div class="loop-no-t">Nada começa sem&nbsp;quatro campos preenchidos</div>
+              <div class="loop-no-d">Sem&nbsp;número, não&nbsp;há como saber se&nbsp;o&nbsp;ciclo melhorou alguma coisa.</div>
+              <span class="loop-no-onde">provado na&nbsp;ficha</span>
             </div>
           </div>
-          <div class="loop-volta">
+          <div class="loop-volta fr-host">
             <span class="loop-volta-seta">&#8630;</span>
             <span class="loop-volta-txt">
-              <strong>E aqui o ciclo fecha:</strong> o que a medição mostrar no passo 5 é o
-              que precisa virar registro no passo 1. Quando essa volta não existe, a área
-              recomeça do zero a cada projeto, e é isso que faz uma instituição esquecer
-              todo dia o que aprendeu na véspera.
+              <span class="fr"><strong>E&nbsp;aqui o&nbsp;ciclo fecha:</strong> o&nbsp;que&nbsp;a&nbsp;medição mostrar no&nbsp;passo 5 é o&nbsp;que&nbsp;precisa virar registro no&nbsp;passo 1.</span> <span class="fr">Quando&nbsp;essa volta não&nbsp;existe, a&nbsp;área
+              recomeça do&nbsp;zero a&nbsp;cada projeto, e&nbsp;é isso que&nbsp;faz uma&nbsp;instituição esquecer
+              todo dia o&nbsp;que&nbsp;aprendeu na&nbsp;véspera.</span>
             </span>
           </div>
         </div>
 
-        <p class="fig-leg">
-          Os&nbsp;cinco pilares como um&nbsp;ciclo. A&nbsp;volta é a&nbsp;parte que&nbsp;quase todo mundo deixa de&nbsp;fora, e&nbsp;é ela que&nbsp;separa melhorar de&nbsp;repetir.
+        <p class="fig-leg fr-host">
+          <span class="fr">Os&nbsp;cinco pilares como um&nbsp;ciclo.</span> <span class="fr">A&nbsp;volta é a&nbsp;parte que&nbsp;quase todo mundo deixa de&nbsp;fora, e&nbsp;é ela que&nbsp;separa melhorar de&nbsp;repetir.</span>
         </p>
 
 
@@ -1391,25 +1405,25 @@ disponível desde o começo, como seria?</div>
 
         <div class="callout callout-info">
           <div class="callout-title">Os pilares são também a régua</div>
-          <p class="p-curto">
-            As&nbsp;cinco perguntas que&nbsp;você responde na&nbsp;abertura são exatamente estes cinco
-            pilares. Por&nbsp;isso a&nbsp;comparação do&nbsp;fim do&nbsp;dia faz sentido: é a&nbsp;mesma régua,
-            aplicada quatro horas depois.
+          <p class="p-curto fr-host">
+            <span class="fr">As&nbsp;cinco perguntas que&nbsp;você responde na&nbsp;abertura são exatamente estes cinco
+            pilares.</span> <span class="fr">Por&nbsp;isso a&nbsp;comparação do&nbsp;fim do&nbsp;dia faz sentido: é a&nbsp;mesma régua,
+            aplicada quatro horas depois.</span>
           </p>
         </div>
       </section>
 
       <section class="block" id="s-paginas">
-        <div class="block-num">O material</div>
+        <div class="block-num">O&nbsp;material</div>
         <h2>As&nbsp;páginas do&nbsp;dia</h2>
-        <p class="block-lead">
-          Ficam no&nbsp;ar depois do&nbsp;workshop. Você abre no&nbsp;celular durante&nbsp;a&nbsp;atividade e&nbsp;consulta na&nbsp;sua&nbsp;mesa na&nbsp;semana seguinte.
+        <p class="block-lead fr-host">
+          <span class="fr">Ficam no&nbsp;ar depois do&nbsp;workshop.</span> <span class="fr">Você abre no&nbsp;celular durante&nbsp;a&nbsp;atividade e&nbsp;consulta na&nbsp;sua&nbsp;mesa na&nbsp;semana seguinte.</span>
         </p>
 
-        <div class="modules">
+        <div class="modules fr-host">
           <a href="./ai-first/" class="mod-card">
             <div class="mod-num"><span>Bloco 2</span><span class="mod-tag">Conceito</span></div>
-            <div class="mod-title">O que muda com AI First</div>
+            <div class="mod-title">O&nbsp;que&nbsp;muda com&nbsp;AI First</div>
             <p class="mod-desc p-curto">
               Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;trabalho, por&nbsp;que&nbsp;ferramenta melhor
               não&nbsp;resolve sozinha, o&nbsp;que&nbsp;ela consegue enxergar e&nbsp;onde&nbsp;ela não&nbsp;deve entrar.
@@ -1419,7 +1433,7 @@ disponível desde o começo, como seria?</div>
 
           <a href="./caso-1/" class="mod-card">
             <div class="mod-num"><span>Bloco 3</span><span class="mod-tag">Caso</span></div>
-            <div class="mod-title">Conhecimento espalhado e muitas frentes</div>
+            <div class="mod-title">Conhecimento espalhado e&nbsp;muitas frentes</div>
             <p class="mod-desc p-curto">
               Doze frentes ao&nbsp;mesmo tempo, um&nbsp;papel diferente em&nbsp;cada uma.&nbsp;O&nbsp;grupo desenha
               a&nbsp;solução antes de&nbsp;saber o&nbsp;que&nbsp;de&nbsp;fato foi feito.
@@ -1429,26 +1443,26 @@ disponível desde o começo, como seria?</div>
 
           <a href="./caso-2/" class="mod-card">
             <div class="mod-num"><span>Bloco 4</span><span class="mod-tag">Caso</span></div>
-            <div class="mod-title">Informação sensível e prazo curto</div>
+            <div class="mod-title">Informação sensível e&nbsp;prazo curto</div>
             <p class="mod-desc p-curto">
-              Trezentas páginas, três dias, e&nbsp;uma&nbsp;decisão de&nbsp;investimento no&nbsp;fim. O&nbsp;grupo
-              desenha primeiro, depois descobre onde&nbsp;a&nbsp;primeira tentativa falhou.
+              <span class="fr">Trezentas páginas, três dias, e&nbsp;uma&nbsp;decisão de&nbsp;investimento no&nbsp;fim.</span> <span class="fr">O&nbsp;grupo
+              desenha primeiro, depois descobre onde&nbsp;a&nbsp;primeira tentativa falhou.</span>
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
 
           <a href="./ficha/" class="mod-card">
             <div class="mod-num"><span>Bloco 5</span><span class="mod-tag">Fechamento</span></div>
-            <div class="mod-title">A ficha dos quatro campos</div>
+            <div class="mod-title">A&nbsp;ficha dos&nbsp;quatro campos</div>
             <p class="mod-desc p-curto">
-              Quatro perguntas que&nbsp;separam a&nbsp;iniciativa que&nbsp;anda da&nbsp;que&nbsp;morre na&nbsp;demonstração. Você preenche para&nbsp;uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área.
+              <span class="fr">Quatro perguntas que&nbsp;separam a&nbsp;iniciativa que&nbsp;anda da&nbsp;que&nbsp;morre na&nbsp;demonstração.</span> <span class="fr">Você preenche para&nbsp;uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área.</span>
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
 
           <a href="./canvas/" class="mod-card">
-            <div class="mod-num"><span>Abertura e fechamento</span><span class="mod-tag">Celular</span></div>
-            <div class="mod-title">A régua e a ficha</div>
+            <div class="mod-num"><span>Abertura e&nbsp;fechamento</span><span class="mod-tag">Celular</span></div>
+            <div class="mod-title">A&nbsp;régua e&nbsp;a&nbsp;ficha</div>
             <p class="mod-desc p-curto">
               As&nbsp;cinco perguntas da&nbsp;abertura, o&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém, a&nbsp;ficha
               dos&nbsp;quatro campos e&nbsp;a&nbsp;reaplicação da&nbsp;régua no&nbsp;fim.
@@ -1457,8 +1471,8 @@ disponível desde o começo, como seria?</div>
           </a>
 
           <a href="./pilares/" class="mod-card">
-            <div class="mod-num"><span>Leva para casa</span><span class="mod-tag">Imprimível</span></div>
-            <div class="mod-title">Os cinco pilares em uma folha</div>
+            <div class="mod-num"><span>Leva para&nbsp;casa</span><span class="mod-tag">Imprimível</span></div>
+            <div class="mod-title">Os&nbsp;cinco pilares em&nbsp;uma&nbsp;folha</div>
             <p class="mod-desc p-curto">
               Uma&nbsp;folha A4 com&nbsp;o&nbsp;que&nbsp;é cada pilar, o&nbsp;que&nbsp;você passa a&nbsp;fazer e&nbsp;a&nbsp;pergunta
               que&nbsp;revela se&nbsp;você está aplicando.
@@ -1467,11 +1481,11 @@ disponível desde o começo, como seria?</div>
           </a>
 
           <a href="./papel/" class="mod-card">
-            <div class="mod-num"><span>Se a internet falhar</span><span class="mod-tag">Imprimível</span></div>
-            <div class="mod-title">A régua e a ficha em papel</div>
+            <div class="mod-num"><span>Se&nbsp;a&nbsp;internet falhar</span><span class="mod-tag">Imprimível</span></div>
+            <div class="mod-title">A&nbsp;régua e&nbsp;a&nbsp;ficha em&nbsp;papel</div>
             <p class="mod-desc p-curto">
-              As&nbsp;mesmas cinco perguntas e&nbsp;a&nbsp;mesma ficha, em&nbsp;duas folhas A4 para&nbsp;preencher
-              à&nbsp;mão. Servem para&nbsp;quem prefere caneta e&nbsp;servem se&nbsp;a&nbsp;rede não&nbsp;ajudar.
+              <span class="fr">As&nbsp;mesmas cinco perguntas e&nbsp;a&nbsp;mesma ficha, em&nbsp;duas folhas A4 para&nbsp;preencher
+              à&nbsp;mão.</span> <span class="fr">Servem para&nbsp;quem prefere caneta e&nbsp;servem se&nbsp;a&nbsp;rede não&nbsp;ajudar.</span>
             </p>
             <div class="mod-cta">abrir →</div>
           </a>
@@ -1479,27 +1493,26 @@ disponível desde o começo, como seria?</div>
       </section>
 
       <section class="block" id="s-agenda">
-        <div class="block-num">O tempo</div>
+        <div class="block-num">O&nbsp;tempo</div>
         <h2>Como as&nbsp;quatro horas se&nbsp;dividem</h2>
 
         <div class="agenda">
           <div class="agenda-row">
             <div class="agenda-h">0h00 · 0h20</div>
             <div class="agenda-c">
-              <div class="agenda-t">Abertura e ponto de partida</div>
+              <div class="agenda-t">Abertura e&nbsp;ponto de&nbsp;partida</div>
               <div class="agenda-d">
-                A turma responde a régua e a análise roda ao vivo, com o dado que a sala
-                acabou de gerar sobre ela mesma.
+                A&nbsp;turma responde a&nbsp;régua e&nbsp;a&nbsp;análise roda ao&nbsp;vivo, com&nbsp;o&nbsp;dado que&nbsp;a&nbsp;sala
+                acabou de&nbsp;gerar sobre&nbsp;ela mesma.
               </div>
             </div>
           </div>
           <div class="agenda-row">
             <div class="agenda-h">0h20 · 1h00</div>
             <div class="agenda-c">
-              <div class="agenda-t">O que muda com AI First</div>
+              <div class="agenda-t">O&nbsp;que&nbsp;muda com&nbsp;AI First</div>
               <div class="agenda-d">
-                O conceito, os pilares 1 e 2, e o exercício do que só existe na cabeça de
-                alguém.
+                O&nbsp;conceito, os&nbsp;pilares 1 e&nbsp;2, e&nbsp;o&nbsp;exercício do&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém.
               </div>
             </div>
           </div>
@@ -1510,51 +1523,50 @@ disponível desde o começo, como seria?</div>
           <div class="agenda-row">
             <div class="agenda-h">1h15 · 2h15</div>
             <div class="agenda-c">
-              <div class="agenda-t">Caso 1 em três passos</div>
-              <div class="agenda-d">
-                Conhecimento espalhado e muitas frentes ao mesmo tempo. Grupos com pessoas
-                de áreas diferentes.
+              <div class="agenda-t">Caso 1 em&nbsp;três passos</div>
+              <div class="agenda-d fr-host">
+                <span class="fr">Conhecimento espalhado e&nbsp;muitas frentes ao&nbsp;mesmo tempo.</span> <span class="fr">Grupos com&nbsp;pessoas
+                de&nbsp;áreas diferentes.</span>
               </div>
             </div>
           </div>
           <div class="agenda-row">
             <div class="agenda-h">2h15 · 3h15</div>
             <div class="agenda-c">
-              <div class="agenda-t">Caso 2 em três passos</div>
-              <div class="agenda-d">
-                Análise com informação sensível e prazo curto. Grupos remontados, e o
-                ponto de conferência marcado dentro do próprio fluxo.
+              <div class="agenda-t">Caso 2 em&nbsp;três passos</div>
+              <div class="agenda-d fr-host">
+                <span class="fr">Análise com&nbsp;informação sensível e&nbsp;prazo curto.</span> <span class="fr">Grupos remontados, e&nbsp;o&nbsp;ponto de&nbsp;conferência marcado dentro do&nbsp;próprio fluxo.</span>
               </div>
             </div>
           </div>
           <div class="agenda-row">
             <div class="agenda-h">3h15 · 3h45</div>
             <div class="agenda-c">
-              <div class="agenda-t">Disciplina de escopo e fechamento</div>
+              <div class="agenda-t">Disciplina de&nbsp;escopo e&nbsp;fechamento</div>
               <div class="agenda-d">
-                A ficha dos quatro campos para uma iniciativa real da área, a régua
-                reaplicada, e a comparação com a abertura.
+                A&nbsp;ficha dos&nbsp;quatro campos para&nbsp;uma&nbsp;iniciativa real da&nbsp;área, a&nbsp;régua
+                reaplicada, e&nbsp;a&nbsp;comparação com&nbsp;a&nbsp;abertura.
               </div>
             </div>
           </div>
           <div class="agenda-row pausa">
             <div class="agenda-h">3h45 · 4h00</div>
-            <div class="agenda-c">Folga de condução</div>
+            <div class="agenda-c">Folga de&nbsp;condução</div>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que os casos vêm antes da resposta</div>
-          <p class="p-curto">
-            Nos&nbsp;dois casos o&nbsp;problema vem primeiro e&nbsp;a&nbsp;solução vem depois. Se&nbsp;a&nbsp;solução
-            viesse primeiro, a&nbsp;sala assistiria. Vindo o&nbsp;problema primeiro, a&nbsp;sala trabalha,
-            erra junto, e&nbsp;só&nbsp;então recebe a&nbsp;correção. Adulto aprende resolvendo, não&nbsp;acumulando conceito.
+          <p class="p-curto fr-host">
+            <span class="fr">Nos&nbsp;dois casos o&nbsp;problema vem primeiro e&nbsp;a&nbsp;solução vem depois.</span> <span class="fr">Se&nbsp;a&nbsp;solução
+            viesse primeiro, a&nbsp;sala assistiria.</span> <span class="fr">Vindo o&nbsp;problema primeiro, a&nbsp;sala trabalha,
+            erra junto, e&nbsp;só&nbsp;então recebe a&nbsp;correção.</span> <span class="fr">Adulto aprende resolvendo, não&nbsp;acumulando conceito.</span>
           </p>
         </div>
       </section>
       <div class="nav-bottom">
         <span></span>
-        <a class="nav-link next" href="ai-first/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">O que muda com AI First</span></a>
+        <a class="nav-link next" href="ai-first/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">O&nbsp;que&nbsp;muda com&nbsp;AI First</span></a>
       </div>
 </main>
 

@@ -76,6 +76,9 @@
   /* posta pelo passo de quebra de linha: paragrafo curto colado pede
      balance, para as duas linhas ficarem parecidas */
   .p-curto { text-wrap: balance; }
+    .fr-host { container-type: inline-size; }
+    .fr { display: inline; }
+    @container (min-width: 600px) { .fr { display: block; } }
   label.campo-l { display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin: 14px 0 3px; }
   .hint { font-size: 12px; color: var(--ink-muted); margin: 0 0 6px; line-height: 1.45; }
   /* cada coluna vira flex e o campo desce para a base: dica de 1 ou 2 linhas
@@ -156,7 +159,7 @@
   <div class="wrap">
     <p class="eyebrow p-curto">Trilha de&nbsp;Cultura de&nbsp;Inteligência Artificial · Encerramento</p>
     <h1>Canvas <span class="it">Ideação com&nbsp;AI First</span></h1>
-    <p class="p-curto">Preencha ao&nbsp;longo do&nbsp;dia. O&nbsp;rascunho fica salvo neste aparelho. No&nbsp;fim, um&nbsp;toque copia a&nbsp;sua&nbsp;linha para&nbsp;a&nbsp;planilha da&nbsp;sala.</p>
+    <p class="p-curto fr-host"><span class="fr">Preencha ao&nbsp;longo do&nbsp;dia.</span> <span class="fr">O&nbsp;rascunho fica salvo neste aparelho.</span> <span class="fr">No&nbsp;fim, um&nbsp;toque copia a&nbsp;sua&nbsp;linha para&nbsp;a&nbsp;planilha da&nbsp;sala.</span></p>
     <p style="margin-top:14px" class="p-curto"><a href="../" style="color:#fff;opacity:.85;font-size:14px;text-decoration:underline">← voltar ao&nbsp;material do&nbsp;dia</a></p>
   </div>
 </div>
@@ -167,12 +170,12 @@
   <div class="bloco">
     <p class="bloco-rot p-curto">Antes de&nbsp;começar</p>
     <h2>Sem&nbsp;nome, de&nbsp;propósito</h2>
-    <p class="lead p-curto">Isto não&nbsp;é avaliação de&nbsp;desempenho. <strong>Não&nbsp;escreva seu&nbsp;nome.</strong> Crie um&nbsp;código que&nbsp;só&nbsp;você reconheça e&nbsp;repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia, para&nbsp;comparar com&nbsp;você mesmo.</p>
+    <p class="lead p-curto fr-host"><span class="fr">Isto não&nbsp;é avaliação de&nbsp;desempenho.</span> <span class="fr"><strong>Não&nbsp;escreva seu&nbsp;nome.</strong></span> <span class="fr">Crie um&nbsp;código que&nbsp;só&nbsp;você reconheça e&nbsp;repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia, para&nbsp;comparar com&nbsp;você mesmo.</span></p>
 
     <div class="dupla">
       <div>
         <label class="campo-l" for="c-codigo">Seu&nbsp;código</label>
-        <p class="hint p-curto">Ex: MAR14. Repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia.</p>
+        <p class="hint p-curto fr-host"><span class="fr">Ex: MAR14.</span> <span class="fr">Repita o&nbsp;mesmo no&nbsp;fim do&nbsp;dia.</span></p>
         <input class="txt" id="c-codigo" type="text" inputmode="text" placeholder="ex: MAR14" autocomplete="off">
       </div>
       <div>
@@ -200,7 +203,7 @@
   <div class="bloco">
     <p class="bloco-rot p-curto">Parte 1 de&nbsp;4 · responda agora</p>
     <h2>Onde&nbsp;eu estou hoje</h2>
-    <p class="lead p-curto">Cinco perguntas, uma&nbsp;por&nbsp;pilar. Marque <strong>o&nbsp;que&nbsp;é verdade hoje</strong>, não&nbsp;o&nbsp;que&nbsp;seria bonito responder. A&nbsp;régua só&nbsp;funciona se&nbsp;for honesta, e&nbsp;ninguém vai saber quem respondeu o&nbsp;quê.</p>
+    <p class="lead p-curto fr-host"><span class="fr">Cinco perguntas, uma&nbsp;por&nbsp;pilar.</span> <span class="fr">Marque <strong>o&nbsp;que&nbsp;é verdade hoje</strong>, não&nbsp;o&nbsp;que&nbsp;seria bonito responder.</span> <span class="fr">A&nbsp;régua só&nbsp;funciona se&nbsp;for honesta, e&nbsp;ninguém vai saber quem respondeu o&nbsp;quê.</span></p>
 
     <div>
       <div class="item">
@@ -259,15 +262,15 @@
   <details class="depois">
     <summary>
       <span>
-        <span class="sum-rot">Parte 2 de 4 · durante o dia</span>
-        <span class="sum-t">O que só existe na cabeça</span>
+        <span class="sum-rot">Parte 2 de&nbsp;4 · durante&nbsp;o&nbsp;dia</span>
+        <span class="sum-t">O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</span>
       </span>
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
     <p class="bloco-rot p-curto">Parte 2 de&nbsp;4 · durante&nbsp;o&nbsp;dia</p>
     <h2>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</h2>
-    <p class="lead p-curto">Três coisas da&nbsp;sua&nbsp;área que&nbsp;<strong>ninguém escreveu em&nbsp;lugar nenhum</strong>. Se&nbsp;está escrito, não&nbsp;vale.</p>
+    <p class="lead p-curto fr-host"><span class="fr">Três coisas da&nbsp;sua&nbsp;área que&nbsp;<strong>ninguém escreveu em&nbsp;lugar nenhum</strong>.</span> <span class="fr">Se&nbsp;está escrito, não&nbsp;vale.</span></p>
 
     <label class="campo-l" for="c-cab1">Um&nbsp;jeito de&nbsp;fazer que&nbsp;só&nbsp;se&nbsp;aprende observando alguém</label>
     <textarea class="txt" id="c-cab1" rows="2" placeholder="ex: como se decide a ordem de contato quando três coisas urgentes caem juntas"></textarea>
@@ -278,9 +281,9 @@
     <label class="campo-l" for="c-cab3">Uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa sabe tratar</label>
     <textarea class="txt" id="c-cab3" rows="2" placeholder="ex: o caso raro que sempre para na mesma mesa porque ninguém mais sabe resolver"></textarea>
 
-    <div class="aviso info">
-      <span class="t">Por que este bloco existe</span>
-      Cada linha aqui é uma coisa que <strong>a inteligência artificial não consegue fazer por você</strong>, por mais boa que ela seja. Não porque é difícil: porque não está escrito em lugar nenhum.
+    <div class="aviso info fr-host">
+      <span class="fr"><span class="t">Por&nbsp;que&nbsp;este bloco existe</span>
+      Cada linha aqui é uma coisa que <strong>a inteligência artificial não consegue fazer por você</strong>, por mais boa que ela seja.</span> <span class="fr">Não porque é difícil: porque não está escrito em lugar nenhum.</span>
     </div>
   </div>
   </details>
@@ -289,15 +292,15 @@
   <details class="depois">
     <summary>
       <span>
-        <span class="sum-rot">Parte 3 de 4 · no fim do dia</span>
-        <span class="sum-t">A ficha dos quatro campos</span>
+        <span class="sum-rot">Parte 3 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</span>
+        <span class="sum-t">A&nbsp;ficha dos&nbsp;quatro campos</span>
       </span>
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
     <p class="bloco-rot p-curto">Parte 3 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
     <h2>A&nbsp;ficha dos&nbsp;quatro campos</h2>
-    <p class="lead p-curto">Escolha <strong>uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área</strong> e&nbsp;preencha os&nbsp;quatro. Se&nbsp;você não&nbsp;conseguir preencher algum, isso já&nbsp;é a&nbsp;descoberta do&nbsp;exercício.</p>
+    <p class="lead p-curto fr-host"><span class="fr">Escolha <strong>uma&nbsp;iniciativa real da&nbsp;sua&nbsp;área</strong> e&nbsp;preencha os&nbsp;quatro.</span> <span class="fr">Se&nbsp;você não&nbsp;conseguir preencher algum, isso já&nbsp;é a&nbsp;descoberta do&nbsp;exercício.</span></p>
 
     <label class="campo-l" for="c-iniciativa">Qual é a&nbsp;iniciativa</label>
     <p class="hint p-curto">Em&nbsp;uma&nbsp;frase, o&nbsp;que&nbsp;você quer fazer.</p>
@@ -312,18 +315,18 @@
     </select>
 
     <label class="campo-l" for="c-campo2">Campo 2 · Qual é o&nbsp;número</label>
-    <p class="hint p-curto">A&nbsp;medida específica. Não&nbsp;"melhorar o&nbsp;atendimento", e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta.</p>
+    <p class="hint p-curto fr-host"><span class="fr">A&nbsp;medida específica.</span> <span class="fr">Não&nbsp;"melhorar o&nbsp;atendimento", e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta.</span></p>
     <input class="txt" id="c-campo2" type="text" placeholder="ex: horas por semana gastas respondendo dúvida repetida">
 
     <label class="campo-l" for="c-campo3">Campo 3 · Quanto é hoje</label>
-    <p class="hint p-curto">Se&nbsp;ninguém sabe, escreva "não&nbsp;medido". Essa é a&nbsp;primeira tarefa, e&nbsp;não&nbsp;a&nbsp;automação.</p>
+    <p class="hint p-curto fr-host"><span class="fr">Se&nbsp;ninguém sabe, escreva "não&nbsp;medido".</span> <span class="fr">Essa é a&nbsp;primeira tarefa, e&nbsp;não&nbsp;a&nbsp;automação.</span></p>
     <input class="txt" id="c-campo3" type="text" placeholder="ex: 6 horas por semana · ou: não medido">
 
     <label class="campo-l" for="c-campo4">Campo 4 · Quanto em&nbsp;60 dias</label>
     <input class="txt" id="c-campo4" type="text" placeholder="ex: 1 hora e meia por semana">
 
     <div class="aviso warn">
-      <span class="t">A regra que acompanha a ficha</span>
+      <span class="t">A&nbsp;regra que&nbsp;acompanha a&nbsp;ficha</span>
       Se os quatro campos não podem ser preenchidos, <strong>ainda não existe projeto: existe vontade.</strong>
     </div>
   </div>
@@ -333,15 +336,15 @@
   <details class="depois">
     <summary>
       <span>
-        <span class="sum-rot">Parte 4 de 4 · no fim do dia</span>
-        <span class="sum-t">Onde eu cheguei</span>
+        <span class="sum-rot">Parte 4 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</span>
+        <span class="sum-t">Onde&nbsp;eu cheguei</span>
       </span>
       <span class="sum-mais">abrir</span>
     </summary>
   <div class="bloco">
     <p class="bloco-rot p-curto">Parte 4 de&nbsp;4 · no&nbsp;fim do&nbsp;dia</p>
     <h2>Onde&nbsp;eu cheguei</h2>
-    <p class="lead p-curto">As&nbsp;mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.</p>
+    <p class="lead p-curto fr-host"><span class="fr">As&nbsp;mesmas cinco perguntas.</span> <span class="fr">Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.</span></p>
 
     <div>
       <div class="item">
@@ -392,7 +395,7 @@
   <div class="bloco">
     <p class="bloco-rot p-curto">Para&nbsp;fechar</p>
     <h2>Mandar para&nbsp;a&nbsp;planilha da&nbsp;sala</h2>
-    <p class="lead p-curto">Toque no&nbsp;botão azul lá embaixo. A&nbsp;sua&nbsp;linha vai para&nbsp;a&nbsp;área de&nbsp;transferência do&nbsp;aparelho. Abra a&nbsp;planilha projetada, toque na&nbsp;<strong>primeira célula vazia da&nbsp;coluna A</strong>&nbsp;e&nbsp;cole. As&nbsp;colunas se&nbsp;separam sozinhas.</p>
+    <p class="lead p-curto fr-host"><span class="fr">Toque no&nbsp;botão azul lá embaixo.</span> <span class="fr">A&nbsp;sua&nbsp;linha vai para&nbsp;a&nbsp;área de&nbsp;transferência do&nbsp;aparelho.</span> <span class="fr">Abra a&nbsp;planilha projetada, toque na&nbsp;<strong>primeira célula vazia da&nbsp;coluna A</strong>&nbsp;e&nbsp;cole.</span> <span class="fr">As&nbsp;colunas se&nbsp;separam sozinhas.</span></p>
 
     <div class="esquema">
       <p class="esquema-t p-curto">As&nbsp;colunas, nesta ordem</p>
@@ -406,9 +409,9 @@
       </div>
     </div>
 
-    <div class="aviso ok">
-      <span class="t">Se a rede não colaborar</span>
-      Não tem problema. O seu rascunho continua salvo neste aparelho, e a folha de papel na mesa é o registro válido. <strong>Ninguém fica de fora por causa de conexão.</strong>
+    <div class="aviso ok fr-host">
+      <span class="fr"><span class="t">Se&nbsp;a&nbsp;rede não&nbsp;colaborar</span>
+      Não tem problema.</span> <span class="fr">O seu rascunho continua salvo neste aparelho, e a folha de papel na mesa é o registro válido.</span> <span class="fr"><strong>Ninguém fica de fora por causa de conexão.</strong></span>
     </div>
   </div>
 

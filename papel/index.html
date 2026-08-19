@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1153,11 +1168,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
 <main class="wrap" style="padding-top:32px;padding-bottom:80px">
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; Se a internet falhar</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; Se&nbsp;a&nbsp;internet falhar</div>
       <div class="hero">
-        <div class="hero-eyebrow">Se a internet falhar</div>
+        <div class="hero-eyebrow">Se&nbsp;a&nbsp;internet falhar</div>
         <h1>A&nbsp;régua e&nbsp;a&nbsp;ficha em&nbsp;papel</h1>
-        <p class="hero-lead">As&nbsp;folhas para&nbsp;imprimir e&nbsp;distribuir. Servem quando&nbsp;o&nbsp;celular não&nbsp;ajuda, e&nbsp;servem para&nbsp;quem prefere caneta.</p>
+        <p class="hero-lead fr-host"><span class="fr">As&nbsp;folhas para&nbsp;imprimir e&nbsp;distribuir.</span> <span class="fr">Servem quando&nbsp;o&nbsp;celular não&nbsp;ajuda, e&nbsp;servem para&nbsp;quem prefere caneta.</span></p>
         <div class="hero-meta">
         <span class="chip">Imprimível</span>
         <span class="chip">Três páginas A4</span>
@@ -1209,27 +1224,27 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-info no-print">
         <div class="callout-title">Para imprimir</div>
-        <p class="p-curto">
-          Use imprimir do&nbsp;navegador. Saem <strong>três páginas A4</strong>: a&nbsp;régua do&nbsp;começo, a&nbsp;régua do&nbsp;fim e&nbsp;a&nbsp;ficha. Imprimindo frente e&nbsp;verso, viram duas folhas
-          por&nbsp;pessoa. Nada aqui depende de&nbsp;cor, então pode sair em&nbsp;preto e&nbsp;branco. Esta
-          caixa fica de&nbsp;fora da&nbsp;impressão.
+        <p class="p-curto fr-host">
+          <span class="fr">Use imprimir do&nbsp;navegador.</span> <span class="fr">Saem <strong>três páginas A4</strong>: a&nbsp;régua do&nbsp;começo, a&nbsp;régua do&nbsp;fim e&nbsp;a&nbsp;ficha.</span> <span class="fr">Imprimindo frente e&nbsp;verso, viram duas folhas
+          por&nbsp;pessoa.</span> <span class="fr">Nada aqui depende de&nbsp;cor, então pode sair em&nbsp;preto e&nbsp;branco.</span> <span class="fr">Esta
+          caixa fica de&nbsp;fora da&nbsp;impressão.</span>
         </p>
       </div>
 
       <div class="folha">
         <div class="folha-cab">
-          <div><div class="folha-t">A régua · começo do dia</div></div>
+          <div><div class="folha-t">A&nbsp;régua · começo do&nbsp;dia</div></div>
           <div class="folha-s">Ideação com AI First<br>Grupo Longevidade Saudável</div>
         </div>
         <div class="pl-id">
-          <div class="pl-id-c"><div class="pl-id-r">Código de três letras e dois números</div><div class="pl-id-l"></div></div>
-          <div class="pl-id-c"><div class="pl-id-r">Sua área</div><div class="pl-id-l"></div></div>
+          <div class="pl-id-c"><div class="pl-id-r">Código de&nbsp;três letras e&nbsp;dois números</div><div class="pl-id-l"></div></div>
+          <div class="pl-id-c"><div class="pl-id-r">Sua&nbsp;área</div><div class="pl-id-l"></div></div>
         </div>
-        <p class="pl-nota p-curto">
-          O&nbsp;código permite comparar a&nbsp;sua&nbsp;resposta da&nbsp;manhã com&nbsp;a&nbsp;do&nbsp;fim do&nbsp;dia sem&nbsp;ninguém saber quem respondeu. Use as&nbsp;três primeiras letras do&nbsp;seu&nbsp;nome e&nbsp;os&nbsp;dois
-          últimos números do&nbsp;seu&nbsp;telefone. <strong>Marque o&nbsp;que&nbsp;é verdade hoje</strong>, e&nbsp;não&nbsp;o&nbsp;que&nbsp;seria bonito responder.
+        <p class="pl-nota p-curto fr-host">
+          <span class="fr">O&nbsp;código permite comparar a&nbsp;sua&nbsp;resposta da&nbsp;manhã com&nbsp;a&nbsp;do&nbsp;fim do&nbsp;dia sem&nbsp;ninguém saber quem respondeu.</span> <span class="fr">Use as&nbsp;três primeiras letras do&nbsp;seu&nbsp;nome e&nbsp;os&nbsp;dois
+          últimos números do&nbsp;seu&nbsp;telefone.</span> <span class="fr"><strong>Marque o&nbsp;que&nbsp;é verdade hoje</strong>, e&nbsp;não&nbsp;o&nbsp;que&nbsp;seria bonito responder.</span>
         </p>
-        <div class="pl-fase">Parte 1 · responda agora, no começo</div>
+        <div class="pl-fase">Parte 1 · responda agora, no&nbsp;começo</div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
           <p class="pl-perg p-curto">O&nbsp;que&nbsp;eu aprendo e&nbsp;decido no&nbsp;trabalho fica registrado em&nbsp;algum lugar?</p>
@@ -1249,7 +1264,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
         <div class="pl-q">
-          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
+          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e&nbsp;conferência</span></div>
           <p class="pl-perg p-curto">Como eu peço um&nbsp;trabalho grande?</p>
           <div class="pl-ops">
             <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
@@ -1267,7 +1282,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
         <div class="pl-q">
-          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
+          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com&nbsp;métrica</span></div>
           <p class="pl-perg p-curto">Quando&nbsp;eu começo uma&nbsp;iniciativa nova, o&nbsp;que&nbsp;está definido antes?</p>
           <div class="pl-ops">
             <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
@@ -1275,26 +1290,26 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
           </div>
         </div>
-        <div class="pl-total"><span>Some os cinco números marcados:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
+        <div class="pl-total"><span>Some os&nbsp;cinco números marcados:</span><span class="pl-total-cx"></span><span>de&nbsp;5 a&nbsp;15</span></div>
         <div class="folha-pe">
-          <span>Não vire a folha ainda.</span>
-          <span>A parte 2 é para o fim do dia</span>
+          <span>Não&nbsp;vire a&nbsp;folha ainda.</span>
+          <span>A&nbsp;parte 2 é para&nbsp;o&nbsp;fim do&nbsp;dia</span>
         </div>
       </div>
 
       <div class="folha">
         <div class="folha-cab">
-          <div><div class="folha-t">A régua · fim do dia</div></div>
+          <div><div class="folha-t">A&nbsp;régua · fim do&nbsp;dia</div></div>
           <div class="folha-s">Repita o mesmo código<br>da folha anterior</div>
         </div>
         <div class="pl-id">
-          <div class="pl-id-c"><div class="pl-id-r">O mesmo código de antes</div><div class="pl-id-l"></div></div>
-          <div class="pl-id-c"><div class="pl-id-r">Sua área</div><div class="pl-id-l"></div></div>
+          <div class="pl-id-c"><div class="pl-id-r">O&nbsp;mesmo código de&nbsp;antes</div><div class="pl-id-l"></div></div>
+          <div class="pl-id-c"><div class="pl-id-r">Sua&nbsp;área</div><div class="pl-id-l"></div></div>
         </div>
-        <p class="pl-nota p-curto">
-          As&nbsp;mesmas cinco perguntas. Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.
+        <p class="pl-nota p-curto fr-host">
+          <span class="fr">As&nbsp;mesmas cinco perguntas.</span> <span class="fr">Responda <strong>como você pretende trabalhar a&nbsp;partir de&nbsp;segunda</strong>, e&nbsp;não&nbsp;como gostaria de&nbsp;ter respondido de&nbsp;manhã.</span>
         </p>
-        <div class="pl-fase">Parte 2 · no fim do dia</div>
+        <div class="pl-fase">Parte 2 · no&nbsp;fim do&nbsp;dia</div>
         <div class="pl-q">
           <div class="pl-q-cab"><span class="pl-n">1</span><span class="pl-rot">Registro</span></div>
           <p class="pl-perg p-curto">O&nbsp;que&nbsp;eu aprendo e&nbsp;decido no&nbsp;trabalho fica registrado em&nbsp;algum lugar?</p>
@@ -1314,7 +1329,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
         <div class="pl-q">
-          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e conferência</span></div>
+          <div class="pl-q-cab"><span class="pl-n">3</span><span class="pl-rot">Fases e&nbsp;conferência</span></div>
           <p class="pl-perg p-curto">Como eu peço um&nbsp;trabalho grande?</p>
           <div class="pl-ops">
             <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Peço o&nbsp;trabalho todo de&nbsp;uma&nbsp;vez.</span></label>
@@ -1332,7 +1347,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
         <div class="pl-q">
-          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com métrica</span></div>
+          <div class="pl-q-cab"><span class="pl-n">5</span><span class="pl-rot">Escopo com&nbsp;métrica</span></div>
           <p class="pl-perg p-curto">Quando&nbsp;eu começo uma&nbsp;iniciativa nova, o&nbsp;que&nbsp;está definido antes?</p>
           <div class="pl-ops">
             <label class="pl-op"><span class="pl-cx">1</span><span class="pl-tx">Começo pela&nbsp;ideia que&nbsp;parece boa.</span></label>
@@ -1340,58 +1355,58 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <label class="pl-op"><span class="pl-cx">3</span><span class="pl-tx">Meço antes de&nbsp;começar e&nbsp;ponho meta com&nbsp;prazo.</span></label>
           </div>
         </div>
-        <div class="pl-total"><span>Some de novo:</span><span class="pl-total-cx"></span><span>de 5 a 15</span></div>
+        <div class="pl-total"><span>Some de&nbsp;novo:</span><span class="pl-total-cx"></span><span>de&nbsp;5 a&nbsp;15</span></div>
         <div class="folha-pe">
-          <span>Entregue as duas folhas no fim do dia.</span>
-          <span>A mesma régua está na página do canvas</span>
+          <span>Entregue as&nbsp;duas folhas no&nbsp;fim do&nbsp;dia.</span>
+          <span>A&nbsp;mesma régua está na&nbsp;página do&nbsp;canvas</span>
         </div>
       </div>
 
       <div class="folha">
         <div class="folha-cab">
-          <div><div class="folha-t">A ficha dos quatro campos</div></div>
+          <div><div class="folha-t">A&nbsp;ficha dos&nbsp;quatro campos</div></div>
           <div class="folha-s">Uma iniciativa da sua área<br>Meta de sessenta dias</div>
         </div>
-        <p class="pl-nota p-curto">
-          Escolha uma&nbsp;iniciativa real, que&nbsp;você começaria na&nbsp;segunda-feira. Se&nbsp;não&nbsp;conseguir preencher os&nbsp;quatro campos, <strong>a&nbsp;iniciativa ainda não&nbsp;está pronta
-          para&nbsp;começar</strong>, e&nbsp;descobrir isso agora custa uma&nbsp;folha de&nbsp;papel.
+        <p class="pl-nota p-curto fr-host">
+          <span class="fr">Escolha uma&nbsp;iniciativa real, que&nbsp;você começaria na&nbsp;segunda-feira.</span> <span class="fr">Se&nbsp;não&nbsp;conseguir preencher os&nbsp;quatro campos, <strong>a&nbsp;iniciativa ainda não&nbsp;está pronta
+          para&nbsp;começar</strong>, e&nbsp;descobrir isso agora custa uma&nbsp;folha de&nbsp;papel.</span>
         </p>
         <div class="fi-l">
-          <div class="fi-r">A iniciativa</div>
-          <div class="fi-a">Uma frase. O que passa a acontecer que hoje não acontece.</div>
+          <div class="fi-r">A&nbsp;iniciativa</div>
+          <div class="fi-a fr-host"><span class="fr">Uma&nbsp;frase.</span> <span class="fr">O&nbsp;que&nbsp;passa a&nbsp;acontecer que&nbsp;hoje não&nbsp;acontece.</span></div>
           <div class="fi-lin"></div><div class="fi-lin"></div>
         </div>
         <div class="fi-l">
-          <div class="fi-r">1 · Em que isso ajuda</div>
-          <div class="fi-a">Trazer mais alunos e pacientes, fazer cada um valer mais, ou reduzir custo e retrabalho. Escolha um só.</div>
+          <div class="fi-r">1 · Em&nbsp;que&nbsp;isso ajuda</div>
+          <div class="fi-a fr-host"><span class="fr">Trazer mais alunos e&nbsp;pacientes, fazer cada um&nbsp;valer mais, ou&nbsp;reduzir custo e&nbsp;retrabalho.</span> <span class="fr">Escolha um&nbsp;só.</span></div>
           <div class="fi-lin"></div>
         </div>
         <div class="fi-l">
-          <div class="fi-r">2 · Qual é o número</div>
-          <div class="fi-a">O que você vai medir. Horas, dias, quantidade, reais.</div>
+          <div class="fi-r">2 · Qual é o&nbsp;número</div>
+          <div class="fi-a fr-host"><span class="fr">O&nbsp;que&nbsp;você vai medir.</span> <span class="fr">Horas, dias, quantidade, reais.</span></div>
           <div class="fi-lin"></div>
         </div>
         <div class="fi-l">
           <div class="fi-r">3 · Quanto é hoje</div>
-          <div class="fi-a">O valor de hoje, medido e não estimado. É o campo que mais trava, e é ele que torna o campo 4 verificável.</div>
+          <div class="fi-a fr-host"><span class="fr">O&nbsp;valor de&nbsp;hoje, medido e&nbsp;não&nbsp;estimado.</span> <span class="fr">É o&nbsp;campo que&nbsp;mais trava, e&nbsp;é ele que&nbsp;torna o&nbsp;campo 4 verificável.</span></div>
           <div class="fi-lin"></div>
         </div>
         <div class="fi-l">
-          <div class="fi-r">4 · Quanto em sessenta dias</div>
-          <div class="fi-a">A meta, com a data em que alguém volta para conferir.</div>
+          <div class="fi-r">4 · Quanto em&nbsp;sessenta dias</div>
+          <div class="fi-a">A&nbsp;meta, com&nbsp;a&nbsp;data em&nbsp;que&nbsp;alguém volta para&nbsp;conferir.</div>
           <div class="fi-lin"></div>
         </div>
         <div class="fi-l">
-          <div class="fi-r">Quem responde por ela</div>
-          <div class="fi-a">Um nome. Não uma área, não um comitê.</div>
+          <div class="fi-r">Quem responde por&nbsp;ela</div>
+          <div class="fi-a fr-host"><span class="fr">Um&nbsp;nome.</span> <span class="fr">Não&nbsp;uma&nbsp;área, não&nbsp;um&nbsp;comitê.</span></div>
           <div class="fi-lin"></div>
         </div>
-        <div class="folha-pe">
-          <span>Guarde esta folha. Em sessenta dias ela é a única prova do que mudou.</span>
+        <div class="folha-pe fr-host">
+          <span><span class="fr">Guarde esta folha.</span> <span class="fr">Em&nbsp;sessenta dias ela é a&nbsp;única prova do&nbsp;que&nbsp;mudou.</span></span>
         </div>
       </div>
       <div class="nav-bottom">
-        <a class="nav-link prev" href="../pilares/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">Os cinco pilares em uma folha</span></a>
+        <a class="nav-link prev" href="../pilares/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">Os&nbsp;cinco pilares em&nbsp;uma&nbsp;folha</span></a>
         <span></span>
       </div>
 </main>

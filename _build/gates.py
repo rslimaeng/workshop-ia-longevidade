@@ -170,7 +170,10 @@ def g6_links_resolvem(rel, html):
 
 def g7_nav_bate_com_secoes(rel, html):
     """A nav lateral aponta 1:1 para as seções que existem, sem sobra dos dois lados."""
-    nav = re.findall(r'<li class="side-nav-item"><a href="#([^"]+)"', html)
+    # Casar 'class="side-nav-item"' inteiro amarra o gate a nao ganhar mais
+    # nenhuma classe. Quando o gerador poe p-curto no <li>, o gate acha zero
+    # item, devolve [] e passa cego. Procurar pelo efeito.
+    nav = re.findall(r'<li[^>]*class="[^"]*\bside-nav-item\b[^"]*"[^>]*>\s*<a href="#([^"]+)"', html)
     secoes = re.findall(r'<section class="block" id="([^"]+)"', html)
     if not nav:
         return []
@@ -354,11 +357,15 @@ def g10_pilares_literais(rel, html):
     falhas = []
     achados = []
     for classe in ROTULOS_DE_PILAR:
+        # class= tolerante: o gerador acrescenta classe, e casar o atributo
+        # inteiro deixaria este gate sem alvo nenhum, ou seja, cego
         for m in re.finditer(
-            r'<div class="' + classe + r'">(.*?)</div>', html, flags=re.S
+            r'<div class="[^"]*\b' + classe + r'\b[^"]*">(.*?)</div>', html, flags=re.S
         ):
             t = re.sub(r"<[^>]+>", "", m.group(1))
-            t = re.sub(r"\s+", " ", t).strip()
+            # compara o que se LÊ: o espaço rígido da cola é um espaço na tela,
+            # e o rótulo continua sendo o canônico
+            t = re.sub(r"\s+", " ", t.replace("&nbsp;", " ").replace("\u00a0", " ")).strip()
             achados.append((classe, t))
 
     for classe, t in achados:
@@ -581,7 +588,6 @@ def g22_papel_bate_com_a_tela(rel, html):
     for i in range(1, 6):
         alts = re.findall(
             r'<input type="radio" name="a%d" value="\d"><span>([^<]+)</span>' % i, c)
-        rot = re.findall(r'class="item-t">([^<]+)</p>', c)
         da_tela.append(alts)
     if any(len(a) != 3 for a in da_tela):
         return ["a régua da tela não tem três alternativas em toda pergunta"]
@@ -793,6 +799,100 @@ def g28_quebra_de_linha_tratada(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G29
+def _arvore_de_frases(html):
+    """Percorre com pilha e devolve (hosts, spans_sem_host, hosts_em_item_de_flex,
+    hosts_vazios). Regex de vizinhança não serve aqui: o host pode ser <div>,
+    <span>, <p> ou <li>, e <div>(.*?)</div> fecha na tag errada."""
+    fora = _gerador.FORA_DE_ALCANCE | _gerador._classes_de_container(
+        "\n".join(_gerador.ESTILO.findall(html)))
+    pilha = [{"tag": None, "classes": set(), "host": False, "tem_frase": False}]
+    hosts = 0
+    sem_host, em_flex, vazios = [], [], []
+    pos = 0
+    while True:
+        m = _gerador.TAG.search(html, pos)
+        if not m:
+            break
+        pos = m.end()
+        if m.group(0).startswith("<!--"):
+            continue
+        tag = m.group("tag").lower()
+        if tag in _gerador.LITERAL and not m.group("fecha"):
+            f = re.search(r"</\s*%s\s*>" % tag, html[pos:], re.I)
+            if f:
+                pos += f.end()
+            continue
+        if tag in _gerador.VAZIA:
+            continue
+        if m.group("fecha"):
+            fundo = next((k for k in range(len(pilha) - 1, 0, -1)
+                          if pilha[k]["tag"] == tag), None)
+            if fundo is None:
+                continue
+            del pilha[fundo + 1:]
+            q = pilha.pop()
+            if q["host"]:
+                hosts += 1
+                if not q["tem_frase"]:
+                    vazios.append(q["texto"][:60])
+            if q["tem_frase"]:
+                pilha[-1]["tem_frase"] = True
+            continue
+        classes = set(_gerador._classes_de(m.group("attrs")))
+        ehFrase = m.group(0) == _gerador.SPAN_FRASE
+        if ehFrase and not any(q["host"] for q in pilha):
+            sem_host.append(html[m.end():m.end() + 60])
+        if "fr-host" in classes and (pilha[-1]["classes"] & fora):
+            em_flex.append(" ".join(sorted(classes)))
+        pilha.append({"tag": tag, "classes": classes, "host": "fr-host" in classes,
+                      "tem_frase": ehFrase,
+                      "texto": re.sub(r"<[^>]+>", "", html[m.end():m.end() + 200])})
+    return hosts, sem_host, em_flex, vazios
+
+
+def g29_uma_frase_por_linha(rel, html):
+    """Cada frase de bloco largo tem a sua linha, e o CSS que faz isso existe."""
+    falhas = []
+    # 1. O passo recalcula do zero: se rodar de novo e mudar alguma coisa, o
+    #    arquivo publicado não é o que o gerador produz. Vale para bloco que
+    #    ficou sem cortar, span a mais, span a menos e marca fora do lugar.
+    if _gerador.uma_frase_por_linha(html) != html:
+        falhas.append("o corte em frases não está aplicado nesta página: rodar o "
+                      "passo do gerador de novo ainda muda o arquivo")
+    if '<span class="fr">' not in html:
+        return falhas
+    hosts, sem_host, em_flex, vazios = _arvore_de_frases(html)
+    # 2. Frase sem contêiner acima nunca vira bloco: o markup fica inerte.
+    for t in sem_host:
+        falhas.append("frase cortada sem nenhum fr-host acima: " + t)
+    # 3. container-type:inline-size zera a largura de quem se dimensiona pelo
+    #    conteúdo. Num item de flex o bloco foi para 0px e o texto saiu uma
+    #    palavra por linha. A marca tem de morar em quem tem largura definida.
+    for c in em_flex:
+        falhas.append("fr-host em item de flex ou grid, a largura colapsa: " + c)
+    for t in vazios:
+        falhas.append("fr-host sem nenhuma frase dentro: " + t)
+    # 4. A outra metade do mecanismo: sem o container query o span não faz nada.
+    css = re.sub(r"\s+", "", html)
+    if not re.search(r"@container\([^)]*min-width:600px\)\{\.fr\{display:block", css):
+        falhas.append("o @container que transforma .fr em bloco não está no CSS "
+                      "desta página: os spans não fazem nada")
+    return falhas
+
+
+# O gerador cola espaço rígido no meio das frases, e onde ele cola muda quando o
+# conteúdo muda. Injetor que casa literal com espaço comum fica sem alvo e o
+# gate passa cego sem que nada no site tenha quebrado: aconteceu com o G11, o
+# G21, o G22, o G23, o G25 e o G28. Todo defeito injetado casa por aqui.
+ESPACO = r"(?:&nbsp;|\s)+"
+
+
+def como_escrito(txt):
+    """Padrão que casa o texto com ou sem espaço rígido em qualquer espaço."""
+    return ESPACO.join(re.escape(p) for p in txt.split())
+
+
 GATES = [
     ("G1", "travessão", g1_travessao,
      lambda h: h.replace("<h2>", "<h2>defeito — injetado ", 1), None),
@@ -803,20 +903,22 @@ GATES = [
     ("G4", "classe sem CSS", g4_classe_sem_css,
      lambda h: h.replace('class="card', 'class="classe-inventada card', 1), None),
     ("G5", "gabarito nasce fechado", g5_gabarito_fechado,
-     lambda h: h.replace('<details class="gabarito">', '<details class="gabarito" open>', 1),
+     lambda h: re.sub(r'(<details[^>]*\bgabarito\b[^>]*?)>', r'\1 open>', h, count=1),
      "caso-1/index.html"),
     ("G6", "links resolvem", g6_links_resolvem,
      lambda h: h.replace('href="./canvas/"', 'href="./pagina-que-nao-existe/"', 1),
      "index.html"),
     ("G7", "nav bate com as seções", g7_nav_bate_com_secoes,
-     lambda h: h.replace('<section class="block" id="s1"', '<section class="block" id="s1-renomeada"', 1),
+     lambda h: re.sub(r'(<section[^>]*\bblock\b[^>]*\bid=")s1(")', r'\g<1>s1-renomeada\g<2>',
+                      h, count=1),
      "caso-1/index.html"),
     ("G8", "direção de cena", g8_direcao_de_cena,
      lambda h: h.replace("<h2>", "<h2>pergunte à sala e espere o silêncio ", 1), None),
     ("G9", "minutagem fora da capa", g9_minutagem_fora_da_capa,
      lambda h: h.replace("<h2>", "<h2>bloco de 15 min ", 1), "caso-1/index.html"),
     ("G10", "pilares com o rótulo canônico", g10_pilares_literais,
-     lambda h: h.replace("Toda correção vira regra", "Correções viram regras", 1),
+     lambda h: re.sub(como_escrito("Toda correção vira regra"),
+                      "Correções viram regras", h, count=1),
      "index.html"),
     # O defeito tira a fonte e deixa o número sozinho. Casa por regex e não por
     # literal, porque o gerador cola espaço rígido no meio de "da Capgemini" e
@@ -830,19 +932,21 @@ GATES = [
      lambda h: h.replace("input.txt, select.txt { min-height: 47px; }", "", 1),
      "canvas/index.html"),
     ("G15", "o prompt baixado bate com a tela", g15_prompt_baixado_bate_com_a_tela,
-     lambda h: h.replace("# PAPEL", "# PAPEL ALTERADO", 1), "caso-1/index.html"),
+     lambda h: re.sub(como_escrito("# PAPEL"), "# PAPEL ALTERADO", h, count=1),
+     "caso-1/index.html"),
     ("G13", "botão de copiar tem alvo", g13_botao_copia_tem_alvo,
      lambda h: h.replace('data-copia="prompt-caso-1"', 'data-copia="prompt-sumiu"', 1),
      "caso-1/index.html"),
     ("G14", "a figura dos cem bate com o texto", g14_cem_pontos_batem_com_o_texto,
-     lambda h: h.replace('<span class="cem-p aceso"></span>', '<span class="cem-p"></span>', 1),
+     lambda h: re.sub(r'<span class="[^"]*\bcem-p\b[^"]*\baceso\b[^"]*"></span>',
+                      '<span class="cem-p"></span>', h, count=1),
      "ficha/index.html"),
     ("G17", "alfabeto latino na tela", g17_alfabeto,
      lambda h: h.replace("potencial", "\u043fotencial", 1),
      "ai-first/index.html"),
     ("G18", "os números batem com o diagnóstico", g18_numeros_do_diagnostico,
-     lambda h: h.replace('<span class="ex-area">15 de 22</span>',
-                         '<span class="ex-area">19 de 22</span>', 1),
+     lambda h: re.sub(como_escrito('<span class="ex-area">15 de 22</span>'),
+                      '<span class="ex-area">19 de 22</span>', h, count=1),
      "ai-first/index.html"),
     # O defeito troca o texto de uma alternativa, quebrando a simetria entre as
     # duas pontas. Casa por regex porque o texto carrega espaço rígido depois da
@@ -852,11 +956,12 @@ GATES = [
                       r'\1Fica registrado em algum lugar.\2', h, count=1),
      "canvas/index.html"),
     ("G20", "todo passo diz quem faz", g20_passo_tem_ator,
-     lambda h: h.replace('<span class="fl-ator pessoa">Ryan</span>', '<span class="fl-nada">Ryan</span>', 1),
+     lambda h: re.sub(r'<span class="[^"]*\bfl-ator\b[^"]*">Ryan</span>',
+                      '<span class="fl-nada">Ryan</span>', h, count=1),
      "ai-first/index.html"),
     ("G21", "os dois loops começam iguais", g21_loops_comecam_igual,
-     lambda h: h.replace('<span class="lp-et">Alguém executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>',
-                         '<span class="lp-et">Alguem executa</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Entrega</span>\n              <span class="lp-seta"></span>\n              <span class="lp-et">Mede o que saiu</span>', 1),
+     lambda h: re.sub(como_escrito('<span class="lp-et">Alguém executa</span>'),
+                      '<span class="lp-et">Alguem executa</span>', h, count=1),
      "index.html"),
     # O defeito muda o texto de uma alternativa só no papel, e o gate tem que
     # ver que ele deixou de bater com a tela. Regex pelo mesmo motivo do G19:
@@ -866,17 +971,20 @@ GATES = [
                       r'\1Texto trocado só no papel.\2', h, count=1),
      "papel/index.html"),
     ("G23", "as seções são numeradas em ordem", g23_numeracao_das_secoes,
-     lambda h: h.replace('<div class="block-num">07 · O limite</div>',
-                         '<div class="block-num">04 · O limite</div>', 1),
+     lambda h: re.sub(como_escrito('<div class="block-num">07 ·'),
+                      '<div class="block-num">04 ·', h, count=1),
      "ai-first/index.html"),
     ("G24", "as folhas declaradas batem", g24_folhas_declaradas,
-     lambda h: h.replace("Três páginas A4", "Duas páginas A4", 1),
+     lambda h: re.sub(como_escrito("Três páginas A4"), "Duas páginas A4", h, count=1),
      "papel/index.html"),
     ("G12", "contagem dos pilares", g12_contagem_dos_pilares,
-     lambda h: h.replace('<div class="loop-no">', '<div class="loop-no-removido">', 1),
+     lambda h: re.sub(r'<div class="([^"]*)\bloop-no\b([^"]*)">',
+                      r'<div class="\1loop-no-removido\2">', h, count=1),
      "index.html"),
     ("G25", "o cartão de vídeo está completo", g25_cartao_de_video_completo,
-     lambda h: h.replace('<span class="fonte-cta">assistir no YouTube &rarr;</span>', '', 1),
+     # regex e nao literal: um espaco rigido no meio da frase deixou este
+     # injetor sem alvo, e o gate passou cego sem nada ter mudado no site
+     lambda h: re.sub(r'<span class="fonte-cta">.*?</span>', '', h, count=1),
      "ai-first/index.html"),
     ("G26", "as imagens existem no disco", g26_imagens_existem,
      lambda h: h.replace('src="../_img/video-greg-ai-native.jpg"',
@@ -885,8 +993,17 @@ GATES = [
     ("G27", "a página cabe no celular", g27_cabe_no_celular,
      lambda h: h.replace(ESCAPATORIA, "", 1),
      "ai-first/index.html"),
+    # O defeito tem de cair DENTRO de um <p>: a cola por regex só alcança
+    # h1-4, label, <p> e <li>. O primeiro &nbsp; da página mora hoje num
+    # <span> do cabeçalho, colado pela outra passagem, e tirá-lo de lá não
+    # fazia esta função mudar nada.
     ("G28", "a quebra de linha foi tratada", g28_quebra_de_linha_tratada,
-     lambda h: h.replace("&nbsp;", " ", 1),
+     lambda h: re.sub(r'(<p\b[^>]*>(?:(?!</p>).)*?)&nbsp;', r'\1 ', h, count=1, flags=re.S),
+     "index.html"),
+    # O defeito desmarca UMA frase, nao todas: um <span> comum no lugar do
+    # <span class="fr"> deixa o passo achar que ali falta corte.
+    ("G29", "cada frase tem a sua linha", g29_uma_frase_por_linha,
+     lambda h: h.replace('<span class="fr">', '<span>', 1),
      "index.html"),
 ]
 

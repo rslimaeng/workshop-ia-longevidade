@@ -166,6 +166,21 @@ p,li,dd,figcaption{text-wrap:pretty}
    ignorado pelo navegador acima de seis linhas e ali a proteção contra
    palavra órfã vale mais. */
 
+/* ---------- UMA FRASE POR LINHA ---------- */
+/* Medido no navegador, 7 páginas a 1280px: 283 das 491 frases quebravam no
+   meio. A coluna não é estreita demais — a frase mediana ocupa 497px de uma
+   medida de 720px e 3 de cada 4 já caberiam numa linha. Elas quebram porque
+   começam no meio da linha, no resto que a frase anterior deixou.
+
+   Cada frase vira o seu próprio bloco. Quem decide onde isso vale é o
+   container query, não uma lista de seletores: bloco de prosa mede 660px ou
+   mais, card mede 486px ou menos, e o histograma não tem nada entre os dois.
+   Em card só 26,5% das frases caberiam numa linha, então lá segue corrido —
+   e no celular, onde a medida já é a tela inteira, também. */
+.fr-host{container-type:inline-size}
+.fr{display:inline}
+@container (min-width:600px){.fr{display:block}}
+
 /* ---------- HERO ---------- */
 .hero{padding:8px 0 40px;border-bottom:1px solid var(--border);margin-bottom:56px}
 .hero-eyebrow{
@@ -1143,7 +1158,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
     <a href="../" class="brand">
       <div class="brand-mark">LS</div>
       <div class="brand-text">
-        <span class="brand-title">Ideação com AI First</span>
+        <span class="brand-title">Ideação com&nbsp;AI First</span>
         <span class="brand-sub">Grupo Longevidade Saudável · Rafael Lima</span>
       </div>
     </a>
@@ -1153,11 +1168,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
 <main class="wrap" style="padding-top:32px;padding-bottom:80px">
 
-      <div class="crumbs"><a href="../">Ideação com AI First</a> &nbsp;›&nbsp; O que fica com você</div>
+      <div class="crumbs"><a href="../">Ideação com&nbsp;AI First</a> &nbsp;›&nbsp; O&nbsp;que&nbsp;fica com&nbsp;você</div>
       <div class="hero">
-        <div class="hero-eyebrow">O que fica com você</div>
+        <div class="hero-eyebrow">O&nbsp;que&nbsp;fica com&nbsp;você</div>
         <h1>Os&nbsp;cinco pilares em&nbsp;uma&nbsp;folha</h1>
-        <p class="hero-lead">A&nbsp;folha para&nbsp;imprimir e&nbsp;deixar à&nbsp;vista. Cada pilar tem o&nbsp;que&nbsp;é, o&nbsp;que&nbsp;você passa a&nbsp;fazer e&nbsp;a&nbsp;pergunta que&nbsp;você faz para&nbsp;saber se&nbsp;está aplicando.</p>
+        <p class="hero-lead fr-host"><span class="fr">A&nbsp;folha para&nbsp;imprimir e&nbsp;deixar à&nbsp;vista.</span> <span class="fr">Cada pilar tem o&nbsp;que&nbsp;é, o&nbsp;que&nbsp;você passa a&nbsp;fazer e&nbsp;a&nbsp;pergunta que&nbsp;você faz para&nbsp;saber se&nbsp;está aplicando.</span></p>
         <div class="hero-meta">
         <span class="chip">Imprimível</span>
         <span class="chip">Uma folha A4</span>
@@ -1229,16 +1244,16 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-info no-print">
         <div class="callout-title">Para imprimir</div>
-        <p class="p-curto">
-          Use imprimir do&nbsp;navegador. A&nbsp;folha sai em&nbsp;uma&nbsp;página A4 e&nbsp;o&nbsp;resto desta tela sai
-          de&nbsp;fora. Deixe à&nbsp;vista na&nbsp;sua&nbsp;mesa: a&nbsp;coluna <em>a&nbsp;pergunta</em> é a&nbsp;que&nbsp;faz o&nbsp;pilar virar hábito.
+        <p class="p-curto fr-host">
+          <span class="fr">Use imprimir do&nbsp;navegador.</span> <span class="fr">A&nbsp;folha sai em&nbsp;uma&nbsp;página A4 e&nbsp;o&nbsp;resto desta tela sai
+          de&nbsp;fora.</span> <span class="fr">Deixe à&nbsp;vista na&nbsp;sua&nbsp;mesa: a&nbsp;coluna <em>a&nbsp;pergunta</em> é a&nbsp;que&nbsp;faz o&nbsp;pilar virar hábito.</span>
         </p>
       </div>
 
       <div class="folha">
         <div class="folha-cab">
           <div>
-            <div class="folha-t">Os cinco pilares</div>
+            <div class="folha-t">Os&nbsp;cinco pilares</div>
           </div>
           <div class="folha-s">
             Ideação com AI First<br>
@@ -1246,26 +1261,26 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
 
-        <div class="folha-fio">
-          O problema não é qual inteligência artificial a empresa usa. É como a informação
-          circula dentro dela.
+        <div class="folha-fio fr-host">
+          <span class="fr">O&nbsp;problema não&nbsp;é qual inteligência artificial a&nbsp;empresa usa.</span> <span class="fr">É como a&nbsp;informação
+          circula dentro dela.</span>
         </div>
 
         <div class="fp">
           <div><div class="fp-n">1</div></div>
           <div>
-            <div class="fp-t">O que não vira registro não existe</div>
-            <div class="fp-linha">
-              <span class="fp-rot">O conceito</span>
-              <span class="fp-v">A IA só enxerga o que está escrito. O que vive na conversa, na reunião sem ata e na memória de quem participou é invisível para ela.</span>
+            <div class="fp-t">O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;conceito</span>
+              <span class="fp-v"><span class="fr">A&nbsp;IA só&nbsp;enxerga o&nbsp;que&nbsp;está escrito.</span> <span class="fr">O&nbsp;que&nbsp;vive na&nbsp;conversa, na&nbsp;reunião sem&nbsp;ata e&nbsp;na&nbsp;memória de&nbsp;quem participou é invisível para&nbsp;ela.</span></span>
+            </div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;que&nbsp;fazer</span>
+              <span class="fp-v"><span class="fr">Transformar em&nbsp;registro consultável o&nbsp;que&nbsp;hoje só&nbsp;existe em&nbsp;conversa.</span> <span class="fr">E&nbsp;deixá-lo onde&nbsp;o&nbsp;trabalho acontece, não&nbsp;numa&nbsp;pasta que&nbsp;ninguém abre.</span></span>
             </div>
             <div class="fp-linha">
-              <span class="fp-rot">O que fazer</span>
-              <span class="fp-v">Transformar em registro consultável o que hoje só existe em conversa. E deixá-lo onde o trabalho acontece, não numa pasta que ninguém abre.</span>
-            </div>
-            <div class="fp-linha">
-              <span class="fp-rot">A pergunta</span>
-              <span class="fp-v perg">Se eu saísse de férias por trinta dias, o que a pessoa que assume precisaria me perguntar?</span>
+              <span class="fp-rot">A&nbsp;pergunta</span>
+              <span class="fp-v perg">Se&nbsp;eu saísse de&nbsp;férias por&nbsp;trinta dias, o&nbsp;que&nbsp;a&nbsp;pessoa que&nbsp;assume precisaria me perguntar?</span>
             </div>
           </div>
         </div>
@@ -1273,18 +1288,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="fp">
           <div><div class="fp-n">2</div></div>
           <div>
-            <div class="fp-t">Resultado ruim é falta de contexto, não de capacidade</div>
-            <div class="fp-linha">
-              <span class="fp-rot">O conceito</span>
-              <span class="fp-v">Resposta genérica quase nunca vem de ferramenta fraca. Vem de pedido sem o contexto do negócio, das regras e do que já foi decidido.</span>
+            <div class="fp-t">Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;conceito</span>
+              <span class="fp-v"><span class="fr">Resposta genérica quase nunca vem de&nbsp;ferramenta fraca.</span> <span class="fr">Vem de&nbsp;pedido sem&nbsp;o&nbsp;contexto do&nbsp;negócio, das&nbsp;regras e&nbsp;do&nbsp;que&nbsp;já&nbsp;foi decidido.</span></span>
+            </div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;que&nbsp;fazer</span>
+              <span class="fp-v"><span class="fr">Escrever quem lê, o&nbsp;que&nbsp;está acontecendo, a&nbsp;regra da&nbsp;casa e&nbsp;o&nbsp;limite.</span> <span class="fr">Como se&nbsp;explicasse a&nbsp;tarefa a&nbsp;alguém que&nbsp;começou na&nbsp;função esta semana.</span></span>
             </div>
             <div class="fp-linha">
-              <span class="fp-rot">O que fazer</span>
-              <span class="fp-v">Escrever quem lê, o que está acontecendo, a regra da casa e o limite. Como se explicasse a tarefa a alguém que começou na função esta semana.</span>
-            </div>
-            <div class="fp-linha">
-              <span class="fp-rot">A pergunta</span>
-              <span class="fp-v perg">Eu escrevi alguma coisa que só quem trabalha aqui saberia?</span>
+              <span class="fp-rot">A&nbsp;pergunta</span>
+              <span class="fp-v perg">Eu escrevi alguma coisa que&nbsp;só&nbsp;quem trabalha aqui saberia?</span>
             </div>
           </div>
         </div>
@@ -1292,18 +1307,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="fp">
           <div><div class="fp-n">3</div></div>
           <div>
-            <div class="fp-t">Quebrar em fases e conferir entre elas</div>
-            <div class="fp-linha">
-              <span class="fp-rot">O conceito</span>
-              <span class="fp-v">Trabalho pedido inteiro de uma vez volta inteiro errado, e sem que se saiba onde errou. Em etapas, o erro aparece cedo e sai barato.</span>
+            <div class="fp-t">Quebrar em&nbsp;fases e&nbsp;conferir entre&nbsp;elas</div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;conceito</span>
+              <span class="fp-v"><span class="fr">Trabalho pedido inteiro de&nbsp;uma&nbsp;vez volta inteiro errado, e&nbsp;sem&nbsp;que&nbsp;se&nbsp;saiba onde&nbsp;errou.</span> <span class="fr">Em&nbsp;etapas, o&nbsp;erro aparece cedo e&nbsp;sai barato.</span></span>
             </div>
             <div class="fp-linha">
-              <span class="fp-rot">O que fazer</span>
-              <span class="fp-v">Dividir em etapas, conferir ao fim de cada uma, e marcar onde uma pessoa revisa antes de o resultado sair.</span>
+              <span class="fp-rot">O&nbsp;que&nbsp;fazer</span>
+              <span class="fp-v">Dividir em&nbsp;etapas, conferir ao&nbsp;fim de&nbsp;cada uma,&nbsp;e&nbsp;marcar onde&nbsp;uma&nbsp;pessoa revisa antes de&nbsp;o&nbsp;resultado sair.</span>
             </div>
             <div class="fp-linha">
-              <span class="fp-rot">A pergunta</span>
-              <span class="fp-v perg">Se o resultado vier errado, eu consigo dizer em que etapa errou?</span>
+              <span class="fp-rot">A&nbsp;pergunta</span>
+              <span class="fp-v perg">Se&nbsp;o&nbsp;resultado vier errado, eu consigo dizer em&nbsp;que&nbsp;etapa errou?</span>
             </div>
           </div>
         </div>
@@ -1312,17 +1327,17 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div><div class="fp-n">4</div></div>
           <div>
             <div class="fp-t">Toda correção vira regra</div>
-            <div class="fp-linha">
-              <span class="fp-rot">O conceito</span>
-              <span class="fp-v">Correção que fica na cabeça de quem corrigiu se repete para sempre. E correção escrita onde ninguém abre na hora certa também.</span>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;conceito</span>
+              <span class="fp-v"><span class="fr">Correção que&nbsp;fica na&nbsp;cabeça de&nbsp;quem corrigiu se&nbsp;repete para&nbsp;sempre.</span> <span class="fr">E&nbsp;correção escrita onde&nbsp;ninguém abre na&nbsp;hora certa também.</span></span>
+            </div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;que&nbsp;fazer</span>
+              <span class="fp-v"><span class="fr">Registrar cada correção onde&nbsp;ela é lida no&nbsp;momento de&nbsp;fazer: campo obrigatório, item da&nbsp;lista de&nbsp;conferência, linha do&nbsp;modelo.</span> <span class="fr">Não&nbsp;no&nbsp;manual.</span></span>
             </div>
             <div class="fp-linha">
-              <span class="fp-rot">O que fazer</span>
-              <span class="fp-v">Registrar cada correção onde ela é lida no momento de fazer: campo obrigatório, item da lista de conferência, linha do modelo. Não no manual.</span>
-            </div>
-            <div class="fp-linha">
-              <span class="fp-rot">A pergunta</span>
-              <span class="fp-v perg">Essa correção depende de alguém lembrar dela?</span>
+              <span class="fp-rot">A&nbsp;pergunta</span>
+              <span class="fp-v perg">Essa correção depende de&nbsp;alguém lembrar dela?</span>
             </div>
           </div>
         </div>
@@ -1330,38 +1345,38 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="fp">
           <div><div class="fp-n">5</div></div>
           <div>
-            <div class="fp-t">Nada começa sem quatro campos preenchidos</div>
-            <div class="fp-linha">
-              <span class="fp-rot">O conceito</span>
-              <span class="fp-v">Treze por cento dos projetos de IA chegam à produção, segundo a Capgemini. O que separa os que chegam é ter número e prazo antes de começar.</span>
+            <div class="fp-t">Nada começa sem&nbsp;quatro campos preenchidos</div>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;conceito</span>
+              <span class="fp-v"><span class="fr">Treze por&nbsp;cento dos&nbsp;projetos de&nbsp;IA chegam à&nbsp;produção, segundo a&nbsp;Capgemini.</span> <span class="fr">O&nbsp;que&nbsp;separa os&nbsp;que&nbsp;chegam é ter número e&nbsp;prazo antes de&nbsp;começar.</span></span>
             </div>
-            <div class="fp-linha">
-              <span class="fp-rot">O que fazer</span>
-              <span class="fp-v">Antes de iniciar: em que isso ajuda, qual é o número, quanto é hoje, quanto em sessenta dias. Sem os quatro, é vontade, não projeto.</span>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">O&nbsp;que&nbsp;fazer</span>
+              <span class="fp-v"><span class="fr">Antes de&nbsp;iniciar: em&nbsp;que&nbsp;isso ajuda, qual é o&nbsp;número, quanto é hoje, quanto em&nbsp;sessenta dias.</span> <span class="fr">Sem&nbsp;os&nbsp;quatro, é vontade, não&nbsp;projeto.</span></span>
             </div>
-            <div class="fp-linha">
-              <span class="fp-rot">A pergunta</span>
-              <span class="fp-v perg">Qual dos quatro campos eu não consigo preencher? Esse é o meu próximo passo.</span>
+            <div class="fp-linha fr-host">
+              <span class="fp-rot">A&nbsp;pergunta</span>
+              <span class="fp-v perg"><span class="fr">Qual dos&nbsp;quatro campos eu não&nbsp;consigo preencher?</span> <span class="fr">Esse é o&nbsp;meu&nbsp;próximo passo.</span></span>
             </div>
           </div>
         </div>
 
         <div class="folha-pe">
           <span>Facilitação: Rafael Lima · IEL Ceará</span>
-          <span>Encerramento da Trilha de Cultura de IA</span>
+          <span>Encerramento da&nbsp;Trilha de&nbsp;Cultura de&nbsp;IA</span>
         </div>
       </div>
 
       <div class="callout callout-warn no-print">
         <div class="callout-title">Nenhum dos cinco custa dinheiro</div>
-        <p class="p-curto">
-          Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;aprovação de&nbsp;orçamento. O&nbsp;mais barato
-          de&nbsp;todos é o&nbsp;primeiro: não&nbsp;se&nbsp;compra nada, decide-se registrar. Comece por&nbsp;ele na&nbsp;segunda-feira.
+        <p class="p-curto fr-host">
+          <span class="fr">Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;aprovação de&nbsp;orçamento.</span> <span class="fr">O&nbsp;mais barato
+          de&nbsp;todos é o&nbsp;primeiro: não&nbsp;se&nbsp;compra nada, decide-se registrar.</span> <span class="fr">Comece por&nbsp;ele na&nbsp;segunda-feira.</span>
         </p>
       </div>
       <div class="nav-bottom">
-        <a class="nav-link prev" href="../ficha/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">A ficha dos quatro campos</span></a>
-        <a class="nav-link next" href="../papel/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">A régua e a ficha em papel</span></a>
+        <a class="nav-link prev" href="../ficha/"><span class="nav-link-label">← Anterior</span><span class="nav-link-title">A&nbsp;ficha dos&nbsp;quatro campos</span></a>
+        <a class="nav-link next" href="../papel/"><span class="nav-link-label">Próxima →</span><span class="nav-link-title">A&nbsp;régua e&nbsp;a&nbsp;ficha em&nbsp;papel</span></a>
       </div>
 </main>
 
