@@ -77,6 +77,20 @@ PAGINAS = {
         anterior=("../caso-2/", "Caso 2 · Informação sensível"),
         proxima=("../pilares/", "Os cinco pilares em uma folha"),
     ),
+    # Página da facilitação: fica fora dos cards da capa de propósito. Prompt que
+    # o Rafael cola é instrumento de quem conduz, e o critério do site é que
+    # página de participante não carrega isso.
+    "analise": dict(
+        titulo="A análise ao vivo · Ideação com AI First",
+        eyebrow="Para a facilitação",
+        h1="A análise da régua, ao vivo",
+        lead="O caminho da planilha até o relatório projetado na sala, e o pedido que "
+             "gera os dois relatórios do dia.",
+        chips=["Uso interno", "Fora da lista da capa"],
+        nav=False,
+        anterior=("../", "A capa do dia"),
+        proxima=None,
+    ),
     "pilares": dict(
         titulo="Os cinco pilares em uma folha · Ideação com AI First",
         eyebrow="O que fica com você",

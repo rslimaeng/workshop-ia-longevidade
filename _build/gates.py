@@ -656,6 +656,45 @@ def g38_esquema_das_abas(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G39
+# O prompt da análise descreve as colunas da planilha para o Claude que vai ler
+# o arquivo ao vivo, na frente da sala. Se alguém renomear uma coluna no canvas
+# e não no prompt, a análise sai errada e ninguém percebe na hora: o modelo
+# simplesmente lê a coluna errada. Os dois lados são o mesmo esquema, e o G38
+# já é dono dele.
+def g39_prompt_cita_as_colunas_reais(rel, html):
+    if rel != "analise/index.html":
+        return []
+    falhas = []
+    bloco = re.search(r'<div ' + CL("prompt-conteudo") + r'[^>]*>(.*?)</div>', html, flags=re.S)
+    if not bloco:
+        return ["a página da análise não tem o prompt embutido"]
+    import html as _h
+    texto = _h.unescape(re.sub(r"<[^>]+>", "", bloco.group(1)))
+
+    for col in REGUA_COLS + FICHA_COLS:
+        if not re.search(r"`" + re.escape(col) + r"`", texto):
+            falhas.append("o prompt não cita a coluna {!r}, que o canvas exporta".format(col))
+
+    # e o contrário: coluna citada como do arquivo que não existe mais
+    citadas = set(re.findall(r"`([a-z_0-9]+)`", texto))
+    conhecidas = set(REGUA_COLS + FICHA_COLS) | {"começo", "fim"}
+    for c in sorted(citadas - conhecidas):
+        falhas.append("o prompt cita {!r} como coluna, e ela não existe na planilha".format(c))
+
+    # a régua de anonimato é o que permite pedir resposta honesta
+    if not re.search(r"menos de 3 respostas", texto):
+        falhas.append("o prompt perdeu a regra que protege área com poucas respostas")
+
+    # página de facilitação não entra na lista de cards da capa
+    capa = os.path.join(RAIZ, "index.html")
+    if os.path.exists(capa):
+        c = open(capa, encoding="utf-8").read()
+        if re.search(r'<a href="\./analise/" ' + CL("mod-card"), c):
+            falhas.append("a página da facilitação virou card na capa, e ela é de uso interno")
+    return falhas
+
+
 # ---------------------------------------------------------------- G23
 # A numeração das seções virou "04, 05, 06, 04" quando duas seções novas
 # entraram no meio com rótulo de texto. O leitor usa esses números para se
@@ -1446,6 +1485,9 @@ GATES = [
      lambda h: h.replace('<span class="col">area</span>',
                          '<span class="col">setor</span>', 1),
      "canvas/index.html"),
+    ("G39", "o prompt cita as colunas reais", g39_prompt_cita_as_colunas_reais,
+     lambda h: h.replace("`momento`", "`quando`", 1),
+     "analise/index.html"),
     ("G37", "pergunta de grupo tem destrave", g37_pergunta_de_grupo_tem_destrave,
      lambda h: re.sub(r'<div class="destrava">.*?</div>\s*</div>', '', h, count=1, flags=re.S),
      "caso-1/index.html"),
