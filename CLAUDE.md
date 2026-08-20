@@ -123,6 +123,7 @@ defeito derruba o script como **cego**.
 | G37 | Pergunta do bloco em grupo sem as três perguntas de destrave e o "não conta" |
 | G38 | Esquema das duas abas da planilha divergindo do que o JS do canvas monta |
 | G39 | Prompt da análise citando coluna que a planilha não tem, ou perdendo a regra de anonimato |
+| G40 | `text-wrap` na prosa: `balance` ou `pretty` fora de `h1..h4` abrindo folga no fim da linha |
 
 **Exit code sozinho nunca é prova.** Leia a saída: ela imprime achado por gate e diz
 quais gates não se provaram.
@@ -166,17 +167,33 @@ que o arquivo para baixar existe: ele é o caminho que não depende de permissã
 
 ## A quebra de linha é tratada no gerador, não à mão
 
-Rafael reprovou duas vezes a quebra feia: a linha termina em *"na sua"* e joga
-*"área."* para a linha de baixo. Três coisas importam aqui:
+São **dois defeitos diferentes**, e confundir os dois custou três reprovações:
 
-1. **`text-wrap:pretty` não resolve.** Ele só evita palavra órfã na última linha.
-2. **`text-wrap:balance` resolve parte.** Vale nos blocos curtos e em evidência.
-3. **O que fecha a conta é colar a palavra-função na seguinte com espaço rígido**,
-   do jeito que uma gráfica faz. Aí a quebra procura outro lugar, e costuma achar
-   a fronteira da frase.
+| Defeito | Como aparece | Quem resolve |
+|---|---|---|
+| **Quebra órfã** | a linha termina em *"na sua"* e joga *"área."* para baixo | a cola de espaço rígido |
+| **Quebra cedo** | a frase quebra no meio com **meia linha vazia à direita** | tirar `text-wrap` da prosa |
+
+🔴 **`text-wrap:balance` e `text-wrap:pretty` são a CAUSA do segundo defeito, não a
+cura de nada.** Os dois reservam espaço no fim da linha para equilibrar o bloco
+inteiro. Em título isso é o efeito desejado. Em prosa é exatamente o que o Rafael
+reprovou: *"quebrar a frase do nada sendo que tem espaço para finalizar"*.
+
+Medido no navegador, 8 páginas a 1280px, só prosa (título fora, de propósito):
+
+|  | linhas | quebra cedo | termina em preposição |
+|---|---|---|---|
+| com `balance` + `pretty` | 437 | **62** | 10 |
+| quebra natural + a cola | 437 | **0** | 8 |
+| quebra natural, **sem** a cola | 431 | 0 | **192** |
+
+A terceira linha é o controle: ela prova que a cola é o que resolve a quebra
+órfã, e que ela faz isso **sem abrir folga nenhuma** — a cola muda ONDE a linha
+quebra, não quanto sobra. `text-wrap` no CSS mora só em `h1,h2,h3,h4`, e o
+**G40 acusa** qualquer volta.
 
 O passo vive em `gerar.py` (`cola_quebra_de_linha`) e cobre título, `<label>` e
-parágrafo de até 400 caracteres. Parágrafo longo fica com `pretty`: ninguém repara
+parágrafo de até 400 caracteres. Parágrafo longo fica sem cola: ninguém repara
 numa quebra ruim no meio de seis linhas, e colar lá tiraria do navegador a
 liberdade de achar a melhor linha.
 
@@ -332,6 +349,23 @@ frases que caberiam e quebraram assim mesmo.**
 - **Altura de campo não se resolve por altura de linha.** O navegador dá ao
   seletor uma altura interna própria, de 20px contra 23px do campo de texto.
   Só piso explícito iguala. Provado com defeito injetado no DOM vivo.
+
+### Da leva de 20/08 · a correção anterior era a causa
+
+**A cura de um defeito pode ser a causa do próximo, e ela se disfarça de zelo.**
+`text-wrap:balance` entrou aqui para consertar a quebra órfã. Consertou um pouco,
+e criou 62 quebras precoces — que é a queixa que o Rafael repetiu três vezes,
+sempre com print. Eu li os prints três vezes procurando largura de coluna, e a
+resposta estava numa linha de CSS que eu mesmo tinha escrito como conserto.
+
+**O sinal de que era isso:** os outros dois sites dele, Maria Pitanga e Pouchain,
+não têm `text-wrap` nenhum — e ele nunca reclamou da quebra neles. Comparar com o
+projeto que NÃO tem o defeito custa um `grep` e teria poupado duas rodadas.
+
+**Métrica antes de opinião.** "Quebra cedo" virou número mensurável: para cada
+linha visual, medir se a primeira palavra da linha seguinte caberia no espaço que
+sobrou. Range + getClientRects palavra a palavra, agrupando por `top`. Com isso a
+escolha entre quatro cenários de CSS deixou de ser gosto e virou 165 / 51 / 7 / 0.
 
 ### Da leva de 19/08 · o canvas vira régua de duas rodadas
 
