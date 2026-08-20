@@ -149,22 +149,25 @@ body{
 @media (max-width:900px){.side-nav-num{margin-right:4px}}
 
 /* ---------- QUEBRA DE LINHA ---------- */
-/* balance equilibra as linhas do título; pretty impede a última linha com uma
-   palavra sozinha no parágrafo. Sem isso a frase quebra em ponto ruim. */
-h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
-  text-wrap:balance;
-}
-p,li,dd,figcaption{text-wrap:pretty}
-/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
-   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
-   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
-   substantivo para baixo. Medido no navegador em cinco larguras: balance
-   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
-.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
-/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
-   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
-   ignorado pelo navegador acima de seis linhas e ali a proteção contra
-   palavra órfã vale mais. */
+/* Só título leva quebra equilibrada. Em manchete de duas linhas, deixar as duas
+   do mesmo tamanho é decisão editorial conhecida, e é o que evita "...ao mesmo /
+   tempo" com uma palavra sozinha embaixo.
+
+   PROSA NÃO LEVA balance NEM pretty. Os dois reservam espaço no fim da linha
+   para equilibrar o bloco inteiro, e na tela isso aparece como a frase que
+   quebra do nada com meia linha vazia à direita. É o defeito que o Rafael
+   reprovou três vezes, e a causa era justamente a correção anterior.
+
+   Medido no navegador, 8 páginas a 1280px, 446 linhas de texto:
+     balance na prosa + pretty (como estava) . 165 linhas quebravam cedo
+     balance só no título, prosa em pretty ..  51
+     prosa em quebra natural ................... 7  (todas em título, de propósito)
+   Quebra cedo = sobrou espaço para a primeira palavra da linha seguinte.
+
+   A quebra feia que sobra (linha terminando em "na sua" e jogando "área." para
+   baixo) não volta: quem resolve isso é a cola de espaço rígido do gerador,
+   que muda ONDE a linha quebra sem abrir folga nenhuma. */
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---------- FIGURA DESENHADA ---------- */
 /* O SVG carrega os tokens por var(): trocar o accent no :root troca a figura
@@ -1344,7 +1347,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-info no-print">
         <div class="callout-title">Para imprimir</div>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Use imprimir do&nbsp;navegador.</span> <span class="fr">A&nbsp;folha sai em&nbsp;uma&nbsp;página A4 e&nbsp;o&nbsp;resto desta tela sai
           de&nbsp;fora.</span> <span class="fr">Deixe à&nbsp;vista na&nbsp;sua&nbsp;mesa: a&nbsp;coluna <em>a&nbsp;pergunta</em> é a&nbsp;que&nbsp;faz o&nbsp;pilar virar hábito.</span>
         </p>
@@ -1469,7 +1472,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
       <div class="callout callout-warn no-print">
         <div class="callout-title">Nenhum dos cinco custa dinheiro</div>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Nenhum depende de&nbsp;licença paga, de&nbsp;TI ou&nbsp;de&nbsp;aprovação de&nbsp;orçamento.</span> <span class="fr">O&nbsp;mais barato
           de&nbsp;todos é o&nbsp;primeiro: não&nbsp;se&nbsp;compra nada, decide-se registrar.</span> <span class="fr">Comece por&nbsp;ele na&nbsp;segunda-feira.</span>
         </p>
@@ -1481,7 +1484,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 </main>
 
 <footer class="site-footer">
-  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
+  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 </body>

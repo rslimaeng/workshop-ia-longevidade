@@ -149,22 +149,25 @@ body{
 @media (max-width:900px){.side-nav-num{margin-right:4px}}
 
 /* ---------- QUEBRA DE LINHA ---------- */
-/* balance equilibra as linhas do título; pretty impede a última linha com uma
-   palavra sozinha no parágrafo. Sem isso a frase quebra em ponto ruim. */
-h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
-  text-wrap:balance;
-}
-p,li,dd,figcaption{text-wrap:pretty}
-/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
-   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
-   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
-   substantivo para baixo. Medido no navegador em cinco larguras: balance
-   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
-.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
-/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
-   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
-   ignorado pelo navegador acima de seis linhas e ali a proteção contra
-   palavra órfã vale mais. */
+/* Só título leva quebra equilibrada. Em manchete de duas linhas, deixar as duas
+   do mesmo tamanho é decisão editorial conhecida, e é o que evita "...ao mesmo /
+   tempo" com uma palavra sozinha embaixo.
+
+   PROSA NÃO LEVA balance NEM pretty. Os dois reservam espaço no fim da linha
+   para equilibrar o bloco inteiro, e na tela isso aparece como a frase que
+   quebra do nada com meia linha vazia à direita. É o defeito que o Rafael
+   reprovou três vezes, e a causa era justamente a correção anterior.
+
+   Medido no navegador, 8 páginas a 1280px, 446 linhas de texto:
+     balance na prosa + pretty (como estava) . 165 linhas quebravam cedo
+     balance só no título, prosa em pretty ..  51
+     prosa em quebra natural ................... 7  (todas em título, de propósito)
+   Quebra cedo = sobrou espaço para a primeira palavra da linha seguinte.
+
+   A quebra feia que sobra (linha terminando em "na sua" e jogando "área." para
+   baixo) não volta: quem resolve isso é a cola de espaço rígido do gerador,
+   que muda ONDE a linha quebra sem abrir folga nenhuma. */
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---------- FIGURA DESENHADA ---------- */
 /* O SVG carrega os tokens por var(): trocar o accent no :root troca a figura
@@ -1270,12 +1273,12 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>O&nbsp;problema, antes da&nbsp;resposta</a></li>
-      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a&nbsp;solução em&nbsp;grupo</a></li>
-      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
-      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>Onde&nbsp;eu confiro</a></li>
-      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;este caso prova</a></li>
-      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">06</span>O&nbsp;pedido em&nbsp;fases, pronto para&nbsp;copiar</a></li>
+      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>O&nbsp;problema, antes da&nbsp;resposta</a></li>
+      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Desenhem a&nbsp;solução em&nbsp;grupo</a></li>
+      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>O&nbsp;que&nbsp;de&nbsp;fato aconteceu</a></li>
+      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>Onde&nbsp;eu confiro</a></li>
+      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;este caso prova</a></li>
+      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">06</span>O&nbsp;pedido em&nbsp;fases, pronto para&nbsp;copiar</a></li>
     </ul>
   </nav>
   <main>
@@ -1326,20 +1329,20 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="card card-accent">
           <div class="card-eyebrow">A&nbsp;situação</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Seis pessoas de&nbsp;áreas diferentes de&nbsp;uma&nbsp;mesma empresa foram entrevistadas, uma&nbsp;hora cada.</span> <span class="fr">As&nbsp;gravações viraram texto.</span> <span class="fr">No&nbsp;fim precisa sair um&nbsp;diagnóstico com&nbsp;<strong>prioridades ordenadas</strong>: o&nbsp;que&nbsp;atacar primeiro, o&nbsp;que&nbsp;vem depois,
             e&nbsp;o&nbsp;que&nbsp;não&nbsp;vale a&nbsp;pena agora.</span>
           </p>
-          <p class="p-curto"><strong>Três coisas apertam ao&nbsp;mesmo tempo:</strong></p>
+          <p><strong>Três coisas apertam ao&nbsp;mesmo tempo:</strong></p>
           <ul>
-            <li class="p-curto fr-host">
+            <li class="fr-host">
               <span class="fr"><strong>O&nbsp;prazo.</strong></span> <span class="fr">Três dias.</span> <span class="fr">Ler as&nbsp;trezentas páginas com&nbsp;atenção já&nbsp;consome mais do&nbsp;que&nbsp;isso.</span>
             </li>
-            <li class="p-curto fr-host">
+            <li class="fr-host">
               <span class="fr"><strong>A&nbsp;consequência.</strong></span> <span class="fr">Alguém vai investir dinheiro com&nbsp;base nesse
               documento.</span> <span class="fr">Se&nbsp;a&nbsp;prioridade estiver errada, o&nbsp;erro custa caro e&nbsp;demora a&nbsp;aparecer.</span>
             </li>
-            <li class="p-curto fr-host">
+            <li class="fr-host">
               <span class="fr"><strong>O&nbsp;conteúdo.</strong></span> <span class="fr">As&nbsp;transcrições têm nome de&nbsp;pessoa, reclamação
               sobre&nbsp;colega, número interno e&nbsp;coisa dita em&nbsp;confiança.</span>
             </li>
@@ -1348,7 +1351,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">A pergunta que o documento vai ter que aguentar</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Na&nbsp;reunião de&nbsp;apresentação, alguém vai apontar para&nbsp;uma&nbsp;das&nbsp;prioridades e&nbsp;perguntar: <strong>de&nbsp;onde&nbsp;é que&nbsp;vocês tiraram isso?</strong></span> <span class="fr">A&nbsp;resposta precisa
             existir.</span>
           </p>
@@ -1365,11 +1368,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Como saber se a resposta de vocês está pronta</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Usem esta régua nas&nbsp;quatro: <strong>uma&nbsp;pessoa que&nbsp;não&nbsp;estava nesta conversa
             conseguiria executar sozinha, sem&nbsp;perguntar mais nada?</strong></span> <span class="fr">Se&nbsp;para&nbsp;responder ela precisaria ligar para&nbsp;alguém, a&nbsp;resposta ainda está genérica.</span>
           </p>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Cada pergunta abaixo traz <strong>três perguntas menores</strong> para&nbsp;destravar, e&nbsp;um&nbsp;exemplo do&nbsp;que&nbsp;<strong>não</strong>&nbsp;conta como resposta.</span> <span class="fr">No&nbsp;fim
             do&nbsp;bloco tem uma&nbsp;rotina inteira respondida, para&nbsp;vocês verem o&nbsp;nível de&nbsp;detalhe
             que&nbsp;se&nbsp;espera.</span>
@@ -1380,17 +1383,17 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>As&nbsp;etapas, em&nbsp;ordem</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Da&nbsp;transcrição crua ao&nbsp;documento entregue.</span> <span class="fr">Quantas etapas, e&nbsp;o&nbsp;que&nbsp;cada uma&nbsp;produz.</span>
             </p>
             <div class="destrava">
               <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
               <ul>
-                <li class="p-curto">Se&nbsp;vocês fizessem isso à&nbsp;mão, sem&nbsp;ferramenta nenhuma, por&nbsp;onde&nbsp;começariam?</li>
-                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;cada etapa entrega para&nbsp;a&nbsp;próxima?</span> <span class="fr">Escrevam o&nbsp;nome do&nbsp;que&nbsp;sai de&nbsp;cada uma.</span></li>
-                <li class="p-curto">Qual é a&nbsp;etapa em&nbsp;que&nbsp;dá para&nbsp;perceber um&nbsp;erro cedo, antes de&nbsp;ele contaminar o&nbsp;resto?</li>
+                <li>Se&nbsp;vocês fizessem isso à&nbsp;mão, sem&nbsp;ferramenta nenhuma, por&nbsp;onde&nbsp;começariam?</li>
+                <li class="fr-host"><span class="fr">O&nbsp;que&nbsp;cada etapa entrega para&nbsp;a&nbsp;próxima?</span> <span class="fr">Escrevam o&nbsp;nome do&nbsp;que&nbsp;sai de&nbsp;cada uma.</span></li>
+                <li>Qual é a&nbsp;etapa em&nbsp;que&nbsp;dá para&nbsp;perceber um&nbsp;erro cedo, antes de&nbsp;ele contaminar o&nbsp;resto?</li>
               </ul>
-              <p class="nao-conta p-curto fr-host">
+              <p class="nao-conta fr-host">
                 <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;IA analisa e&nbsp;gera o&nbsp;relatório".</span>
                 <span class="fr">Isso é uma&nbsp;etapa só,&nbsp;e&nbsp;é justamente o&nbsp;desenho que&nbsp;falha.</span>
               </p>
@@ -1402,18 +1405,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>O&nbsp;que&nbsp;a&nbsp;inteligência artificial faz e&nbsp;o&nbsp;que&nbsp;a&nbsp;pessoa faz</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Em&nbsp;cada etapa.</span> <span class="fr">Não&nbsp;vale "a&nbsp;IA ajuda": digam o&nbsp;que&nbsp;ela recebe e&nbsp;o&nbsp;que&nbsp;ela
               devolve.</span>
             </p>
             <div class="destrava">
               <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
               <ul>
-                <li class="p-curto fr-host"><span class="fr">Em&nbsp;cada etapa, o&nbsp;que&nbsp;exatamente a&nbsp;ferramenta recebe na&nbsp;mão?</span> <span class="fr">E&nbsp;o&nbsp;que&nbsp;ela devolve?</span></li>
-                <li class="p-curto fr-host"><span class="fr">Qual etapa vocês não&nbsp;deixariam sair sem&nbsp;uma&nbsp;pessoa olhar?</span> <span class="fr">Por&nbsp;quê?</span></li>
-                <li class="p-curto fr-host"><span class="fr">A&nbsp;pessoa que&nbsp;confere olha tudo ou&nbsp;olha uma&nbsp;amostra?</span> <span class="fr">Quantos casos?</span></li>
+                <li class="fr-host"><span class="fr">Em&nbsp;cada etapa, o&nbsp;que&nbsp;exatamente a&nbsp;ferramenta recebe na&nbsp;mão?</span> <span class="fr">E&nbsp;o&nbsp;que&nbsp;ela devolve?</span></li>
+                <li class="fr-host"><span class="fr">Qual etapa vocês não&nbsp;deixariam sair sem&nbsp;uma&nbsp;pessoa olhar?</span> <span class="fr">Por&nbsp;quê?</span></li>
+                <li class="fr-host"><span class="fr">A&nbsp;pessoa que&nbsp;confere olha tudo ou&nbsp;olha uma&nbsp;amostra?</span> <span class="fr">Quantos casos?</span></li>
               </ul>
-              <p class="nao-conta p-curto fr-host">
+              <p class="nao-conta fr-host">
                 <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;IA ajuda a&nbsp;organizar".</span>
                 <span class="fr">Digam o&nbsp;que&nbsp;entra, o&nbsp;que&nbsp;sai, e&nbsp;quem olha antes de&nbsp;seguir.</span>
               </p>
@@ -1425,17 +1428,17 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Como vocês respondem "de&nbsp;onde&nbsp;tiraram isso"</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Para&nbsp;qualquer afirmação do&nbsp;documento final.</span> <span class="fr">Este é o&nbsp;requisito que&nbsp;derruba a&nbsp;maior parte dos&nbsp;desenhos.</span>
             </p>
             <div class="destrava">
               <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
               <ul>
-                <li class="p-curto fr-host"><span class="fr">Peguem uma&nbsp;frase qualquer do&nbsp;documento final.</span> <span class="fr">Como vocês provam de&nbsp;onde&nbsp;ela veio?</span></li>
-                <li class="p-curto fr-host"><span class="fr">O&nbsp;que&nbsp;acontece com&nbsp;uma&nbsp;afirmação que&nbsp;ninguém consegue provar?</span> <span class="fr">Ela sai ou&nbsp;fica?</span></li>
-                <li class="p-curto fr-host"><span class="fr">Quem pergunta "de&nbsp;onde&nbsp;tiraram isso" costuma ser quem?</span> <span class="fr">Ele aceitaria a&nbsp;resposta de&nbsp;vocês?</span></li>
+                <li class="fr-host"><span class="fr">Peguem uma&nbsp;frase qualquer do&nbsp;documento final.</span> <span class="fr">Como vocês provam de&nbsp;onde&nbsp;ela veio?</span></li>
+                <li class="fr-host"><span class="fr">O&nbsp;que&nbsp;acontece com&nbsp;uma&nbsp;afirmação que&nbsp;ninguém consegue provar?</span> <span class="fr">Ela sai ou&nbsp;fica?</span></li>
+                <li class="fr-host"><span class="fr">Quem pergunta "de&nbsp;onde&nbsp;tiraram isso" costuma ser quem?</span> <span class="fr">Ele aceitaria a&nbsp;resposta de&nbsp;vocês?</span></li>
               </ul>
-              <p class="nao-conta p-curto fr-host">
+              <p class="nao-conta fr-host">
                 <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "está na&nbsp;transcrição".</span> <span class="fr">Em&nbsp;qual
                 delas, em&nbsp;que&nbsp;ponto, e&nbsp;como alguém acha isso sem&nbsp;reler tudo.</span>
               </p>
@@ -1447,18 +1450,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">4</div>
           <div class="passo-body">
             <h3>O&nbsp;que&nbsp;vocês fazem com&nbsp;o&nbsp;nome das&nbsp;pessoas</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">As&nbsp;transcrições têm coisa dita em&nbsp;confiança.</span> <span class="fr">Em&nbsp;que&nbsp;ponto do&nbsp;caminho isso é
               tratado, e&nbsp;como.</span>
             </p>
             <div class="destrava">
               <div class="destrava-rot">Se&nbsp;travarem, respondam estas três</div>
               <ul>
-                <li class="p-curto fr-host"><span class="fr">Em&nbsp;que&nbsp;etapa o&nbsp;nome sai?</span> <span class="fr">Antes ou&nbsp;depois de&nbsp;a&nbsp;ferramenta ler o&nbsp;texto?</span></li>
-                <li class="p-curto">Se&nbsp;o&nbsp;nome sai, como vocês voltam à&nbsp;pessoa depois, quando&nbsp;precisarem?</li>
-                <li class="p-curto fr-host"><span class="fr">Quem, na&nbsp;instituição, pode ver a&nbsp;versão com&nbsp;nome?</span> <span class="fr">Uma&nbsp;pessoa, ou&nbsp;a&nbsp;área toda?</span></li>
+                <li class="fr-host"><span class="fr">Em&nbsp;que&nbsp;etapa o&nbsp;nome sai?</span> <span class="fr">Antes ou&nbsp;depois de&nbsp;a&nbsp;ferramenta ler o&nbsp;texto?</span></li>
+                <li>Se&nbsp;o&nbsp;nome sai, como vocês voltam à&nbsp;pessoa depois, quando&nbsp;precisarem?</li>
+                <li class="fr-host"><span class="fr">Quem, na&nbsp;instituição, pode ver a&nbsp;versão com&nbsp;nome?</span> <span class="fr">Uma&nbsp;pessoa, ou&nbsp;a&nbsp;área toda?</span></li>
               </ul>
-              <p class="nao-conta p-curto fr-host">
+              <p class="nao-conta fr-host">
                 <span class="fr"><strong>Não&nbsp;conta como resposta:</strong> "a&nbsp;gente toma cuidado".</span>
                 <span class="fr">Digam a&nbsp;etapa, o&nbsp;que&nbsp;substitui o&nbsp;nome, e&nbsp;quem guarda a&nbsp;ligação entre&nbsp;os&nbsp;dois.</span>
               </p>
@@ -1467,7 +1470,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         </div>
 
         <h3>O&nbsp;nível de&nbsp;detalhe que&nbsp;conta como resposta</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">O&nbsp;exemplo abaixo é de&nbsp;<strong>outra rotina, de&nbsp;propósito</strong>: transformar
           vinte formulários de&nbsp;avaliação num&nbsp;relatório.</span> <span class="fr">Ele não&nbsp;serve como resposta deste
           caso.</span> <span class="fr">Serve para&nbsp;mostrar o&nbsp;quanto uma&nbsp;resposta precisa descer para&nbsp;outra pessoa
@@ -1520,7 +1523,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="gabarito-body">
 
             <h4>A&nbsp;primeira tentativa: jogar tudo e&nbsp;pedir um&nbsp;resumo</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Coloquei as&nbsp;seis transcrições de&nbsp;uma&nbsp;vez e&nbsp;pedi um&nbsp;diagnóstico com&nbsp;prioridades.</span> <span class="fr">Voltou rápido, veio bem escrito, e&nbsp;parecia bom.</span> <span class="fr">Falhou de&nbsp;três
               modos, e&nbsp;todos os&nbsp;três só&nbsp;aparecem quando&nbsp;alguém confere.</span>
             </p>
@@ -1591,7 +1594,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </div>
 
             <h4>O&nbsp;que&nbsp;funcionou: cinco fases, com&nbsp;um&nbsp;portão entre&nbsp;elas</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">O&nbsp;mesmo trabalho, quebrado.</span> <span class="fr">Cada fase produz uma&nbsp;coisa concreta, e&nbsp;só&nbsp;se&nbsp;passa para&nbsp;a&nbsp;próxima quando&nbsp;o&nbsp;que&nbsp;saiu foi conferido.</span>
             </p>
             <div class="esteira">
@@ -1646,20 +1649,20 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             <div class="info-grid">
               <div class="info-card">
                 <div class="info-card-label">Fase 2 · o&nbsp;portão que&nbsp;protege</div>
-                <p class="p-curto fr-host"><span class="fr">Nada com&nbsp;nome de&nbsp;pessoa atravessa esta fase.</span> <span class="fr">Se&nbsp;atravessar, atravessa para&nbsp;todas as&nbsp;seguintes.</span></p>
+                <p class="fr-host"><span class="fr">Nada com&nbsp;nome de&nbsp;pessoa atravessa esta fase.</span> <span class="fr">Se&nbsp;atravessar, atravessa para&nbsp;todas as&nbsp;seguintes.</span></p>
               </div>
               <div class="info-card">
                 <div class="info-card-label">Fase 3 · o&nbsp;portão que&nbsp;sustenta</div>
-                <p class="p-curto fr-host"><span class="fr">Cada achado sai com&nbsp;a&nbsp;frase que&nbsp;o&nbsp;sustenta.</span> <span class="fr">É isso que&nbsp;responde depois "de&nbsp;onde&nbsp;tiraram isso".</span></p>
+                <p class="fr-host"><span class="fr">Cada achado sai com&nbsp;a&nbsp;frase que&nbsp;o&nbsp;sustenta.</span> <span class="fr">É isso que&nbsp;responde depois "de&nbsp;onde&nbsp;tiraram isso".</span></p>
               </div>
               <div class="info-card">
                 <div class="info-card-label">Fase 4 · o&nbsp;portão que&nbsp;ordena</div>
-                <p class="p-curto fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota é escrito antes de&nbsp;pontuar.</span> <span class="fr">Nota sem&nbsp;critério é opinião com&nbsp;número.</span></p>
+                <p class="fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota é escrito antes de&nbsp;pontuar.</span> <span class="fr">Nota sem&nbsp;critério é opinião com&nbsp;número.</span></p>
               </div>
             </div>
 
             <h4>A&nbsp;corrente: o&nbsp;que&nbsp;sai de&nbsp;uma&nbsp;fase é o&nbsp;que&nbsp;entra na&nbsp;seguinte</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">As&nbsp;cinco caixas não&nbsp;são uma&nbsp;lista de&nbsp;tarefas.</span> <span class="fr">Cada fase consome uma&nbsp;coisa
               concreta e&nbsp;devolve outra, e&nbsp;é essa amarração que&nbsp;permite voltar: quando&nbsp;o&nbsp;resultado final sai estranho, dá para&nbsp;dizer em&nbsp;qual fase olhar.</span>
             </p>
@@ -1709,17 +1712,17 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </p>
 
             <h4>Duas gavetas por&nbsp;fase: o&nbsp;caminho e&nbsp;a&nbsp;peça</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Cada fase guarda duas coisas separadas.</span> <span class="fr">Numa&nbsp;gaveta fica <strong>o&nbsp;caminho</strong>: o&nbsp;que&nbsp;foi pedido, o&nbsp;que&nbsp;voltou, o&nbsp;que&nbsp;foi descartado e&nbsp;por&nbsp;quê.</span> <span class="fr">Na&nbsp;outra fica <strong>a&nbsp;peça</strong>: o&nbsp;documento com&nbsp;opinião, que&nbsp;alguém assina.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Parece detalhe de&nbsp;organização e&nbsp;não&nbsp;é.</span> <span class="fr">Quando&nbsp;alguém pergunta "de&nbsp;onde&nbsp;vocês
               tiraram isso", a&nbsp;resposta está na&nbsp;primeira gaveta.</span> <span class="fr">Um&nbsp;mês depois, ninguém
               lembra, e&nbsp;sem&nbsp;a&nbsp;gaveta a&nbsp;única resposta possível é refazer o&nbsp;trabalho.</span>
             </p>
 
             <h4>Onze auxiliares, e&nbsp;a&nbsp;separação que&nbsp;faz o&nbsp;sistema funcionar</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">O&nbsp;sistema tem onze auxiliares, divididos em&nbsp;dois grupos que&nbsp;nunca se&nbsp;misturam.</span> <span class="fr">Cinco executam.</span> <span class="fr">Seis conferem.</span> <span class="fr"><strong>Nenhum dos&nbsp;seis que&nbsp;conferem
               tem permissão para&nbsp;alterar o&nbsp;que&nbsp;encontrou</strong>: eles apontam e&nbsp;devolvem
               para&nbsp;uma&nbsp;pessoa.</span>
@@ -1730,23 +1733,23 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
                 <div class="card-eyebrow">Cinco · executam</div>
                 <h4>Fazem o&nbsp;trabalho</h4>
                 <ul>
-                  <li class="p-curto">Pesquisa o&nbsp;setor do&nbsp;cliente antes da&nbsp;conversa</li>
-                  <li class="p-curto">Organiza os&nbsp;pedidos na&nbsp;ordem em&nbsp;que&nbsp;precisam rodar</li>
-                  <li class="p-curto">Levanta onde&nbsp;a&nbsp;ferramenta já&nbsp;é usada sem&nbsp;ninguém ter declarado</li>
-                  <li class="p-curto">Faz a&nbsp;conta que&nbsp;sustenta a&nbsp;proposta</li>
-                  <li class="p-curto">Confere se&nbsp;o&nbsp;primeiro resultado já&nbsp;serve ou&nbsp;se&nbsp;volta</li>
+                  <li>Pesquisa o&nbsp;setor do&nbsp;cliente antes da&nbsp;conversa</li>
+                  <li>Organiza os&nbsp;pedidos na&nbsp;ordem em&nbsp;que&nbsp;precisam rodar</li>
+                  <li>Levanta onde&nbsp;a&nbsp;ferramenta já&nbsp;é usada sem&nbsp;ninguém ter declarado</li>
+                  <li>Faz a&nbsp;conta que&nbsp;sustenta a&nbsp;proposta</li>
+                  <li>Confere se&nbsp;o&nbsp;primeiro resultado já&nbsp;serve ou&nbsp;se&nbsp;volta</li>
                 </ul>
               </div>
               <div class="card">
                 <div class="card-eyebrow">Seis · conferem</div>
                 <h4>Não&nbsp;fazem, apontam</h4>
                 <ul>
-                  <li class="p-curto">Se&nbsp;a&nbsp;peça é do&nbsp;tipo que&nbsp;ela diz ser</li>
-                  <li class="p-curto">Se&nbsp;as&nbsp;peças não&nbsp;se&nbsp;contradizem entre&nbsp;si</li>
-                  <li class="p-curto">Se&nbsp;cada uma&nbsp;recebe e&nbsp;entrega o&nbsp;que&nbsp;devia</li>
-                  <li class="p-curto">Se&nbsp;a&nbsp;linguagem serve a&nbsp;quem vai ler</li>
-                  <li class="p-curto">Se&nbsp;o&nbsp;que&nbsp;a&nbsp;fase exigia foi cumprido antes de&nbsp;seguir</li>
-                  <li class="p-curto">Se&nbsp;sobrou nome de&nbsp;pessoa que&nbsp;não&nbsp;podia sair</li>
+                  <li>Se&nbsp;a&nbsp;peça é do&nbsp;tipo que&nbsp;ela diz ser</li>
+                  <li>Se&nbsp;as&nbsp;peças não&nbsp;se&nbsp;contradizem entre&nbsp;si</li>
+                  <li>Se&nbsp;cada uma&nbsp;recebe e&nbsp;entrega o&nbsp;que&nbsp;devia</li>
+                  <li>Se&nbsp;a&nbsp;linguagem serve a&nbsp;quem vai ler</li>
+                  <li>Se&nbsp;o&nbsp;que&nbsp;a&nbsp;fase exigia foi cumprido antes de&nbsp;seguir</li>
+                  <li>Se&nbsp;sobrou nome de&nbsp;pessoa que&nbsp;não&nbsp;podia sair</li>
                 </ul>
               </div>
             </div>
@@ -1757,13 +1760,13 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </p>
 
             <h4>O&nbsp;portão que&nbsp;ninguém espera: derrubar uma&nbsp;suposição</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Em&nbsp;toda análise, pelo&nbsp;menos uma&nbsp;das&nbsp;suposições tem que&nbsp;cair.</span> <span class="fr">Não&nbsp;é
               pessimismo, é aferição: <strong>se&nbsp;as&nbsp;três sobrevivem, é sinal de&nbsp;que&nbsp;ninguém
               testou.</strong></span> <span class="fr">A&nbsp;ferramenta, sozinha, tende a&nbsp;concordar com&nbsp;tudo que&nbsp;você
               escreveu no&nbsp;pedido, porque&nbsp;foi você quem escreveu.</span>
             </p>
-            <p class="p-curto">
+            <p>
               A&nbsp;pergunta que&nbsp;faz isso acontecer cabe numa&nbsp;linha, e&nbsp;serve para&nbsp;qualquer
               análise: <strong>diante deste dado, qual das&nbsp;suposições seria razoável
               derrubar?</strong>
@@ -1771,25 +1774,25 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
             <div class="callout callout-warn">
               <div class="callout-title">Os três critérios que não aceitam invenção</div>
-              <p class="p-curto fr-host">
+              <p class="fr-host">
                 <span class="fr">O&nbsp;plano dos&nbsp;primeiros trinta dias é a&nbsp;única peça que&nbsp;a&nbsp;inteligência
                 artificial não&nbsp;escreve.</span> <span class="fr">Ela só&nbsp;confere se&nbsp;três coisas estão lá, e&nbsp;devolve
                 para&nbsp;uma&nbsp;pessoa quando&nbsp;falta alguma.</span>
               </p>
               <ul>
-                <li class="p-curto fr-host">
+                <li class="fr-host">
                   <span class="fr"><strong>Um&nbsp;responsável com&nbsp;nome.</strong></span> <span class="fr">Não&nbsp;"a&nbsp;equipe", não&nbsp;"a&nbsp;coordenação": uma&nbsp;pessoa que&nbsp;sabe que&nbsp;é ela.</span>
                 </li>
-                <li class="p-curto fr-host">
+                <li class="fr-host">
                   <span class="fr"><strong>Um&nbsp;número que&nbsp;dá para&nbsp;medir.</strong></span> <span class="fr">Se&nbsp;ninguém sabe onde&nbsp;olhar
                   hoje para&nbsp;ver esse número, ele não&nbsp;serve como meta.</span>
                 </li>
-                <li class="p-curto fr-host">
+                <li class="fr-host">
                   <span class="fr"><strong>Um&nbsp;prazo que&nbsp;alguém aceita defender.</strong></span> <span class="fr">Prazo que&nbsp;ninguém
                   assina não&nbsp;é prazo, é intenção.</span>
                 </li>
               </ul>
-              <p class="p-curto">
+              <p>
                 Os&nbsp;três estão lá porque&nbsp;são exatamente os&nbsp;três que&nbsp;a&nbsp;ferramenta inventaria:
                 um&nbsp;responsável que&nbsp;não&nbsp;trabalha ali, uma&nbsp;métrica que&nbsp;soa bem e&nbsp;não&nbsp;tem como
                 medir, e&nbsp;um&nbsp;cronograma que&nbsp;ninguém cumpre.
@@ -1798,7 +1801,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
             <div class="callout callout-info">
               <div class="callout-title">Onde a rastreabilidade nasce</div>
-              <p class="p-curto fr-host">
+              <p class="fr-host">
                 <span class="fr">É na&nbsp;fase 3, e&nbsp;é uma&nbsp;decisão de&nbsp;desenho, não&nbsp;de&nbsp;ferramenta.</span> <span class="fr">Como cada
                 entrevista foi analisada separada, cada afirmação do&nbsp;cruzamento aponta para&nbsp;as&nbsp;entrevistas que&nbsp;a&nbsp;sustentam.</span> <span class="fr"><strong>A&nbsp;pergunta "de&nbsp;onde&nbsp;tiraram isso"
                 passa a&nbsp;ter resposta porque&nbsp;o&nbsp;caminho foi construído para&nbsp;ter.</strong></span>
@@ -1806,36 +1809,36 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </div>
 
             <h4>A&nbsp;regra que&nbsp;mais pegou erro: quem planeja não&nbsp;é quem executa</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Quem escreve o&nbsp;pedido não&nbsp;é quem o&nbsp;executa, e&nbsp;quem executa tem a&nbsp;obrigação de&nbsp;apontar contradição antes de&nbsp;começar.</span> <span class="fr">Parece burocracia e&nbsp;é o&nbsp;contrário:
               várias vezes o&nbsp;executor viu no&nbsp;pedido uma&nbsp;contradição que&nbsp;o&nbsp;autor do&nbsp;pedido
               não&nbsp;enxergava, porque&nbsp;estava perto demais.</span>
             </p>
 
             <h4 style="margin-top:32px">História 1 · O&nbsp;termo corrigido que&nbsp;voltou treze dias depois</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Havia uma&nbsp;regra combinada: uma&nbsp;palavra específica não&nbsp;devia ser usada com&nbsp;o&nbsp;cliente, e&nbsp;sim outra no&nbsp;lugar dela.</span> <span class="fr">A&nbsp;correção tinha sido feita e&nbsp;registrada
               num&nbsp;arquivo de&nbsp;lições aprendidas.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>Treze dias depois</strong>, ao&nbsp;escrever as&nbsp;instruções de&nbsp;uma&nbsp;página
               que&nbsp;iria para&nbsp;o&nbsp;cliente, eu não&nbsp;abri esse arquivo.</span> <span class="fr">A&nbsp;palavra errada voltou, e&nbsp;foi publicada.</span> <span class="fr">Quem viu primeiro foi o&nbsp;cliente.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> a&nbsp;correção não&nbsp;tinha virado regra.</span> <span class="fr">Tinha
               virado anotação.</span> <span class="fr">A&nbsp;diferença é onde&nbsp;ela é lida: <strong>regra é lida no&nbsp;momento em&nbsp;que&nbsp;se&nbsp;faz; anotação é lida quando&nbsp;alguém lembra dela</strong>.</span> <span class="fr">E&nbsp;ninguém lembra.</span>
             </p>
 
             <h4>História 2 · O&nbsp;protocolo que&nbsp;eu mesmo pulei, e&nbsp;os&nbsp;três dias</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">O&nbsp;sistema tinha um&nbsp;protocolo de&nbsp;abertura: antes de&nbsp;mexer em&nbsp;qualquer coisa de&nbsp;cliente, ler seis arquivos.</span> <span class="fr">Estava escrito, em&nbsp;destaque, marcado como
               obrigatório.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Cheguei numa&nbsp;sessão com&nbsp;um&nbsp;pedido que&nbsp;parecia claro, pulei o&nbsp;protocolo
               inteiro, e&nbsp;não&nbsp;li o&nbsp;que&nbsp;já&nbsp;tinha sido feito dias antes.</span> <span class="fr"><strong>Descartei sem&nbsp;ler um&nbsp;trabalho bom que&nbsp;já&nbsp;estava pronto</strong> e&nbsp;refiz tudo de&nbsp;um&nbsp;jeito que&nbsp;não&nbsp;servia.</span> <span class="fr">O&nbsp;custo foi de&nbsp;três dias, e&nbsp;quem descobriu foi outra pessoa na&nbsp;revisão.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>O&nbsp;que&nbsp;aprendi:</strong> regra que&nbsp;depende de&nbsp;disciplina para&nbsp;ser
               seguida não&nbsp;é regra, é decoração.</span> <span class="fr">E&nbsp;a&nbsp;correção não&nbsp;foi escrever o&nbsp;protocolo
               com&nbsp;mais ênfase.</span> <span class="fr">Foi <strong>criar uma&nbsp;trava</strong>: o&nbsp;sistema passou a&nbsp;impedir a&nbsp;edição enquanto&nbsp;as&nbsp;seis leituras não&nbsp;tivessem acontecido.</span>
@@ -1843,19 +1846,19 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
             <div class="callout callout-warn">
               <div class="callout-title">A tradução disso para uma área que não escreve software</div>
-              <p class="p-curto fr-host">
+              <p class="fr-host">
                 <span class="fr">A&nbsp;trava não&nbsp;precisa ser técnica.</span> <span class="fr"><strong>A&nbsp;regra não&nbsp;vai no&nbsp;manual, vai no&nbsp;formulário.</strong></span> <span class="fr">Campo obrigatório que&nbsp;não&nbsp;deixa avançar, item de&nbsp;conferência impresso na&nbsp;ordem de&nbsp;serviço, assinatura que&nbsp;falta e&nbsp;trava o&nbsp;envio.</span> <span class="fr">Se&nbsp;depender de&nbsp;lembrar, vai falhar no&nbsp;dia corrido.</span>
               </p>
             </div>
 
             <h4>De&nbsp;brinde: o&nbsp;revisor que&nbsp;aprovou dez de&nbsp;dez, e&nbsp;o&nbsp;resultado tinha catorze problemas</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Numa&nbsp;das&nbsp;entregas, um&nbsp;revisor independente conferiu os&nbsp;dez critérios da&nbsp;lista
               e&nbsp;aprovou os&nbsp;dez.</span> <span class="fr">O&nbsp;resultado foi aberto e&nbsp;tinha catorze problemas.</span> <span class="fr">O&nbsp;revisor
               não&nbsp;errou: <strong>ele conferiu o&nbsp;que&nbsp;a&nbsp;lista mandava conferir, e&nbsp;a&nbsp;lista é
               que&nbsp;estava incompleta.</strong></span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Conferir a&nbsp;saída não&nbsp;é a&nbsp;mesma coisa que&nbsp;conferir o&nbsp;pedido.</span> <span class="fr">Quando&nbsp;o&nbsp;resultado
               vem errado e&nbsp;todos os&nbsp;critérios passaram, o&nbsp;defeito está no&nbsp;pedido.</span>
             </p>
@@ -1876,7 +1879,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>Marquem o&nbsp;ponto em&nbsp;que&nbsp;uma&nbsp;pessoa revisa</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">No&nbsp;desenho de&nbsp;vocês, onde&nbsp;exatamente alguém olha antes de&nbsp;o&nbsp;resultado sair?</span> <span class="fr">Se&nbsp;não&nbsp;houver esse ponto, o&nbsp;desenho tem um&nbsp;problema, e&nbsp;não&nbsp;é culpa da&nbsp;IA.</span>
             </p>
           </div>
@@ -1886,7 +1889,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>Escrevam o&nbsp;que&nbsp;acontece se&nbsp;ninguém revisar</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Em&nbsp;uma&nbsp;frase, e&nbsp;concreta.</span> <span class="fr">Não&nbsp;"pode dar problema": <em>sai um&nbsp;comunicado com&nbsp;a&nbsp;data errada para&nbsp;trezentos alunos</em>.</span> <span class="fr">A&nbsp;frase concreta é o&nbsp;que&nbsp;faz alguém
               defender o&nbsp;ponto de&nbsp;conferência quando&nbsp;o&nbsp;prazo apertar.</span>
             </p>
@@ -1897,7 +1900,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Digam onde&nbsp;essa conferência fica registrada</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Se&nbsp;ela vive só&nbsp;na&nbsp;cabeça de&nbsp;quem revisa, ela some quando&nbsp;essa pessoa mudar de&nbsp;área.</span> <span class="fr">Se&nbsp;ela é um&nbsp;campo do&nbsp;formulário, ela fica.</span>
             </p>
           </div>
@@ -1933,7 +1936,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
         </div>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">O&nbsp;pilar 4 é o&nbsp;que&nbsp;separa uma&nbsp;correção que&nbsp;resolve hoje de&nbsp;uma&nbsp;que&nbsp;resolve
           sempre.</span> <span class="fr">O&nbsp;caminho tem quatro etapas, e&nbsp;quase todo mundo para&nbsp;na&nbsp;segunda.</span>
         </p>
@@ -1966,7 +1969,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">O que decide se a regra pega</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Não&nbsp;é a&nbsp;qualidade do&nbsp;texto: é <strong>onde&nbsp;ele fica</strong>.</span> <span class="fr">Regra em&nbsp;manual
             depende de&nbsp;alguém lembrar de&nbsp;abrir.</span> <span class="fr">Regra no&nbsp;formulário que&nbsp;a&nbsp;pessoa preenche
             de&nbsp;qualquer jeito é lida sem&nbsp;esforço, na&nbsp;hora em&nbsp;que&nbsp;importa.</span> <span class="fr">A&nbsp;trava não&nbsp;precisa ser técnica.</span>
@@ -2008,7 +2011,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Antes de usar com material de verdade</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Transcrição de&nbsp;conversa é o&nbsp;material mais sensível que&nbsp;existe numa&nbsp;instituição.</span>
             <span class="fr"><strong>A&nbsp;primeira fase do&nbsp;pedido existe justamente para&nbsp;tirar o&nbsp;nome antes de&nbsp;qualquer análise</strong>, e&nbsp;ela não&nbsp;é opcional.</span> <span class="fr">Se&nbsp;quiser experimentar sem&nbsp;esse
             cuidado, use a&nbsp;transcrição de&nbsp;teste abaixo, que&nbsp;é fictícia.</span>
@@ -2024,7 +2027,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </div>
           </div>
           <div class="step-body">
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Está bruta de&nbsp;propósito, com&nbsp;repetição, frase cortada e&nbsp;nome de&nbsp;gente.</span>
               <span class="fr">Tratar isso é a&nbsp;primeira fase do&nbsp;trabalho, e&nbsp;não&nbsp;a&nbsp;última.</span>
             </p>
@@ -2050,7 +2053,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
             </div>
           </div>
           <div class="step-body">
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Este é o&nbsp;pilar 3 escrito dentro do&nbsp;pedido.</span> <span class="fr">Repare na&nbsp;frase que&nbsp;se&nbsp;repete no&nbsp;fim de&nbsp;cada fase: é ela que&nbsp;impede a&nbsp;ferramenta de&nbsp;correr até&nbsp;o&nbsp;fim e&nbsp;entregar tudo de&nbsp;uma&nbsp;vez, que&nbsp;é justamente o&nbsp;que&nbsp;faz o&nbsp;erro aparecer tarde.</span>
             </p>
             <div class="prompt-box">
@@ -2123,19 +2126,19 @@ Toda afirmação sua aponta para o horário da fala que a sustenta.</div>
             <div class="info-grid">
               <div class="info-card">
                 <div class="info-card-label">Portão da&nbsp;fase 1</div>
-                <p class="p-curto fr-host"><span class="fr">Sobrou algum nome?</span> <span class="fr">Se&nbsp;sobrou, ele atravessa para&nbsp;todas as&nbsp;fases seguintes e&nbsp;vai parar no&nbsp;documento final.</span></p>
+                <p class="fr-host"><span class="fr">Sobrou algum nome?</span> <span class="fr">Se&nbsp;sobrou, ele atravessa para&nbsp;todas as&nbsp;fases seguintes e&nbsp;vai parar no&nbsp;documento final.</span></p>
               </div>
               <div class="info-card">
                 <div class="info-card-label">Portão da&nbsp;fase 2</div>
-                <p class="p-curto fr-host"><span class="fr">Cada achado tem horário da&nbsp;fala.</span> <span class="fr">Achado sem&nbsp;horário é achado que&nbsp;você não&nbsp;consegue defender depois.</span></p>
+                <p class="fr-host"><span class="fr">Cada achado tem horário da&nbsp;fala.</span> <span class="fr">Achado sem&nbsp;horário é achado que&nbsp;você não&nbsp;consegue defender depois.</span></p>
               </div>
               <div class="info-card">
                 <div class="info-card-label">Portão da&nbsp;fase 3</div>
-                <p class="p-curto fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota foi escrito antes de&nbsp;pontuar?</span> <span class="fr">Se&nbsp;veio junto, a&nbsp;nota foi justificada depois do&nbsp;palpite.</span></p>
+                <p class="fr-host"><span class="fr">O&nbsp;critério da&nbsp;nota foi escrito antes de&nbsp;pontuar?</span> <span class="fr">Se&nbsp;veio junto, a&nbsp;nota foi justificada depois do&nbsp;palpite.</span></p>
               </div>
               <div class="info-card">
                 <div class="info-card-label">Portão da&nbsp;fase 4</div>
-                <p class="p-curto fr-host"><span class="fr">Apareceu número que&nbsp;não&nbsp;está na&nbsp;entrevista?</span> <span class="fr">É invenção com&nbsp;cara de&nbsp;dado, e&nbsp;é o&nbsp;erro mais caro dos&nbsp;quatro.</span></p>
+                <p class="fr-host"><span class="fr">Apareceu número que&nbsp;não&nbsp;está na&nbsp;entrevista?</span> <span class="fr">É invenção com&nbsp;cara de&nbsp;dado, e&nbsp;é o&nbsp;erro mais caro dos&nbsp;quatro.</span></p>
               </div>
             </div>
           </div>
@@ -2149,7 +2152,7 @@ Toda afirmação sua aponta para o horário da fala que a sustenta.</div>
 </div>
 
 <footer class="site-footer">
-  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
+  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 <script>

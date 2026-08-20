@@ -149,22 +149,25 @@ body{
 @media (max-width:900px){.side-nav-num{margin-right:4px}}
 
 /* ---------- QUEBRA DE LINHA ---------- */
-/* balance equilibra as linhas do título; pretty impede a última linha com uma
-   palavra sozinha no parágrafo. Sem isso a frase quebra em ponto ruim. */
-h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
-  text-wrap:balance;
-}
-p,li,dd,figcaption{text-wrap:pretty}
-/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
-   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
-   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
-   substantivo para baixo. Medido no navegador em cinco larguras: balance
-   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
-.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
-/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
-   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
-   ignorado pelo navegador acima de seis linhas e ali a proteção contra
-   palavra órfã vale mais. */
+/* Só título leva quebra equilibrada. Em manchete de duas linhas, deixar as duas
+   do mesmo tamanho é decisão editorial conhecida, e é o que evita "...ao mesmo /
+   tempo" com uma palavra sozinha embaixo.
+
+   PROSA NÃO LEVA balance NEM pretty. Os dois reservam espaço no fim da linha
+   para equilibrar o bloco inteiro, e na tela isso aparece como a frase que
+   quebra do nada com meia linha vazia à direita. É o defeito que o Rafael
+   reprovou três vezes, e a causa era justamente a correção anterior.
+
+   Medido no navegador, 8 páginas a 1280px, 446 linhas de texto:
+     balance na prosa + pretty (como estava) . 165 linhas quebravam cedo
+     balance só no título, prosa em pretty ..  51
+     prosa em quebra natural ................... 7  (todas em título, de propósito)
+   Quebra cedo = sobrou espaço para a primeira palavra da linha seguinte.
+
+   A quebra feia que sobra (linha terminando em "na sua" e jogando "área." para
+   baixo) não volta: quem resolve isso é a cola de espaço rígido do gerador,
+   que muda ONDE a linha quebra sem abrir folga nenhuma. */
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---------- FIGURA DESENHADA ---------- */
 /* O SVG carrega os tokens por var(): trocar o accent no :root troca a figura
@@ -1270,11 +1273,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>Oitenta e&nbsp;sete de&nbsp;cada cem morrem na&nbsp;demonstração</a></li>
-      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>Os&nbsp;quatro campos</a></li>
-      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>Três exemplos, um&nbsp;de&nbsp;cada destino</a></li>
-      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">04</span>O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher</a></li>
-      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;fica com&nbsp;você e&nbsp;com&nbsp;a&nbsp;instituição</a></li>
+      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>Oitenta e&nbsp;sete de&nbsp;cada cem morrem na&nbsp;demonstração</a></li>
+      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>Os&nbsp;quatro campos</a></li>
+      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Três exemplos, um&nbsp;de&nbsp;cada destino</a></li>
+      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">04</span>O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher</a></li>
+      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">05</span>O&nbsp;que&nbsp;fica com&nbsp;você e&nbsp;com&nbsp;a&nbsp;instituição</a></li>
     </ul>
   </nav>
   <main>
@@ -1301,7 +1304,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="card card-highlight">
           <div class="card-eyebrow">Dado de&nbsp;mercado</div>
-          <p style="font-size:17px;line-height:1.55" class="p-curto fr-host">
+          <p class="fr-host" style="font-size:17px;line-height:1.55">
             <span class="fr">Segundo pesquisa da&nbsp;Capgemini, <strong>13% dos&nbsp;projetos de&nbsp;inteligência
             artificial chegam à&nbsp;produção</strong>.</span> <span class="fr">Os&nbsp;outros 87 de&nbsp;cada 100 param na&nbsp;demonstração: funcionaram na&nbsp;apresentação, agradaram, e&nbsp;nunca entraram no&nbsp;dia a&nbsp;dia de&nbsp;ninguém.</span>
           </p>
@@ -1420,7 +1423,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <span class="fr">Cada quadrado é um&nbsp;projeto de&nbsp;inteligência artificial.</span> <span class="fr">Os&nbsp;treze acesos são os&nbsp;que&nbsp;viraram rotina.</span> <span class="fr">Fonte: pesquisa da&nbsp;Capgemini.</span>
         </p>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">O&nbsp;que&nbsp;separa os&nbsp;dois grupos não&nbsp;é a&nbsp;qualidade da&nbsp;ferramenta nem o&nbsp;tamanho do&nbsp;orçamento.</span> <span class="fr">É uma&nbsp;coisa bem mais simples: <strong>o&nbsp;grupo que&nbsp;chega à&nbsp;produção
           tinha número e&nbsp;prazo definidos antes de&nbsp;começar.</strong></span> <span class="fr">O&nbsp;outro grupo tinha
           vontade.</span>
@@ -1428,7 +1431,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Por isso a ficha é o fechamento do dia</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Ela não&nbsp;avalia pessoa: avalia iniciativa.</span> <span class="fr">É a&nbsp;mesma lógica de&nbsp;uma&nbsp;avaliação de&nbsp;antes e&nbsp;depois, aplicada ao&nbsp;que&nbsp;vai ser feito em&nbsp;vez de&nbsp;a&nbsp;quem vai fazer.</span> <span class="fr">E&nbsp;é o&nbsp;instrumento que&nbsp;fica com&nbsp;a&nbsp;instituição para&nbsp;reaplicar sem&nbsp;depender de&nbsp;ninguém
             de&nbsp;fora.</span>
           </p>
@@ -1476,25 +1479,25 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 1</div>
             <h4>Em&nbsp;que&nbsp;isso ajuda</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Escolha <strong>um&nbsp;só</strong>&nbsp;dos&nbsp;três destinos abaixo.</span> <span class="fr">Iniciativa que&nbsp;ajuda
               nos&nbsp;três costuma não&nbsp;ajudar em&nbsp;nenhum.</span>
             </p>
             <ul>
-              <li class="p-curto">Trazer mais alunos e&nbsp;mais pacientes</li>
-              <li class="p-curto">Fazer cada um&nbsp;valer mais</li>
-              <li class="p-curto">Reduzir custo e&nbsp;retrabalho</li>
+              <li>Trazer mais alunos e&nbsp;mais pacientes</li>
+              <li>Fazer cada um&nbsp;valer mais</li>
+              <li>Reduzir custo e&nbsp;retrabalho</li>
             </ul>
           </div>
 
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 2</div>
             <h4>Qual é o&nbsp;número</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">A&nbsp;medida específica que&nbsp;essa escolha move.</span> <span class="fr"><strong>Não&nbsp;"melhorar o&nbsp;atendimento"</strong>, e&nbsp;sim o&nbsp;que&nbsp;se&nbsp;conta: horas, dias, quantidade,
               porcentagem.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Teste: se&nbsp;duas pessoas medirem, elas chegam ao&nbsp;mesmo valor?</span> <span class="fr">Se&nbsp;não,&nbsp;o&nbsp;número
               ainda está vago.</span>
             </p>
@@ -1503,11 +1506,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 3</div>
             <h4>Quanto é hoje</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">O&nbsp;valor atual, antes de&nbsp;mudar nada.</span> <span class="fr">Sem&nbsp;ele não&nbsp;existe antes e&nbsp;depois, existe
               só&nbsp;depois.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>Se&nbsp;ninguém sabe, essa é a&nbsp;primeira tarefa</strong>, e&nbsp;não&nbsp;a&nbsp;automação.</span> <span class="fr">Medir uma&nbsp;semana costuma bastar.</span>
             </p>
           </div>
@@ -1515,11 +1518,11 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card card-accent">
             <div class="card-eyebrow">Campo 4</div>
             <h4>Quanto em&nbsp;sessenta dias</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">A&nbsp;meta, com&nbsp;prazo.</span> <span class="fr">É o&nbsp;que&nbsp;transforma a&nbsp;iniciativa em&nbsp;algo que&nbsp;a&nbsp;gestão
               consegue acompanhar sem&nbsp;precisar entender de&nbsp;tecnologia.</span>
             </p>
-            <p class="p-curto">
+            <p>
               Sessenta dias é curto de&nbsp;propósito: obriga a&nbsp;escolher um&nbsp;pedaço que&nbsp;cabe.
             </p>
           </div>
@@ -1527,7 +1530,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">A regra que dá o nome ao pilar</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>Se&nbsp;você não&nbsp;consegue preencher os&nbsp;quatro, você não&nbsp;tem um&nbsp;projeto. Você
             tem uma&nbsp;vontade.</strong></span> <span class="fr">E&nbsp;isso não&nbsp;é reprovação: é diagnóstico.</span> <span class="fr">O&nbsp;campo que&nbsp;você não&nbsp;conseguiu preencher é exatamente a&nbsp;próxima tarefa.</span>
           </p>
@@ -1540,7 +1543,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">Os números abaixo são inventados</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Servem para&nbsp;mostrar o&nbsp;formato, não&nbsp;para&nbsp;sugerir meta.</span> <span class="fr">O&nbsp;número da&nbsp;sua&nbsp;ficha sai
             da&nbsp;sua&nbsp;área, e&nbsp;o&nbsp;campo 3 sai de&nbsp;medição, não&nbsp;de&nbsp;estimativa.</span>
           </p>
@@ -1593,15 +1596,15 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <h3>Repare no&nbsp;que&nbsp;os&nbsp;três têm em&nbsp;comum</h3>
         <ul>
-          <li class="p-curto fr-host">
+          <li class="fr-host">
             <span class="fr"><strong>Nenhum menciona ferramenta.</strong></span> <span class="fr">Não&nbsp;dizem qual inteligência
             artificial, nem se&nbsp;vai ter uma.&nbsp;Dizem o&nbsp;que&nbsp;muda no&nbsp;processo.</span>
           </li>
-          <li class="p-curto fr-host">
+          <li class="fr-host">
             <span class="fr"><strong>O&nbsp;número é contável por&nbsp;qualquer pessoa.</strong></span> <span class="fr">Horas, dias,
             porcentagem.</span> <span class="fr">Nada que&nbsp;dependa de&nbsp;interpretação.</span>
           </li>
-          <li class="p-curto fr-host">
+          <li class="fr-host">
             <span class="fr"><strong>A&nbsp;meta é modesta.</strong></span> <span class="fr">Metade, um&nbsp;terço, alguns dias.</span> <span class="fr">Meta agressiva
             em&nbsp;sessenta dias é o&nbsp;jeito mais rápido de&nbsp;a&nbsp;iniciativa virar demonstração.</span>
           </li>
@@ -1673,18 +1676,18 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Onde preencher, e onde ela se encaixa no dia</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">A&nbsp;ficha fica na&nbsp;mesma página da&nbsp;régua, aquela que&nbsp;você abriu na&nbsp;abertura para&nbsp;responder as&nbsp;cinco perguntas.</span> <span class="fr">Ela é o&nbsp;<strong>último bloco</strong> de&nbsp;lá,
             depois das&nbsp;duas rodadas da&nbsp;régua.</span>
           </p>
-          <p style="margin-top:10px" class="p-curto fr-host">
+          <p class="fr-host" style="margin-top:10px">
             <span class="fr"><strong>Ela é a&nbsp;única parte que&nbsp;não&nbsp;se&nbsp;faz na&nbsp;sala.</strong></span> <span class="fr">O&nbsp;campo 3 pergunta
             quanto é hoje, e&nbsp;esse número quase nunca está na&nbsp;cabeça de&nbsp;alguém: ele sai de&nbsp;medir uma&nbsp;semana comum.</span> <span class="fr">Escreva hoje o&nbsp;que&nbsp;você já&nbsp;sabe, deixe o&nbsp;resto em&nbsp;branco, e&nbsp;volte na&nbsp;página quando&nbsp;o&nbsp;número existir.</span> <span class="fr">O&nbsp;rascunho fica salvo no&nbsp;seu&nbsp;aparelho, então pode ser na&nbsp;semana que&nbsp;vem.</span>
           </p>
-          <p style="margin-top:10px" class="p-curto fr-host">
+          <p class="fr-host" style="margin-top:10px">
             <span class="fr">O&nbsp;que&nbsp;você escrever volta para&nbsp;a&nbsp;instituição como uma&nbsp;lista de&nbsp;iniciativas com&nbsp;número, ponto de&nbsp;partida e&nbsp;meta de&nbsp;sessenta dias.</span> <span class="fr">Com&nbsp;o&nbsp;número medido, e&nbsp;não&nbsp;estimado, que&nbsp;é a&nbsp;diferença entre&nbsp;a&nbsp;lista servir e&nbsp;não&nbsp;servir.</span>
           </p>
-          <p style="margin-top:14px" class="p-curto">
+          <p style="margin-top:14px">
             <a href="../canvas/" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 18px;border-radius:8px;font-weight:600;font-size:15px;text-decoration:none">Abrir a&nbsp;ficha na&nbsp;página da&nbsp;régua →</a>
           </p>
         </div>
@@ -1698,7 +1701,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">Com&nbsp;você</div>
             <h4>Uma&nbsp;iniciativa que&nbsp;dá para&nbsp;defender</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Com&nbsp;destino, número, ponto de&nbsp;partida e&nbsp;meta com&nbsp;prazo.</span> <span class="fr">Cabe em&nbsp;quatro linhas
               e&nbsp;sobrevive à&nbsp;pergunta <em>e&nbsp;isso dá quanto?</em></span>
             </p>
@@ -1706,7 +1709,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">Com&nbsp;a&nbsp;instituição</div>
             <h4>Um&nbsp;filtro para&nbsp;o&nbsp;que&nbsp;já&nbsp;existe</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">A&nbsp;mesma ficha aplicada às&nbsp;iniciativas que&nbsp;já&nbsp;estão na&nbsp;fila separa as&nbsp;que&nbsp;têm
               projeto das&nbsp;que&nbsp;têm vontade.</span> <span class="fr">Sem&nbsp;precisar refazer trabalho nenhum.</span>
             </p>
@@ -1749,7 +1752,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 </div>
 
 <footer class="site-footer">
-  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
+  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 <script>

@@ -143,6 +143,10 @@ LIMITE_DO_GRUDADO = 24
 # nao mudou nada (57 antes, 57 depois), porque quase toda quebra ruim mora em
 # paragrafo. Cobrindo paragrafo de ate 400 caracteres a conta cai de 169 para
 # 17, e nenhuma pagina passa a estourar a largura em nenhuma das 5 larguras.
+#
+# A cola e o UNICO tratamento de quebra que sobrou. text-wrap:balance e :pretty
+# sairam do CSS porque abriam folga no fim da linha; a cola nao abre folga
+# nenhuma, ela so muda o lugar onde a linha quebra.
 LIMITE_DO_PARAGRAFO = 400
 
 # label entra por causa do canvas: as alternativas da régua são
@@ -162,20 +166,6 @@ BLOCO_QUE_COLA = re.compile(
 SEM_TAG = re.compile(r"<[^>]+>")
 
 
-# Estes ja recebem text-wrap:balance por classe propria. Marcar de novo so
-# poluiria o atributo, e mexer no class= de um bloco que outro gate procura pelo
-# nome exato foi o que deixou o G21 cego na primeira tentativa.
-JA_TEM_BALANCE = ("hero-lead", "block-lead", "fig-leg", "lp-perda")
-
-
-def _marca_curto(abertura):
-    """Poe a classe que liga o text-wrap:balance so nos paragrafos colados."""
-    if "p-curto" in abertura or any(c in abertura for c in JA_TEM_BALANCE):
-        return abertura
-    m = re.search(r'class="([^"]*)"', abertura)
-    if m:
-        return abertura[:m.start(1)] + (m.group(1) + " p-curto").strip() + abertura[m.end(1):]
-    return abertura[:-1].rstrip() + ' class="p-curto">' 
 PECA = re.compile(r'(<[^>]+>|\s+|[^<\s]+)')
 
 
@@ -210,8 +200,8 @@ def cola_quebra_de_linha(html):
                                 else (m.group(10), m.group(11), m.group(12)))
         visivel = SEM_TAG.sub("", interno).replace("&nbsp;", " ").strip()
         if len(visivel) > LIMITE_DO_PARAGRAFO:
-            return m.group(0)          # bloco longo fica com pretty, intocado
-        return _marca_curto(abre) + _cola_no_trecho(interno) + fecha
+            return m.group(0)          # bloco longo fica intocado
+        return abre + _cola_no_trecho(interno) + fecha
     return BLOCO_QUE_COLA.sub(troca, html)
 
 

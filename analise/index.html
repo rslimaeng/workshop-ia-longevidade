@@ -149,22 +149,25 @@ body{
 @media (max-width:900px){.side-nav-num{margin-right:4px}}
 
 /* ---------- QUEBRA DE LINHA ---------- */
-/* balance equilibra as linhas do título; pretty impede a última linha com uma
-   palavra sozinha no parágrafo. Sem isso a frase quebra em ponto ruim. */
-h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
-  text-wrap:balance;
-}
-p,li,dd,figcaption{text-wrap:pretty}
-/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
-   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
-   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
-   substantivo para baixo. Medido no navegador em cinco larguras: balance
-   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
-.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
-/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
-   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
-   ignorado pelo navegador acima de seis linhas e ali a proteção contra
-   palavra órfã vale mais. */
+/* Só título leva quebra equilibrada. Em manchete de duas linhas, deixar as duas
+   do mesmo tamanho é decisão editorial conhecida, e é o que evita "...ao mesmo /
+   tempo" com uma palavra sozinha embaixo.
+
+   PROSA NÃO LEVA balance NEM pretty. Os dois reservam espaço no fim da linha
+   para equilibrar o bloco inteiro, e na tela isso aparece como a frase que
+   quebra do nada com meia linha vazia à direita. É o defeito que o Rafael
+   reprovou três vezes, e a causa era justamente a correção anterior.
+
+   Medido no navegador, 8 páginas a 1280px, 446 linhas de texto:
+     balance na prosa + pretty (como estava) . 165 linhas quebravam cedo
+     balance só no título, prosa em pretty ..  51
+     prosa em quebra natural ................... 7  (todas em título, de propósito)
+   Quebra cedo = sobrou espaço para a primeira palavra da linha seguinte.
+
+   A quebra feia que sobra (linha terminando em "na sua" e jogando "área." para
+   baixo) não volta: quem resolve isso é a cola de espaço rígido do gerador,
+   que muda ONDE a linha quebra sem abrir folga nenhuma. */
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---------- FIGURA DESENHADA ---------- */
 /* O SVG carrega os tokens por var(): trocar o accent no :root troca a figura
@@ -1288,7 +1291,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">O que a sala vê, e o que fica aqui</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">A&nbsp;sala vê o&nbsp;relatório projetado.</span> <span class="fr">O&nbsp;caminho até&nbsp;ele fica nesta página, que&nbsp;não&nbsp;aparece na&nbsp;lista da&nbsp;capa.</span> <span class="fr">É o&nbsp;mesmo critério do&nbsp;resto do&nbsp;material: página de&nbsp;participante não&nbsp;carrega instrumento de&nbsp;quem conduz.</span>
           </p>
         </div>
@@ -1301,7 +1304,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         <div class="fluxo">
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">antes do&nbsp;dia</span><span class="fl-n">01 · A&nbsp;planilha</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Importe a <strong>planilha-da-sala-longevidade.xlsx</strong> no&nbsp;Google Planilhas
               e&nbsp;deixe o&nbsp;link aberto para&nbsp;edição.</span> <span class="fr">Ela já&nbsp;vem com&nbsp;as&nbsp;duas abas e&nbsp;com&nbsp;as&nbsp;cinco
               perguntas escritas no&nbsp;alto de&nbsp;cada coluna, incluindo o&nbsp;que&nbsp;significa 1, 2 e&nbsp;3.</span>
@@ -1309,7 +1312,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">a&nbsp;sala</span><span class="fl-n">02 · A&nbsp;régua da&nbsp;abertura</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Três a&nbsp;quatro minutos.</span> <span class="fr">Quem está no&nbsp;celular digita direto na&nbsp;planilha, quem
               está no&nbsp;computador responde na&nbsp;régua do&nbsp;site e&nbsp;cola a&nbsp;linha.</span> <span class="fr">As&nbsp;duas formas
               caem na&nbsp;mesma aba, com&nbsp;a&nbsp;coluna <strong>momento</strong> escrita como começo.</span>
@@ -1317,26 +1320,26 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           </div>
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">você</span><span class="fl-n">03 · A&nbsp;primeira análise</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Baixe a&nbsp;planilha como Excel, abra uma&nbsp;conversa nova no&nbsp;Claude, cole o&nbsp;pedido
               que&nbsp;está abaixo e&nbsp;anexe o&nbsp;arquivo.</span> <span class="fr">O&nbsp;relatório sai como artefato, pronto para&nbsp;projetar.</span> <span class="fr">Não&nbsp;pergunte nada antes: o&nbsp;pedido já&nbsp;manda gerar direto.</span>
             </p>
           </div>
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">a&nbsp;sala</span><span class="fl-n">04 · A&nbsp;régua do&nbsp;fechamento</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Nos&nbsp;últimos quinze minutos, as&nbsp;mesmas cinco perguntas.</span> <span class="fr">Cada pessoa repete o&nbsp;código que&nbsp;criou de&nbsp;manhã e&nbsp;responde de&nbsp;novo.</span> <span class="fr">A&nbsp;linha nova entra com&nbsp;<strong>momento</strong> escrito como fim.</span>
             </p>
           </div>
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">você</span><span class="fl-n">05 · O&nbsp;comparativo</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Baixe a&nbsp;planilha de&nbsp;novo e&nbsp;anexe <strong>na&nbsp;mesma conversa</strong>, com&nbsp;uma&nbsp;linha só:&nbsp;faça a&nbsp;análise deste arquivo.</span> <span class="fr">Como agora existem as&nbsp;duas rodadas, o&nbsp;relatório vira o&nbsp;antes e&nbsp;depois, com&nbsp;o&nbsp;pilar que&nbsp;andou e&nbsp;o&nbsp;que&nbsp;ficou parado.</span>
             </p>
           </div>
           <div class="fl">
             <div class="fl-topo"><span class="fl-ator">a&nbsp;instituição</span><span class="fl-n">06 · O&nbsp;que&nbsp;fica</span></div>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">A&nbsp;aba Iniciativas volta para&nbsp;a&nbsp;Longevidade como uma&nbsp;lista de&nbsp;projetos com&nbsp;número, ponto de&nbsp;partida e&nbsp;meta de&nbsp;sessenta dias.</span> <span class="fr">É por&nbsp;ela que&nbsp;se&nbsp;mede
               depois, sem&nbsp;depender de&nbsp;ninguém de&nbsp;fora.</span>
             </p>
@@ -1345,7 +1348,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-warn">
           <div class="callout-title">O que testar antes do dia</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Abra a&nbsp;planilha pelo&nbsp;<strong>celular</strong> e&nbsp;tente colar uma&nbsp;linha copiada da&nbsp;régua.</span> <span class="fr">No&nbsp;aplicativo do&nbsp;Google Planilhas, colar texto com&nbsp;tabulação costuma cair
             tudo dentro de&nbsp;uma&nbsp;célula só.&nbsp;Por&nbsp;isso o&nbsp;material recomenda digitar direto pelo&nbsp;celular, e&nbsp;o&nbsp;copiar e&nbsp;colar fica para&nbsp;quem está no&nbsp;computador.</span>
           </p>
@@ -1544,16 +1547,16 @@ grupo dela.</div>
 
         <div class="callout callout-info">
           <div class="callout-title">Três coisas que este pedido faz e um pedido comum não faz</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>Gera direto.</strong></span> <span class="fr">Sem&nbsp;confirmar entendimento, sem&nbsp;perguntar antes.</span>
             <span class="fr">Numa&nbsp;sala com&nbsp;quarenta pessoas esperando, cada ida e&nbsp;volta custa um&nbsp;minuto.</span>
           </p>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>Protege quem respondeu.</strong></span> <span class="fr">Área com&nbsp;menos de&nbsp;três respostas não&nbsp;vira
             linha própria na&nbsp;tabela.</span> <span class="fr">Com&nbsp;uma&nbsp;ou&nbsp;duas, o&nbsp;número identifica a&nbsp;pessoa, e&nbsp;a&nbsp;régua
             foi respondida sob&nbsp;promessa de&nbsp;anonimato.</span>
           </p>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>Diz o&nbsp;que&nbsp;não&nbsp;fazer.</strong></span> <span class="fr">A&nbsp;lista do&nbsp;que&nbsp;ele nunca faz é o&nbsp;que&nbsp;impede o&nbsp;relatório de&nbsp;virar texto de&nbsp;consultoria.</span> <span class="fr">Foi ela que&nbsp;sobrou depois do&nbsp;ensaio.</span>
           </p>
         </div>
@@ -1588,10 +1591,10 @@ grupo dela.</div>
 
         <div class="callout callout-warn">
           <div class="callout-title">O ensaio pegou duas coisas</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>Dois pilares empataram na&nbsp;média</strong>, e&nbsp;marcar só&nbsp;o&nbsp;primeiro como o&nbsp;mais fraco deixava duas barras do&nbsp;mesmo tamanho com&nbsp;cores diferentes na&nbsp;tela.</span> <span class="fr">A&nbsp;regra de&nbsp;desempate entrou no&nbsp;pedido.</span>
           </p>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>As&nbsp;duas barras sobrepostas ficavam ilegíveis projetadas.</strong></span> <span class="fr">A&nbsp;do&nbsp;fim
             tapava a&nbsp;do&nbsp;começo e&nbsp;o&nbsp;olho lia um&nbsp;tom só.&nbsp;Viraram uma&nbsp;barra em&nbsp;duas partes:
             onde&nbsp;a&nbsp;sala estava, e&nbsp;o&nbsp;que&nbsp;andou.</span>
@@ -1605,7 +1608,7 @@ grupo dela.</div>
 </main>
 
 <footer class="site-footer">
-  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
+  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 <script>

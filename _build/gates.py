@@ -695,6 +695,43 @@ def g39_prompt_cita_as_colunas_reais(rel, html):
     return falhas
 
 
+# ---------------------------------------------------------------- G40
+# O Rafael reprovou tres vezes a mesma coisa: a frase que quebra "do nada",
+# deixando meia linha vazia a direita. A causa nunca foi a largura da coluna.
+# Era text-wrap:balance e text-wrap:pretty na prosa: os dois reservam espaco no
+# fim da linha para equilibrar o bloco inteiro, e e isso que aparece na tela.
+#
+# Medido no navegador, 8 paginas a 1280px, so prosa (titulo fora, que la o
+# balance e de proposito): com balance+pretty, 92 das 437 linhas quebravam com
+# espaco sobrando. Sem os dois, 0. A quebra feia que sobra e resolvida pela cola
+# de espaco rigido do gerador, que muda ONDE a linha quebra sem abrir folga:
+# medido no mesmo teste, 192 linhas terminando em preposicao sem a cola, 8 com.
+#
+# Este gate existe porque a correcao e de uma linha de CSS e volta facil.
+TITULOS = ("h1", "h2", "h3", "h4", "h5", "h6")
+
+
+def g40_prosa_sem_quebra_equilibrada(rel, html):
+    falhas = []
+    css = " ".join(re.findall(r"<style[^>]*>(.*?)</style>", html, flags=re.S))
+    for bloco in css.split("}"):
+        sel, chave, corpo = bloco.partition("{")
+        if not chave or "text-wrap" not in corpo:
+            continue
+        if re.search(r"text-wrap[^:;]*:\s*pretty", corpo):
+            falhas.append("{}: text-wrap:pretty tambem abre folga no fim da linha, "
+                          "e nao e so protecao contra palavra orfa".format(rel))
+        # o seletor pode ter comentario colado antes; o que vale e a ultima linha
+        sel = re.sub(r"/\*.*?\*/", " ", sel, flags=re.S).strip().split("\n")[-1].strip()
+        for alvo in [a.strip() for a in sel.split(",") if a.strip()]:
+            ultimo = alvo.split()[-1].split(">")[-1].strip()
+            if ultimo.lower() not in TITULOS:
+                falhas.append("{}: {!r} leva text-wrap e nao e titulo. Prosa com balance "
+                              "ou pretty quebra a frase deixando espaco sobrando"
+                              .format(rel, alvo))
+    return falhas
+
+
 # ---------------------------------------------------------------- G23
 # A numeração das seções virou "04, 05, 06, 04" quando duas seções novas
 # entraram no meio com rótulo de texto. O leitor usa esses números para se
@@ -1488,6 +1525,10 @@ GATES = [
     ("G39", "o prompt cita as colunas reais", g39_prompt_cita_as_colunas_reais,
      lambda h: h.replace("`momento`", "`quando`", 1),
      "analise/index.html"),
+    ("G40", "prosa sem quebra equilibrada", g40_prosa_sem_quebra_equilibrada,
+     lambda h: h.replace("h1,h2,h3,h4{text-wrap:balance}",
+                         "h1,h2,h3,h4,.hero-lead{text-wrap:balance}\np,li{text-wrap:pretty}", 1),
+     None),
     ("G37", "pergunta de grupo tem destrave", g37_pergunta_de_grupo_tem_destrave,
      lambda h: re.sub(r'<div class="destrava">.*?</div>\s*</div>', '', h, count=1, flags=re.S),
      "caso-1/index.html"),

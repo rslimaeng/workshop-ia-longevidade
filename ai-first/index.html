@@ -149,22 +149,25 @@ body{
 @media (max-width:900px){.side-nav-num{margin-right:4px}}
 
 /* ---------- QUEBRA DE LINHA ---------- */
-/* balance equilibra as linhas do título; pretty impede a última linha com uma
-   palavra sozinha no parágrafo. Sem isso a frase quebra em ponto ruim. */
-h1,h2,h3,h4,.hero-lead,.block-lead,.compare-quote,.callout-title,.card h4{
-  text-wrap:balance;
-}
-p,li,dd,figcaption{text-wrap:pretty}
-/* A legenda de figura e a perda do loop são blocos curtos e em evidência: pedem
-   balance junto com os títulos, e não pretty. pretty só evita palavra órfã na
-   última linha, e o que incomoda é a linha que termina em "na sua" jogando o
-   substantivo para baixo. Medido no navegador em cinco larguras: balance
-   sozinho derruba parte, o resto sai na cola de espaço rígido do gerador. */
-.fig-leg,.lp-perda,.p-curto{text-wrap:balance}
-/* .p-curto é posta pelo gerador só nos parágrafos que ele colou, ou seja,
-   os de até 400 caracteres. Parágrafo longo fica em pretty: balance é
-   ignorado pelo navegador acima de seis linhas e ali a proteção contra
-   palavra órfã vale mais. */
+/* Só título leva quebra equilibrada. Em manchete de duas linhas, deixar as duas
+   do mesmo tamanho é decisão editorial conhecida, e é o que evita "...ao mesmo /
+   tempo" com uma palavra sozinha embaixo.
+
+   PROSA NÃO LEVA balance NEM pretty. Os dois reservam espaço no fim da linha
+   para equilibrar o bloco inteiro, e na tela isso aparece como a frase que
+   quebra do nada com meia linha vazia à direita. É o defeito que o Rafael
+   reprovou três vezes, e a causa era justamente a correção anterior.
+
+   Medido no navegador, 8 páginas a 1280px, 446 linhas de texto:
+     balance na prosa + pretty (como estava) . 165 linhas quebravam cedo
+     balance só no título, prosa em pretty ..  51
+     prosa em quebra natural ................... 7  (todas em título, de propósito)
+   Quebra cedo = sobrou espaço para a primeira palavra da linha seguinte.
+
+   A quebra feia que sobra (linha terminando em "na sua" e jogando "área." para
+   baixo) não volta: quem resolve isso é a cola de espaço rígido do gerador,
+   que muda ONDE a linha quebra sem abrir folga nenhuma. */
+h1,h2,h3,h4{text-wrap:balance}
 
 /* ---------- FIGURA DESENHADA ---------- */
 /* O SVG carrega os tokens por var(): trocar o accent no :root troca a figura
@@ -1270,16 +1273,16 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
   <nav class="side-nav" aria-label="Seções desta página">
     <div class="side-nav-label">Nesta página</div>
     <ul class="side-nav-list">
-      <li class="side-nav-item p-curto"><a href="#s1"><span class="side-nav-num">01</span>Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;seu&nbsp;trabalho</a></li>
-      <li class="side-nav-item p-curto"><a href="#s2"><span class="side-nav-num">02</span>O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</a></li>
-      <li class="side-nav-item p-curto"><a href="#s3"><span class="side-nav-num">03</span>Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</a></li>
-      <li class="side-nav-item p-curto"><a href="#s-pratica"><span class="side-nav-num">04</span>Como isso vira rotina, e&nbsp;não&nbsp;projeto de&nbsp;tecnologia</a></li>
-      <li class="side-nav-item p-curto"><a href="#s-fora"><span class="side-nav-num">05</span>Três empresas que&nbsp;fecharam o&nbsp;loop, em&nbsp;passo a&nbsp;passo</a></li>
-      <li class="side-nav-item p-curto"><a href="#s-setor"><span class="side-nav-num">06</span>O&nbsp;mesmo desenho, na&nbsp;rotina que&nbsp;vocês apontaram</a></li>
-      <li class="side-nav-item p-curto"><a href="#s-escada"><span class="side-nav-num">07</span>Onde&nbsp;você consegue começar</a></li>
-      <li class="side-nav-item p-curto"><a href="#s4"><span class="side-nav-num">08</span>Onde&nbsp;a&nbsp;inteligência artificial não&nbsp;deve entrar</a></li>
-      <li class="side-nav-item p-curto"><a href="#s5"><span class="side-nav-num">09</span>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém</a></li>
-      <li class="side-nav-item p-curto"><a href="#s6"><span class="side-nav-num">10</span>Você sabe fazer isto agora</a></li>
+      <li class="side-nav-item"><a href="#s1"><span class="side-nav-num">01</span>Onde&nbsp;a&nbsp;inteligência artificial entra no&nbsp;seu&nbsp;trabalho</a></li>
+      <li class="side-nav-item"><a href="#s2"><span class="side-nav-num">02</span>O&nbsp;que&nbsp;não&nbsp;vira registro não&nbsp;existe</a></li>
+      <li class="side-nav-item"><a href="#s3"><span class="side-nav-num">03</span>Resultado ruim é falta de&nbsp;contexto, não&nbsp;de&nbsp;capacidade</a></li>
+      <li class="side-nav-item"><a href="#s-pratica"><span class="side-nav-num">04</span>Como isso vira rotina, e&nbsp;não&nbsp;projeto de&nbsp;tecnologia</a></li>
+      <li class="side-nav-item"><a href="#s-fora"><span class="side-nav-num">05</span>Três empresas que&nbsp;fecharam o&nbsp;loop, em&nbsp;passo a&nbsp;passo</a></li>
+      <li class="side-nav-item"><a href="#s-setor"><span class="side-nav-num">06</span>O&nbsp;mesmo desenho, na&nbsp;rotina que&nbsp;vocês apontaram</a></li>
+      <li class="side-nav-item"><a href="#s-escada"><span class="side-nav-num">07</span>Onde&nbsp;você consegue começar</a></li>
+      <li class="side-nav-item"><a href="#s4"><span class="side-nav-num">08</span>Onde&nbsp;a&nbsp;inteligência artificial não&nbsp;deve entrar</a></li>
+      <li class="side-nav-item"><a href="#s5"><span class="side-nav-num">09</span>O&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça de&nbsp;alguém</a></li>
+      <li class="side-nav-item"><a href="#s6"><span class="side-nav-num">10</span>Você sabe fazer isto agora</a></li>
     </ul>
   </nav>
   <main>
@@ -1305,7 +1308,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           dia trata.</span>
         </p>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">A&nbsp;diferença aparece quando&nbsp;você desenha o&nbsp;processo inteiro e&nbsp;marca onde&nbsp;a&nbsp;inteligência artificial encosta.</span> <span class="fr">Veja o&nbsp;mesmo trabalho, das&nbsp;duas formas.</span>
         </p>
 
@@ -1426,34 +1429,34 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">A&nbsp;IA no&nbsp;fim do&nbsp;trabalho</div>
             <h4>Acelera uma&nbsp;tarefa já&nbsp;desenhada</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">O&nbsp;processo continua o&nbsp;mesmo.</span> <span class="fr">A&nbsp;pessoa faz o&nbsp;que&nbsp;sempre fez, só&nbsp;que&nbsp;mais
               rápido em&nbsp;uma&nbsp;etapa.</span>
             </p>
             <ul>
-              <li class="p-curto">O&nbsp;ganho é de&nbsp;quem descobriu o&nbsp;atalho</li>
-              <li class="p-curto">Some quando&nbsp;essa pessoa sai de&nbsp;férias</li>
-              <li class="p-curto">Não&nbsp;aparece em&nbsp;indicador nenhum</li>
+              <li>O&nbsp;ganho é de&nbsp;quem descobriu o&nbsp;atalho</li>
+              <li>Some quando&nbsp;essa pessoa sai de&nbsp;férias</li>
+              <li>Não&nbsp;aparece em&nbsp;indicador nenhum</li>
             </ul>
           </div>
           <div class="card card-accent">
             <div class="card-eyebrow">A&nbsp;IA no&nbsp;desenho do&nbsp;trabalho</div>
             <h4>Muda como o&nbsp;processo funciona</h4>
-            <p class="p-curto">
+            <p>
               A&nbsp;pergunta deixa de&nbsp;ser sobre&nbsp;a&nbsp;tarefa e&nbsp;passa a&nbsp;ser sobre&nbsp;o&nbsp;processo
               inteiro: quais etapas ainda precisam existir?
             </p>
             <ul>
-              <li class="p-curto">O&nbsp;ganho fica no&nbsp;processo, não&nbsp;na&nbsp;pessoa</li>
-              <li class="p-curto">Sobrevive à&nbsp;troca de&nbsp;quem executa</li>
-              <li class="p-curto">Dá para&nbsp;medir antes e&nbsp;depois</li>
+              <li>O&nbsp;ganho fica no&nbsp;processo, não&nbsp;na&nbsp;pessoa</li>
+              <li>Sobrevive à&nbsp;troca de&nbsp;quem executa</li>
+              <li>Dá para&nbsp;medir antes e&nbsp;depois</li>
             </ul>
           </div>
         </div>
 
         <div class="callout callout-info">
           <div class="callout-title">A definição prática de AI First</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>AI First é a&nbsp;diferença entre&nbsp;usar a&nbsp;IA no&nbsp;fim do&nbsp;trabalho, para&nbsp;acelerar uma&nbsp;tarefa que&nbsp;já&nbsp;está desenhada, e&nbsp;colocá-la no&nbsp;desenho desde&nbsp;o&nbsp;começo.</strong></span> <span class="fr">A&nbsp;primeira forma dá ganho pontual e&nbsp;some.</span> <span class="fr">A&nbsp;segunda muda o&nbsp;processo, e&nbsp;é o&nbsp;que&nbsp;faz a&nbsp;IA passar de&nbsp;ferramenta ocasional a&nbsp;parte da&nbsp;rotina.</span>
           </p>
         </div>
@@ -1468,7 +1471,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           simples de&nbsp;entender e&nbsp;a&nbsp;mais cara de&nbsp;ignorar.</span>
         </p>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Pense no&nbsp;que&nbsp;a&nbsp;sua&nbsp;área sabe fazer bem.</span> <span class="fr">Boa parte desse conhecimento não&nbsp;está em&nbsp;documento nenhum.</span> <span class="fr">Está na&nbsp;conversa de&nbsp;corredor, na&nbsp;reunião que&nbsp;ninguém registrou,
           no&nbsp;jeito que&nbsp;uma&nbsp;pessoa específica resolve um&nbsp;caso difícil.</span> <span class="fr">Para&nbsp;a&nbsp;IA, nada disso
           existe.</span>
@@ -1576,14 +1579,14 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">Tipo 1</div>
             <h4>O&nbsp;jeito que&nbsp;se&nbsp;aprende observando</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Ninguém ensinou, a&nbsp;pessoa viu alguém fazer e&nbsp;copiou.</span> <span class="fr">Se&nbsp;você tivesse que&nbsp;explicar a&nbsp;alguém que&nbsp;começou ontem, levaria meia hora e&nbsp;ainda faltaria coisa.</span>
             </p>
           </div>
           <div class="card">
             <div class="card-eyebrow">Tipo 2</div>
             <h4>A&nbsp;regra que&nbsp;não&nbsp;está escrita</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Todo mundo da&nbsp;área respeita, mas&nbsp;não&nbsp;está em&nbsp;manual nenhum.</span> <span class="fr">Quem chega novo
               descobre errando uma&nbsp;vez.</span>
             </p>
@@ -1591,7 +1594,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="card">
             <div class="card-eyebrow">Tipo 3</div>
             <h4>A&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa trata</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Quando&nbsp;aparece aquele caso, todo mundo procura a&nbsp;mesma pessoa.</span> <span class="fr">Se&nbsp;ela estiver
               de&nbsp;férias, o&nbsp;caso espera.</span>
             </p>
@@ -1599,7 +1602,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
         </div>
 
         <h3>E&nbsp;onde&nbsp;cada coisa registrada vai morar</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Saber o&nbsp;que&nbsp;está faltando é metade.</span> <span class="fr">A&nbsp;outra metade é não&nbsp;jogar tudo no&nbsp;mesmo
           lugar.</span> <span class="fr">Ayush, da&nbsp;Answer This, descreve três gavetas, e&nbsp;a&nbsp;divisão vale para&nbsp;qualquer área, com&nbsp;ou&nbsp;sem&nbsp;inteligência artificial envolvida.</span>
         </p>
@@ -1637,7 +1640,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
 
         <div class="callout callout-info">
           <div class="callout-title">Por que este é o pilar mais barato do dia</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Os&nbsp;outros quatro pilares mudam como você pede e&nbsp;como você confere.</span> <span class="fr">Este muda
             só&nbsp;uma&nbsp;coisa: <strong>o&nbsp;que&nbsp;estava na&nbsp;conversa passa a&nbsp;estar escrito</strong>.</span>
             <span class="fr">Não&nbsp;se&nbsp;compra nada, não&nbsp;se&nbsp;pede nada a&nbsp;TI.</span> <span class="fr">Decide-se registrar.</span>
@@ -1654,7 +1657,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           sempre a&nbsp;causa é outra: o&nbsp;pedido não&nbsp;disse o&nbsp;que&nbsp;a&nbsp;ferramenta precisava saber.</span>
         </p>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">A&nbsp;comparação abaixo usa o&nbsp;mesmo pedido, para&nbsp;a&nbsp;mesma ferramenta, no&nbsp;mesmo dia.</span> <span class="fr">A&nbsp;única diferença é o&nbsp;que&nbsp;a&nbsp;pessoa escreveu antes de&nbsp;pedir.</span>
         </p>
 
@@ -1662,7 +1665,7 @@ td.cell-num{font-family:var(--font-mono);font-size:13px;white-space:nowrap;color
           <div class="compare-side antes">
             <span class="label">Pedido sem contexto</span>
             <div class="compare-quote">Escreva um&nbsp;comunicado avisando que&nbsp;a&nbsp;data do&nbsp;módulo mudou.</div>
-            <p class="p-curto">
+            <p>
               <span class="fr">Volta um&nbsp;texto correto, educado e&nbsp;inútil.</span> <span class="fr">Serve para&nbsp;qualquer instituição de&nbsp;qualquer setor.</span> <span class="fr">Vai precisar ser reescrito inteiro.</span>
             </p>
           </div>
@@ -1684,13 +1687,13 @@ fazer agora.</span> <span class="fr">Nunca pedimos desculpas mais de
 uma vez no mesmo texto.</span>
 
 <span class="fr">Escreva o comunicado.</span> <span class="fr">No máximo dez linhas.</span></div>
-            <p class="p-curto">
+            <p>
               <span class="fr">Volta um&nbsp;texto que&nbsp;reconhece o&nbsp;transtorno real, diz a&nbsp;data nova logo no&nbsp;começo e&nbsp;termina com&nbsp;a&nbsp;ação.</span> <span class="fr">Sai pronto ou&nbsp;perto disso.</span>
             </p>
           </div>
         </div>
 
-        <p class="p-curto">
+        <p>
           O&nbsp;que&nbsp;volta de&nbsp;cada um&nbsp;dos&nbsp;dois pedidos:
         </p>
 
@@ -1788,7 +1791,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-info">
           <div class="callout-title">A régua de escrita do contexto</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Escreva o&nbsp;contexto como você explicaria a&nbsp;tarefa <strong>a&nbsp;alguém que&nbsp;começou
             na&nbsp;função esta semana</strong>.</span> <span class="fr">Não&nbsp;a&nbsp;um&nbsp;colega que&nbsp;já&nbsp;sabe tudo, e&nbsp;não&nbsp;a&nbsp;uma&nbsp;máquina.</span> <span class="fr">A&nbsp;uma&nbsp;pessoa competente que&nbsp;ainda não&nbsp;conhece a&nbsp;casa.</span>
           </p>
@@ -1796,7 +1799,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-warn">
           <div class="callout-title">Onde o pilar 1 e o pilar 2 se encontram</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Repare que&nbsp;a&nbsp;regra da&nbsp;casa do&nbsp;exemplo acima <em>é</em> conhecimento do&nbsp;tipo 2:
             uma&nbsp;regra que&nbsp;todo mundo respeita e&nbsp;ninguém escreveu.</span> <span class="fr">Enquanto&nbsp;ela não&nbsp;vira
             registro, ela precisa ser digitada de&nbsp;novo a&nbsp;cada pedido, por&nbsp;quem lembrar
@@ -1882,7 +1885,7 @@ uma vez no mesmo texto.</span>
 
         <h3>Quem executa e&nbsp;quem confere não&nbsp;são o&nbsp;mesmo papel</h3>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">No&nbsp;sistema que&nbsp;aparece no&nbsp;caso 2, os&nbsp;auxiliares foram separados em&nbsp;dois grupos,
           e&nbsp;a&nbsp;separação é a&nbsp;parte que&nbsp;importa.</span> <span class="fr">Não&nbsp;é vocabulário técnico: é a&nbsp;mesma
           divisão que&nbsp;existe entre&nbsp;quem escreve um&nbsp;parecer e&nbsp;quem revisa antes de&nbsp;assinar.</span>
@@ -1920,7 +1923,7 @@ uma vez no mesmo texto.</span>
 
         <h3>A&nbsp;trava que&nbsp;devolve o&nbsp;trabalho para&nbsp;a&nbsp;pessoa</h3>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Um&nbsp;desses auxiliares tem uma&nbsp;instrução que&nbsp;vale mais que&nbsp;o&nbsp;resto do&nbsp;sistema
           junto.</span> <span class="fr">Ele <strong>não&nbsp;escreve nada</strong>: só&nbsp;confere se&nbsp;três coisas foram
           preenchidas, e&nbsp;devolve para&nbsp;a&nbsp;pessoa quando&nbsp;faltar qualquer uma.</span>
@@ -1948,7 +1951,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-info">
           <div class="callout-title">Repare no que essa trava é</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">É a&nbsp;ficha dos&nbsp;quatro campos que&nbsp;você preenche no&nbsp;fim do&nbsp;dia, só&nbsp;que&nbsp;morando
             dentro do&nbsp;processo em&nbsp;vez de&nbsp;num&nbsp;manual.</span> <span class="fr"><strong>É por&nbsp;isso que&nbsp;ela funciona:
             ninguém precisa lembrar dela.</strong></span> <span class="fr">Ela aparece na&nbsp;hora em&nbsp;que&nbsp;o&nbsp;trabalho
@@ -1958,7 +1961,7 @@ uma vez no mesmo texto.</span>
 
         <h3>O&nbsp;que&nbsp;outras empresas fizeram, e&nbsp;o&nbsp;que&nbsp;dá para&nbsp;copiar amanhã</h3>
 
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Nenhuma das&nbsp;quatro regras abaixo é sobre&nbsp;inteligência artificial.</span> <span class="fr">Todas são
           sobre&nbsp;onde&nbsp;a&nbsp;informação fica.</span> <span class="fr">Elas vêm de&nbsp;uma&nbsp;empresa de&nbsp;tecnologia, mas&nbsp;o&nbsp;mecanismo é o&nbsp;mesmo em&nbsp;qualquer área: <strong>o&nbsp;que&nbsp;só&nbsp;existe numa&nbsp;conversa
           privada não&nbsp;existe para&nbsp;mais ninguém.</strong></span>
@@ -2005,7 +2008,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-warn">
           <div class="callout-title">Onde eu comecei, e por que conto isso</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">O&nbsp;sistema do&nbsp;caso 1 não&nbsp;nasceu com&nbsp;onze auxiliares e&nbsp;com&nbsp;trava.</span> <span class="fr">Ele começou
             com&nbsp;<strong>um&nbsp;arquivo de&nbsp;contexto numa&nbsp;pasta só</strong>, e&nbsp;o&nbsp;resto veio
             porque&nbsp;o&nbsp;primeiro funcionou.</span> <span class="fr">Se&nbsp;você sair daqui querendo montar o&nbsp;sistema
@@ -2071,7 +2074,7 @@ uma vez no mesmo texto.</span>
         </p>
 
         <h3>1 · A&nbsp;correção que&nbsp;veio de&nbsp;quem não&nbsp;mexe em&nbsp;tecnologia</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">A&nbsp;Answer This é uma&nbsp;empresa de&nbsp;dois sócios.</span> <span class="fr">Ayush, um&nbsp;deles, contou que&nbsp;passaram
           a&nbsp;usar um&nbsp;assistente para&nbsp;responder mensagens de&nbsp;clientes.</span> <span class="fr">Ele começou a&nbsp;errar
           um&nbsp;tipo específico de&nbsp;resposta.</span> <span class="fr">Quem percebeu foi Ryan, o&nbsp;outro sócio, que&nbsp;<strong>não&nbsp;é da&nbsp;área técnica</strong>.</span>
@@ -2106,7 +2109,7 @@ uma vez no mesmo texto.</span>
         </p>
 
         <h3>2 · O&nbsp;manual que&nbsp;ninguém atualizava</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Tom, sócio da&nbsp;Y Combinator, contou que&nbsp;o&nbsp;manual de&nbsp;orientação deles tinha sido
           escrito entre&nbsp;cinco e&nbsp;dez anos antes e&nbsp;estava desatualizado.</span> <span class="fr">Em&nbsp;paralelo, eles
           passaram a&nbsp;gravar as&nbsp;sessões de&nbsp;acompanhamento com&nbsp;as&nbsp;empresas.</span>
@@ -2149,7 +2152,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-info">
           <div class="callout-title">Por que este caso é o mais parecido com o de vocês</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Uma&nbsp;instituição de&nbsp;ensino e&nbsp;de&nbsp;saúde é feita de&nbsp;norma, protocolo e&nbsp;manual: coisas
             que&nbsp;alguém escreveu uma&nbsp;vez e&nbsp;que&nbsp;envelhecem em&nbsp;silêncio.</span> <span class="fr">A&nbsp;pergunta que&nbsp;este
             caso devolve não&nbsp;é sobre&nbsp;tecnologia.</span> <span class="fr">É <strong>quanto do&nbsp;que&nbsp;vocês ensinam e&nbsp;decidem todo dia está registrado em&nbsp;algum lugar onde&nbsp;a&nbsp;próxima pessoa
@@ -2158,7 +2161,7 @@ uma vez no mesmo texto.</span>
         </div>
 
         <h3>3 · O&nbsp;primeiro resultado foi rejeitado pelo&nbsp;time</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Sachin, da&nbsp;Skyvern, montou um&nbsp;assistente para&nbsp;escrever a&nbsp;primeira versão de&nbsp;documentos de&nbsp;especificação.</span> <span class="fr">Ele conta que&nbsp;mostrou para&nbsp;o&nbsp;time e&nbsp;a&nbsp;reação foi
           direta: aquilo não&nbsp;prestava.</span> <span class="fr">Ele continuou ajustando até&nbsp;a&nbsp;equipe passar a&nbsp;usar o&nbsp;resultado como ponto de&nbsp;partida.</span>
         </p>
@@ -2191,20 +2194,20 @@ uma vez no mesmo texto.</span>
         </p>
 
         <h3>Só&nbsp;que&nbsp;essas três são pequenas e&nbsp;novas, e&nbsp;vocês não&nbsp;são</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Diana, também da&nbsp;Y Combinator, é honesta sobre&nbsp;isso: empresa que&nbsp;já&nbsp;existe tem
           <strong>mais dificuldade</strong> que&nbsp;empresa nova, e&nbsp;não&nbsp;menos.</span> <span class="fr">A&nbsp;razão é
           concreta.</span> <span class="fr">Uma&nbsp;empresa nova desenha do&nbsp;zero.</span> <span class="fr">Uma&nbsp;empresa que&nbsp;já&nbsp;funciona precisa
           continuar funcionando enquanto&nbsp;muda, e&nbsp;cada mudança em&nbsp;processo que&nbsp;já&nbsp;roda
           arrisca quebrar algo que&nbsp;hoje está de&nbsp;pé.</span>
         </p>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">A&nbsp;saída que&nbsp;ela aponta não&nbsp;é reformar tudo.</span> <span class="fr">É o&nbsp;contrário: <strong>começar por&nbsp;um&nbsp;pedaço pequeno, separado do&nbsp;que&nbsp;não&nbsp;pode parar.</strong></span> <span class="fr">Uma&nbsp;rotina, uma&nbsp;área, um&nbsp;relatório.</span> <span class="fr">Fecha o&nbsp;loop ali, com&nbsp;gente que&nbsp;já&nbsp;faz aquilo, e&nbsp;só&nbsp;depois
           leva o&nbsp;desenho para&nbsp;o&nbsp;lado.</span>
         </p>
         <div class="callout callout-info">
           <div class="callout-title">É por isso que este dia termina numa ficha, e não num plano</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Plano de&nbsp;transformação de&nbsp;instituição inteira precisa de&nbsp;orçamento, comitê e&nbsp;um&nbsp;ano.</span> <span class="fr">Uma&nbsp;rotina da&nbsp;sua&nbsp;área, com&nbsp;número definido e&nbsp;meta de&nbsp;sessenta dias,
             começa na&nbsp;segunda-feira e&nbsp;não&nbsp;depende de&nbsp;aprovação de&nbsp;ninguém de&nbsp;fora.</span>
             <span class="fr"><strong>O&nbsp;pedaço pequeno não&nbsp;é a&nbsp;versão modesta da&nbsp;mudança. É o&nbsp;único formato
@@ -2221,7 +2224,7 @@ uma vez no mesmo texto.</span>
           organizar informação, interpretar documento, apoiar decisão, montar relatório,
           analisar dado, calcular cenário e&nbsp;automatizar rotina.</span> <span class="fr">Nenhuma delas é sobre&nbsp;tecnologia.</span> <span class="fr"><strong>Abra a&nbsp;que&nbsp;mais parece com&nbsp;o&nbsp;seu&nbsp;dia.</strong></span>
         </p>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">E&nbsp;repare que&nbsp;<strong>o&nbsp;que&nbsp;falta em&nbsp;cada uma&nbsp;é sempre uma&nbsp;etapa deste
           ciclo</strong>, o&nbsp;mesmo dos&nbsp;cinco pilares.</span> <span class="fr">Não&nbsp;são sete problemas diferentes: é
           o&nbsp;mesmo, aparecendo em&nbsp;sete lugares.</span>
@@ -2285,7 +2288,7 @@ uma vez no mesmo texto.</span>
         </p>
 
         <div class="exemplos">
-          <p class="exemplos-lead p-curto">
+          <p class="exemplos-lead">
             Cada uma&nbsp;segue a&nbsp;mesma estrutura: como a&nbsp;atividade acontece hoje, o&nbsp;que&nbsp;falta
             para&nbsp;ela fechar o&nbsp;loop, e&nbsp;qual é o&nbsp;primeiro passo que&nbsp;cabe numa&nbsp;segunda-feira.
           </p>
@@ -2526,7 +2529,7 @@ uma vez no mesmo texto.</span>
         </p>
 
         <h3>Degrau 1 · Um&nbsp;assistente com&nbsp;papel</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">É o&nbsp;degrau que&nbsp;resolve a&nbsp;tarefa que&nbsp;você repete toda semana.</span> <span class="fr">Em&nbsp;vez de&nbsp;explicar
           quem você é e&nbsp;o&nbsp;que&nbsp;quer a&nbsp;cada conversa, você escreve isso <strong>uma&nbsp;vez</strong>,
           e&nbsp;depois só&nbsp;manda o&nbsp;material.</span> <span class="fr">Tem três peças, e&nbsp;nenhuma delas é técnica.</span>
@@ -2560,7 +2563,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-info">
           <div class="callout-title">O sinal de que está bem feito</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr"><strong>O&nbsp;comando cabe numa&nbsp;frase.</strong></span> <span class="fr">Se&nbsp;você precisa repetir toda semana
             que&nbsp;ele tem que&nbsp;comparar com&nbsp;o&nbsp;período anterior, citar o&nbsp;produto pelo&nbsp;nome e&nbsp;terminar com&nbsp;recomendações, então isso não&nbsp;está no&nbsp;papel dele.</span> <span class="fr">Está na&nbsp;sua&nbsp;cabeça, e&nbsp;você está digitando de&nbsp;novo.</span> <span class="fr">Conserta o&nbsp;papel uma&nbsp;vez e&nbsp;nunca mais
             precisa dizer.</span>
@@ -2615,13 +2618,13 @@ uma vez no mesmo texto.</span>
         </div>
 
         <h3>Degraus 3 e&nbsp;4 · os&nbsp;dois casos de&nbsp;hoje</h3>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">O&nbsp;<strong>degrau 3</strong> é um&nbsp;trabalho que&nbsp;passa por&nbsp;etapas, com&nbsp;um&nbsp;portão
           entre&nbsp;elas: a&nbsp;fase não&nbsp;fecha sem&nbsp;alguém conferir.</span> <span class="fr">É o&nbsp;caso 2, e&nbsp;vocês vão desenhar
           um&nbsp;antes de&nbsp;ver o&nbsp;que&nbsp;aconteceu de&nbsp;verdade.</span> <span class="fr">O&nbsp;<strong>degrau 4</strong> é a&nbsp;instituição inteira, com&nbsp;muitas frentes ao&nbsp;mesmo tempo e&nbsp;um&nbsp;mecanismo que&nbsp;avisa
           quando&nbsp;o&nbsp;registro envelheceu.</span> <span class="fr">É o&nbsp;caso 1.</span>
         </p>
-        <p class="p-curto fr-host">
+        <p class="fr-host">
           <span class="fr">Os&nbsp;dois levam meses e&nbsp;nenhum dos&nbsp;dois é pré-requisito do&nbsp;outro.</span> <span class="fr"><strong>O&nbsp;que&nbsp;os&nbsp;quatro degraus têm em&nbsp;comum é o&nbsp;que&nbsp;esta manhã inteira tratou:</strong> o&nbsp;contexto
           escrito uma&nbsp;vez em&nbsp;vez de&nbsp;digitado de&nbsp;novo, o&nbsp;papel declarado antes do&nbsp;pedido, e&nbsp;um&nbsp;ponto em&nbsp;que&nbsp;uma&nbsp;pessoa confere antes de&nbsp;seguir.</span> <span class="fr">Muda a&nbsp;escala.</span> <span class="fr">Não&nbsp;muda o&nbsp;princípio.</span>
         </p>
@@ -2652,22 +2655,22 @@ uma vez no mesmo texto.</span>
           <div class="card">
             <div class="card-eyebrow">Não&nbsp;entra</div>
             <h4>Informação que&nbsp;identifica uma&nbsp;pessoa</h4>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Nome, documento, contato, dado de&nbsp;saúde, situação financeira, histórico
               individual de&nbsp;aluno ou&nbsp;de&nbsp;paciente.</span> <span class="fr">Não&nbsp;se&nbsp;cola em&nbsp;ferramenta de&nbsp;IA aberta.</span>
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>A&nbsp;saída prática:</strong> troque o&nbsp;dado por&nbsp;uma&nbsp;etiqueta antes de&nbsp;colar.</span> <span class="fr">Em&nbsp;vez do&nbsp;nome, escreva <em>aluno A</em>.</span> <span class="fr">A&nbsp;IA trabalha igual e&nbsp;a&nbsp;informação não&nbsp;sai.</span>
             </p>
           </div>
           <div class="card">
             <div class="card-eyebrow">Não&nbsp;decide sozinha</div>
             <h4>O&nbsp;que&nbsp;tem consequência clínica ou&nbsp;de&nbsp;carreira</h4>
-            <p class="p-curto">
+            <p>
               Conteúdo que&nbsp;orienta conduta médica, avaliação que&nbsp;define aprovação, resposta
               que&nbsp;vira posição oficial da&nbsp;instituição.
             </p>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>A&nbsp;saída prática:</strong> a&nbsp;IA prepara, uma&nbsp;pessoa revisa e&nbsp;assina.</span>
               <span class="fr">O&nbsp;ponto de&nbsp;revisão é marcado no&nbsp;fluxo, não&nbsp;deixado para&nbsp;quando&nbsp;der.</span>
             </p>
@@ -2676,7 +2679,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-warn">
           <div class="callout-title">O limite é o que dá credibilidade</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Dizer com&nbsp;clareza onde&nbsp;a&nbsp;IA não&nbsp;entra é o&nbsp;que&nbsp;permite usá-la com&nbsp;tranquilidade
             em&nbsp;todo o&nbsp;resto.</span> <span class="fr">Área que&nbsp;não&nbsp;sabe onde&nbsp;é a&nbsp;linha acaba não&nbsp;usando em&nbsp;lugar
             nenhum, ou&nbsp;usando onde&nbsp;não&nbsp;devia.</span>
@@ -2697,7 +2700,7 @@ uma vez no mesmo texto.</span>
           <div class="passo-n">1</div>
           <div class="passo-body">
             <h3>Cada pessoa lembra de&nbsp;um&nbsp;caso concreto</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Não&nbsp;uma&nbsp;categoria genérica.</span> <span class="fr">Um&nbsp;caso que&nbsp;aconteceu: a&nbsp;vez em&nbsp;que&nbsp;alguém
               precisou de&nbsp;uma&nbsp;resposta e&nbsp;teve que&nbsp;procurar uma&nbsp;pessoa específica.</span>
             </p>
@@ -2708,7 +2711,7 @@ uma vez no mesmo texto.</span>
           <div class="passo-n">2</div>
           <div class="passo-body">
             <h3>O&nbsp;grupo escolhe um&nbsp;de&nbsp;cada tipo</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr">Um&nbsp;jeito que&nbsp;se&nbsp;aprende observando, uma&nbsp;regra não&nbsp;escrita, e&nbsp;uma&nbsp;exceção que&nbsp;só&nbsp;uma&nbsp;pessoa trata.</span> <span class="fr">Escrevam em&nbsp;uma&nbsp;frase cada.</span>
             </p>
           </div>
@@ -2718,7 +2721,7 @@ uma vez no mesmo texto.</span>
           <div class="passo-n">3</div>
           <div class="passo-body">
             <h3>Para&nbsp;cada um,&nbsp;respondam a&nbsp;pergunta que&nbsp;importa</h3>
-            <p class="p-curto fr-host">
+            <p class="fr-host">
               <span class="fr"><strong>O&nbsp;que&nbsp;acontece hoje quando&nbsp;a&nbsp;pessoa que&nbsp;sabe não&nbsp;está?</strong></span> <span class="fr">A&nbsp;resposta costuma ser um&nbsp;número: o&nbsp;caso espera dois dias, ou&nbsp;a&nbsp;resposta sai
               errada e&nbsp;alguém corrige depois, ou&nbsp;simplesmente ninguém faz.</span>
             </p>
@@ -2727,7 +2730,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-info">
           <div class="callout-title">Registrem no celular</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Os&nbsp;três itens têm campo próprio na&nbsp;régua, no&nbsp;bloco <em>o&nbsp;que&nbsp;só&nbsp;existe na&nbsp;cabeça</em>.</span> <span class="fr">O&nbsp;que&nbsp;a&nbsp;turma inteira escrever vira uma&nbsp;lista consolidada por&nbsp;área, e&nbsp;é um&nbsp;dos&nbsp;entregáveis do&nbsp;dia.</span>
           </p>
         </div>
@@ -2779,7 +2782,7 @@ uma vez no mesmo texto.</span>
 
         <div class="callout callout-warn">
           <div class="callout-title">O que este bloco ainda não resolve</div>
-          <p class="p-curto fr-host">
+          <p class="fr-host">
             <span class="fr">Você já&nbsp;sabe registrar e&nbsp;já&nbsp;sabe dar contexto.</span> <span class="fr">Falta o&nbsp;problema que&nbsp;aparece
             quando&nbsp;o&nbsp;trabalho é grande: <strong>pedido grande volta errado inteiro, e&nbsp;sem&nbsp;que&nbsp;se&nbsp;saiba onde&nbsp;errou.</strong></span> <span class="fr">É o&nbsp;que&nbsp;os&nbsp;dois casos tratam.</span>
           </p>
@@ -2793,7 +2796,7 @@ uma vez no mesmo texto.</span>
 </div>
 
 <footer class="site-footer">
-  <p class="p-curto"><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
+  <p><strong>Grupo Longevidade Saudável</strong> · Ideação com&nbsp;AI First · Facilitação de&nbsp;Rafael Lima · IEL Ceará</p>
 </footer>
 
 <script>
